@@ -16,8 +16,6 @@ my.docx
 *.pub
 # Ігнорувати *.png
 *.png
-# Ігнорувати *._*
-*._*
 
 # Ігнорувати файли з папки settings/
 settings/
@@ -42,7 +40,7 @@ EWP/Debug/List/
 EWP/Debug/Obj/
 
 # Ігнорувати файли з папки EWP/
-EWP/*
+EWP/*.*
 # Але залишити EWP/*.ewd
 !EWP/*.ewd
 # Але залишити EWP/*.ewp
