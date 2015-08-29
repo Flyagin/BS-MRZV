@@ -1,0 +1,233 @@
+/*###ICF### Section handled by ICF editor, don't touch! ****/
+/*-Editor annotation file-*/
+/* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\a_v1_0.xml" */
+/*-Memory Regions-*/
+define symbol __ICFEDIT_region_SRAM_start__ = 0x20000000;
+define symbol __ICFEDIT_region_SRAM_end__   = 0x203FFFFF;
+define symbol __ICFEDIT_region_FLASH_start__ = 0x10000000;
+define symbol __ICFEDIT_region_FLASH_end__   = 0x101FFFFF;
+define symbol __ICFEDIT_region_RAM_start__   = 0x200000;
+define symbol __ICFEDIT_region_RAM_end__     = 0x203FFF;
+define symbol __ICFEDIT_region_IRAM_start__   = 0x300000;
+define symbol __ICFEDIT_region_IRAM_end__     = 0x30FFFF;
+define symbol __ICFEDIT_region_DDR2_start__ = 0x70000000;
+define symbol __ICFEDIT_region_DDR2_end__   = 0x73FFFFFF;
+
+define symbol __ICFEDIT_region_DDR2_Bank0_start__ = 0x70000000;
+define symbol __ICFEDIT_region_DDR2_Bank0_end__   = 0x70FFFFFF;
+define symbol __ICFEDIT_region_DDR2_Bank1_2_start__ = 0x71000000;
+define symbol __ICFEDIT_region_DDR2_Bank1_2_end__   = 0x72FFFFFF;
+define symbol __ICFEDIT_region_DDR2_Bank3_start__ = 0x73000000;
+define symbol __ICFEDIT_region_DDR2_Bank3_end__   = 0x73FFFFFF;
+
+define symbol __ICFEDIT_region_DDR2B0_Code_start__      = 0x70000000;
+define symbol __ICFEDIT_region_DDR2B0_Code_end__        = 0x703fffff;
+define symbol __ICFEDIT_region_DDR2B0_Code_NC_start__   = 0x70400000;  
+define symbol __ICFEDIT_region_DDR2B0_Code_NC_end__     = 0x704fffff;
+
+define symbol __ICFEDIT_region_DDR2B0_Data_start__      = 0x70500000 ;
+define symbol __ICFEDIT_region_DDR2B0_Data_end__        = 0x705FFFFF ;
+define symbol __ICFEDIT_region_DDR2B0_Data_NC_start__   = 0x70600000 ; 
+define symbol __ICFEDIT_region_DDR2B0_Data_NC_end__     = 0x706FFFFF ;
+
+
+define symbol __ICFEDIT_region_DDR2B1_2_Code_start__      = 0x71000000;
+define symbol __ICFEDIT_region_DDR2B1_2_Code_end__        = 0x713fffff;
+define symbol __ICFEDIT_region_DDR2B1_2_Code_NC_start__   = 0x71400000;  
+define symbol __ICFEDIT_region_DDR2B1_2_Code_NC_end__     = 0x714fffff;
+
+define symbol __ICFEDIT_region_DDR2B1_2_Data_start__      = 0x71500000 ;
+define symbol __ICFEDIT_region_DDR2B1_2_Data_end__        = 0x715FFFFF ;
+define symbol __ICFEDIT_region_DDR2B1_2_Data_NC_start__   = 0x71600000 ; 
+define symbol __ICFEDIT_region_DDR2B1_2_Data_NC_end__     = 0x716FFFFF ;
+
+define symbol __ICFEDIT_region_DDR2B3_Code_start__      = 0x73000000;
+define symbol __ICFEDIT_region_DDR2B3_Code_end__        = 0x733fffff;
+define symbol __ICFEDIT_region_DDR2B3_Code_NC_start__   = 0x73400000;  
+define symbol __ICFEDIT_region_DDR2B3_Code_NC_end__     = 0x734fffff;
+
+define symbol __ICFEDIT_region_DDR2B3_Data_start__      = 0x73500000 ;
+define symbol __ICFEDIT_region_DDR2B3_Data_end__        = 0x735FFFFF ;
+define symbol __ICFEDIT_region_DDR2B3_Data_NC_start__   = 0x73600000 ; 
+define symbol __ICFEDIT_region_DDR2B3_Data_NC_end__     = 0x736fffff;
+
+
+define symbol __ICFEDIT_region_Fl_Code_start__      = 0x10000000 ;
+define symbol __ICFEDIT_region_Fl_Code_end__        = 0x106fffff ;
+define symbol __ICFEDIT_region_Fl_Code_NC_start__   = 0x10700000 ;
+define symbol __ICFEDIT_region_Fl_Code_NC_end__     = 0x107fffff ;
+
+
+
+define symbol __ICFEDIT_region_SRAM_Code_start__      = 0x20000000;
+define symbol __ICFEDIT_region_SRAM_Code_end__        = 0x201fffff;
+
+define symbol __ICFEDIT_region_SRAM_Data_start__      = 0x20200000 ;
+define symbol __ICFEDIT_region_SRAM_Data_end__        = 0x202FFFFF ;
+
+define symbol __ICFEDIT_region_SRAM_Code_NC_start__   = 0x20300000;/*0x20100000;  */
+define symbol __ICFEDIT_region_SRAM_Code_NC_end__     = 0x203Cffff;
+define symbol __ICFEDIT_region_SRAM_Data_NC_start__   = 0x203D0000 ; 
+define symbol __ICFEDIT_region_SRAM_Data_NC_end__     = 0x203FFFFF ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-Sizes-*/
+define symbol __ICFEDIT_size_region_FLASH__   = 0x200000;
+export symbol __ICFEDIT_region_DDR2_start__;
+define symbol __ICFEDIT_size_startup__  = 0x100;
+define symbol __ICFEDIT_size_vectors__  = 0x100;
+define symbol __ICFEDIT_size_cstack__   = 0x2000;
+define symbol __ICFEDIT_size_sysstack__ = 0x60;
+define symbol __ICFEDIT_size_irqstack__ = 0x60;
+define symbol __ICFEDIT_size_fiqstack__ = (3*4);
+define symbol __ICFEDIT_size_abtstack__ = (1*4);
+define symbol __ICFEDIT_size_undstack__ = (1*4);
+define symbol __ICFEDIT_size_heap__     = 0x0;
+
+/*-Exports-*/
+export symbol __ICFEDIT_region_DDR2_Bank0_start__;
+export symbol __ICFEDIT_region_SRAM_start__;
+export symbol __ICFEDIT_region_SRAM_end__;
+export symbol __ICFEDIT_region_IRAM_start__;
+export symbol __ICFEDIT_region_IRAM_end__;
+export symbol __ICFEDIT_region_FLASH_start__;
+export symbol  __ICFEDIT_size_region_FLASH__;
+export symbol __ICFEDIT_region_RAM_start__;
+export symbol __ICFEDIT_region_RAM_end__;
+export symbol __ICFEDIT_size_startup__;
+export symbol __ICFEDIT_size_vectors__;
+export symbol __ICFEDIT_size_cstack__;
+export symbol __ICFEDIT_size_sysstack__;
+export symbol __ICFEDIT_size_irqstack__;
+export symbol __ICFEDIT_size_fiqstack__;
+export symbol __ICFEDIT_size_abtstack__;
+export symbol __ICFEDIT_size_undstack__;
+export symbol __ICFEDIT_size_heap__;
+//.export symbol __ICFEDIT_region_RAM1_start__;
+//.export symbol __ICFEDIT_region_RAM1_end__;
+/**** End of ICF editor section. ###ICF###*/
+
+define memory mem with size = 4G;
+define region STA_region =   mem:[from __ICFEDIT_region_FLASH_start__ size __ICFEDIT_size_startup__];
+define region FLASH_region = mem:[from (__ICFEDIT_region_FLASH_start__+__ICFEDIT_size_startup__) size  (__ICFEDIT_size_region_FLASH__ - __ICFEDIT_size_startup__) ];
+//.define region SDRAM_region = mem:[from __ICFEDIT_region_SDRAM_start__ to __ICFEDIT_region_SDRAM_end__];
+define region SRAM_region = mem:[from __ICFEDIT_region_SRAM_start__ to __ICFEDIT_region_SRAM_end__];
+//.define region VEC_region =   mem:[from __ICFEDIT_region_RAM_start__ size __ICFEDIT_size_vectors__];
+define region VEC_region =   mem:[from __ICFEDIT_region_IRAM_start__ size __ICFEDIT_size_vectors__];
+define region IRAM_region =   mem:[from __ICFEDIT_region_IRAM_start__+__ICFEDIT_size_vectors__ to __ICFEDIT_region_IRAM_end__];
+//.define region RAM_region =   mem:[from __ICFEDIT_region_RAM_start__+__ICFEDIT_size_vectors__ to __ICFEDIT_region_RAM_end__];
+//.define region RAM1_region =  mem:[from __ICFEDIT_region_RAM1_start__ to __ICFEDIT_region_RAM1_end__];
+define region DDR2_region = mem:[from __ICFEDIT_region_DDR2_start__ to __ICFEDIT_region_DDR2_end__];
+define region DDR2_Bank0_region = mem:[from __ICFEDIT_region_DDR2_Bank0_start__ to __ICFEDIT_region_DDR2_Bank0_end__];
+define region DDR2_Bank1_2_region = mem:[from __ICFEDIT_region_DDR2_Bank1_2_start__ to __ICFEDIT_region_DDR2_Bank1_2_end__];
+define region DDR2_Bank3_region = mem:[from __ICFEDIT_region_DDR2_Bank3_start__ to __ICFEDIT_region_DDR2_Bank3_end__];
+
+define region DDR2B0_Code_region    = mem:[from __ICFEDIT_region_DDR2B0_Code_start__ +  __ICFEDIT_size_startup__    to __ICFEDIT_region_DDR2B0_Code_end__     ];
+define region DDR2B0_Code_NC_region = mem:[from __ICFEDIT_region_DDR2B0_Code_NC_start__  to __ICFEDIT_region_DDR2B0_Code_NC_end__  ];
+define region DDR2B0_Data_region    = mem:[from __ICFEDIT_region_DDR2B0_Data_start__     to __ICFEDIT_region_DDR2B0_Data_end__     ];
+define region DDR2B0_Data_NC_region = mem:[from __ICFEDIT_region_DDR2B0_Data_NC_start__  to __ICFEDIT_region_DDR2B0_Data_NC_end__  ];
+
+define region DDR2B1_2_Code_region    = mem:[from __ICFEDIT_region_DDR2B1_2_Code_start__ +  __ICFEDIT_size_startup__    to __ICFEDIT_region_DDR2B1_2_Code_end__     ];
+define region DDR2B1_2_Code_NC_region = mem:[from __ICFEDIT_region_DDR2B1_2_Code_NC_start__  to __ICFEDIT_region_DDR2B1_2_Code_NC_end__  ];
+define region DDR2B1_2_Data_region    = mem:[from __ICFEDIT_region_DDR2B1_2_Data_start__     to __ICFEDIT_region_DDR2B1_2_Data_end__     ];
+define region DDR2B1_2_Data_NC_region = mem:[from __ICFEDIT_region_DDR2B1_2_Data_NC_start__  to __ICFEDIT_region_DDR2B1_2_Data_NC_end__  ];
+
+define region DDR2B3_Code_region    = mem:[from __ICFEDIT_region_DDR2B3_Code_start__ +  __ICFEDIT_size_startup__    to __ICFEDIT_region_DDR2B3_Code_end__     ];
+define region DDR2B3_Code_NC_region = mem:[from __ICFEDIT_region_DDR2B3_Code_NC_start__  to __ICFEDIT_region_DDR2B3_Code_NC_end__  ];
+define region DDR2B3_Data_region    = mem:[from __ICFEDIT_region_DDR2B3_Data_start__     to __ICFEDIT_region_DDR2B3_Data_end__     ];
+define region DDR2B3_Data_NC_region = mem:[from __ICFEDIT_region_DDR2B3_Data_NC_start__  to __ICFEDIT_region_DDR2B3_Data_NC_end__  ];
+
+
+
+define region Fl_Code_region      = mem:[from __ICFEDIT_region_Fl_Code_start__       to __ICFEDIT_region_Fl_Code_end__       ];
+define region Fl_Code_NC_region   = mem:[from __ICFEDIT_region_Fl_Code_NC_start__    to __ICFEDIT_region_Fl_Code_NC_end__    ];
+define region SRAM_Code_region    = mem:[from __ICFEDIT_region_SRAM_Code_start__     to __ICFEDIT_region_SRAM_Code_end__     ];
+define region SRAM_Code_NC_region = mem:[from __ICFEDIT_region_SRAM_Code_NC_start__  to __ICFEDIT_region_SRAM_Code_NC_end__  ];
+define region SRAM_Data_region    = mem:[from __ICFEDIT_region_SRAM_Data_start__     to __ICFEDIT_region_SRAM_Data_end__     ];
+define region SRAM_Data_NC_region = mem:[from __ICFEDIT_region_SRAM_Data_NC_start__  to __ICFEDIT_region_SRAM_Data_NC_end__  ];
+
+
+
+define block CSTACK    with alignment = 8, size = __ICFEDIT_size_cstack__   { };
+define block SYS_STACK with alignment = 8, size = __ICFEDIT_size_sysstack__ { };
+define block IRQ_STACK with alignment = 8, size = __ICFEDIT_size_irqstack__ { };
+define block FIQ_STACK with alignment = 8, size = __ICFEDIT_size_fiqstack__ { };
+define block ABT_STACK with alignment = 8, size = __ICFEDIT_size_abtstack__ { };
+define block UND_STACK with alignment = 8, size = __ICFEDIT_size_undstack__ { };
+define block HEAP      with alignment = 8, size = __ICFEDIT_size_heap__     { };
+
+define block CHECKSUM { ro section .checksum };
+
+keep { section MYOVERLAY1,section MYOVERLAY2 };
+
+define overlay MYOVERLAY { section MYOVERLAY1 };
+define overlay MYOVERLAY { section MYOVERLAY2 };
+
+initialize manually { section MYOVERLAY1, section MYOVERLAY2 };
+
+initialize by copy { section .vectors };
+initialize by copy { readwrite };
+initialize by copy with packing = smallest { section Fastest_function };
+initialize by copy with packing = smallest { section Fast_function };
+initialize by copy with packing = smallest { section Fast_function_nc };
+
+
+initialize by copy with packing = smallest { section DDR2_Bank0_codes };
+initialize by copy with packing = zeros {section DDR2_Bank1_2_variables};
+initialize by copy with packing = zeros {section DDR2_Bank3_variables};
+
+do not initialize  { section .noinit };
+do not initialize  { section MMU_TT };
+/*overlay MYOVERLAY,*/
+place at address mem:0x0300500 {overlay MYOVERLAY};
+place at start of STA_region { section .cstartup };
+place at start of VEC_region { section .vectors };
+
+place at end of IRAM_region {readwrite data section MMU_TT ,
+block SYS_STACK,block FIQ_STACK, block UND_STACK, block ABT_STACK, block IRQ_STACK};
+place in IRAM_region {section Fast_variable, section Fastest_function};
+
+place in Fl_Code_region         {readonly };
+place in Fl_Code_NC_region      {readonly section CODE_NO_CACHE,
+                                section MYOVERLAY1_init, section MYOVERLAY2_init };
+place at end of Fl_Code_NC_region {block CHECKSUM};
+
+place in SRAM_Code_region    {section Fast_function}; 
+place at start of  SRAM_Code_NC_region { section Fast_function_nc }; /*? Why don`t work place in  SRAM_Code_NC_region*/
+
+place in SRAM_Data_region { zeroinit, readwrite}; 
+
+place at end of SRAM_Data_NC_region {
+readwrite data section DMA_BUFFERS, 
+						block CSTACK, block HEAP }; 
+/*
+place in DDR2_region {};
+place in DDR2_Bank0_region {section DDR2_Bank0_codes};
+place in DDR2_Bank1_2_region {section DDR2_Bank1_2_variables};
+place in DDR2_Bank3_region {section DDR2_Bank3_variables};
+*/
+place in DDR2B0_Code_region { section DDR2_Bank0_codes };
+place in DDR2B0_Code_NC_region {};
+place in DDR2B0_Data_region {  section DDR2_variables };
+place in DDR2B0_Code_NC_region {  };
+
+place in DDR2B1_2_Code_region    {};  
+place in DDR2B1_2_Code_NC_region {};
+place in DDR2B1_2_Data_region {section DDR2_Bank1_2_variables};/* Cach for EmWin */
+place in DDR2B1_2_Data_NC_region {};
+
+place in DDR2B3_Code_region    {};
+place in DDR2B3_Code_NC_region {};
+place in DDR2B3_Data_region    {};
+place in DDR2B3_Data_NC_region {section DDR2_Bank3_variables};/* Video Buff */

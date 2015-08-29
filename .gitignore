@@ -36,11 +36,13 @@ Bs9g45_sram/
 Bs_G45_ddr/
 # Ігнорувати файли з папки Bs9g45_flash/
 Bs9g45_flash/
+# Ігнорувати файли з папки EWP/Debug/List/
+EWP/Debug/List/
+# Ігнорувати файли з папки EWP/Debug/Obj/
+EWP/Debug/Obj/
 
 # Ігнорувати файли з папки EWP/
-EWP/
-# Але залишити EWP/Debug/Exe/
-!EWP/Debug/Exe/
+EWP/*
 # Але залишити EWP/*.ewd
 !EWP/*.ewd
 # Але залишити EWP/*.ewp
