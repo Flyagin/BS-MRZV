@@ -3600,9 +3600,20 @@ void main_menu_function(void)
                           }
                           else if (previous_level_in_current_level_menu_tmp == ID_MODBUS_PG)
                           {
+                            unsigned int need_recof = false;
+                            if (
+                                (edit_settings_1.chSpeed       != eeprom_bs_settings_tbl.chSpeed      ) ||
+                                (edit_settings_1.chParityCheck != eeprom_bs_settings_tbl.chParityCheck) ||
+                                (edit_settings_1.chAmtStopBit  != eeprom_bs_settings_tbl.chAmtStopBit )
+                               )   
+                            {
+                              need_recof = true;
+                            }
                             copy_data_Modbus(&eeprom_bs_settings_tbl, &edit_settings_1);
                             
                             //Vystavljaemo komandu pro perekonfiguraciju RS-485
+                            if (need_recof == true) ChangeConfRS485(eeprom_bs_settings_tbl.chSpeed, eeprom_bs_settings_tbl.chParityCheck, eeprom_bs_settings_tbl.chAmtStopBit);
+
 
                             //Komanda na zapys zminenykh nalashtuvan jaki tilky dlja BS
                             _SET_BIT(control_spi1_taskes, TASK_START_WRITE_SETTINGS_BS_EEPROM_BIT);

@@ -5,8 +5,6 @@
 
 #include "header_mal.h"
 
-extern unsigned char addr;
-
 extern unsigned char source_id;
 
 extern void clear_all_updating_state(unsigned short, unsigned short);
@@ -446,7 +444,7 @@ void func1() {
   unsigned short quantity_of_bytes = (quantity_of_outputs % 8) == 0 ? quantity_of_outputs >> 3 : (quantity_of_outputs >> 3) + 1;
   clear_all_updating_state(2, address);
   
-  response[0] = addr;
+  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
   response[1] = modbus_func_id;
   response[2] = quantity_of_bytes & 0x00ff;
   
@@ -542,7 +540,7 @@ void func2() {
   unsigned short quantity_of_bytes = (quantity_of_inputs % 8) == 0 ? quantity_of_inputs >> 3 : (quantity_of_inputs >> 3) + 1;
   clear_all_updating_state(2, address);
   
-  response[0] = addr;
+  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
   response[1] = modbus_func_id;
   response[2] = quantity_of_bytes & 0x00ff;
   
@@ -584,7 +582,7 @@ void func3() {
   unsigned short quantity_of_registers = *(puchMsg + QUANTITY_OF_REGISTERS_FUNC3_OFFSET) << 8 |
                     *(puchMsg + QUANTITY_OF_REGISTERS_FUNC3_OFFSET + 1);
   clear_all_updating_state(quantity_of_registers, address);
-  response[0] = addr;
+  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
   response[1] = modbus_func_id;
   response[2] = quantity_of_registers << 1;
   unsigned short index = 3;
@@ -8917,47 +8915,29 @@ void func3() {
             response[index++] = GUIlanguage_id & 0x00ff;
             break;
         case START_ADDR_FUNC_SETTINGS + REGADDR_FS30_DEVADDR:
-            response[index++] = (addr & 0xff00) >> 8;
-            response[index++] = addr & 0x00ff;
+            response[index++] = (eeprom_bs_settings_tbl.RS_comm_addres & 0xff00) >> 8;
+            response[index++] = eeprom_bs_settings_tbl.RS_comm_addres & 0x00ff;
             break;
         case START_ADDR_FUNC_SETTINGS + REGADDR_FS31_BAUDRATE:
-            switch(ownrRS485_settings.baudrate) {
-              case 9600:
-                TempReg = 1;
-                break;
-              case 14400:
-                TempReg = 2;
-                break;
-              case 19200:
-                TempReg = 3;
-                break;
-              case 28800:
-                TempReg = 4;
-                break;
-              case 57600:
-                TempReg = 5;
-                break;
-              case 115200:
-                TempReg = 6;
-                break;
-              default:
-                 while(1);
+            if ((eeprom_bs_settings_tbl.chSpeed >=0) && (eeprom_bs_settings_tbl.chSpeed <= 6))
+            {
+              TempReg = eeprom_bs_settings_tbl.chSpeed;  
             }
-          
+            else while(1);
             response[index++] = (TempReg & 0xff00) >> 8;
             response[index++] = TempReg & 0x00ff;
             break;
         case START_ADDR_FUNC_SETTINGS + REGADDR_FS31_STOPBIT:
-            response[index++] = (ownrRS485_settings.stop_bit & 0xff00) >> 8;
-            response[index++] = ownrRS485_settings.stop_bit & 0x00ff;
+            response[index++] = (eeprom_bs_settings_tbl.chAmtStopBit & 0xff00) >> 8;
+            response[index++] = eeprom_bs_settings_tbl.chAmtStopBit & 0x00ff;
             break;
         case START_ADDR_FUNC_SETTINGS + REGADDR_FS32_PARITY:
-            response[index++] = (ownrRS485_settings.parity & 0xff00) >> 8;
-            response[index++] = ownrRS485_settings.parity & 0x00ff;
+            response[index++] = (eeprom_bs_settings_tbl.chParityCheck & 0xff00) >> 8;
+            response[index++] = eeprom_bs_settings_tbl.chParityCheck & 0x00ff;
             break;
         case START_ADDR_FUNC_SETTINGS + REGADDR_FS33_RESIVE_DELAY:
-            response[index++] = (ownrRS485_settings.delay & 0xff00) >> 8;
-            response[index++] = ownrRS485_settings.delay & 0x00ff;
+            response[index++] = (eeprom_bs_settings_tbl.chTimeOut_RS & 0xff00) >> 8;
+            response[index++] = eeprom_bs_settings_tbl.chTimeOut_RS & 0x00ff;
             break;
             
         default:
@@ -10444,7 +10424,7 @@ void func3() {
         }
       } else {
         modbus_dev_state = SLAVE_DEVICE_BUSY;
-        response[0] = addr;
+        response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
         response[1] = 0x8F;
         response[2] = SLAVE_DEVICE_BUSY;
         crc16 = CRC16(response, 3);
@@ -10493,7 +10473,7 @@ void func5() {
   int mask = const_out > 0 ? 1 : 0;
   mask <<= address - START_ADDRESS_OF_FIRST_OUTPUT;
   
-  response[0] = addr;
+  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
   response[1] = modbus_func_id;  
   response[2] = *(puchMsg + ADDRESS_OFFSET);
   response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -18389,62 +18369,6 @@ void func6() {
          case START_ADDR_FUNC_SETTINGS + REGADDR_FS29_LANGGUI:
             GUIlanguage_id = *(puchMsg + DATA_FUNC6_OFFSET) << 8 | *(puchMsg + DATA_FUNC6_OFFSET + 1);
             break;
-         case START_ADDR_FUNC_SETTINGS + REGADDR_FS30_DEVADDR:          
-            response[0] = addr;
-            response[1] = modbus_func_id;
-            response[2] = *(puchMsg + ADDRESS_OFFSET);
-            response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
-            response[4] = *(puchMsg + DATA_FUNC6_OFFSET);
-            response[5] = *(puchMsg + DATA_FUNC6_OFFSET + 1);
-            crc16 = CRC16(response, 6);
-            response[6] = (crc16 & 0xff00) >> 8;
-            response[7] = crc16 & 0xff;
-            start_response(response, 8);
-            reset_all_modbus_modes();
-            
-            addr = *(puchMsg + DATA_FUNC6_OFFSET) << 8 | *(puchMsg + DATA_FUNC6_OFFSET + 1);
-            return;
-            break;
-        case START_ADDR_FUNC_SETTINGS + REGADDR_FS31_BAUDRATE:
-          TempReg = *(puchMsg + DATA_FUNC6_OFFSET) << 8 | *(puchMsg + DATA_FUNC6_OFFSET + 1);
-          switch(TempReg) {
-            case 1:
-              ownrRS485_settings.baudrate = 9600;
-              break;
-            case 2:
-              ownrRS485_settings.baudrate = 14400;
-              break;
-            case 3:
-              ownrRS485_settings.baudrate = 19200;
-              break;
-            case 4:
-              ownrRS485_settings.baudrate = 28800;
-              break;
-            case 5:
-              ownrRS485_settings.baudrate = 57600;
-              break;
-            case 6:
-              ownrRS485_settings.baudrate = 115200;
-              break;
-            default:
-               modbus_dev_state = ILLEGAL_DATA_VALUE;
-               return;
-          }
-          ownrRS485_settings.needToChange = 1;
-          break;
-        case START_ADDR_FUNC_SETTINGS + REGADDR_FS31_STOPBIT:
-          ownrRS485_settings.stop_bit = *(puchMsg + DATA_FUNC6_OFFSET) << 8 | *(puchMsg + DATA_FUNC6_OFFSET + 1);
-          ownrRS485_settings.needToChange = 1;
-          break;
-        case START_ADDR_FUNC_SETTINGS + REGADDR_FS32_PARITY:
-          ownrRS485_settings.parity = *(puchMsg + DATA_FUNC6_OFFSET) << 8 | *(puchMsg + DATA_FUNC6_OFFSET + 1);
-          ownrRS485_settings.needToChange = 1;
-          break;
-        case START_ADDR_FUNC_SETTINGS + REGADDR_FS33_RESIVE_DELAY:
-          ownrRS485_settings.delay = *(puchMsg + DATA_FUNC6_OFFSET) << 8 | *(puchMsg + DATA_FUNC6_OFFSET + 1);
-          ownrRS485_settings.needToChange = 1;
-          break;
-          
         default:
           
           break;
@@ -18453,7 +18377,7 @@ void func6() {
 
   
   if(!InterProcExchIsNeeded) {
-    response[0] = addr;
+    response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
     response[1] = modbus_func_id;
     response[2] = *(puchMsg + ADDRESS_OFFSET);
     response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -18475,7 +18399,7 @@ void func6() {
       case MA_PART_SETTINGS_FIRST_ADDR:
         break;
       case MA_POSSIBILITY_USTUVANNJA:
-        response[0] = addr;
+        response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
         response[1] = modbus_func_id;
         response[2] = *(puchMsg + ADDRESS_OFFSET);
         response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -18514,7 +18438,7 @@ void func6() {
     if (address == MA_PART_RECEIVE_DIG_OSCILOGRAPH) {
       data_ADC_index = data;
     }
-    response[0] = addr;
+    response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
     response[1] = modbus_func_id;
     response[2] = *(puchMsg + ADDRESS_OFFSET);
     response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -18614,7 +18538,7 @@ void func15() {
       }
    }
   
-  response[0] = addr;
+  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
   response[1] = modbus_func_id;
   response[2] = *(puchMsg + ADDRESS_OFFSET);
   response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -26482,51 +26406,6 @@ void func16() {
          case START_ADDR_FUNC_SETTINGS + REGADDR_FS29_LANGGUI:
             GUIlanguage_id = *(puchMsg + DATA_FUNC16_OFFSET + (i * 2)) << 8 | *(puchMsg + DATA_FUNC16_OFFSET + (i * 2) + 1);
             break;
-         case START_ADDR_FUNC_SETTINGS + REGADDR_FS30_DEVADDR:
-            addr = *(puchMsg + DATA_FUNC16_OFFSET + (i * 2)) << 8 | *(puchMsg + DATA_FUNC16_OFFSET + (i * 2) + 1);
-            break;
-            
-         case START_ADDR_FUNC_SETTINGS + REGADDR_FS31_BAUDRATE:
-            TempReg = *(puchMsg + DATA_FUNC16_OFFSET + (i * 2)) << 8 | *(puchMsg + DATA_FUNC16_OFFSET + (i * 2) + 1);
-            switch(TempReg) {
-              case 1:
-                ownrRS485_settings.baudrate = 9600;
-                break;
-              case 2:
-                ownrRS485_settings.baudrate = 14400;
-                break;
-              case 3:
-                ownrRS485_settings.baudrate = 19200;
-                break;
-              case 4:
-                ownrRS485_settings.baudrate = 28800;
-                break;
-              case 5:
-                ownrRS485_settings.baudrate = 57600;
-                break;
-              case 6:
-                ownrRS485_settings.baudrate = 115200;
-                break;
-              default:
-                 modbus_dev_state = ILLEGAL_DATA_VALUE;
-                 return;
-            }
-            break;
-          case START_ADDR_FUNC_SETTINGS + REGADDR_FS31_STOPBIT:
-            ownrRS485_settings.stop_bit = *(puchMsg + DATA_FUNC16_OFFSET + (i * 2)) << 8 |
-                                          *(puchMsg + DATA_FUNC16_OFFSET + (i * 2) + 1);
-            ownrRS485_settings.needToChange = 1;
-            break;
-          case START_ADDR_FUNC_SETTINGS + REGADDR_FS32_PARITY:
-            ownrRS485_settings.parity = *(puchMsg + DATA_FUNC16_OFFSET + (i * 2)) << 8 |
-                                        *(puchMsg + DATA_FUNC16_OFFSET + (i * 2) + 1);
-            ownrRS485_settings.needToChange = 1;
-            break;
-          case START_ADDR_FUNC_SETTINGS + REGADDR_FS33_RESIVE_DELAY:
-            ownrRS485_settings.delay = *(puchMsg + DATA_FUNC16_OFFSET + (i * 2)) << 8 |
-                                       *(puchMsg + DATA_FUNC16_OFFSET + (i * 2) + 1);
-            ownrRS485_settings.needToChange = 1;
-            break;
           default:
             break;
       }
@@ -28444,7 +28323,7 @@ void func16() {
     
   if(!InterProcExchIsNeeded)
   {
-    response[0] = addr;
+    response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
     response[1] = modbus_func_id;
     response[2] = *(puchMsg + ADDRESS_OFFSET);
     response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -28494,7 +28373,7 @@ void func16() {
         reset_all_modbus_modes();
     }
   } else {
-    response[0] = addr;
+    response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
     response[1] = modbus_func_id;
     response[2] = *(puchMsg + ADDRESS_OFFSET);
     response[3] = *(puchMsg + ADDRESS_OFFSET + 1);

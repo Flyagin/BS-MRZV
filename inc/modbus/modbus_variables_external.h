@@ -65,5 +65,3 @@ extern unsigned short trippedFuncStore[NUMBER_REGS_ACTIVE_FUNC];
 extern Transformators ownrTransformators;
 
 extern unsigned int GUIlanguage_id;
-
-extern RS_485_settings ownrRS485_settings;

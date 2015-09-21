@@ -44,14 +44,5 @@ typedef struct Transformators_Tag
   unsigned int to_coef_trans;
 } Transformators;
 
-// RS-485 settings
-typedef struct RS_485_settings_Tag
-{
-  unsigned short baudrate;
-  unsigned short stop_bit;
-  unsigned short parity;
-  unsigned short delay;
-  unsigned char needToChange;
-} RS_485_settings;
 
 #endif

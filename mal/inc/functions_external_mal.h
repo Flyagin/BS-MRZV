@@ -210,3 +210,6 @@ extern void ZigBee_transmit(void);
 extern void control_settings_prt(void);
 extern void control_settings_bs(void);
 extern void control_ustuvannja(void);
+
+//Функції ,які я використовую інших програмувальників
+extern void ChangeConfRS485(unsigned BaudRate, unsigned PARITY, unsigned StopBit);

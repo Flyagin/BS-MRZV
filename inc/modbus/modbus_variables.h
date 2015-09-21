@@ -81,7 +81,5 @@ Transformators ownrTransformators;
 
 unsigned int GUIlanguage_id;
 
-RS_485_settings ownrRS485_settings;
-
 #endif
 

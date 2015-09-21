@@ -4,9 +4,9 @@
 #include "communication_constants.h"
 #include "modbus_header.h"
 
-unsigned char source_id = NULL_SOURCE;
+#include "header_mal.h"
 
-unsigned char addr = 1;
+unsigned char source_id = NULL_SOURCE;
 
 extern unsigned short CRC16(unsigned char* arr, unsigned short size);
 
@@ -37,7 +37,7 @@ void request_handler(unsigned short size)
                *(puchMsg + size - (NUMBER_CRC_BYTES - 1))
               )
              ||
-             *puchMsg != addr
+             *puchMsg != eeprom_bs_settings_tbl.RS_comm_addres
            )
         {
           //CRC не совпала (игнорируем пакет)
@@ -53,7 +53,7 @@ void request_handler(unsigned short size)
         //ѕроверка данных
         modbus_dev_state = check_data();
       } else {
-        response[0] = addr;
+        response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
         response[1] = 0x8F;
         response[2] = SLAVE_DEVICE_BUSY;
         crc16 = CRC16(response, 3);
@@ -73,7 +73,7 @@ void request_handler(unsigned short size)
                *(puchMsg + size - (NUMBER_CRC_BYTES - 1))
               )
              ||
-             *puchMsg != addr
+             *puchMsg != eeprom_bs_settings_tbl.RS_comm_addres
            )
         {
           //CRC не совпала (игнорируем пакет)
@@ -89,7 +89,7 @@ void request_handler(unsigned short size)
         //ѕроверка данных
         modbus_dev_state = check_data();
       } else {
-        response[0] = addr;
+        response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
         response[1] = 0x8F;
         response[2] = SLAVE_DEVICE_BUSY;
         crc16 = CRC16(response, 3);
