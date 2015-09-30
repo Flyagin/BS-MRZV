@@ -1550,76 +1550,64 @@ void func3() {
           /*              Комплексные межфазные сопротивления (little indian)                      */
           /*****************************************************************************************/
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZAB_RE_Lo:
-//            response[index++] = (*(unsigned long *) (floating_measurements + 0)) & 0xff;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 0)) & 0xff00) >> 8;
-            response[index++] = (*(unsigned long *) &(current_meas_p -> resistance_m[0])) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[0])) & 0xff00) >> 8;
+            tempReg = (int)(current_meas_p -> resistance_m[0] * 100);
+            response[index++] = (tempReg & 0xff00) >> 8;
+            response[index++] = tempReg & 0xff;    
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZAB_RE_Hi:
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 0)) & 0xff0000) >> 16;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 0)) & 0xff000000) >> 24;
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[0])) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[0])) & 0xff000000) >> 24;
+            tempReg = (int)(current_meas_p -> resistance_m[0] * 100);
+            response[index++] = (tempReg & 0xff000000) >> 24;
+            response[index++] = (tempReg & 0xff0000) >> 16; 
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZAB_IM_Lo:
-//            response[index++] = (*(unsigned long *) (floating_measurements + 1)) & 0xff;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 1)) & 0xff00) >> 8;
-            response[index++] = (*(unsigned long *) &(current_meas_p -> resistance_m[1])) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[1])) & 0xff00) >> 8;
+            tempReg = (int)(current_meas_p -> resistance_m[1] * 100);
+            response[index++] = (tempReg & 0xff00) >> 8;
+            response[index++] = tempReg & 0xff;    
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZAB_IM_Hi:
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 1)) & 0xff0000) >> 16;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 1)) & 0xff000000) >> 24;
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[1])) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[1])) & 0xff000000) >> 24;
+            tempReg = (int)(current_meas_p -> resistance_m[1] * 100);
+            response[index++] = (tempReg & 0xff000000) >> 24;
+            response[index++] = (tempReg & 0xff0000) >> 16; 
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZBC_RE_Lo:
-//            response[index++] = (*(unsigned long *) (floating_measurements + 2)) & 0xff;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 2)) & 0xff00) >> 8;
-            response[index++] = (*(unsigned long *) &(current_meas_p -> resistance_m[2])) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[2])) & 0xff00) >> 8;
+            tempReg = (int)(current_meas_p -> resistance_m[2] * 100);
+            response[index++] = (tempReg & 0xff00) >> 8;
+            response[index++] = tempReg & 0xff;    
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZBC_RE_Hi:
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 2)) & 0xff0000) >> 16;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 2)) & 0xff000000) >> 24;
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[2])) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[2])) & 0xff000000) >> 24;
+            tempReg = (int)(current_meas_p -> resistance_m[2] * 100);
+            response[index++] = (tempReg & 0xff000000) >> 24;
+            response[index++] = (tempReg & 0xff0000) >> 16; 
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZBC_IM_Lo:
-//            response[index++] = (*(unsigned long *) (floating_measurements + 3)) & 0xff;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 3)) & 0xff00) >> 8;
-            response[index++] = (*(unsigned long *) &(current_meas_p -> resistance_m[3])) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[3])) & 0xff00) >> 8;
+            tempReg = (int)(current_meas_p -> resistance_m[3] * 100);
+            response[index++] = (tempReg & 0xff00) >> 8;
+            response[index++] = tempReg & 0xff;    
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZBC_IM_Hi:
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 3)) & 0xff0000) >> 16;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 3)) & 0xff000000) >> 24;
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[3])) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[3])) & 0xff000000) >> 24;
+            tempReg = (int)(current_meas_p -> resistance_m[3] * 100);
+            response[index++] = (tempReg & 0xff000000) >> 24;
+            response[index++] = (tempReg & 0xff0000) >> 16; 
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZCA_RE_Lo:
-//            response[index++] = (*(unsigned long *) (floating_measurements + 4)) & 0xff;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 4)) & 0xff00) >> 8;
-            response[index++] = (*(unsigned long *) &(current_meas_p -> resistance_m[4])) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[4])) & 0xff00) >> 8;
+            tempReg = (int)(current_meas_p -> resistance_m[4] * 100);
+            response[index++] = (tempReg & 0xff00) >> 8;
+            response[index++] = tempReg & 0xff;    
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZCA_RE_Hi:
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 4)) & 0xff0000) >> 16;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 4)) & 0xff000000) >> 24;
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[4])) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[4])) & 0xff000000) >> 24;
+            tempReg = (int)(current_meas_p -> resistance_m[4] * 100);
+            response[index++] = (tempReg & 0xff000000) >> 24;
+            response[index++] = (tempReg & 0xff0000) >> 16; 
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZCA_IM_Lo:
-//            response[index++] = (*(unsigned long *) (floating_measurements + 5)) & 0xff;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 5)) & 0xff00) >> 8;
-            response[index++] = (*(unsigned long *) &(current_meas_p -> resistance_m[5])) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[5])) & 0xff00) >> 8;
+            tempReg = (int)(current_meas_p -> resistance_m[5] * 100);
+            response[index++] = (tempReg & 0xff00) >> 8;
+            response[index++] = tempReg & 0xff;    
             break;
           case M_ADDRESS_FIRST_FLOATING_MEASUREMENTS + OFFSET_FLOATING_MEASUREMENTS_ZCA_IM_Hi:
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 5)) & 0xff0000) >> 16;
-//            response[index++] = ((*(unsigned long *) (floating_measurements + 5)) & 0xff000000) >> 24;
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[5])) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> resistance_m[5])) & 0xff000000) >> 24;
+            tempReg = (int)(current_meas_p -> resistance_m[5] * 100);
+            response[index++] = (tempReg & 0xff000000) >> 24;
+            response[index++] = (tempReg & 0xff0000) >> 16; 
             break;
           /*****************************************************************************************/
           
