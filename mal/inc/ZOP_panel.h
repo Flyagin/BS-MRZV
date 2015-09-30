@@ -67,13 +67,13 @@
 #define TITLE_ZOP2_PICKUP4_RUS          "U для ЗОП2 обр."
 #define TITLE_ZOP2_PICKUP4_ENG          "U для ЗОП2 обр."
 
-#define TITLE_ZOP2_PICKUP5_UKR          "I для ЗЗП1 проста"
-#define TITLE_ZOP2_PICKUP5_RUS          "I для ЗОП1 простая"
-#define TITLE_ZOP2_PICKUP5_ENG          "I для ЗОП1 простая"
+#define TITLE_ZOP2_PICKUP5_UKR          "I для ЗЗП2 проста"
+#define TITLE_ZOP2_PICKUP5_RUS          "I для ЗОП2 простая"
+#define TITLE_ZOP2_PICKUP5_ENG          "I для ЗОП2 простая"
 
-#define TITLE_ZOP2_PICKUP6_UKR          "U для ЗЗП1 проста"
-#define TITLE_ZOP2_PICKUP6_RUS          "U для ЗОП1 простая"
-#define TITLE_ZOP2_PICKUP6_ENG          "U для ЗОП1 простая"
+#define TITLE_ZOP2_PICKUP6_UKR          "U для ЗЗП2 проста"
+#define TITLE_ZOP2_PICKUP6_RUS          "U для ЗОП2 простая"
+#define TITLE_ZOP2_PICKUP6_ENG          "U для ЗОП2 простая"
 
 #define MAX_NUMBER_PICKUP_ZOP1          7
 #define MAX_NUMBER_PICKUP_ZOP2          7
