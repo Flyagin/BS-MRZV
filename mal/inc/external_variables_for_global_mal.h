@@ -19,6 +19,8 @@ extern char * rank_checkbox_item[LANG_LIST_SIZE][All_NUMB_RANK_ELEM];
 
 extern unsigned int key_pressed[RANG_KEY];
 extern unsigned int key_released[RANG_KEY];
+extern int time_key_pressed[NR_KEY_ITEMS];
+
 
 extern long lStateWriting;
 

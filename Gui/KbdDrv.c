@@ -2,7 +2,7 @@
 #include    "pio/pio.h"
 #include    "constants_twi.h"
 #include    "../inc/ici_ef.h"
-
+#include "header_mal.h"
 
 
 unsigned int SMKeyChange;
@@ -157,6 +157,7 @@ extern void ForceSetMinParamCfgTbl(void);
 
 unsigned int key_pressed[RANG_KEY] = {0, 0};
 unsigned int key_released[RANG_KEY] = {0, 0};
+int time_key_pressed[NR_KEY_ITEMS];
 void handle_kbd(void)
 {
   register long i;//,j;
@@ -222,13 +223,15 @@ void handle_kbd(void)
       unsigned int key_offset_code = 0;
       if ( i ) {
         for(; key_offset_code < NR_KEY_ITEMS; key_offset_code++) {
-          if (_CHECK_KEY_SET_BIT(key, key_offset_code)) {
-            _SET_KEY_BIT(key_pressed, key_offset_code);
+          if (_CHECK_KEY_SET_BIT(key, key_offset_code)) 
+          {
+            time_key_pressed[key_offset_code] = 0;
           }
         }
       } else {
         for(; key_offset_code < NR_KEY_ITEMS; key_offset_code++) 
         {
+          time_key_pressed[key_offset_code] = -1;
           if (
               (_CHECK_KEY_SET_BIT(key_pressed, key_offset_code) != 0) &&
               (_CHECK_KEY_SET_BIT(key        , key_offset_code) == 0) 
@@ -248,6 +251,19 @@ void handle_kbd(void)
     //(((KbdUNFldHolderDsc*)pv1)->UNFKeyField.arUl[0]) = (((KbdUNFldHolderDsc*)pv1)->UNFKeyField.arUl[0]);
     //(((KbdUNFldHolderDsc*)pv1)->UNFKeyField.arUl[1]) = (((KbdUNFldHolderDsc*)pv1)->UNFKeyField.arUl[1]);
   }
+  
+  for (unsigned int key_tmp = 0; key_tmp < NR_KEY_ITEMS; key_tmp++)
+  {
+    if (time_key_pressed[key_tmp] >=0 )
+    {
+      if (++time_key_pressed[key_tmp] > KEY_KEYBOARD_PERIOD)
+      {
+        _SET_KEY_BIT(key_pressed, key_tmp);
+        time_key_pressed[key_tmp] = -1;
+      }
+    }
+  }
+
 if(key_pressed[0] &(1<<(VK_OFFSET_F3) ) )
   {
 	//ActivateTransmittion_StngAndPrt();//

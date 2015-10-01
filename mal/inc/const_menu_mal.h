@@ -10,3 +10,5 @@ enum __command_menu_bit__
   REWRITE_MENU = 0,
   REFRESH_ACTIVE_PANELS
 };
+
+#define KEY_KEYBOARD_PERIOD     10

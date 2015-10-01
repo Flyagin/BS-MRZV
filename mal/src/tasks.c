@@ -28,6 +28,11 @@ void global_variables_installation(void)
     position_in_level_1_menu_UROV[i] = 0;
     position_in_level_1_menu_CB[i] = 0;
   }
+  
+  for (unsigned int i = 0; i < NR_KEY_ITEMS; i++)
+  {
+    time_key_pressed[i] = -1;
+  }
 }
 /**********/
 
