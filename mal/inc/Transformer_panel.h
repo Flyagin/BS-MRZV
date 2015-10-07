@@ -23,13 +23,13 @@
 #define TITLE_TRANSFORMER0_RUS         "Линия"
 #define TITLE_TRANSFORMER0_ENG         "Line"
 
-#define TITLE_TRANSFORMER_LINE0_UKR             "Isyn"
-#define TITLE_TRANSFORMER_LINE0_RUS             "Isyn"
-#define TITLE_TRANSFORMER_LINE0_ENG             "Isyn"
+#define TITLE_TRANSFORMER_LINE0_UKR             "Usyn"
+#define TITLE_TRANSFORMER_LINE0_RUS             "Usyn"
+#define TITLE_TRANSFORMER_LINE0_ENG             "Usyn"
 
-#define TITLE_TRANSFORMER_LINE1_UKR             "Usyn"
-#define TITLE_TRANSFORMER_LINE1_RUS             "Usyn"
-#define TITLE_TRANSFORMER_LINE1_ENG             "Usyn"
+#define TITLE_TRANSFORMER_LINE1_UKR             "Isyn"
+#define TITLE_TRANSFORMER_LINE1_RUS             "Isyn"
+#define TITLE_TRANSFORMER_LINE1_ENG             "Isyn"
 
 #define TITLE_TRANSFORMER_LINE2_UKR             "Uab-TH2"
 #define TITLE_TRANSFORMER_LINE2_RUS             "Uab-ТН2"
