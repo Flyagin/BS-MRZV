@@ -21,4 +21,4 @@ extern unsigned int flag_read, flag_write, flag_writing; // flags for swiching  
 
 extern unsigned int BYTE_COUNTER_READ, BYTE_COUNTER_WRITE; // counter for byte 
 
-extern unsigned int BaudRate, PARITY, StopBit; // variables for changing settings of usart
+//extern unsigned int BaudRate, PARITY, StopBit; // variables for changing settings of usart

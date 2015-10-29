@@ -802,6 +802,63 @@ extern RVTotVerInfoBrSOCTpuUnitDsc  holderRVTotVerInfoBrSOCTpuUnit;
 
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+#define SIZE_TPDU_UNN_ABS_NUMERTRS_BR_CNL_SPI 15
+//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//~~~~~~~~~~~~~~~~ TotMeas SO Single Object G- general then P-prorect T1,T2-etc
+typedef struct tag_TRAbsNumeratorUnnSOCTpuUnitDsc
+{
+
+	unsigned char      arUchTR[SIZE_TPDU_UNN_ABS_NUMERTRS_BR_CNL_SPI];//0   Data  field
+	//
+	TRBaseCTpuUnitDsc  TrCnHldr;
+	
+	
+
+} TRAbsNumeratorUnnSOCTpuUnitDsc;
+typedef struct tag_RVAbsNumeratorUnnSOCTpuUnitDsc
+{
+
+	unsigned char      arUchRV[SIZE_TPDU_UNN_ABS_NUMERTRS_BR_CNL_SPI];//0   Data  field
+	RVBaseCTpuUnitDsc  RvCnHldr;
+
+} RVAbsNumeratorUnnSOCTpuUnitDsc;
+
+
+//extern TRAuxStngSOCTpuUnitDsc  holderTRAuxStngSOCTpuUnit;
+
+extern  TRAbsNumeratorUnnSOCTpuUnitDsc holderTRAbsNumeratorUnnSOCTpuUnit;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+#define SIZE_TPDU_ANL_RECORD_BR_CNL_SPI 0x80
+//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//~~~~~~~~~~~~~~~~ TotMeas SO Single Object G- general then P-prorect T1,T2-etc
+typedef struct tag_TRUN_ArecSOCTpuUnitDsc
+{
+
+	unsigned char      arUchTR[SIZE_TPDU_ANL_RECORD_BR_CNL_SPI];//0   Data  field
+	//
+	TRBaseCTpuUnitDsc  TrCnHldr;
+	
+	
+
+} TRUN_ArecSOCTpuUnitDsc;
+typedef struct tag_RVUN_ArecSOCTpuUnitDsc
+{
+
+	unsigned char      arUchRV[SIZE_TPDU_ANL_RECORD_BR_CNL_SPI];//0   Data  field
+	RVBaseCTpuUnitDsc  RvCnHldr;
+
+} RVUN_ArecSOCTpuUnitDsc;
+
+
+extern RVUN_ArecSOCTpuUnitDsc  holderRVUN_ArecSOCTpuUnit;
+
+//extern 
+
 
 
 //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -1035,7 +1092,7 @@ extern void* GetAddrObj(long IdObj);
 extern void* GetAddrPFL_VL(long IdObj);
 extern long SetFld_TpState_CNL(long lID_Cnl,void* pvStateTpCnDsc,long lV);
 extern long GetFld_TpState_CNL(long lID_Cnl);
-
+extern void ExtractUrgentData(long lID_Cnl,void* pvD);
 
 
 #endif /* Tpu_h */

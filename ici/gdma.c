@@ -943,6 +943,78 @@ long ReInitDmacChnl01(void) @ "Fast_function_nc"
 	}			 
 	return dmaStatus;
 }
+long ReInitDmacChnl01_M(long lA) @ "Fast_function_nc"
+{
+	unsigned long dmaStatus;
+	long  i;
+	dmaStatus = 0;
+	if ( (gdmadrv_dat.ulAlloc_ch&3) && gdmadrv_dat.chNum_alloc_ch)
+	{
+	dmaStatus = AT91C_BASE_HDMA->HDMA_EBCISR;
+	i = ( AT91C_BASE_HDMA->HDMA_CHSR);//DMA_GetChannelStatus();
+	//``DMA_DisableChannels((1 << DMA_CHANNEL_0) | (1 << DMA_CHANNEL_1));
+	AT91C_BASE_HDMA->HDMA_CHDR = ((1 << DMA_CHANNEL_0) | (1 << DMA_CHANNEL_1));
+	//Set 
+
+	 
+	 AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_0].HDMA_SADDR = chnl_Lst1.sourceAddress;
+	 AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_0].HDMA_DADDR = chnl_Lst1.destAddress ;
+	 AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_0].HDMA_CTRLA = chnl_Lst1.controlA; 
+	 AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_0].HDMA_CTRLB = chnl_Lst1.controlB; 
+	 
+
+	 
+	 AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_1].HDMA_SADDR = lA;//chnl_Lst2.sourceAddress;
+	 AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_1].HDMA_DADDR = chnl_Lst2.destAddress ;
+	 AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_1].HDMA_CTRLA = chnl_Lst2.controlA; 
+	 AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_1].HDMA_CTRLB = chnl_Lst2.controlB; 
+	 
+	    // RX channel 0
+		i = AT91C_HDMA_SRC_PER_2              
+   | AT91C_HDMA_SRC_H2SEL_HW			   
+   | AT91C_HDMA_DST_H2SEL_SW			   
+   | AT91C_HDMA_SOD_ENABLE			   
+   | AT91C_HDMA_FIFOCFG_ENOUGHSPACE; 	
+   AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_0].HDMA_CFG = i;
+//`    DMA_SetConfiguration(DMA_CHANNEL_0,
+//`                          AT91C_HDMA_SRC_PER_2
+//`                       // | AT91C_HDMA_DST_PER_0
+//`                        | AT91C_HDMA_SRC_H2SEL_HW
+//`                        | AT91C_HDMA_DST_H2SEL_SW
+//`                        | AT91C_HDMA_SOD_ENABLE
+//`                        | AT91C_HDMA_FIFOCFG_ENOUGHSPACE//AT91C_HDMA_FIFOCFG_LARGESTBURST
+//`                        );
+
+    // TX channel 1
+	i =    //AT91C_HDMA_SRC_PER_1 |
+  AT91C_HDMA_DST_PER_1
+ | AT91C_HDMA_SRC_H2SEL_SW
+ | AT91C_HDMA_DST_H2SEL_HW
+ | AT91C_HDMA_SOD_ENABLE
+ | AT91C_HDMA_FIFOCFG_ENOUGHSPACE;
+	AT91C_BASE_HDMA->HDMA_CH[DMA_CHANNEL_1].HDMA_CFG = i;
+   //` DMA_SetConfiguration(DMA_CHANNEL_1,
+   //`                       AT91C_HDMA_SRC_PER_1
+   //`                     | AT91C_HDMA_DST_PER_1
+   //`                     | AT91C_HDMA_SRC_H2SEL_SW
+   //`                     | AT91C_HDMA_DST_H2SEL_HW
+   //`                     | AT91C_HDMA_SOD_ENABLE
+   //`                     | AT91C_HDMA_FIFOCFG_ENOUGHSPACE//AT91C_HDMA_FIFOCFG_LARGESTBURST
+   //`                     );
+		   // Start DMA 0(RX) && 1(TX)
+    //DMA_EnableChannels((1 << DMA_CHANNEL_0) | (1 << DMA_CHANNEL_1));
+	//~AT91C_BASE_HDMA->HDMA_CHER = ((1 << DMA_CHANNEL_0) | (1 << DMA_CHANNEL_1));
+
+
+	 // Enable DMA Interrupts
+    //`DMA_EnableIt(  (DMA_CBTC << DMA_CHANNEL_0)
+    //`             | (DMA_CBTC << DMA_CHANNEL_1));
+	AT91C_BASE_HDMA->HDMA_EBCIER = 	(  (DMA_CBTC << DMA_CHANNEL_0)
+                 | (DMA_CBTC << DMA_CHANNEL_1));	
+				 
+	}			 
+	return dmaStatus;
+}
 
 
 

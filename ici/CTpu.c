@@ -160,7 +160,20 @@ RVTotVerInfoBrSOCTpuUnitDsc  holderRVTotVerInfoBrSOCTpuUnit = {
 {ID_CNL_SPI,0, SIZE_TPDU_VER_INFO_BR_CNL_SPI,0,0,(unsigned char*)&(holderRVTotVerInfoBrSOCTpuUnit.arUchRV)}
 }; 
  
+ #define DEFAULT_SIZE_UNN_ABS_NUMERTRS 9
+TRAbsNumeratorUnnSOCTpuUnitDsc holderTRAbsNumeratorUnnSOCTpuUnit = {
+{'N','u','n','e','r','a','t','r'},
+{ID_CNL_SPI,ID_CNL_SPI,0,0,
+SIZE_TPDU_UNN_ABS_NUMERTRS_BR_CNL_SPI, DEFAULT_SIZE_UNN_ABS_NUMERTRS ,
+ID_UNN_ABS_NUMERTRS_UNIT,0,
+ holderTRAbsNumeratorUnnSOCTpuUnit.arUchTR}
 
+};
+
+RVUN_ArecSOCTpuUnitDsc  holderRVUN_ArecSOCTpuUnit  = { 
+{'G','U','s','t'},
+{ID_CNL_SPI,0, SIZE_TPDU_ANL_RECORD_BR_CNL_SPI,0,0,(unsigned char*)&(holderRVUN_ArecSOCTpuUnit.arUchRV)}
+}; 
 
 TRGoosASOCTpuUnitDsc  holderTRGoosASOCTpuUnit;
 RVGoosASOCTpuUnitDsc  holderRVGoosASOCTpuUnit = {
@@ -1387,6 +1400,8 @@ unnV1.uchAr[0] = 0x0;
 		}	
 
 	}
+	//Extract URGENT_DATA
+	ExtractUrgentData(lIDr,(void*)(sLV.pUchRV+sLV.IdxLpuBuf));
 	unnV1.uchAr[0] = sLV.ushSizeLDC;
 	
 	
@@ -1461,6 +1476,43 @@ void TerminateServiceTrApCn(void* pvD,long IdObj)
 TestReqTransmitT1 = 0;
 
 }
+
+extern void ExtractUrgentDataBr2Bs(void* pv);
+
+void ExtractUrgentData(long lID_Cnl,void* pvD)
+{
+switch (lID_Cnl )
+	{
+		// case ID_CNL_HSU7:
+		// 	sLV.pLpu = (void*)&hldrHSU7LpduUnit;
+		// break;
+		// case ID_CNL_TEST1:
+		// 	sLV.pLpu = (void*)&hldrCn1LpduUnit;
+		// break;
+		// case ID_CNL_HSU2://
+		// 	sLV.pLpu = (void*)&hldrHSU2LpduUnit;
+		// break;
+		// case ID_CNL_U2://
+		// 	sLV.pLpu = (void*)&hldrU2LpduRvUnit;
+		// break;
+		// case ID_CNL_U0://
+		// 	sLV.pLpu = (void*)&hldrU0LpduRvUnit;
+		// break;
+		// case ID_CNL_DBGU://
+		// 	sLV.pLpu = (void*)&hldrDBGULpduRvUnit;
+		// break;
+		case ID_CNL_SPI://
+			ExtractUrgentDataBr2Bs(pvD);
+		break;
+		
+	 default:
+		;
+	}
+
+
+}
+
+
 
 #include    "tpuRT.c"
 

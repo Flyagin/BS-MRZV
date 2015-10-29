@@ -47,7 +47,7 @@
 #include "../LibG45/peripherals/tc/tc.h"
 #include "../LibG45/boards/bs_g45/at91sam9g45/AT91SAM9G45.h"
 #include "TC_G45.h"
-
+#include "../LibG45/peripherals/pio/pio.h"
 
 
 extern long outU3(unsigned char*dat, int bytes);
@@ -280,6 +280,7 @@ struct
 if(chEntry_Spi0>=2)
 	{
 	   i = chEntry_Spi0;//StubForSpiChanel1();
+	   AT91C_BASE_PIOD->PIO_SODR = (0x2);
 		if( (chLogicSpi0HdwError) ||(chEntry_Spi0 !=2) )
 		ReInitSpi0Param();
 		else
@@ -298,8 +299,9 @@ if(chEntry_Spi0>=2)
 			for(;;);
 			#endif
 				
-			chEntry_Spi0 -= 2; SPI0_DMA_Enable(); 
-			//??  hldrSpiLpduTRUnit.uchLpuSpiState = 0;//Clear Blocking Write to Spi Queue
+			chEntry_Spi0 -= 2; //-SPI0_DMA_Enable(); 
+			//-//
+			//-AT91C_BASE_PIOD->PIO_CODR = (0x2);
 		}
 		if ( ((((AT91S_TC*)AT91C_BASE_TC2)->TC_CV) >1200 )&& (chHdwErorU0 || chHdwErorU2 || chEntry_U2 || chEntry_U0))
 		{

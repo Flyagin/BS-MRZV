@@ -25,4 +25,4 @@ unsigned int flag_read=0, flag_write=0, flag_writing=0; // flags for swiching  b
 
 unsigned int BYTE_COUNTER_READ, BYTE_COUNTER_WRITE; // counter for byte 
 
-unsigned int BaudRate, PARITY, StopBit; // variables for changing settings of usart
+//unsigned int BaudRate, PARITY, StopBit; // variables for changing settings of usart

@@ -999,8 +999,32 @@ void* pTbl;
     //    0 - Ua
     //    1 - Ub
     //    2 - Uc
-  
-	((__SETTINGS* )pDst)->a_Usyn_Isyn = 0;
+	
+    i = ((CfgTblDsc*)pTbl)-> ownrTr_Line.chLineWGV == I_SYN;
+	
+//	((__SETTINGS* )pDst)->a_Usyn_Isyn = ;
+//	else
+//	((__SETTINGS* )pDst)->a_Usyn_Isyn = 0;
+	
+	switch(i)
+	{
+	case I_SYN:
+	
+	((__SETTINGS* )pDst)->a_Usyn_Isyn =  U_SYN;
+	break;
+	case U_SYN:
+	((__SETTINGS* )pDst)->a_Usyn_Isyn =  I_SYN;
+	break;
+	case UAB_TH2:
+	((__SETTINGS* )pDst)->a_Usyn_Isyn = i; 
+	break;
+	
+	default:
+	;
+	}
+	
+	
+	
 	//((CfgTblDsc*)pTbl)-> uc_Usyn_Isyn_selection;
 	if (((CfgTblDsc*)pTbl)-> ownrRclrMng.selectPhase >3 )
 	((CfgTblDsc*)pTbl)-> ownrRclrMng.selectPhase = 0;

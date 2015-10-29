@@ -2175,7 +2175,71 @@ StatePdcDsc ValStatePdcTr;
 	
 }
 
+extern long ReInitDmacChnl01_M(long lA);
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//---   
+__arm long V1OutSpi0(unsigned char *dat, long bytes)  @ "Fast_function";
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~ Purpose:  Second Generation OutSpi only for speed optimization purpose                       ~~~
+//~~~ Processing: Place data into the TX ring buffer and start UART transmission ~~~
+//~~~        ~~~Fastest_function
+//~~~  dat   : Data to send                                                      ~~~
+//~~~  bytes : Number of bytes to send                                           ~~~
+//``````````````````````````````````````````````````````````````````````````````````
+//~~~ Notes: Will block until all bytes are sent                                  ~~
+//~~~     Have Errors  Not correct Hudled goig thogh                              ~~ 
+//~~~       SIZE_SPI_BUF barier                                                   ~~
+//~~~          ~~
+//~~~          ~~
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//=================================================================================
+//Body func                                                                  
+//=================================================================================
 
+__arm long V1OutSpi0(unsigned char *dat, long bytes)  @ "Fast_function"
+{
+register long bsend; 
+  if ((spi0_txfill == spi0_txget)&&(spi0_txsize == 0))
+  spi0_txget = spi0_txfill = 0;//.!!!
+  if (bytes>SIZE_SPI_BUF)
+  bytes = SIZE_SPI_BUF;//correctness Control
+__disable_interrupt();
+
+	if (bytes+spi0_txfill>SIZE_SPI_BUF)
+	bytes = SIZE_SPI_BUF- spi0_txfill;
+	else
+	bsend = bytes;
+	
+	//i = spi0_txsize + bytes;
+	//if (i>= (SIZE_SPI_BUF))
+	if ((spi0_txsize + bytes)>= (SIZE_SPI_BUF))
+	bsend = SIZE_SPI_BUF - spi0_txsize;
+	else
+	bsend = bytes;
+	
+//	memcpy(spi0_txbuff+spi0_txfill,dat,bsend);
+	spi0_txsize += bsend; 
+	//if (bsend)
+
+	spi0_txfill+= bsend;
+    if (spi0_txfill >= (SIZE_SPI_BUF))
+    {
+      spi0_txfill -= SIZE_SPI_BUF;
+    }
+
+	
+	__enable_interrupt();//IRQ_EnableIT(AT91C_ID_SPI0);  
+	lTcr_Tncr_Set++;
+	
+	
+	AT91C_BASE_PIOA->PIO_SODR = (1 << 05);//Syncro Answer AT91C_BASE_PIOA->PIO_CODR = (1 << 05);
+	ReInitDmacChnl01_M((long) dat);
+  return bsend;
+}
+//---------------------------------------------------------------------------------
+//
 
 
 /* 

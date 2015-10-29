@@ -377,6 +377,12 @@ EndBlockHSU0State:
 	
 	if( hldrSpiLpduTRUnit.uchLpuSpiState==0)
 	{
+		PrepDecompouseAbsNumeratorsUnitSPI();
+		PrepDecompouseAbsNumeratorsUnitSPI();
+		PrepDecompouseAbsNumeratorsUnitSPI();
+		
+		
+		;
 		//	PrepDecompouseApcsUnitSpi();
 		//~PrepDecompouseGoosBUnitSpi();
 		PrepDecompouseDateTimeUnitSpi();
@@ -1160,6 +1166,6 @@ void Ici10msRing(void)
 #include    "atrcmd.c"
 
 #include    "srvUgO.c"
-
+#include    "AbnD.c"
 
 

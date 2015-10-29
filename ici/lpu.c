@@ -40,7 +40,11 @@
 #include <string.h>
 #include <stdio.h>
 
+//#include "../LibG45/peripherals/pio/pio.h"
 
+#include "../LibG45/peripherals/dma/dma.h"
+#include "../LibG45/drivers/dmad/dmad.h"
+//#include    "gdma.h"
 
 
 
@@ -1022,7 +1026,8 @@ Rst_LpduU2_TpCnState();
 //----------------------------------------------------------------------------------
 //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 //""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+extern unsigned char chEntry_Spi0;
+extern long ReInitDmacChnl01_M(long lA);
 extern long lSpi0HdwState;
 //""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 //---    
@@ -1135,8 +1140,13 @@ j = sLV.uShIdxByte;
 j = ((TRStateLpuSpiDsc*)pv)->lCapicity;
 //Move Data to transmit
 (((TRStateLpuSpiDsc*)pv)->arUch[j]) = i;
-
+// ReInitDmacChnl01();
 //j = outSpi0((unsigned char *)&(((TRStateLpuSpiDsc*)pv)->arUch[0]),SIZE_LPDU_CNL_SPI);//(int)j+(SIZE_CS_FLD_CNL_SPI)
+//j = V1OutSpi0((unsigned char *)&(((TRStateLpuSpiDsc*)pv)->arUch[0]),SIZE_LPDU_CNL_SPI);
+
+i = OutSpi0((unsigned char *)&hldrSpiLpduTRUnit.arUch[0],SIZE_LPDU_CNL_SPI);	
+ SPI0_DMA_Enable();
+AT91C_BASE_PIOD->PIO_CODR = (0x2);
 
 Rst_LpduSpi_TpCnState();
 }
@@ -1585,10 +1595,11 @@ if (sLV.PacketBad)
 		uiAmtSpiGoodPacket = 0;
 		uiAmtSpiBadPacket  = 0;
 		lAmtCallReInitDmaSpi++;
-		
+
 		return;
 	}
-		goto ExitProcessReceiveLpduSpi;//return;
+	j = 0;
+	goto ExitProcessReceiveLpduSpi;//return;
 }
 if (sLV.PacketGood)
 {
@@ -1602,18 +1613,23 @@ if (sLV.PacketGood)
 	// ((RVStateLpuHSU7Dsc *)pv)->uchCI       = ID_CNL_HSU7;
 	chTotalBadPacketCtr = 0;
 	uiAmtSpiGoodPacket++;
-	//GossBRvPackActivator();
+	j = 1;//GossBRvPackActivator();
 
 }
 ExitProcessReceiveLpduSpi:
 	//i = outSpi0((unsigned char *)&hldrSpiLpduTRUnit.arUch[0],SIZE_LPDU_CNL_SPI);
-	i = OutSpi0((unsigned char *)&hldrSpiLpduTRUnit.arUch[0],SIZE_LPDU_CNL_SPI);
+//^	i = OutSpi0((unsigned char *)&hldrSpiLpduTRUnit.arUch[0],SIZE_LPDU_CNL_SPI);
 	hldrSpiLpduTRUnit.uchLpuSpiState = 0;timerWaitReqSpi = 6;//10 <- This was a problem !?1
 	//Clear Header
 	hldrSpiLpduTRUnit.arUch[0] = 0;hldrSpiLpduTRUnit.arUch[1] = 0;
 	//EnblGSpiInt();
 	//Init Dma Data for Transmit
     ReInitDmacChnl01();
+	if(j==1)
+	{
+	//Exclude ArecDataBS
+	
+	}
 
 
 
@@ -1727,7 +1743,9 @@ j = ((TRStateLpuSpiDsc*)pv)->lCapicity;
 //Move Data to transmit
 (((TRStateLpuSpiDsc*)pv)->arUch[j]) = i;
 //...j = outSPI1((unsigned char *)&(((TRStateLpuSpiDsc*)pv)->arUch[0]),SIZE_LPDU_CNL_SPI);//(int)j+(SIZE_CS_FLD_CNL_SPI)
-
+// ReInitDmacChnl01();
+i = OutSpi0((unsigned char *)&hldrSpiLpduTRUnit.arUch[0],SIZE_LPDU_CNL_SPI);
+ SPI0_DMA_Enable();
 Rst_LpduSpi_TpCnState();
 }
 

@@ -17,10 +17,11 @@ char rs_485_state = RS_485_NO_ERROR;
 //Changing configuration of USART
 //------------------------------------------------------------------------------
 
-void ConfigureUsartChange(unsigned int BaudRate_tmp, unsigned int PARITY_tmp, 
-                          unsigned int StopBit_tmp )
+void ConfigureUsartChange(unsigned int BaudRate, unsigned int PARITY, 
+                          unsigned int StopBit )
 {
-  switch(BaudRate_tmp){
+  unsigned int BaudRate_tmp, PARITY_tmp, StopBit_tmp;
+  switch(BaudRate){
     case 0:
       BaudRate_tmp=115200;
       break;
@@ -121,7 +122,16 @@ void Setings_RS485(void)
     PIO_Configure(pins, PIO_LISTSIZE(pins));
 
   // Configure USART and display startup trace
-    ChangeConfRS485(eeprom_bs_settings_tbl.chSpeed, eeprom_bs_settings_tbl.chParityCheck, eeprom_bs_settings_tbl.chAmtStopBit);
+    unsigned char chSpeed = eeprom_bs_settings_tbl.chSpeed;
+    unsigned char chParityCheck = eeprom_bs_settings_tbl.chParityCheck;
+    unsigned char chAmtStopBit = eeprom_bs_settings_tbl.chAmtStopBit;
+    if (_CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_BIT) | _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_EMPTY_BIT))
+    {
+      chSpeed = 0;
+      chParityCheck = 0;
+      chAmtStopBit = 1;
+    }
+    ChangeConfRS485(chSpeed, chParityCheck, chAmtStopBit);
 }
 
 
