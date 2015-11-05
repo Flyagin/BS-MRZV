@@ -388,6 +388,7 @@ extern unsigned int ustuvannja_P[3], ustuvannja_Q[3];
 extern CfgTblDsc eeprom_prt_tbl;
 extern unsigned char crc_settings_prt;
 extern AuxCfgTbl1Dsc eeprom_bs_settings_tbl;
+extern unsigned char modbus_address;
 extern unsigned char crc_settings_bs;
 
 extern unsigned int state_signal_outputs;
@@ -407,7 +408,7 @@ extern unsigned int address_read_write_dr;
 extern unsigned int number_bytes_read_write_dr;
 extern unsigned int buffer_serial_DataFlash_read_write_dr[SIZE_BUFFER_SERIAL_DATAFLASH_READ_WRITE_DR];
 
-extern __TEMP_STRUCTURE EepromARecDesc;
+extern __INFO_REJESTRATOR info_rejestrator_ar;
 extern unsigned char crc_info_rejestrator_ar;
 
 extern __TEMP_STRUCTURE EepromDRecDesc;
@@ -415,3 +416,8 @@ extern unsigned char crc_info_rejestrator_dr;
 
 extern __TEMP_STRUCTURE EepromErrRecDesc;
 extern unsigned char crc_info_rejestrator_pr_err;
+
+extern unsigned int control_ar_taskes;
+extern unsigned char table_data_ar[NUMBER_DATA_BLOCKS + 1];
+
+

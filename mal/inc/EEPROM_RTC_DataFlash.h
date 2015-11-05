@@ -37,9 +37,6 @@
 #define SIZE_PAGE_EEPROM        128
 #define SIZE_USTUVANNJA         (sizeof(ustuvannja) + sizeof(phi_ustuvannja) + sizeof(ustuvannja_P) + sizeof(ustuvannja_Q))
 
-#define SIZE_PAGE_SERIAL_DATAFLASH_AR                   264
-#define NUMBER_PAGES_INTO_SERIAL_DATAFLASH_AR           32768
-
 #define SIZE_PAGE_SERIAL_DATAFLASH_DR                   264
 #define NUMBER_PAGES_INTO_SERIAL_DATAFLASH_DR           4096
 
@@ -49,7 +46,7 @@
 #define START_ADDRESS_STATE_LEDS_OUTPUTS_IN_EEPROM  (((START_ADDRESS_SETTINGS_BS_IN_EEPROM        + (sizeof(AuxCfgTbl1Dsc)            + 1)) & (unsigned int)(~(SIZE_PAGE_EEPROM - 1))) + SIZE_PAGE_EEPROM)
 #define START_ADDRESS_STATE_TRG_FUNC_IN_EEPROM      (((START_ADDRESS_STATE_LEDS_OUTPUTS_IN_EEPROM + 4                                     ) & (unsigned int)(~(SIZE_PAGE_EEPROM - 1))) + SIZE_PAGE_EEPROM)
 #define START_ADDRESS_INFO_REJESTRATORS_AR          (((START_ADDRESS_STATE_TRG_FUNC_IN_EEPROM     + (sizeof(trigger_active_functions) + 1)) & (unsigned int)(~(SIZE_PAGE_EEPROM - 1))) + SIZE_PAGE_EEPROM)
-#define START_ADDRESS_INFO_REJESTRATORS_DR          (((START_ADDRESS_INFO_REJESTRATORS_AR         + (sizeof(EepromARecDesc)           + 1)) & (unsigned int)(~(SIZE_PAGE_EEPROM - 1))) + SIZE_PAGE_EEPROM)
+#define START_ADDRESS_INFO_REJESTRATORS_DR          (((START_ADDRESS_INFO_REJESTRATORS_AR         + (sizeof(info_rejestrator_ar)      + 1)) & (unsigned int)(~(SIZE_PAGE_EEPROM - 1))) + SIZE_PAGE_EEPROM)
 #define START_ADDRESS_INFO_REJESTRATORS_PR_ERR      (((START_ADDRESS_INFO_REJESTRATORS_DR         + (sizeof(EepromDRecDesc)           + 1)) & (unsigned int)(~(SIZE_PAGE_EEPROM - 1))) + SIZE_PAGE_EEPROM)
 
 #define SIZE_BUFFER_FOR_RED     ((sizeof(CfgTblDsc) + 1) + 3)
@@ -139,8 +136,8 @@
 
 #define TASK_READ_SR_DF_AR_BIT                                  42   
 
-//#define TASK_START_MAKE_PAGE_SIZE_256_AR_BIT                    43      
-//#define TASK_MAKING_PAGE_SIZE_256_AR_BIT                        44      
+//#define TASK_START_MAKE_PAGE_SIZE_256_AR_BIT                    /*43*/56
+//#define TASK_MAKING_PAGE_SIZE_256_AR_BIT                        /*44*/57     
 
 #define TASK_START_ERASE_DATAFLASH_AR_BIT                       43
 #define TASK_ERASING_DATAFLASH_AR_BIT                           44

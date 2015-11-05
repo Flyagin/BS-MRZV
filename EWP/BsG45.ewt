@@ -5898,6 +5898,9 @@
           <name>$PROJ_DIR$\..\mal\inc\Comm_panel.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\mal\inc\const_ar.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\mal\inc\const_global_mal.h</name>
         </file>
         <file>
@@ -6016,6 +6019,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\mal\src\APV_panel.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\mal\src\ar_functions.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\mal\src\CB_panel.c</name>

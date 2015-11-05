@@ -33,6 +33,13 @@ typedef struct
 
 typedef struct
 {
+  unsigned int next_address;
+  unsigned int saving_execution;
+  unsigned int number_records;
+} __INFO_REJESTRATOR;
+
+typedef struct
+{
   unsigned int a[100];
   unsigned int b;
 } __TEMP_STRUCTURE;

@@ -125,11 +125,14 @@ void Setings_RS485(void)
     unsigned char chSpeed = eeprom_bs_settings_tbl.chSpeed;
     unsigned char chParityCheck = eeprom_bs_settings_tbl.chParityCheck;
     unsigned char chAmtStopBit = eeprom_bs_settings_tbl.chAmtStopBit;
+    modbus_address = eeprom_bs_settings_tbl.RS_comm_addres;
     if (_CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_BIT) | _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_EMPTY_BIT))
     {
       chSpeed = 0;
       chParityCheck = 0;
       chAmtStopBit = 1;
+      
+      modbus_address = KOEF_ADDRESS_MAX;
     }
     ChangeConfRS485(chSpeed, chParityCheck, chAmtStopBit);
 }

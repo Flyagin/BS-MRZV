@@ -444,7 +444,7 @@ void func1() {
   unsigned short quantity_of_bytes = (quantity_of_outputs % 8) == 0 ? quantity_of_outputs >> 3 : (quantity_of_outputs >> 3) + 1;
   clear_all_updating_state(2, address);
   
-  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+  response[0] = modbus_address;
   response[1] = modbus_func_id;
   response[2] = quantity_of_bytes & 0x00ff;
   
@@ -540,7 +540,7 @@ void func2() {
   unsigned short quantity_of_bytes = (quantity_of_inputs % 8) == 0 ? quantity_of_inputs >> 3 : (quantity_of_inputs >> 3) + 1;
   clear_all_updating_state(2, address);
   
-  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+  response[0] = modbus_address;
   response[1] = modbus_func_id;
   response[2] = quantity_of_bytes & 0x00ff;
   
@@ -582,7 +582,7 @@ void func3() {
   unsigned short quantity_of_registers = *(puchMsg + QUANTITY_OF_REGISTERS_FUNC3_OFFSET) << 8 |
                     *(puchMsg + QUANTITY_OF_REGISTERS_FUNC3_OFFSET + 1);
   clear_all_updating_state(quantity_of_registers, address);
-  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+  response[0] = modbus_address;
   response[1] = modbus_func_id;
   response[2] = quantity_of_registers << 1;
   unsigned short index = 3;
@@ -8903,8 +8903,8 @@ void func3() {
             response[index++] = GUIlanguage_id & 0x00ff;
             break;
         case START_ADDR_FUNC_SETTINGS + REGADDR_FS30_DEVADDR:
-            response[index++] = (eeprom_bs_settings_tbl.RS_comm_addres & 0xff00) >> 8;
-            response[index++] = eeprom_bs_settings_tbl.RS_comm_addres & 0x00ff;
+            response[index++] = (modbus_address & 0xff00) >> 8;
+            response[index++] = modbus_address & 0x00ff;
             break;
         case START_ADDR_FUNC_SETTINGS + REGADDR_FS31_BAUDRATE:
             if ((eeprom_bs_settings_tbl.chSpeed >=0) && (eeprom_bs_settings_tbl.chSpeed <= 6))
@@ -10412,7 +10412,7 @@ void func3() {
         }
       } else {
         modbus_dev_state = SLAVE_DEVICE_BUSY;
-        response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+        response[0] = modbus_address;
         response[1] = 0x8F;
         response[2] = SLAVE_DEVICE_BUSY;
         crc16 = CRC16(response, 3);
@@ -10461,7 +10461,7 @@ void func5() {
   int mask = const_out > 0 ? 1 : 0;
   mask <<= address - START_ADDRESS_OF_FIRST_OUTPUT;
   
-  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+  response[0] = modbus_address;
   response[1] = modbus_func_id;  
   response[2] = *(puchMsg + ADDRESS_OFFSET);
   response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -18365,7 +18365,7 @@ void func6() {
 
   
   if(!InterProcExchIsNeeded) {
-    response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+    response[0] = modbus_address;
     response[1] = modbus_func_id;
     response[2] = *(puchMsg + ADDRESS_OFFSET);
     response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -18387,7 +18387,7 @@ void func6() {
       case MA_PART_SETTINGS_FIRST_ADDR:
         break;
       case MA_POSSIBILITY_USTUVANNJA:
-        response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+        response[0] = modbus_address;
         response[1] = modbus_func_id;
         response[2] = *(puchMsg + ADDRESS_OFFSET);
         response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -18426,7 +18426,7 @@ void func6() {
     if (address == MA_PART_RECEIVE_DIG_OSCILOGRAPH) {
       data_ADC_index = data;
     }
-    response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+    response[0] = modbus_address;
     response[1] = modbus_func_id;
     response[2] = *(puchMsg + ADDRESS_OFFSET);
     response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -18526,7 +18526,7 @@ void func15() {
       }
    }
   
-  response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+  response[0] = modbus_address;
   response[1] = modbus_func_id;
   response[2] = *(puchMsg + ADDRESS_OFFSET);
   response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -28311,7 +28311,7 @@ void func16() {
     
   if(!InterProcExchIsNeeded)
   {
-    response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+    response[0] = modbus_address;
     response[1] = modbus_func_id;
     response[2] = *(puchMsg + ADDRESS_OFFSET);
     response[3] = *(puchMsg + ADDRESS_OFFSET + 1);
@@ -28361,7 +28361,7 @@ void func16() {
         reset_all_modbus_modes();
     }
   } else {
-    response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
+    response[0] = modbus_address;
     response[1] = modbus_func_id;
     response[2] = *(puchMsg + ADDRESS_OFFSET);
     response[3] = *(puchMsg + ADDRESS_OFFSET + 1);

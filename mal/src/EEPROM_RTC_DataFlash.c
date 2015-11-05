@@ -145,7 +145,7 @@ void main_routines_for_spi1(void)
   static unsigned int ustuvannja_comp[NUMBER_CANALS], phi_ustuvannja_comp[NUMBER_CANALS], ustuvannja_P_comp[3], ustuvannja_Q_comp[3];
   static unsigned int state_trigger_leds_comp, state_signal_outputs_comp;
   static unsigned int trigger_active_functions_comp[N_TMP];
-  static __TEMP_STRUCTURE EepromARecDesc_comp;
+  static __INFO_REJESTRATOR info_rejestrator_ar_comp;
   static __TEMP_STRUCTURE EepromDRecDesc_comp;
   static __TEMP_STRUCTURE EepromErrRecDesc_comp;
   
@@ -573,7 +573,7 @@ void main_routines_for_spi1(void)
       offset_from_start = number_block_info_rejestrator_ar_write_to_eeprom*SIZE_PAGE_EEPROM;
 
       //Кількість байт до кінця буферу 
-      size_to_end = (sizeof(EepromARecDesc) + 1) - offset_from_start; 
+      size_to_end = (sizeof(__INFO_REJESTRATOR) + 1) - offset_from_start; 
       
       if (size_to_end > 0)
       {
@@ -746,7 +746,7 @@ void main_routines_for_spi1(void)
       Temporaty_SPI1_Buffer_Tx[1] = (START_ADDRESS_INFO_REJESTRATORS_AR >> 8) & 0xff; //старша  адреса початку зберігання даних по аналоговому реєстратору у EEPROM
       Temporaty_SPI1_Buffer_Tx[2] = (START_ADDRESS_INFO_REJESTRATORS_AR     ) & 0xff; //молодша адреса початку зберігання даних по аналоговому реєстратору у EEPROM
                                                                                       //дальше значення байт не має значення
-      start_exchange_via_SPI1(SPI1_EEPROM, ((sizeof(EepromARecDesc) + 1) + 3));
+      start_exchange_via_SPI1(SPI1_EEPROM, ((sizeof(__INFO_REJESTRATOR) + 1) + 3));
     }
     else if (_CHECK_SET_BIT(control_spi1_taskes, TASK_READING_INFO_REJESTRATOR_DR_EEPROM_BIT) !=0)
     {
@@ -766,15 +766,19 @@ void main_routines_for_spi1(void)
                                                                                           //дальше значення байт не має значення
       start_exchange_via_SPI1(SPI1_EEPROM, ((sizeof(EepromErrRecDesc) + 1) + 3));
     }
-//    else if (_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_BIT) !=0)
+//    else if (
+//             ((_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_AR_BIT) !=0) && (AR_DR_tmp == _DF_AR))/* ||
+//             ((_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_DR_BIT) !=0) && (AR_DR_tmp == _DF_DR))*/
+//            ) 
 //    {
 //      //Запускаємо процес переводу мікросхеми DataFlash не розмір сторінки у 256 байт
 //      Temporaty_SPI1_Buffer_Tx[0] = 0x3D;
 //      Temporaty_SPI1_Buffer_Tx[1] = 0x2A;
 //      Temporaty_SPI1_Buffer_Tx[2] = 0x80;
-//      Temporaty_SPI1_Buffer_Tx[3] = 0xA6;
+//      Temporaty_SPI1_Buffer_Tx[3] = /*0xA6*/0xA7;
 //
-//      start_exchange_via_SPI1(SPI1_DF, 4);
+//      AR_DR = AR_DR_tmp;
+//      start_exchange_via_SPI1((AR_DR_tmp == _DF_AR) ? SPI1_DF_AR : SPI1_DF_DR, 4);
 //    }
     else if (
              ((_CHECK_SET_BIT(control_spi1_taskes, TASK_ERASING_DATAFLASH_AR_BIT) !=0) && (AR_DR_tmp == _DF_AR)) ||
@@ -1276,9 +1280,9 @@ void main_routines_for_spi1(void)
       
       //Готуємо буфер для запису у EEPROM разом з контрольною сумою
       unsigned char crc_eeprom_info_rejestrator_ar = 0, temp_value;
-      unsigned char  *point_1 = (unsigned char*)(&EepromARecDesc); 
-      unsigned char  *point_2 = (unsigned char*)(&EepromARecDesc_comp); 
-      for (unsigned int i = 0; i < sizeof(__TEMP_STRUCTURE); i++)
+      unsigned char  *point_1 = (unsigned char*)(&info_rejestrator_ar); 
+      unsigned char  *point_2 = (unsigned char*)(&info_rejestrator_ar_comp); 
+      for (unsigned int i = 0; i < sizeof(__INFO_REJESTRATOR); i++)
       {
         temp_value = *(point_1);
         *(point_2) = temp_value;
@@ -1289,7 +1293,7 @@ void main_routines_for_spi1(void)
       }
 
       //Добавляємо інвертовану контрольну суму у кінець масиву
-      Temporaty_SPI1_Buffer_Tx[3 + sizeof(__TEMP_STRUCTURE)] = (unsigned char)((~(unsigned int)crc_eeprom_info_rejestrator_ar) & 0xff);
+      Temporaty_SPI1_Buffer_Tx[3 + sizeof(__INFO_REJESTRATOR)] = (unsigned char)((~(unsigned int)crc_eeprom_info_rejestrator_ar) & 0xff);
       
       //Скидаємо біт запуску нового запису і виставляємо біт запису блоків у EEPROM з бітом встановлення дозволу на запис
       _SET_BIT(control_spi1_taskes, TASK_EEPROM_WRITE_PREPARATION_BIT);
@@ -1435,12 +1439,24 @@ void main_routines_for_spi1(void)
       //Запускаємо процес запису в RTC
       start_exchange_via_SPI1(SPI1_RTC, (1 + 1));
     }
-//    else if (_CHECK_SET_BIT(control_spi1_taskes, TASK_START_MAKE_PAGE_SIZE_256_BIT) !=0)
+//    else if (
+//             ((_CHECK_SET_BIT(control_spi1_taskes, TASK_START_MAKE_PAGE_SIZE_256_AR_BIT) !=0) && (AR_DR_tmp == _DF_AR))/* ||
+//             ((_CHECK_SET_BIT(control_spi1_taskes, TASK_START_MAKE_PAGE_SIZE_256_DR_BIT) !=0) && (AR_DR_tmp == _DF_DR))*/
+//            ) 
 //    {
 //      //Скидаємо біт початку переведення мікросхеми до розміру сторінки у 256 байт і виставляємо біт переведення мікросхеми до розміру сторінки у 256 байт з бітом читання регістру статусу
-//      _SET_BIT(control_spi1_taskes, TASK_READ_SR_DF_BIT);
-//      _SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_BIT);
-//      _CLEAR_BIT(control_spi1_taskes, TASK_START_MAKE_PAGE_SIZE_256_BIT);
+//      if (AR_DR_tmp == _DF_AR)
+//      {
+//        _SET_BIT(control_spi1_taskes, TASK_READ_SR_DF_AR_BIT);
+//        _SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_AR_BIT);
+//        _CLEAR_BIT(control_spi1_taskes, TASK_START_MAKE_PAGE_SIZE_256_AR_BIT);
+//      }
+//      else
+//      {
+////        _SET_BIT(control_spi1_taskes, TASK_READ_SR_DF_DR_BIT);
+////        _SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_DR_BIT);
+////        _CLEAR_BIT(control_spi1_taskes, TASK_START_MAKE_PAGE_SIZE_256_DR_BIT);
+//      }
 //    }
     else if (
              ((_CHECK_SET_BIT(control_spi1_taskes, TASK_START_ERASE_DATAFLASH_AR_BIT) !=0) && (AR_DR_tmp == _DF_AR)) ||
@@ -2505,9 +2521,9 @@ void main_routines_for_spi1(void)
       //Аналізуємо прочитані дані
       //Спочатку аналізуємо, чи прояитаний блок є пустим, чи вже попередньо записаним
       unsigned int empty_block = 1, i = 0; 
-      __TEMP_STRUCTURE EepromARecDesc_tmp;
+      __INFO_REJESTRATOR info_rejestrator_ar_tmp;
       
-      while ((empty_block != 0) && ( i < (sizeof(__TEMP_STRUCTURE) + 1)))
+      while ((empty_block != 0) && ( i < (sizeof(__INFO_REJESTRATOR) + 1)))
       {
         if (Temporaty_SPI1_Buffer_Rx[3 + i] != 0xff) empty_block = 0;
         i++;
@@ -2522,15 +2538,15 @@ void main_routines_for_spi1(void)
         
         //Перевіряємо контрольну суму і переписуємо прочитані дані у структуру
         unsigned char crc_eeprom_info_rejestrator_ar = 0, temp_value;
-        unsigned char  *point = (unsigned char*)(&EepromARecDesc_tmp); 
-        for (i =0; i < sizeof(__TEMP_STRUCTURE); i++)
+        unsigned char  *point = (unsigned char*)(&info_rejestrator_ar_tmp); 
+        for (i =0; i < sizeof(__INFO_REJESTRATOR); i++)
         {
           temp_value = Temporaty_SPI1_Buffer_Rx[3 + i];
           *(point) = temp_value;
           crc_eeprom_info_rejestrator_ar += temp_value;
           point++;
         }
-        if (Temporaty_SPI1_Buffer_Rx[3 + sizeof(__TEMP_STRUCTURE)]  == ((unsigned char)((~(unsigned int)crc_eeprom_info_rejestrator_ar) & 0xff)))
+        if (Temporaty_SPI1_Buffer_Rx[3 + sizeof(__INFO_REJESTRATOR)]  == ((unsigned char)((~(unsigned int)crc_eeprom_info_rejestrator_ar) & 0xff)))
         {
           //Контролдьна сума сходиться
 
@@ -2548,18 +2564,82 @@ void main_routines_for_spi1(void)
             //Виконувалося зчитування інформації по аналоговому реєстратору у робочу структуру
             
             //Перекидаємо інформації по аналоговому реєстратору з тимчасової структури у робочу структуру
-            EepromARecDesc = EepromARecDesc_tmp;
+            info_rejestrator_ar = info_rejestrator_ar_tmp;
+
+            //Перевіряємо чи всі поляу у своїх допустимих межах
+            if(
+#if MIN_ADDRESS_DATA_AR_AREA != 0
+               (info_rejestrator_ar.next_address   >= MIN_ADDRESS_DATA_AR_AREA) &&
+#endif               
+               (info_rejestrator_ar.next_address   <= MAX_ADDRESS_DATA_AR_AREA)
+              )
+            {
+              //Всі величину мають допустимі значення
+
+              //Перевіряємо, чи у процесі запису останньої аварії не відбувся перезапуск/запуск приладу.
+              //Тоді останій запис може бути пошкодженим, якщо вже свя флешка є заповнена
+              //Тоді помічаємо, що у нашій флешці на один запис є менше
+              if (info_rejestrator_ar.saving_execution != 0 )
+              {
+                //Виставляємо повідомлення про цю подію
+                _SET_BIT(diagnostyka, ERROR_AR_LOSS_INFORMATION_BIT);
+
+                //Виставляємо команду запису цієї структури у EEPROM
+                /*
+                Команду виставляємо скоріше, а потім робимо зміни у полях, які треба змінити,
+                бо по вимозі проконтролювати достовірність даних інформації по аналоговому
+                реєстратору відбувається копіювання з системи захистів структури
+                info_rejestrator_ar у резервну мкопію. Це копіювання блокується у випадку 
+                "читання з"/"запису в" EEPROM цієї інформації. Тому виставлення спочатку команди
+                запису заблокує копіювання.
+                З другої сторони не можливо, щоб почався запис до модифікації, 
+                бо запис ініціюється функцією main_routines_for_i2c - в якій ми зараз знаходимося.
+                Тобто спочатку треба з цієї функції вийти і при наступних входженнях у цю функцію
+                можливе виконання команди яку ми виставили перед зміною даних, яку 
+                ми зараз гарантовано зробимо (до виходу з цієї функції)
+                */
+                _SET_BIT(control_spi1_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
+
+                info_rejestrator_ar.saving_execution = 0;
+              }
+            }
+            else
+            {
+              //Виствляємо повідомлення у слові діагностики
+              _SET_BIT(diagnostyka, ERROR_INFO_REJESTRATOR_AR_EEPROM_BIT);
+
+              //Виставляємо команду запису цієї структури у EEPROM
+              /*
+              Команду виставляємо скоріше, а потім робимо зміни у полях, які треба змінити,
+              бо по вимозі проконтролювати достовірність даних інформації по аналоговому
+              реєстратору відбувається копіювання з системи захистів структури
+              info_rejestrator_ar у резервну мкопію. Це копіювання блокується у випадку 
+              "читання з"/"запису в" EEPROM цієї інформації. Тому виставлення спочатку команди
+              запису заблокує копіювання.
+              З другої сторони не можливо, щоб почався запис до модифікації, 
+              бо запис ініціюється функцією main_routines_for_i2c - в якій ми зараз знаходимося.
+              Тобто спочатку треба з цієї функції вийти і при наступних входженнях у цю функцію
+              можливе виконання команди яку ми виставили перед зміною даних, яку 
+              ми зараз гарантовано зробимо (до виходу з цієї функції)
+              */
+              _SET_BIT(control_spi1_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
+
+              //Очищаємо структуру інформації по аналоговому реєстраторі
+              info_rejestrator_ar.next_address = MIN_ADDRESS_DATA_AR_AREA;
+              info_rejestrator_ar.saving_execution = 0;
+              info_rejestrator_ar.number_records = 0;
+            }
           }
           else
           {
             //Виконувалося контроль достовірності записаної інформації у EEPROM з записуваною
             
-            unsigned char  *point_to_read  = (unsigned char*)(&EepromARecDesc_tmp );
-            unsigned char  *point_to_write = (unsigned char*)(&EepromARecDesc_comp);
+            unsigned char  *point_to_read  = (unsigned char*)(&info_rejestrator_ar_tmp );
+            unsigned char  *point_to_write = (unsigned char*)(&info_rejestrator_ar_comp);
             unsigned int difference = 0;
 
             i = 0;
-            while ((difference == 0) && ( i < sizeof(__TEMP_STRUCTURE)))
+            while ((difference == 0) && ( i < sizeof(__INFO_REJESTRATOR)))
             {
               if (*point_to_write != *point_to_read) difference = 0xff;
               else
@@ -2593,6 +2673,27 @@ void main_routines_for_spi1(void)
           
           //Виствляємо повідомлення у слові діагностики
           _SET_BIT(diagnostyka, ERROR_INFO_REJESTRATOR_AR_EEPROM_BIT);
+
+          //Виставляємо команду запису цієї структури у EEPROM
+          /*
+          Команду виставляємо скоріше, а потім робимо зміни у полях, які треба змінити,
+          бо по вимозі проконтролювати достовірність даних інформації по аналоговому
+          реєстратору відбувається копіювання з системи захистів структури
+          info_rejestrator_ar у резервну копію. Це копіювання блокується у випадку 
+          "читання з"/"запису в" EEPROM цієї інформації. Тому виставлення спочатку команди
+          запису заблокує копіювання.
+          З другої сторони не можливо, щоб почався запис до модифікації, 
+          бо запис ініціюється функцією main_routines_for_spi1 - в якій ми зараз знаходимося.
+          Тобто спочатку треба з цієї функції вийти і при наступних входженнях у цю функцію
+          можливе виконання команди яку ми виставили перед зміною даних, яку 
+          ми зараз гарантовано зробимо (до виходу з цієї функції)
+          */
+          _SET_BIT(control_spi1_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
+
+          //Очищаємо структуру інформації по аналоговому реєстраторі
+          info_rejestrator_ar.next_address = MIN_ADDRESS_DATA_AR_AREA;
+          info_rejestrator_ar.saving_execution = 0;
+          info_rejestrator_ar.number_records = 0;
         }
       }
       else
@@ -2963,15 +3064,18 @@ void main_routines_for_spi1(void)
         _CLEAR_BIT(control_spi1_taskes, TASK_RESET_OF_RTC_BIT);
       }
     }
-//    else if (_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_BIT) !=0)
+//    else if (
+//             ((_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_AR_BIT) !=0) && (AR_DR == _DF_AR))/* ||
+//             ((_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_DR_BIT) !=0) && (AR_DR == _DF_DR))*/
+//            ) 
 //    {
 //      //Завершився процес переводу мікросхеми DataFlash не розмір сторінки у 256 байт
 //
 //      //Виставляємо біт повторного читання регістру статусу мікросхеми DataFlash
-//      _SET_BIT(control_spi1_taskes, TASK_READ_SR_DF_BIT);
+//      _SET_BIT(control_spi1_taskes, ((AR_DR == _DF_AR) ? TASK_READ_SR_DF_AR_BIT : TASK_READ_SR_DF_DR_BIT));
 //
 //      //Скидаємо біт запуску переводу мікросхеми DataFlash не розмір сторінки у 256 байт
-//      _CLEAR_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_BIT);
+//      _CLEAR_BIT(control_spi1_taskes, /*((AR_DR == _DF_AR) ? */TASK_MAKING_PAGE_SIZE_256_AR_BIT /*: TASK_MAKING_PAGE_SIZE_256_DR_BIT)*/);
 //    }
     else if (
              ((_CHECK_SET_BIT(control_spi1_taskes, TASK_ERASING_DATAFLASH_AR_BIT) !=0) && (AR_DR == _DF_AR)) ||
@@ -3237,12 +3341,15 @@ void main_routines_for_spi1(void)
       
       //Повторно запускаємо перевстановлення полів RTC з того самого місця, який не вийшов
     }
-//    else if (_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_BIT) !=0)
+//    else if (
+//             ((_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_AR_BIT) !=0) && (AR_DR == _DF_AR))/* ||
+//             ((_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_DR_BIT) !=0) && (AR_DR == _DF_DR))*/
+//            ) 
 //    {
 //      //Виконується процес переводу мікросхеми DataFlash не розмір сторінки у 256 байт
 //
 //      //Виставляємо біт повторного читання регістру статусу мікросхеми DataFlash
-//      _SET_BIT(control_spi1_taskes, TASK_READ_SR_DF_BIT);
+//      _SET_BIT(control_spi1_taskes, ((AR_DR == _DF_AR) ? TASK_READ_SR_DF_AR_BIT : TASK_READ_SR_DF_DR_BIT));
 //    }
     else if (
              ((_CHECK_SET_BIT(control_spi1_taskes, TASK_ERASING_DATAFLASH_AR_BIT) !=0) && (AR_DR == _DF_AR)) ||

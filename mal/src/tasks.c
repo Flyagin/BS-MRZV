@@ -143,6 +143,24 @@ void start_tasks_mal(void)
   /**********************/
 
   /**********************/
+  //Читаємо таблицю заповненості аналогового реєстратора
+  /**********************/
+  control_ar_taskes |= (1 << TASK_START_READ_TABLE_DATA);
+  while (control_ar_taskes != 0)
+  {
+    main_routines_for_ar();
+    while(
+          (control_spi1_taskes[0] != 0) ||
+          (control_spi1_taskes[1] != 0) ||
+          (state_execution_spi1 > 0)
+         )
+    {
+      main_routines_for_spi1();
+    }
+  }
+  /**********************/
+
+  /**********************/
   //Читаємо збережені дані аналогового реєстратора з EEPROM
   /**********************/
   comparison_writing &= (unsigned int)(~COMPARISON_WRITING_INFO_REJESTRATOR_AR);/*зчитування, а не порівняння*/
@@ -204,6 +222,11 @@ void periodical_tasks_mal(void)
   //Обробка дій системи меню
   main_menu_function();
 
+  //Управління мікросхемою для аналогового реєстратора
+  if (control_ar_taskes != 0)
+  {
+    main_routines_for_ar();
+  }
   //Обміну через SPI1
   if (
       (control_spi1_taskes[0] != 0) ||

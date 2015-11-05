@@ -214,5 +214,7 @@ void control_settings_prt(void);
 void control_settings_bs(void);
 void control_ustuvannja(void);
 
+void clean_table_data_dr(void);
+void main_routines_for_ar(void);
 
 #endif

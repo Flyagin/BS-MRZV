@@ -213,3 +213,7 @@ extern void control_ustuvannja(void);
 
 //Функції ,які я використовую інших програмувальників
 extern void ChangeConfRS485(unsigned BaudRate, unsigned PARITY, unsigned StopBit);
+
+extern void clean_table_data_dr(void);
+extern void main_routines_for_ar(void);
+

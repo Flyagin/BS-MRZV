@@ -1370,6 +1370,7 @@ unsigned int ustuvannja_P[3], ustuvannja_Q[3];
 CfgTblDsc eeprom_prt_tbl;
 unsigned char crc_settings_prt;
 AuxCfgTbl1Dsc eeprom_bs_settings_tbl;
+unsigned char modbus_address;
 unsigned char crc_settings_bs;
 
 unsigned int state_signal_outputs = 0;
@@ -1390,7 +1391,7 @@ unsigned int address_read_write_dr;
 unsigned int number_bytes_read_write_dr;
 DDR2_B1_2_DATA unsigned int buffer_serial_DataFlash_read_write_dr[SIZE_BUFFER_SERIAL_DATAFLASH_READ_WRITE_DR];
 
-__TEMP_STRUCTURE EepromARecDesc;
+__INFO_REJESTRATOR info_rejestrator_ar;
 unsigned char crc_info_rejestrator_ar;
 
 __TEMP_STRUCTURE EepromDRecDesc;
@@ -1398,5 +1399,8 @@ unsigned char crc_info_rejestrator_dr;
 
 __TEMP_STRUCTURE EepromErrRecDesc;
 unsigned char crc_info_rejestrator_pr_err;
+
+unsigned int control_ar_taskes = 0;
+DDR2_B1_2_DATA unsigned char table_data_ar[NUMBER_DATA_BLOCKS + 1];
 
 #endif

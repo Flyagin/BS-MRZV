@@ -121,13 +121,13 @@ void ZigBee_scaner(void)
            )   
         {
           //Передаємо пакет синхронізації
-          unsigned char address = eeprom_bs_settings_tbl.RS_comm_addres;
+          unsigned char address = modbus_address;
           transmiting_buffer_ZigBee[0] = address;
           transmiting_buffer_ZigBee[1] = (unsigned char)((~(unsigned int)address) & 0xff);
           count_transmiting_byte_ZigBee = 2;
           ZigBee_transmit();
         }
-        else if (receiving_buffer_ZigBee[0] == eeprom_bs_settings_tbl.RS_comm_addres)
+        else if (receiving_buffer_ZigBee[0] == modbus_address)
         {
           //Виставляємо повідомлення про прийняті байти по інтерфейсу ZigBee
           data_ZigBee_received = true;
