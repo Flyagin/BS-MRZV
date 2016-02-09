@@ -391,6 +391,7 @@ EndBlockHSU0State:
 		PrepDecompousePrtTblPrMngSpi();
 		PrepDecompousePrtTblTptUnitSpi();
 		//~PrepDecompouseGoosBUnitSpi();
+		PrepDecompouseDiagnUnitSPI();
 		i = ((StateTpCnDsc*)pv)-> uchTpState_CNL_Spi;
 		if (i)
 		{
@@ -1138,6 +1139,7 @@ void Ici10msRing(void)
 	if(chReqCallServiceBsTblStates)
 	ServiceBsTblStates();
 	TestCopyTeleMechsData();
+	DiagnProcess100msEvt();
 
 
 }

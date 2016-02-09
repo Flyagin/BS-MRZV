@@ -74,15 +74,6 @@ int* ZOP_pickups_notification_value_changed (
     }
   case ID_ED_ZOP_PICKUP_VALUE_6:
     {
-      *p_min = ZOP1_PICKUP6_MIN;
-      *p_max = ZOP1_PICKUP6_MAX;
-      
-      *p_value_int = (int)(round((*value)*1000.0f));
-      p_value_int_edit = (int *)&point->arPckpStpmStngStore[ZOP_select_group].ownrStage1NspPickupStoreDsc.ov_range_Zop_U2;
-      break;
-    }
-  case ID_ED_ZOP_PICKUP_VALUE_7:
-    {
       *p_min = ZOP2_PICKUP0_MIN;
       *p_max = ZOP2_PICKUP0_MAX;
       
@@ -91,7 +82,7 @@ int* ZOP_pickups_notification_value_changed (
 
       break;
     }
-  case ID_ED_ZOP_PICKUP_VALUE_8:
+  case ID_ED_ZOP_PICKUP_VALUE_7:
     {
       *p_min = ZOP2_PICKUP1_MIN;
       *p_max = ZOP2_PICKUP1_MAX;
@@ -100,7 +91,7 @@ int* ZOP_pickups_notification_value_changed (
       p_value_int_edit = (int *)&point->arPckpStpmStngStore[ZOP_select_group].ownrStage2NspPickupStoreDsc.ov_range_Zop_s_I2;
       break;
     }
-  case ID_ED_ZOP_PICKUP_VALUE_9:
+  case ID_ED_ZOP_PICKUP_VALUE_8:
     {
       *p_min = ZOP2_PICKUP2_MIN;
       *p_max = ZOP2_PICKUP2_MAX;
@@ -109,7 +100,7 @@ int* ZOP_pickups_notification_value_changed (
       p_value_int_edit = (int *)&point->arPckpStpmStngStore[ZOP_select_group].ownrStage2NspPickupStoreDsc.ov_range_Zop_s_U2;
       break;
     }
-  case ID_ED_ZOP_PICKUP_VALUE_10:
+  case ID_ED_ZOP_PICKUP_VALUE_9:
     {
       *p_min = ZOP2_PICKUP3_MIN;
       *p_max = ZOP2_PICKUP3_MAX;
@@ -118,7 +109,7 @@ int* ZOP_pickups_notification_value_changed (
       p_value_int_edit = (int *)&point->arPckpStpmStngStore[ZOP_select_group].ownrStage2NspPickupStoreDsc.ov_range_Zop_b_I2;
       break;
     }
-  case ID_ED_ZOP_PICKUP_VALUE_11:
+  case ID_ED_ZOP_PICKUP_VALUE_10:
     {
       *p_min = ZOP2_PICKUP4_MIN;
       *p_max = ZOP2_PICKUP4_MAX;
@@ -127,22 +118,13 @@ int* ZOP_pickups_notification_value_changed (
       p_value_int_edit = (int *)&point->arPckpStpmStngStore[ZOP_select_group].ownrStage2NspPickupStoreDsc.ov_range_Zop_b_U2;
       break;
     }
-  case ID_ED_ZOP_PICKUP_VALUE_12:
+  case ID_ED_ZOP_PICKUP_VALUE_11:
     {
       *p_min = ZOP2_PICKUP5_MIN;
       *p_max = ZOP2_PICKUP5_MAX;
       
       *p_value_int = (int)(round((*value)*1000.0f));
       p_value_int_edit = (int *)&point->arPckpStpmStngStore[ZOP_select_group].ownrStage2NspPickupStoreDsc.ov_range_Zop_I2;
-      break;
-    }
-  case ID_ED_ZOP_PICKUP_VALUE_13:
-    {
-      *p_min = ZOP2_PICKUP6_MIN;
-      *p_max = ZOP2_PICKUP6_MAX;
-      
-      *p_value_int = (int)(round((*value)*1000.0f));
-      p_value_int_edit = (int *)&point->arPckpStpmStngStore[ZOP_select_group].ownrStage2NspPickupStoreDsc.ov_range_Zop_U2;
       break;
     }
   default: break;
@@ -304,15 +286,6 @@ void ZOP_pickup_info(
       *value = (float)(*p_value_int)/1000.0f;
       break;
     }
-  case 6:
-    {
-      *p_min = ZOP1_PICKUP6_MIN;
-      *p_max = ZOP1_PICKUP6_MAX;
-              
-      *p_value_int = point->arPckpStpmStngStore[ZOP_select_group].ownrStage1NspPickupStoreDsc.ov_range_Zop_U2;
-      *value = (float)(*p_value_int)/1000.0f;
-      break;
-    }
   case MAX_NUMBER_PICKUP_ZOP1 + 0:
     {
       *p_min = ZOP2_PICKUP0_MIN;
@@ -364,15 +337,6 @@ void ZOP_pickup_info(
       *p_max = ZOP2_PICKUP5_MAX;
               
       *p_value_int = point->arPckpStpmStngStore[ZOP_select_group].ownrStage2NspPickupStoreDsc.ov_range_Zop_I2;
-      *value = (float)(*p_value_int)/1000.0f;
-      break;
-    }
-  case MAX_NUMBER_PICKUP_ZOP1 + 6:
-    {
-      *p_min = ZOP2_PICKUP6_MIN;
-      *p_max = ZOP2_PICKUP6_MAX;
-              
-      *p_value_int = point->arPckpStpmStngStore[ZOP_select_group].ownrStage2NspPickupStoreDsc.ov_range_Zop_U2;
       *value = (float)(*p_value_int)/1000.0f;
       break;
     }
@@ -525,15 +489,6 @@ const char* ZOP_pickup_info_1(
         
       break;
     }
-  case 6:
-    {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
-        
-      *p_max = ZOP1_PICKUP6_MAX/1000;
-      *p_shift = ZOP1_PICKUP6_SHIFT;
-        
-      break;
-    }
   case MAX_NUMBER_PICKUP_ZOP1 + 0:
     {
       p_pickup_dimention = gradus;
@@ -585,15 +540,6 @@ const char* ZOP_pickup_info_1(
         
       *p_max = ZOP2_PICKUP5_MAX/1000;
       *p_shift = ZOP2_PICKUP5_SHIFT;
-        
-      break;
-    }
-  case MAX_NUMBER_PICKUP_ZOP1 + 6:
-    {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
-        
-      *p_max = ZOP2_PICKUP6_MAX/1000;
-      *p_shift = ZOP2_PICKUP6_SHIFT;
         
       break;
     }
@@ -857,14 +803,6 @@ unsigned int check_pickup_delay_ZOP(CfgTblDsc *point)
 
           break;
         }
-      case 6:
-        {
-          min = ZOP1_PICKUP6_MIN;
-          max = ZOP1_PICKUP6_MAX;
-          value_int = point->arPckpStpmStngStore[group].ownrStage1NspPickupStoreDsc.ov_range_Zop_U2;
-
-          break;
-        }
       case MAX_NUMBER_PICKUP_ZOP1 + 0:
         {
           min = ZOP2_PICKUP0_MIN;
@@ -910,14 +848,6 @@ unsigned int check_pickup_delay_ZOP(CfgTblDsc *point)
           min = ZOP2_PICKUP5_MIN;
           max = ZOP2_PICKUP5_MAX;
           value_int = point->arPckpStpmStngStore[group].ownrStage2NspPickupStoreDsc.ov_range_Zop_I2;
-
-          break;
-        }
-      case MAX_NUMBER_PICKUP_ZOP1 + 6:
-        {
-          min = ZOP2_PICKUP6_MIN;
-          max = ZOP2_PICKUP6_MAX;
-          value_int = point->arPckpStpmStngStore[group].ownrStage2NspPickupStoreDsc.ov_range_Zop_U2;
 
           break;
         }

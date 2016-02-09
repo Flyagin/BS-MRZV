@@ -90,7 +90,8 @@ typedef struct tag_DiagnHldDsc
 #endif 			
 #ifdef __TYPE_DEFINITION_DIAGN_BS_TO_BR__
 			//Obj xxx_FCoil;
-			RamErrEvtDsc mRamErrEvt;
+//			RamErrEvtDsc mRamErrEvt;
+			UNN_PrgEvtBmBrBs muPrgEvtBmBrBs;
 #else			
 			;
 			

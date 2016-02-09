@@ -76,10 +76,29 @@ ERROR_BM_USTUVANNJA_EEPROM_ADJUSTMENT_ID_FAIL_BIT =  ERROR_BV_USTUVANNJA_EEPROM_
 ERROR_BM_POWER_EEPROM_BIT                         =  ERROR_BV_POWER_EEPROM_BIT                        ,
 ERROR_BM_POWER_EEPROM_EMPTY_BIT                   =  ERROR_BV_POWER_EEPROM_EMPTY_BIT                  ,
 ERROR_BM_POWER_EEPROM_COMPARISON_BIT              =  ERROR_BV_POWER_EEPROM_COMPARISON_BIT             ,
-ERROR_BM_POWER_EEPROM_CONTROL_BIT                 =  ERROR_BV_POWER_EEPROM_CONTROL_BIT                 
+ERROR_BM_POWER_EEPROM_CONTROL_BIT                 =  ERROR_BV_POWER_EEPROM_CONTROL_BIT                ,
 
+ERROR_BM_FATAL_EROR_LAST_BIT
 };
 
+//#ifndef __TYPE_DEFINITION_BS_H
+
+//#define SIZE_BM_RAM_PRG_EVT_UNN (  (( (ERROR_BM_FATAL_EROR_LAST_BIT )>>2)<<2) + (4*(1&&( (ERROR_BM_FATAL_EROR_LAST_BIT ))&3))    )
+#define SIZE_BM_RAM_PRG_EVT_UNN (  (( (ERROR_BM_FATAL_EROR_LAST_BIT )>>3)) + (4*(1&&( (ERROR_BM_FATAL_EROR_LAST_BIT ))&3))    )
+
+//#endif 
+
+typedef struct tag_BmRamPrgEvtDsc
+{
+	union 
+	{
+		char   chArBmPrgEvts  [ SIZE_BM_RAM_PRG_EVT_UNN];
+		short  shArBmPrgEvts  [ (SIZE_BM_RAM_PRG_EVT_UNN>>1)];
+	    long   lArBmPrgEvts   [ (SIZE_BM_RAM_PRG_EVT_UNN>>2)];
+		
+	}UNBmRamPrgEvts;
+	//long Additio Var if Need;
+}BmRamPrgEvtDsc;
 
 
 

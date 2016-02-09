@@ -1,6 +1,8 @@
 #if !defined(sram_not_test)
 
-#define EXT_SRAM_BASE       0x20005000
+#include <string.h>
+
+#define EXT_SRAM_BASE       0x20000000
 #define EXT_SRAM_SIZE         (0x200000- 0x10000)
 #define EXT_SRAM_END        0x201FFFFF
 #define FLASH_BASE      0x10000000
@@ -40,7 +42,10 @@ __arm void StartTestRam(void)
 
 }
 #ifdef BS_G45_TEST
-
+extern __arm  void StartTestDDR(void);
+__arm void StartTestRom1(void);
+ __arm void StartTestRam1(void);
+ 
 typedef void (*funcp_t) (void);
 #pragma section = "MYOVERLAY"
 //`#pragma location="MYOVERLAY"
@@ -48,6 +53,8 @@ typedef void (*funcp_t) (void);
 #pragma section = "MYOVERLAY1"
 #pragma section = "MYOVERLAY1_init"
 #pragma section = "MYOVERLAY2_init"
+#pragma section = "MYOVERLAY3_init"
+
 void SwitchToOverlay1(void)
 {
 char * from = __section_begin("MYOVERLAY1_init");
@@ -62,18 +69,40 @@ char * to = __section_begin("MYOVERLAY");
 long size      = __section_size ("MYOVERLAY2_init");
 memcpy(to, from, size);//__section_size("MYOVERLAY2_init"));
 }
+void SwitchToOverlay3(void)
+{
+char * from = __section_begin("MYOVERLAY3_init");
+char * to = __section_begin("MYOVERLAY");
+long size      = __section_size ("MYOVERLAY3_init");
+memcpy(to, from, size);//__section_size("MYOVERLAY2_init"));
+}
+
+
+
+
 __arm void StartTestRom2(void); 
 long StartTest(void) 
 {
 unsigned int i;
 funcp_t f_p = (funcp_t) 
         ((char*) __section_begin("MYOVERLAY") + 0); /* +1 for Thumb instr */
-		StartTestRom2();
+//		StartTestRom2();
 		SwitchToOverlay1();
-		f_p();
+//		#ifdef  BS_G45_FL_RL
+//			__asm volatile("BKPT 4");
+//    	#endif 	  	 
+		StartTestRom1();//f_p();//
+//		#ifdef  BS_G45_FL_RL
+//			__asm volatile("BKPT 4");
+//    	#endif 
 		SwitchToOverlay2();
-		f_p();
-		//StartTestRam
+		StartTestRam1();//f_p();//
+//		#ifdef  BS_G45_FL_RL
+//			__asm volatile("BKPT 4");
+//    	#endif 
+		SwitchToOverlay3();
+		StartTestDDR();//f_p();//
+		//
 		
 return 0;		
 }
@@ -183,7 +212,7 @@ __root __arm void StartTestRam1(void)  @ "MYOVERLAY2"
 	u32_TstVal = WORD_BOUND_EXT_SRAM;
 	u32_TstVal = 0xff;
  
-	while (((unsigned long)pU32) < (WORD_BOUND_EXT_SRAM1))
+	while (((unsigned long)pU32) < (0x203FFFFF))
 	{
 		*pU32++ = u32_TstVal;
 		u32_TstVal +=  0xff;
@@ -191,7 +220,7 @@ __root __arm void StartTestRam1(void)  @ "MYOVERLAY2"
 	//Control Part
 	pU32 = (unsigned long*)(EXT_SRAM_BASE);
 	u32_TstVal = 0xff;
-	while (((unsigned long)pU32) < (WORD_BOUND_EXT_SRAM1))
+	while (((unsigned long)pU32) < (0x203FFFFF))
 	{
 		if (*pU32 != u32_TstVal)
 		{
@@ -205,61 +234,128 @@ __root __arm void StartTestRam1(void)  @ "MYOVERLAY2"
 	}
 #endif
 }
-/*
-#define WORD_BOUND_EXT_SRAM1 ((unsigned long)(EXT_SRAM_BASE+(EXT_SRAM_SIZE>>1)))
-__root __arm void StartTestRam1(void)  @ "MYOVERLAY2"
-{
-	register unsigned long long* pU64;
-	register unsigned long long u64_TstVal;
-	
-	pU64 = (unsigned long long*)(EXT_SRAM_BASE);
-	u64_TstVal = WORD_BOUND_EXT_SRAM;
-	u64_TstVal = 0xff;
-	while (((unsigned long )pU64) < (WORD_BOUND_EXT_SRAM1))
-	{
-		*pU64++ = u64_TstVal;
-		u64_TstVal +=  0xff;
-	}
-	//Control Part
-	pU64 = (unsigned long long*)(EXT_SRAM_BASE);
-	u64_TstVal = 0xff;
-	while (((unsigned long )pU64) < (WORD_BOUND_EXT_SRAM1))
-	{
-		if (*pU64 != u64_TstVal)
-		while (1);
-		else pU64++;
-		u64_TstVal +=  0xff;
-	}
+/*  */
 
-}
 
-__arm void StartTestRam(void)
+#define EXT_DDR_BASE  0x70000000     
+#define EXT_DDR_SIZE  0X3FFFFFF     
+#define EXT_DDR_END   0x73FFFFFF     
+
+#define WORD_BOUND_DDR ((unsigned long)(EXT_DDR_BASE+(EXT_DDR_SIZE>>1)))
+__root __arm void StartTestDDR1(void) // @ "MYOVERLAY3"
 {
 	register unsigned long* pU32;
 	register unsigned long  u32_TstVal;
+	register long i;
 	
-	pU32 = (unsigned long*)(EXT_SRAM_BASE);
-	u32_TstVal = WORD_BOUND_EXT_SRAM;
-	u32_TstVal = 0xff;
-	while (((unsigned long)pU32) < (WORD_BOUND_EXT_SRAM))
-	{
-		*pU32++ = u32_TstVal;
-		u32_TstVal +=  0xff;
-	}
-	//Control Part
-	pU32 = (unsigned long*)(EXT_SRAM_BASE);
-	u32_TstVal = 0xff;
-	while (((unsigned long)pU32) < (WORD_BOUND_EXT_SRAM))
-	{
-		if (*pU32 != u32_TstVal)
-		while (1);
-		else pU32++;
-		u32_TstVal +=  0xff;
-	}
+	pU32 = (unsigned long*)(EXT_DDR_BASE);
 
+#ifndef BS_G45_SRAM
+	u32_TstVal = WORD_BOUND_DDR;
+	u32_TstVal = 0xff;
+	//for (i = 0; i< 0x40; i++)
+	{
+		while (((unsigned long)pU32) < (WORD_BOUND_DDR))//WORD_BOUND_DDR
+		{
+			*pU32++ = u32_TstVal;
+			u32_TstVal +=  0xff;
+		}
+		//Control Part
+		pU32 = (unsigned long*)(EXT_DDR_BASE);
+		u32_TstVal = 0xff;
+		while (((unsigned long)pU32) < (WORD_BOUND_DDR))//WORD_BOUND_DDR
+		{
+			if (*pU32 != u32_TstVal)
+			{
+				#ifdef  BS_G45_FL_RL
+				__asm volatile("BKPT 4");
+				#endif 	
+				while (1);
+			}			
+			else pU32++;
+			u32_TstVal +=  0xff;
+		}
+	}
+#endif
 }
 
-*/
+
+
+__root __arm void StartTestDDR(void)  @ "MYOVERLAY3"
+{
+	register unsigned long* pU32;
+	register unsigned long  u32_TstVal;
+	register long i;
+	
+	pU32 = (unsigned long*)(EXT_DDR_BASE);
+
+#ifndef BS_G45_SRAM
+	u32_TstVal = WORD_BOUND_DDR;
+	u32_TstVal = 0xff;
+	for (i = 0; i< 0x40; i++)
+	{
+		while (((unsigned long)pU32) < (0x100000))//WORD_BOUND_DDR
+		{
+			*pU32++ = u32_TstVal;
+			u32_TstVal +=  0xff;
+		}
+		//Control Part
+		pU32 = (unsigned long*)(EXT_DDR_BASE);
+		u32_TstVal = 0xff;
+		while (((unsigned long)pU32) < (0x100000))//WORD_BOUND_DDR
+		{
+			if (*pU32 != u32_TstVal)
+			{
+				#ifdef  BS_G45_FL_RL
+				__asm volatile("BKPT 4");
+				#endif 	
+				while (1);
+			}			
+			else pU32++;
+			u32_TstVal +=  0xff;
+		}
+	}
 #endif
+}
+
+
+
+
+
+
+
+
+
+#endif
+/*
+long StartTest(void) <<===========================Use this form for suitable Debuging
+{
+unsigned int i;
+funcp_t f_p = (funcp_t) 
+        ((char*) __section_begin("MYOVERLAY") + 0); 
+
+		SwitchToOverlay1();
+//		#ifdef  BS_G45_FL_RL
+//			__asm volatile("BKPT 4");
+//    	#endif 	  	 
+		StartTestRom1();//f_p();//         <<--   Use this form for suitable Debuging
+//		#ifdef  BS_G45_FL_RL
+//			__asm volatile("BKPT 4");
+//    	#endif 
+		SwitchToOverlay2();
+		StartTestRam1();//f_p();//       <<--Use this form for suitable Debuging
+//		#ifdef  BS_G45_FL_RL
+//			__asm volatile("BKPT 4");
+//    	#endif 
+		SwitchToOverlay3();
+		StartTestDDR();//f_p();//       <<---Use this form for suitable Debuging
+		
+		//
+		
+return 0;		
+}
+
+
+*/
 
 #endif

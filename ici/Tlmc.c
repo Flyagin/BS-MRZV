@@ -63,7 +63,7 @@ int AppReqTransmitTeleMechs;
 int AppReqReceiveTeleMechs ; //int AppReqReceiveTotMeasG;
 
 
-long UpdateRVTotTeleMechsTpuUnit(void* pvLDC, long lID)
+long UpdateRVTotTeleMechsTpuUnit(void* pvLDC, long lID)   @ "Fast_function"
 {
 register long i;//,j;
 //register char *pSrc;//,*pDst;
@@ -212,7 +212,7 @@ return lID;//unnV1.uchAr[3];
 }
 
 
-void TeleMechsRvServCTpuApCnUnit(void)
+void TeleMechsRvServCTpuApCnUnit(void)   @ "Fast_function"
 {
 long i;
 hldTeleMechsWrp.size_TeleMechs = 0;

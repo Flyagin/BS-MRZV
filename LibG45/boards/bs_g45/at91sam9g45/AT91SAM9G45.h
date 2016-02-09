@@ -546,6 +546,7 @@ typedef struct _AT91S_HDDRSDRC2 {
 #define AT91C_DDRC2_TWTR      (0x7 << 24) // (HDDRSDRC2) Internal write to read delay
 #define 	AT91C_DDRC2_TWTR_0                    (0x0 << 24) // (HDDRSDRC2) Value : 1
 #define 	AT91C_DDRC2_TWTR_1                    (0x1 << 24) // (HDDRSDRC2) Value : 2
+#define 	AT91C_DDRC2_TWTR_2                    (0x1 << 24) // (HDDRSDRC2) Value : 2
 #define AT91C_REDUCE_WRRD     (0x1 << 27) // (HDDRSDRC2) Reduce Write to Read Delay
 #define AT91C_DDRC2_TMRD      (0xF << 28) // (HDDRSDRC2) Load mode register command to active or refresh command
 #define 	AT91C_DDRC2_TMRD_0                    (0x0 << 28) // (HDDRSDRC2) Value :  0

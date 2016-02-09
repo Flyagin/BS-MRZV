@@ -218,12 +218,12 @@ DiadnHldDsc holderDiagnBsBr = {
 
 };
 
-void ActivateServTrApCnDiagnCTpuUnitSPI(void)
+void ActivateServTrApCnDiagnCTpuUnitSPI(void)   @ "Fast_function"
 {
 
 register void* pv;
 
-holderDiagnBmBs.UNN_Sdfe.mRamErrEvt = hldrErrEvt;
+holderDiagnBsBr.UNN_Sdfe.muPrgEvtBmBrBs = hPrgEvtMangInfo.hldFixUNN_PrgEvt;
   //Reset Connect State
    pv  = (void*)& (holderTRDiagnBsBrSOCTpuUnit.TrCnHldr);
    
@@ -232,20 +232,20 @@ holderDiagnBmBs.UNN_Sdfe.mRamErrEvt = hldrErrEvt;
    ((TRBaseCTpuUnitDsc*)pv)->uchSizeCTpuBuf    = SIZE_TPDU_DIAGN_BS_CNL_SPI;
    //((TRBaseCTpuUnitDsc*)pv)->NumComSes  = ;
    ((TRBaseCTpuUnitDsc*)pv)->ConState   = 0;//Reset Con State
-   ((TRBaseCTpuUnitDsc*)pv)->SizeAppObj = SIZE_DIAGN;
+   ((TRBaseCTpuUnitDsc*)pv)->SizeAppObj = SIZE_DIAGN_FIELD;//SIZE_DIAGN
    ((TRBaseCTpuUnitDsc*)pv)->IdConObj   = ID_DIAGN_BS_UNIT;
    ((TRBaseCTpuUnitDsc*)pv)->ulTrCount  = 0;//Reset  counter
    ((TRBaseCTpuUnitDsc*)pv)->pUchTR     = (unsigned char*)& holderDiagnBsBr.UNN_Sdfe.chArSDFE[0]; //
    
 }
 
-void TerminateServiceApCnDiagn(void)
+void TerminateServiceApCnDiagn(void)   @ "Fast_function"
 {
 
    
 }
 //Pr
-void PrepDecompouseDiagnUnitSPI(void)
+void PrepDecompouseDiagnUnitSPI(void)   @ "Fast_function"
 {
 register long i,j;
 register void *pv;
@@ -260,7 +260,7 @@ register void *pv;
 	if(AppReqTransmitDiagnBsBr)
 	{
 		//Control State Channel
-		i = ((StateTpCnDsc*)pv)-> lCapicity_CNL_Spi;j = 4+SIZE_DIAGN;//
+		i = ((StateTpCnDsc*)pv)-> lCapicity_CNL_Spi;j = 4+SIZE_DIAGN_FIELD;//
 		//If busy - Try another
 		if( i > j )//Minimal Size - Stop try transmit
 		{
@@ -314,7 +314,7 @@ DiadnHldDsc holderDiagnBrBs = {
 
 
 
-long UpdateRVDiagnBmBsTpuUnit(void* pvLDC, long lID)
+long UpdateRVDiagnBmBsTpuUnit(void* pvLDC, long lID)   @ "Fast_function"
 {
 register long i;//,j;
 //register char *pSrc;//,*pDst;
@@ -366,7 +366,7 @@ if (unnV1.uchAr[0]== 0)
 return lID;//unnV1.uchAr[3];
 }
 
-long UpdateRVDiagnBrBsTpuUnit(void* pvLDC, long lID)
+long UpdateRVDiagnBrBsTpuUnit(void* pvLDC, long lID)   @ "Fast_function"
 {
 register long i;//,j;
 //register char *pSrc;//,*pDst;
@@ -433,7 +433,7 @@ TotVerInfoHldDsc hldTotVerInfoBr;
  int AppReqReceiveTotVerInfoBrBs;
 
 
-long UpdateRVTotVerInfoBmTpuUnit(void* pvLDC, long lID)
+long UpdateRVTotVerInfoBmTpuUnit(void* pvLDC, long lID)   @ "Fast_function"
 {
 register long i;//,j;
 //register char *pSrc;//,*pDst;
@@ -573,7 +573,7 @@ else
 
 return lID;//unnV1.uchAr[3];
 }
-long UpdateRVTotVerInfoBrTpuUnit(void* pvLDC, long lID)
+long UpdateRVTotVerInfoBrTpuUnit(void* pvLDC, long lID)   @ "Fast_function"
 {
 register long i;//,j;
 //register char *pSrc;//,*pDst;
@@ -717,6 +717,9 @@ return lID;//unnV1.uchAr[3];
 
 TotVerInfoHldDsc hldTotVerInfoBs;
 
+extern long SetupReadPrgEvtBmBrBs(long lNum, long lAmtPrgEvtUNN,void *pv);
+extern long ReadPrgEvtBmBrBs(void);
+extern char charPrgEvtRecordWasRead;
 void StartUPInitTotVerInfo(void)
 {
 //register long i;
@@ -735,11 +738,24 @@ register void* pv;
    pv  = (void*)&hlVerInfo; //hldTotVerInfoBm.UNN_TotVerInfo.mTotVerInfo;
    hldTotVerInfoBs.UNN_TotVerInfo.mTotVerInfo.mVerInfo = *((NumVerInfo*)pv);
 
+   SetupReadPrgEvtBmBrBs(0,AMOUNT_PRG_EVT_RECORD,(void*)arPrgEvtRecord_T1_WrBuf);
+   ReadPrgEvtBmBrBs();
+   charPrgEvtRecordWasRead = 1;
 }
 
 
 __root TotVerInfo *pTotVerInfoBm = &hldTotVerInfoBm.UNN_TotVerInfo.mTotVerInfo ;
 __root TotVerInfo *pTotVerInfoBs = &hldTotVerInfoBs.UNN_TotVerInfo.mTotVerInfo ;
 __root TotVerInfo *pTotVerInfoBr = &hldTotVerInfoBr.UNN_TotVerInfo.mTotVerInfo ;
+PrgEvtRecord_T1_Dsc arPrgEvtRecord_T1[AMOUNT_PRG_EVT_RECORD] @ "DDR2_Bank1_2_variables";
+PrgEvtFlash_2_Dsc   hPrgEvtMangInfo  @ "DDR2_Bank1_2_variables";
+
+#include "DiagnG.c"
+
+
+
+
+
+
 /* EOF */
 

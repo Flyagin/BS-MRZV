@@ -68,7 +68,7 @@ AbsNumersIdxBufBsDsc ZeroAbsNumersIdxBufBs = {
 
 
 
-void ActivateServTrApCnAbsNumeratorCTpuUnitSPI(void*pvO)
+void ActivateServTrApCnAbsNumeratorCTpuUnitSPI(void*pvO)   @ "Fast_function"
 {
 
 register void* pv;
@@ -99,7 +99,7 @@ if(hldrTpCnState.uchTpState_CNL_Spi == 0)
 //uchTpState_CNL_Spi   
 }
 //Pr
-void PrepDecompouseAbsNumeratorsUnitSPI(void)
+void PrepDecompouseAbsNumeratorsUnitSPI(void)   @ "Fast_function"
 {
 register long i,j;
 register void *pv, *pvO;
@@ -181,7 +181,7 @@ ProcessPrepDecompouseAbsNumeratorsUnitSPI:
 int AppReqReceiveARecDataBs;
 ARecDataDsc hld1ARecData,hld2ARecData;
 
-long UpdateRVARecDataBsTpuUnit(void* pvLDC, long lID)
+long UpdateRVARecDataBsTpuUnit(void* pvLDC, long lID)   @ "Fast_function"
 {
 register long i;//,j;
 //register char *pSrc;//,*pDst;
@@ -345,7 +345,7 @@ ARecDataDsc hldCurrARecData;
  int AppReqTransmitbsNumeratorRQ;
  
  
-void ExtractUrgentDataBr2Bs(void* pv)
+void ExtractUrgentDataBr2Bs(void* pv)   @ "Fast_function"
 {
 register long i,j;
 register void* pvL;
@@ -719,7 +719,7 @@ IncrIdxBuf:
 	}
 }
 
-long  CheckActiveElemInArAbs(void* pv)
+long  CheckActiveElemInArAbs(void* pv)   @ "Fast_function"
 {
 register long i,j;
 //register void* pvL;
@@ -756,7 +756,7 @@ long lCSSecondStartIdx,lCsSecondIdx,lCsSecondSize;
 //unsigned long ;	
 ARecDataDsc  hldTestARecData  @ "DDR2_Bank1_2_variables";
 
-void EvalCSTl(void)
+void EvalCSTl(void)   @ "Fast_function"
 {
 register long i,j,rlVal;
 register void* pvL;
@@ -940,7 +940,7 @@ memcpy((void*)&unnV1.ulVal,(const void*)&arArecDataBS[j].UN_ArecDataBS.sArecBrWr
 					
 }
 
-long UpdateRVARecMainDataBsTpuUnit(void* pvLDC, long lID)
+long UpdateRVARecMainDataBsTpuUnit(void* pvLDC, long lID)   @ "Fast_function"
 {
 //register long i;//,j;
 //register char *pSrc;//,*pDst;

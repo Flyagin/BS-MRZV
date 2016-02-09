@@ -21,7 +21,8 @@ extern unsigned int key_pressed[RANG_KEY];
 extern unsigned int key_released[RANG_KEY];
 extern int time_key_pressed[NR_KEY_ITEMS];
 
-
 extern long lStateWriting;
+
+extern PrgEvtFlash_2_Dsc hPrgEvtMangInfo;
 
 

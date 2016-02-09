@@ -152,7 +152,7 @@ void SendCfgData(void)
 }
 char chSureExecute = 0; 
 
-void CheckStngState(void)
+void CheckStngState(void)   //@ "Fast_function"
 {
 register long i;
 SettingsStateDsc locSettingsStateDsc;
@@ -289,7 +289,7 @@ SettingsStateDsc locSettingsStateDsc;
 	}
 
 }
-void CheckPrtTblState(void)
+void CheckPrtTblState(void)  // @ "Fast_function"
 {
 
 
@@ -375,7 +375,7 @@ PrtTblStateDsc locPrtTblState;
 }
 
 short shbsRefreshCfgTablesState @  "DMA_BUFFERS";
-void RefreshCfgTables(void)
+void RefreshCfgTables(void)   //@ "Fast_function"
 {
 	
 	register long i = 0;
@@ -635,7 +635,7 @@ void ServiceBsTblStates(void)
 long ReadstngTblGood = 0;
 long ReadstngTblBad  = 0;
   char chCtrReadingStng = 0;
-void ReadStngTbl(void)//Last Modify for Getting data from BM
+void ReadStngTbl(void)   // @ "Fast_function" //Last Modify for Getting data from BM
 {
 register long i;
 SettingsStateDsc locSettingsStateDsc;
@@ -780,7 +780,7 @@ SettingsStateDsc locSettingsStateDsc;
 	}
 }
   char chCtrWritingStng = 0;
-void WriteStngState(void)
+void WriteStngState(void)   //@ "Fast_function"
 {
 register long i;
 SettingsStateDsc locSettingsStateDsc;
@@ -937,7 +937,7 @@ shbsRefreshCfgTablesState &=~(1<<BS_RF_CFG_VAR_USED_BIT);
 }
 
 
-void PrepareDhldStngIciTblforTrOnBM(void) 
+void PrepareDhldStngIciTblforTrOnBM(void)   @ "Fast_function"
 {
 register long i;//,j;
 register char *pDst;//*pSrc;//,
@@ -1150,7 +1150,7 @@ void* pTbl;
 
 
 char chCtrWriting ;
-void WriteCfgTbl(void)
+void WriteCfgTbl(void)   //@ "Fast_function"
 {
 register long i;
 PrtTblStateDsc locPrtTblState;
@@ -1289,7 +1289,7 @@ long ReadPrtTblGood = 0;
 long ReadPrtTblBad = 0;
 
 char chCtrReading ;
-void  ReadCfgTbl(void)//Last Modify for Getting data from BM
+void  ReadCfgTbl(void)  // @ "Fast_function" //Last Modify for Getting data from BM
 {
 register long i;
 PrtTblStateDsc locPrtTblState;
@@ -1435,7 +1435,7 @@ PrtTblStateDsc locPrtTblState;
 }
 
  char chCtrWritingYst = 0;
-void WriteYstState(void)
+void WriteYstState(void)   //@ "Fast_function"
 {
 register long i;
 YustStateDsc locYustTblState;
@@ -1573,7 +1573,7 @@ YustStateDsc locYustTblState;
 long ReadYstTblGood = 0;
 long ReadYstTblBad = 0;
   char chCtrReadingYst = 0;
-void  ReadYstTbl(void)//Last Modify for Getting data from BM
+void  ReadYstTbl(void)    //@ "Fast_function" //Last Modify for Getting data from BM
 {
 register long i;
 YustStateDsc locYustTblState;
@@ -1736,7 +1736,7 @@ command_menu |= (1 << REWRITE_MENU);
 }
 
 
-long CheckDhldStngIciTblforTrOnBM(void) 
+long CheckDhldStngIciTblforTrOnBM(void)   @ "Fast_function"
 {
 register long i;//,j;
 register char *pDst;//*pSrc;//,

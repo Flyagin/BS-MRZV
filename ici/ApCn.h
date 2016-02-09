@@ -37,7 +37,7 @@
 #define TERM  3
 //Pointer function return long param void and long
 typedef long(*PFL_VL)(void* pv, long lV);
-
+typedef void(*PFV_VL)(void* pv, long lV);
 //.#define KEY_MASK ((unsigned long long)0xFFFFFFFFF) //
 //Aplication Connect Def Module CPU_CM CPU connect Module
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -625,7 +625,7 @@ void PrepDecompouseFCoilUnitSpi(void);
 void PrepDecompouseDateTimeUnitSpi(void);
 void PrepDecompouseAtrCmdUnitSpi(void);
  void PrepDecompouseAbsNumeratorsUnitSPI(void); 
-
+void PrepDecompouseDiagnUnitSPI(void) ;
 
 void PrepDecompouseSrcTest1Unit(void);
 //void PrepDecompouse Unit(void)
@@ -672,5 +672,8 @@ extern void HSU2StallHundler(void);
 extern void TeleMechsRvServCTpuApCnUnit(void);
 extern int AppReqReceiveTeleMechs ;
 extern void TestCopyTeleMechsData(void);
+
+extern void DiagnProcess100msEvt(void);
+
 
 #endif /* ApCn_h */

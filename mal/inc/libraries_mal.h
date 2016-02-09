@@ -16,5 +16,6 @@
 
 #include "KbdDrv.h"
 #include "CfgTbls.h"
+#include "DiagnG.h"
 #include    "Tlmc.h"
 

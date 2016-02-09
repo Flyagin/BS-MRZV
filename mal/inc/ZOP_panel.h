@@ -43,10 +43,6 @@
 #define TITLE_ZOP1_PICKUP5_RUS          "I для ЗОП1 простая"
 #define TITLE_ZOP1_PICKUP5_ENG          "I для ЗОП1 простая"
 
-#define TITLE_ZOP1_PICKUP6_UKR          "U для ЗЗП1 проста"
-#define TITLE_ZOP1_PICKUP6_RUS          "U для ЗОП1 простая"
-#define TITLE_ZOP1_PICKUP6_ENG          "U для ЗОП1 простая"
-
 #define TITLE_ZOP2_PICKUP0_UKR          "Кут повороту ЗЗП2"
 #define TITLE_ZOP2_PICKUP0_RUS          "Угол поворота ЗОП2"
 #define TITLE_ZOP2_PICKUP0_ENG          "Угол поворота ЗОП2"
@@ -71,12 +67,8 @@
 #define TITLE_ZOP2_PICKUP5_RUS          "I для ЗОП2 простая"
 #define TITLE_ZOP2_PICKUP5_ENG          "I для ЗОП2 простая"
 
-#define TITLE_ZOP2_PICKUP6_UKR          "U для ЗЗП2 проста"
-#define TITLE_ZOP2_PICKUP6_RUS          "U для ЗОП2 простая"
-#define TITLE_ZOP2_PICKUP6_ENG          "U для ЗОП2 простая"
-
-#define MAX_NUMBER_PICKUP_ZOP1          7
-#define MAX_NUMBER_PICKUP_ZOP2          7
+#define MAX_NUMBER_PICKUP_ZOP1          6
+#define MAX_NUMBER_PICKUP_ZOP2          6
 #define MAX_NUMBER_PICKUP_ZOP           (MAX_NUMBER_PICKUP_ZOP1 + MAX_NUMBER_PICKUP_ZOP2)
 
 #define TITLE_ZOP1_DELAY0_UKR           "ЗЗП1"

@@ -414,7 +414,7 @@ extern unsigned char crc_info_rejestrator_ar;
 extern __TEMP_STRUCTURE EepromDRecDesc;
 extern unsigned char crc_info_rejestrator_dr;
 
-extern __TEMP_STRUCTURE EepromErrRecDesc;
+extern PrgEvtFlash_2_Dsc hPrgEvtMangInfo;
 extern unsigned char crc_info_rejestrator_pr_err;
 
 extern unsigned int control_ar_taskes;

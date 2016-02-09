@@ -37,7 +37,7 @@ void request_handler(unsigned short size)
                *(puchMsg + size - (NUMBER_CRC_BYTES - 1))
               )
              ||
-             *puchMsg != modbus_address
+             *puchMsg != eeprom_bs_settings_tbl.RS_comm_addres
            )
         {
           //CRC не совпала (игнорируем пакет)
@@ -53,7 +53,7 @@ void request_handler(unsigned short size)
         //ѕроверка данных
         modbus_dev_state = check_data();
       } else {
-        response[0] = modbus_address;
+        response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
         response[1] = 0x8F;
         response[2] = SLAVE_DEVICE_BUSY;
         crc16 = CRC16(response, 3);
@@ -73,7 +73,7 @@ void request_handler(unsigned short size)
                *(puchMsg + size - (NUMBER_CRC_BYTES - 1))
               )
              ||
-             *puchMsg != modbus_address
+             *puchMsg != eeprom_bs_settings_tbl.RS_comm_addres
            )
         {
           //CRC не совпала (игнорируем пакет)
@@ -89,7 +89,7 @@ void request_handler(unsigned short size)
         //ѕроверка данных
         modbus_dev_state = check_data();
       } else {
-        response[0] = modbus_address;
+        response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
         response[1] = 0x8F;
         response[2] = SLAVE_DEVICE_BUSY;
         crc16 = CRC16(response, 3);

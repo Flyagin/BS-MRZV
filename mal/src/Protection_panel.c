@@ -191,7 +191,7 @@ static void _cbPickups_Protection(WM_MESSAGE * pMsg)
           Protection_Pickup_m = ZOP_Pickup_m;
           
           id_ed_protection_pickup_value_min = ID_ED_ZOP_PICKUP_VALUE_0;
-          id_ed_protection_pickup_value_max = ID_ED_ZOP_PICKUP_VALUE_13;
+          id_ed_protection_pickup_value_max = ID_ED_ZOP_PICKUP_VALUE_11;
           
           Protection_pickups_notification_value_changed = ZOP_pickups_notification_value_changed;
           

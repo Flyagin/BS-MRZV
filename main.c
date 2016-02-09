@@ -10,6 +10,7 @@
 #include "gui_functions.h"
 #include "macroses_mal.h"
 
+void periodical_operations(void);
 //long SendStngTbl(void);
 void ActivateTransmittionStngOnBM(void);
 long ReqGetSettingsBMExample(void) ;
@@ -32,6 +33,12 @@ extern char  ReqSendSettingsBM(long lActivation, void* pSettingsStateDsc);
 
 //twi
 #include "header.h"
+
+extern unsigned short const __checksum;
+extern unsigned int __checksum_begin;
+extern unsigned int __checksum_end;
+
+
 long lDbgActivate = 0x200000;
 extern KbdUNFldHolderDsc hldCurScanCode1,hldCurScanCode2;
 extern void tmr_init(void);
@@ -45,7 +52,7 @@ extern void ON_BackLight(void );
 extern void OFF_BackLight(void );
 extern void CollectCfgTbls(void);
 extern void RefreshCfgTables(void);
-int main()
+int main()  @ "Fast_function"
 {
   AT91C_BASE_PIOD->PIO_PER  = 0xFFFF | (1 << 20) | (1 << 21) | (1 << 22)| (1<<23);
   AT91C_BASE_PIOD->PIO_OER  = 0xFFFF | (1 << 20) | (1 << 21) | (1 << 22)| (1<<23);
@@ -82,10 +89,33 @@ int main()
 
   while(1)
   {
-    periodical_tasks_mal();
+    /************************************************************/
+      //Перевірка контрольної суми програми
+    /************************************************************/
+      unsigned short sum = 0;
+      unsigned char *point = ((unsigned char *)&__checksum_begin);
+      //for (unsigned int i = ((unsigned int)&__checksum_end -(unsigned int)&__checksum_begin +1); i > 0; i--)
+      {
+        sum += *point++;
+        periodical_operations();
+      }
+      if (sum != (unsigned short)__checksum)
+	  sum++;//while(1);//?????*/
+	//  _SET_STATE(resurs_diagnostica, ERROR_EXTERNAL_FLASH_MEMORY_BIT);	  
+    //  else
+	//	_CLEAR_STATE(resurs_diagnostica, ERROR_EXTERNAL_FLASH_MEMORY_BIT);
+
+
+  }
+ //return 0;
+}
+
+
+void periodical_operations(void) @ "Fast_function"
+{
+	periodical_tasks_mal();
     gui_routines();
-    
-if ((state_command_power_LCD & (1 << 1)) != 0)
+	if ((state_command_power_LCD & (1 << 1)) != 0)
     {
       //Vymykajemo LCD
       state_command_power_LCD &= (unsigned int)(~(1 << 31));//Stan vymkneno
@@ -93,14 +123,14 @@ if ((state_command_power_LCD & (1 << 1)) != 0)
       OFF_BackLight();
       
     }
-    if ((state_command_power_LCD & (1 << 0)) != 0)
+	if ((state_command_power_LCD & (1 << 0)) != 0)
     {
       //Vmykajemo LCD
       state_command_power_LCD |= (unsigned int)( (1 << 31));//Stan vvimkneno
       state_command_power_LCD &= (unsigned int)(~(1 <<  0));//Komandu znimajemo
       ON_BackLight();
     }
-    if (
+	if (
         ((state_command_power_LCD & ((unsigned int)(1 << 31))) != 0) && start_gui_exec 
        )
     {
@@ -110,8 +140,9 @@ if ((state_command_power_LCD & (1 << 1)) != 0)
       GUI_Exec();
       GUI_MULTIBUF_End();
     }
-if (lDbgActivate)
-lDbgActivate--;
+/////////////////////////////////////////////////////////////////////////////	
+	if (lDbgActivate)
+	lDbgActivate--;
 else
 {
   
@@ -127,10 +158,11 @@ else
   
   lDbgActivate = 0x100000;
 }
-RefreshCfgTables();
-
-    
-//    printf("main.c Line 67 - in While \n");
+	
+//////////////////////////////////////////////////////////////////////////////	
+	RefreshCfgTables();
+        ServiceLLDFlQuery();
+	//
     
     driverRS485_main();
     
@@ -140,8 +172,22 @@ RefreshCfgTables();
     ZigBee_scaner();
     
     modbus_routines();
-    //  Scan_Ici_Event_Req(); //
-    //  Scan_Ici_Entry_Data();//
-  }
- //return 0;
-}
+
+
+
+}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -733,10 +733,6 @@
 #define ZOP1_PICKUP5_MAX         50000
 #define ZOP1_PICKUP5_SHIFT       2
 
-#define ZOP1_PICKUP6_MIN         10000
-#define ZOP1_PICKUP6_MAX         150000
-#define ZOP1_PICKUP6_SHIFT       2
-
 #define ZOP2_PICKUP0_MIN         0
 #define ZOP2_PICKUP0_MAX         90
 #define ZOP2_PICKUP0_SHIFT       0
@@ -760,10 +756,6 @@
 #define ZOP2_PICKUP5_MIN         250
 #define ZOP2_PICKUP5_MAX         50000
 #define ZOP2_PICKUP5_SHIFT       2
-
-#define ZOP2_PICKUP6_MIN         10000
-#define ZOP2_PICKUP6_MAX         150000
-#define ZOP2_PICKUP6_SHIFT       2
 
 #define ZOP1_DELAY0_MIN          0          /* x10*/
 #define ZOP1_DELAY0_MAX          3200       /* x10*/

@@ -1479,7 +1479,7 @@ TestReqTransmitT1 = 0;
 
 extern void ExtractUrgentDataBr2Bs(void* pv);
 
-void ExtractUrgentData(long lID_Cnl,void* pvD)
+void ExtractUrgentData(long lID_Cnl,void* pvD)    @ "Fast_function"
 {
 switch (lID_Cnl )
 	{

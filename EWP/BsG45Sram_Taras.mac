@@ -120,21 +120,21 @@ __initDDRAM()
     //            AT91C_DDRC2_TRP_2             |     //  2 * 7.5 = 15  ns > 12.5 ns
     //            AT91C_DDRC2_TRRD_2            |     //  1 * 7.5 = 15  ns > 10 ns
     //            AT91C_DDRC2_TWTR_1            |     //  1 clock cycle
-    //            AT91C_DDRC2_TMRD_2                  //  2 clock cycles
-    __writeMemory32(0x21228226,0xFFFFE60C,"Memory");
+    //            AT91C_DDRC2_TMRD_3                  //  2 clock cycles
+    __writeMemory32(0x13228226,0xFFFFE60C,"Memory");
 
     // pSDDRC->HDDRSDRC2_T1PR = 0x00000008;
-    // HDDRSDRC2_T1PR, AT91C_DDRC2_TXP_2  |           //  2 * 7.5 = 15 ns
-    //                 200 << 16          |           // 200 clock cycles, TXSRD: Exit self refresh delay to Read command
+    // HDDRSDRC2_T1PR, AT91C_DDRC2_TXP_3  |           //  2 * 7.5 = 15 ns
+    //                 214 << 16          |           // 200 clock cycles, TXSRD: Exit self refresh delay to Read command
     //                 16 << 8            |           // 16 * 7.5 = 120 ns TXSNR: Exit self refresh delay to non read command
     //                 AT91C_DDRC2_TRFC_14 << 0       // 14 * 7.5 = 105 ns (must be 105 ns for 512M DDR)
-    __writeMemory32(0x02c8100e,0xFFFFE610,"Memory");
+    __writeMemory32(0x03d6100e,0xFFFFE610,"Memory");
     
     // HDDRSDRC2_T2PR, AT91C_DDRC2_TRTP_1   |         //  1 * 7.5 = 7.5 ns
     //                 AT91C_DDRC2_TRPA_2   |         //  2 * 7.5 = 15 ns  > 12.5 ns
-    //                 AT91C_DDRC2_TXARDS_7 |         //  7 clock cycles
-    //                 AT91C_DDRC2_TXARD_2            //  2 clock cycles
-    __writeMemory32(0x1272,0xFFFFE614,"Memory");
+    //                 AT91C_DDRC2_TXARDS_9 |         //  7 clock cycles
+    //                 AT91C_DDRC2_TXARD_3            //  2 clock cycles
+    __writeMemory32(0x1293,0xFFFFE614,"Memory");
     
     // -----------------------Step 3------------------- 
     // An NOP command is issued to the DDR2-SDRAM to 
@@ -293,7 +293,7 @@ __initDDRAM()
     // to low (OCD calibration mode exit).
     // -------------------------------------------------
     tempVal = __readMemory32(0xFFFFE608,"Memory");
-    tempVal &= 0xFFFF8FFF;
+    tempVal &= 0xFFFFFFFF;
     __writeMemory32(tempVal,0xFFFFE608,"Memory");
     __delay(1);
     
@@ -303,7 +303,7 @@ __initDDRAM()
     // -------------------------------------------------
     // HDDRSDRC2_MR, AT91C_DDRC2_MODE_EXT_LMR_CMD
     __writeMemory32(0x5,0xFFFFE600,"Memory");
-    __writeMemory32(0x0,0x73000000,"Memory"); // The write address must be chosen so that BA[1] is set to 1 and BA[0] is set to 1.
+    __writeMemory32(0x0,0x71000000,"Memory"); // The write address must be chosen so that BA[1] is set to 1 and BA[0] is set to 1.
     // wait 2 cycles min
     __delay(1);
     
@@ -317,17 +317,24 @@ __initDDRAM()
     __writeMemory32(0x0,0x70000000,"Memory"); // Perform a write access to any DDR2-SDRAM address.
     // wait 2 cycles min
     __delay(1);
+    __writeMemory32(0x0,0x70000000,"Memory"); // Perform a write access to any DDR2-SDRAM address.
+    // wait 2 cycles min
+    __delay(1);
     
     // -----------------------Step 21------------------- 
     // Write the refresh rate into the count field in the 
-    // Refresh Timer register. The DDR2-SDRAM device requires a
-    // refresh every 15.625 ¦Мs or 7.81 ¦Мs. With a 100 
-    // MHz frequency, the refresh timer count register must to 
-    // be set with (15.625 /100 MHz) = 1562 i.e. 0x061A or 
-    // (7.81 /100MHz) = 781 i.e. 0x030d
+    // Refresh Timer register. 
     // -------------------------------------------------
-    // HDDRSDRC2_RTR, 0x00000411
-    __writeMemory32(0x00000411,0xFFFFE604,"Memory");
+    /*
+    SDRAM devices require a refresh of all rows every 64ms (commercial) or 32ms
+    (industrial and automotive). The value to be loaded depends on the DDRSDRC 
+    clock frequency (MCK: Master Clock) and the number of rows in the device.
+            
+    For an SDRAM with 8192 rows and a 133 MHz Master clock, the value of 
+    Refresh Timer Count bit is programmed: (((64 x 10-3)/8192) x132,(6) x10 6 = 1036 or 0x040C.
+    */
+    // HDDRSDRC2_RTR, 0x0000040C
+    __writeMemory32(0x00000206,0xFFFFE604,"Memory");
 
     // Read optimization" shall be un-selected on this revision.
     __writeMemory32(0x04,0xFFFFE62C,"Memory");
@@ -336,9 +343,6 @@ __initDDRAM()
 
     // wait for end of calibration
     __delay(1);
-
-   __message "------------------------------- DDRAM configuration done -------------------------------";
-
 }
 
 //------------------------------------------------------------------------------
@@ -402,64 +406,56 @@ _MapRAMAt0()
 __PllSetting()
 {
    __var Reg; 
-	//* pPmc->PMC_MOR = (( AT91C_CKGR_OSCOUNT & (0x40 <<8) | AT91C_CKGR_MOSCEN ));
-    __writeMemory32(0x00004001,0xFFFFFC20,"Memory");
-    __delay(20);
-	  do
-		{
-			Reg = __readMemory32(0xFFFFFC68, "Memory") & 1;  // PMC_SR
-		}while(!Reg);
-	__delay(20);	
-    // Switch to mainosc
-    //__writeMemory32(0x00000001, 0xFFFFFC30, "Memory");
-	//__writeMemory32(0x00000001, 0xFFFFFC30, "Memory");
-    __delay(10);
+//   AT91C_BASE_PMC->PMC_MOR = BOARD_OSCOUNT | AT91C_CKGR_MOSCEN;
+   __writeMemory32(0x00004001,0xFFFFFC20,"Memory");
+   __delay(20);
+//   while (!(AT91C_BASE_PMC->PMC_SR & AT91C_PMC_MOSCS));
+   do
+   {
+     Reg = __readMemory32(0xFFFFFC68, "Memory") & 1;  // PMC_SR
+   }
+   while(!Reg);
+  
+//    AT91C_BASE_PMC->PMC_PLLAR = BOARD_CKGR_PLLA
+//                                | BOARD_PLLACOUNT
+//                                | BOARD_MULA
+//                                | BOARD_DIVA;
+   __writeMemory32(0x20C63F03,0xFFFFFC28,"Memory");
+   __delay(20);
+//   while (!(AT91C_BASE_PMC->PMC_SR & AT91C_PMC_LOCKA));
+   do
+   { 
+     Reg = __readMemory32(0xFFFFFC68, "Memory") & 2;  // 
+   }
+   while(!Reg);
 
-//*   AT91C_BASE_CKGR->CKGR_PLLAR = (AT91C_CKGR_SRCA | ((199 << 16) & AT91C_CKGR_MULA) | 
-//    (AT91C_CKGR_PLLACOUNT | (AT91C_CKGR_OUTA_0 | (3);0x20C63F03
-//    __writeMemory32(0x20C73F03,0xFFFFFC28,"Memory");
-	__writeMemory32(0x20C63F03,0xFFFFFC28,"Memory");
-	do
-		{
-			Reg = __readMemory32(0xFFFFFC68, "Memory") & 2;  // 
-		}while(!Reg);
-    __delay(20);
+   __delay(20);
+//   while (!(AT91C_BASE_PMC->PMC_SR & AT91C_PMC_MCKRDY));
+   do
+   {
+     Reg = __readMemory32(0xFFFFFC68, "Memory") & 8;  // 
+   }
+   while(!Reg);
 
-         
-// AT91C_BASE_PMC->PMC_MCKR = BOARD_PRESCALER;0x00001200
-//   __writeMemory32(0x00001300,0xFFFFFC30,"Memory");
-    __writeMemory32(0x00001200,0xFFFFFC30,"Memory");
-    __delay(20);
-    do
-		{
-			Reg = __readMemory32(0xFFFFFC68, "Memory") & 8;  // 
-		}while(!Reg);
-    
-//*   AT91C_BASE_PMC->PMC_MCKR |= AT91C_PMC_CSS_PLLA_CLK; 0x00001302
-//    __writeMemory32(0x00001302,0xFFFFFC30,"Memory");
-//    __writeMemory32(0x00001202,0xFFFFFC30,"Memory");
-/*
-    __delay(20);
-	do
-		{
-			Reg = __readMemory32(0xFFFFFC68, "Memory") & 8;  // 
-		}while(!Reg);
-*/
-	//Зміни від 03 вересня 2014 року
-    __writeMemory32(0x00001200,0xFFFFFC30,"Memory");
-    __delay(20);
-	do
-		{
-			Reg = __readMemory32(0xFFFFFC68, "Memory") & 8;  // 
-		}while(!Reg);
+//   AT91C_BASE_PMC->PMC_MCKR = BOARD_PRESCALER;
+   __writeMemory32(0x00001300,0xFFFFFC30,"Memory");
+   __delay(20);
+//   while (!(AT91C_BASE_PMC->PMC_SR & AT91C_PMC_MCKRDY));
+   do
+   {
+     Reg = __readMemory32(0xFFFFFC68, "Memory") & 8;  // 
+   }
+   while(!Reg);
 
-    __writeMemory32(0x00001202,0xFFFFFC30,"Memory");
-    __delay(20);
-	do
-		{
-			Reg = __readMemory32(0xFFFFFC68, "Memory") & 8;  // 
-		}while(!Reg);
-		
+//   AT91C_BASE_PMC->PMC_MCKR |= AT91C_PMC_CSS_PLLA_CLK;
+   __writeMemory32(0x00001302,0xFFFFFC30,"Memory");
+   __delay(20);
+//   while (!(AT91C_BASE_PMC->PMC_SR & AT91C_PMC_MCKRDY));
+   do
+   {
+     Reg = __readMemory32(0xFFFFFC68, "Memory") & 8;  // 
+   }
+   while(!Reg);
 }
 
 

@@ -147,7 +147,7 @@ void main_routines_for_spi1(void)
   static unsigned int trigger_active_functions_comp[N_TMP];
   static __INFO_REJESTRATOR info_rejestrator_ar_comp;
   static __TEMP_STRUCTURE EepromDRecDesc_comp;
-  static __TEMP_STRUCTURE EepromErrRecDesc_comp;
+  static PrgEvtFlash_2_Dsc hPrgEvtMangInfo_comp;
   
   if (state_execution_spi1 == 0)
   {
@@ -661,7 +661,7 @@ void main_routines_for_spi1(void)
       offset_from_start = number_block_info_rejestrator_pr_err_write_to_eeprom*SIZE_PAGE_EEPROM;
 
       //Кількість байт до кінця буферу 
-      size_to_end = (sizeof(EepromErrRecDesc) + 1) - offset_from_start; 
+      size_to_end = (sizeof(hPrgEvtMangInfo) + 1) - offset_from_start; 
       
       if (size_to_end > 0)
       {
@@ -764,7 +764,7 @@ void main_routines_for_spi1(void)
       Temporaty_SPI1_Buffer_Tx[1] = (START_ADDRESS_INFO_REJESTRATORS_PR_ERR >> 8) & 0xff; //старша  адреса початку зберігання даних по реєстратору програмних подій у EEPROM
       Temporaty_SPI1_Buffer_Tx[2] = (START_ADDRESS_INFO_REJESTRATORS_PR_ERR     ) & 0xff; //молодша адреса початку зберігання даних по реєстратору програмних подій у EEPROM
                                                                                           //дальше значення байт не має значення
-      start_exchange_via_SPI1(SPI1_EEPROM, ((sizeof(EepromErrRecDesc) + 1) + 3));
+      start_exchange_via_SPI1(SPI1_EEPROM, ((sizeof(hPrgEvtMangInfo) + 1) + 3));
     }
 //    else if (
 //             ((_CHECK_SET_BIT(control_spi1_taskes, TASK_MAKING_PAGE_SIZE_256_AR_BIT) !=0) && (AR_DR_tmp == _DF_AR))/* ||
@@ -1338,9 +1338,9 @@ void main_routines_for_spi1(void)
 
       //Готуємо буфер для запису у EEPROM разом з контрольною сумою
       unsigned char crc_eeprom_info_rejestrator_pr_err = 0, temp_value;
-      unsigned char  *point_1 = (unsigned char*)(&EepromErrRecDesc); 
-      unsigned char  *point_2 = (unsigned char*)(&EepromErrRecDesc_comp); 
-      for (unsigned int i = 0; i < sizeof(__TEMP_STRUCTURE); i++)
+      unsigned char  *point_1 = (unsigned char*)(&hPrgEvtMangInfo); 
+      unsigned char  *point_2 = (unsigned char*)(&hPrgEvtMangInfo_comp); 
+      for (unsigned int i = 0; i < sizeof(PrgEvtFlash_2_Dsc); i++)
       {
         temp_value = *(point_1);
         *(point_2) = temp_value;
@@ -1351,7 +1351,7 @@ void main_routines_for_spi1(void)
       }
 
       //Добавляємо інвертовану контрольну суму у кінець масиву
-      Temporaty_SPI1_Buffer_Tx[3 + sizeof(__TEMP_STRUCTURE)] = (unsigned char)((~(unsigned int)crc_eeprom_info_rejestrator_pr_err) & 0xff);
+      Temporaty_SPI1_Buffer_Tx[3 + sizeof(PrgEvtFlash_2_Dsc)] = (unsigned char)((~(unsigned int)crc_eeprom_info_rejestrator_pr_err) & 0xff);
       
       //Скидаємо біт запуску нового запису і виставляємо біт запису блоків у EEPROM з бітом встановлення дозволу на запис
       _SET_BIT(control_spi1_taskes, TASK_EEPROM_WRITE_PREPARATION_BIT);
@@ -2829,9 +2829,9 @@ void main_routines_for_spi1(void)
       //Аналізуємо прочитані дані
       //Спочатку аналізуємо, чи прояитаний блок є пустим, чи вже попередньо записаним
       unsigned int empty_block = 1, i = 0; 
-      __TEMP_STRUCTURE EepromErrRecDesc_tmp;
+      PrgEvtFlash_2_Dsc hPrgEvtMangInfo_tmp;
       
-      while ((empty_block != 0) && ( i < (sizeof(__TEMP_STRUCTURE) + 1)))
+      while ((empty_block != 0) && ( i < (sizeof(PrgEvtFlash_2_Dsc) + 1)))
       {
         if (Temporaty_SPI1_Buffer_Rx[3 + i] != 0xff) empty_block = 0;
         i++;
@@ -2846,15 +2846,15 @@ void main_routines_for_spi1(void)
         
         //Перевіряємо контрольну суму і переписуємо прочитані дані у структуру
         unsigned char crc_eeprom_info_rejestrator_pr_err = 0, temp_value;
-        unsigned char  *point = (unsigned char*)(&EepromErrRecDesc_tmp); 
-        for (i =0; i < sizeof(__TEMP_STRUCTURE); i++)
+        unsigned char  *point = (unsigned char*)(&hPrgEvtMangInfo_tmp); 
+        for (i =0; i < sizeof(PrgEvtFlash_2_Dsc); i++)
         {
           temp_value = Temporaty_SPI1_Buffer_Rx[3 + i];
           *(point) = temp_value;
           crc_eeprom_info_rejestrator_pr_err += temp_value;
           point++;
         }
-        if (Temporaty_SPI1_Buffer_Rx[3 + sizeof(__TEMP_STRUCTURE)]  == ((unsigned char)((~(unsigned int)crc_eeprom_info_rejestrator_pr_err) & 0xff)))
+        if (Temporaty_SPI1_Buffer_Rx[3 + sizeof(PrgEvtFlash_2_Dsc)]  == ((unsigned char)((~(unsigned int)crc_eeprom_info_rejestrator_pr_err) & 0xff)))
         {
           //Контролдьна сума сходиться
 
@@ -2872,18 +2872,18 @@ void main_routines_for_spi1(void)
             //Виконувалося зчитування інформації по реєстратору програмних подій у робочу структуру
             
             //Перекидаємо інформації по реєстратору програмних подій з тимчасової структури у робочу структуру
-            EepromErrRecDesc = EepromErrRecDesc_tmp;
+            hPrgEvtMangInfo = hPrgEvtMangInfo_tmp;
           }
           else
           {
             //Виконувалося контроль достовірності записаної інформації у EEPROM з записуваною
             
-            unsigned char  *point_to_read  = (unsigned char*)(&EepromErrRecDesc_tmp );
-            unsigned char  *point_to_write = (unsigned char*)(&EepromErrRecDesc_comp);
+            unsigned char  *point_to_read  = (unsigned char*)(&hPrgEvtMangInfo_tmp );
+            unsigned char  *point_to_write = (unsigned char*)(&hPrgEvtMangInfo_comp);
             unsigned int difference = 0;
 
             i = 0;
-            while ((difference == 0) && ( i < sizeof(__TEMP_STRUCTURE)))
+            while ((difference == 0) && ( i < sizeof(PrgEvtFlash_2_Dsc)))
             {
               if (*point_to_write != *point_to_read) difference = 0xff;
               else

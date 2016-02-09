@@ -169,12 +169,13 @@ define block HEAP      with alignment = 8, size = __ICFEDIT_size_heap__     { };
 
 define block CHECKSUM { ro section .checksum };
 
-keep { section MYOVERLAY1,section MYOVERLAY2 };
+keep { section MYOVERLAY1,section MYOVERLAY2,section MYOVERLAY3 };
 
 define overlay MYOVERLAY { section MYOVERLAY1 };
 define overlay MYOVERLAY { section MYOVERLAY2 };
+define overlay MYOVERLAY { section MYOVERLAY3 };
 
-initialize manually { section MYOVERLAY1, section MYOVERLAY2 };
+initialize manually { section MYOVERLAY1, section MYOVERLAY2, section MYOVERLAY3 };
 
 initialize by copy { section .vectors };
 initialize by copy { readwrite };
@@ -200,7 +201,7 @@ place in IRAM_region {section Fast_variable, section Fastest_function};
 
 place in Fl_Code_region         {readonly };
 place in Fl_Code_NC_region      {readonly section CODE_NO_CACHE,
-                                section MYOVERLAY1_init, section MYOVERLAY2_init };
+                                section MYOVERLAY1_init, section MYOVERLAY2_init, section MYOVERLAY3_init };
 place at end of Fl_Code_NC_region {block CHECKSUM};
 
 place in SRAM_Code_region    {section Fast_function}; 

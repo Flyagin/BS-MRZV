@@ -157,12 +157,13 @@ define block FIQ_STACK with alignment = 8, size = __ICFEDIT_size_fiqstack__ { };
 define block ABT_STACK with alignment = 8, size = __ICFEDIT_size_abtstack__ { };
 define block UND_STACK with alignment = 8, size = __ICFEDIT_size_undstack__ { };
 define block HEAP      with alignment = 8, size = __ICFEDIT_size_heap__     { };
-keep { section MYOVERLAY1,section MYOVERLAY2 };
+keep { section MYOVERLAY1,section MYOVERLAY2,section MYOVERLAY3 };
 
 define overlay MYOVERLAY { section MYOVERLAY1 };
 define overlay MYOVERLAY { section MYOVERLAY2 };
+define overlay MYOVERLAY { section MYOVERLAY3 };
 
-initialize manually { section MYOVERLAY1, section MYOVERLAY2 };
+initialize manually { section MYOVERLAY1,  section MYOVERLAY2,section MYOVERLAY3 };
 
 
 
@@ -206,7 +207,7 @@ place in SRAM_Code_region {readonly, block CHECKSUM,section Fast_function };
 //place in SRAM_Data_region { zeroinit, readwrite,section DDR2_variables}; 
 place in SRAM_Data_region { zeroinit,readwrite }; 
  
-place in SRAM_Code_NC_region {section MYOVERLAY1_init, section MYOVERLAY2_init,
+place in SRAM_Code_NC_region {section MYOVERLAY1_init, section MYOVERLAY2_init, section MYOVERLAY3_init,
 section Fast_function_nc, readonly section CODE_NO_CACHE  };
  
 place at end of SRAM_Data_NC_region {
