@@ -10,13 +10,13 @@ void update_led_status_panel() {
   if (current_ekran.edition != 0) {
     char explanationText[100] = {0};
     unsigned int i = 0;
-    for (; _rankDlgLEDItem[0].pExplanation[sel_language][i] != '\0'; i++) {
-      explanationText[i] = _rankDlgLEDItem[0].pExplanation[sel_language][i];
+    for (; _rankDlgLEDItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+      explanationText[i] = _rankDlgLEDItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i];
     }
-    _CONCAT_STR(explanationText, editModeAdditionalText[sel_language]);
+    _CONCAT_STR(explanationText, editModeAdditionalText[eeprom_bs_settings_tbl.chLngGUIText]);
     EDIT_SetText(hEdit, explanationText);
   } else {
-    EDIT_SetText(hEdit, _rankDlgLEDItem[0].pExplanation[sel_language]);
+    EDIT_SetText(hEdit, _rankDlgLEDItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   }
 }
 
@@ -27,8 +27,8 @@ void update_led_status_panel() {
 void update_led_title() {
   char titleText[100] = {0};
   unsigned int i = 0;
-  for (; _rankDlgLEDItem[0].pText[sel_language][i] != '\0'; i++) {
-    titleText[i] = _rankDlgLEDItem[0].pText[sel_language][i];
+  for (; _rankDlgLEDItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+    titleText[i] = _rankDlgLEDItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i];
   }
   char numberLEDText[3] = {0};
   int numPg = led_index + 1;
@@ -42,13 +42,13 @@ void update_led_title() {
 *       Обновление меток диалогового окна
 */
 void update_led_labels() {
-  TEXT_SetText(WM_GetDialogItem(rankDlgLEDPg, ID_RANK_LED_TEXT_LABEL), typeLEDTextLabels[sel_language]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgLEDPg, ID_RANK_LED_TEXT_LABEL), typeLEDTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   
   DROPDOWN_Handle typeLEDListBox = WM_GetDialogItem(rankDlgLEDPg, ID_RANK_LED_TYPE);
   DROPDOWN_DeleteItem(typeLEDListBox, 0);
-  DROPDOWN_InsertString(typeLEDListBox, typesLED0[sel_language], 0);
+  DROPDOWN_InsertString(typeLEDListBox, typesLED0[eeprom_bs_settings_tbl.chLngGUIText], 0);
   DROPDOWN_DeleteItem(typeLEDListBox, 1);
-  DROPDOWN_InsertString(typeLEDListBox, typesLED1[sel_language], 1);
+  DROPDOWN_InsertString(typeLEDListBox, typesLED1[eeprom_bs_settings_tbl.chLngGUIText], 1);
 }
 
 /*********************************************************************
@@ -140,10 +140,10 @@ void rank_dlg_led_init() {
   BUTTON_Handle ESC_Button_led_rank_dlg;
   BUTTON_Handle ENTER_Button_led_rank_dlg;
   
-  rankDlgLEDPg = FRAMEWIN_CreateEx(x0, y0, WIDTH_DLG, HEIGHT_DLG, 0, WM_CF_SHOW, 0, win_id_list[ID_RANK_LED_DLG], _rankDlgLEDItem[0].pText[sel_language], _cbRankDlgWin);
+  rankDlgLEDPg = FRAMEWIN_CreateEx(x0, y0, WIDTH_DLG, HEIGHT_DLG, 0, WM_CF_SHOW, 0, win_id_list[ID_RANK_LED_DLG], _rankDlgLEDItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText], _cbRankDlgWin);
   FRAMEWIN_SetFont(rankDlgLEDPg, &GUI_FontArialBold14_8_Unicode);
   
-  label = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgLEDPg, WM_CF_SHOW, 0, ID_RANK_LED_TEXT_LABEL, typeLEDTextLabels[sel_language]);
+  label = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgLEDPg, WM_CF_SHOW, 0, ID_RANK_LED_TEXT_LABEL, typeLEDTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(label, &GUI_FontArialBold14_8_Unicode);
   
   typeLEDListBox = DROPDOWN_CreateEx(x_components, y_textLabel, WIDTH_COMP + 25, HEIGHT_COMP, rankDlgLEDPg, WM_CF_SHOW, DROPDOWN_CF_AUTOSCROLLBAR, ID_RANK_LED_TYPE);
@@ -151,8 +151,8 @@ void rank_dlg_led_init() {
   DROPDOWN_SetBkColor(typeLEDListBox, DROPDOWN_CI_UNSEL, GUI_GRAY);
   DROPDOWN_SetBkColor(typeLEDListBox, DROPDOWN_CI_SEL, GUI_GRAY);
   DROPDOWN_SetBkColor(typeLEDListBox, DROPDOWN_CI_SELFOCUS, GUI_BLUE);
-  DROPDOWN_AddString(typeLEDListBox, typesLED0[sel_language]);
-  DROPDOWN_AddString(typeLEDListBox, typesLED1[sel_language]);
+  DROPDOWN_AddString(typeLEDListBox, typesLED0[eeprom_bs_settings_tbl.chLngGUIText]);
+  DROPDOWN_AddString(typeLEDListBox, typesLED1[eeprom_bs_settings_tbl.chLngGUIText]);
   
   ESC_Button_led_rank_dlg = BUTTON_CreateEx(x_b, y_b, WIDTH_B, HEIGHT_B, rankDlgLEDPg, WM_CF_SHOW, 0, ID_RANK_LED_DLGBUT_ESC);
   BUTTON_SetFont(ESC_Button_led_rank_dlg, &GUI_FontArialBold14_8_Unicode);

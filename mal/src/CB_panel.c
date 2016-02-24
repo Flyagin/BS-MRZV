@@ -373,7 +373,7 @@ const char* CB_pickup_info_1(
   {
   case 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = CB_PICKUP0_MAX;
       *p_shift = CB_PICKUP0_SHIFT;
@@ -391,7 +391,7 @@ const char* CB_pickup_info_1(
     }
   case 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT_K].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT_K].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = CB_PICKUP2_MAX/1000;
       *p_shift = CB_PICKUP2_SHIFT;
@@ -451,7 +451,7 @@ const char* CB_delay_info_1(
                             int *p_shift
                            )
 {
-  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[sel_language];
+  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   *p_min = 0;
 
   switch (number)
@@ -509,12 +509,12 @@ const char* CB_pickup_dimention(unsigned int number)
   {
   case 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   case 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT_K].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT_K].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   default:

@@ -13,7 +13,7 @@ void resurs_panel_show(void)
   if (Resurs_FrameWin == WM_UNATTACHED)
   {
     //Stvorjujemo FrameWin
-    Resurs_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_RESURS_FRAMEWIN, Resurs_panel_title.ptitle[sel_language], _cbEmpty);
+    Resurs_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_RESURS_FRAMEWIN, Resurs_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
     FRAMEWIN_SetFont(Resurs_FrameWin, &GUI_FontArialBold14_8_Unicode);
     FRAMEWIN_SetTextAlign(Resurs_FrameWin, GUI_TA_HCENTER);
     FRAMEWIN_SetBarColor(Resurs_FrameWin, 1, GUI_GREEN);
@@ -31,7 +31,7 @@ void resurs_panel_show(void)
 
     for (unsigned int i = 0; i < MAX_NUMBER_ITEMS_RESURS; i++)
     {
-      Resurs_t[i] = TEXT_CreateEx(COL_1_X, ROW_1_Y + i*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Resurs_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_RESURS_1_TITLE + i,  Resurs_title[i].ptitle[sel_language]);
+      Resurs_t[i] = TEXT_CreateEx(COL_1_X, ROW_1_Y + i*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Resurs_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_RESURS_1_TITLE + i,  Resurs_title[i].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       TEXT_SetFont(Resurs_t[i], &GUI_FontArialStandard14_8_Unicode);
 
       Resurs_v[i] = TEXT_CreateEx(COL_1_X + SHIFT_X1, ROW_1_Y + i*SHIFT_Y, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Resurs_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_RESURS_1_VALUE + i,  "");
@@ -60,7 +60,7 @@ Peremaljovuvannja paneli resursu
 *****************************/
 void redraw_panel_resurs(void)
 {
-  EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_RES_COUNTER_ID].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_RES_COUNTER_ID].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   
   char string_tmp[10 + 1];
   unsigned int value_tmp;

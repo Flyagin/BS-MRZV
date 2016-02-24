@@ -16,7 +16,7 @@ void Comm_panel_show(void)
 
     for (unsigned int i = 0; i < COMM_SIZE; i++) 
     {
-      ICONVIEW_AddBitmapItem(Comm_IconView, _aBitmapItem_Comm[i].pBitmap, _aBitmapItem_Comm[i].pText[sel_language]);
+      ICONVIEW_AddBitmapItem(Comm_IconView, _aBitmapItem_Comm[i].pBitmap, _aBitmapItem_Comm[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
     }
     ICONVIEW_SetBkColor(Comm_IconView, ICONVIEW_CI_BK, GUI_BLACK);
     ICONVIEW_SetBkColor(Comm_IconView, ICONVIEW_CI_SEL, GUI_BLUE | 0x50000000);
@@ -36,7 +36,7 @@ void redraw_panel_Comm(void)
   int sel_index = current_ekran.index_position;
   ICONVIEW_SetSel(Comm_IconView, sel_index);
   
-  EDIT_SetText(hEdit, _aBitmapItem_Comm[sel_index].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem_Comm[sel_index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   WM_SetFocus(Comm_IconView);
 }
 /*****************************/

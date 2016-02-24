@@ -1,10 +1,17 @@
 #include "header_mal.h"
 
+const char* pWindingTitle[LANG_LIST_SIZE] = {"Обмотка","Обмотка","Winding"};
+const char* pWindingSelection1Title[LANG_LIST_SIZE] = {"Первинна","Первичная","Primary"};
+const char* pWindingSelection2Title[LANG_LIST_SIZE] = {"Вторинна","Вторичная","Secondary"};
+const char* pButtonEnterTitle[LANG_LIST_SIZE] = {"ТАК","ДА","ENTER"};
+const char* pButtonEscTitle[LANG_LIST_SIZE] = {"НІ","НЕТ","ESC"};
+
 /*********************************************************************
 *
-*       _cbLangWin
+*       _cbWindingWin
 */
-static void _cbLangWin(WM_MESSAGE * pMsg) {
+
+static void _cbWindingWin(WM_MESSAGE * pMsg) {
 //  WM_HWIN hItem;
   int     NCode;
   int     Id;
@@ -16,7 +23,7 @@ static void _cbLangWin(WM_MESSAGE * pMsg) {
       //
       // Initialization of 'Radio'
       //
-//      hItem = WM_GetDialogItem(pMsg->hWin, lang_id_list[ID_LANG_RADIO]);
+//      hItem = WM_GetDialogItem(pMsg->hWin, winding_id_list[ID_WINDING_RADIO]);
 //      RADIO_SetText(hItem, "Українська", 0);
 //      RADIO_SetText(hItem, "Русский", 1);
 //      RADIO_SetText(hItem, "English", 2);
@@ -85,57 +92,56 @@ static void _cbLangWin(WM_MESSAGE * pMsg) {
   }
 }
 
-void lang_dlg_init() {
+void winding_dlg_init() {
   int xsize = 144;
-  int ysize = 90;
+  int ysize = 87;
   int x0 = (GUI_X_MAX >> 1) - (xsize >> 1);
   int y0 = (GUI_Y_MAX >> 1) - (ysize >> 1);
   
-  langWin = FRAMEWIN_Create("Language", _cbLangWin, WM_CF_SHOW, x0, y0, xsize, ysize);
+  windingWin = FRAMEWIN_Create(pWindingTitle[eeprom_bs_settings_tbl.chLngGUIText], _cbWindingWin, WM_CF_SHOW, x0, y0, xsize, ysize);
+  FRAMEWIN_SetFont(windingWin, &GUI_FontArialBold14_8_Unicode);
   
-  langRadioButton = RADIO_CreateEx(5, 15, 80, 60, langWin, WM_CF_SHOW, 0, lang_id_list[ID_LANG_RADIO], LANG_LIST_SIZE, 15);
-  langButtonOK = BUTTON_CreateAsChild(4, 65, 52, 20, langWin, lang_id_list[ID_LANG_BUTTON_OK], WM_CF_SHOW);
-  langButtonCancel = BUTTON_CreateAsChild(81, 65, 58, 20, langWin, lang_id_list[ID_LANG_BUTTON_CANCEL], WM_CF_SHOW);
+  windingRadioButton = RADIO_CreateEx(5, 22, 90, 60, windingWin, WM_CF_SHOW, 0, winding_id_list[ID_WINDING_RADIO], 2, 15);
+  windingButtonOK = BUTTON_CreateAsChild(4, 62, 52, 20, windingWin, winding_id_list[ID_WINDING_BUTTON_OK], WM_CF_SHOW);
+  windingButtonCancel = BUTTON_CreateAsChild(81, 62, 58, 20, windingWin, winding_id_list[ID_WINDING_BUTTON_CANCEL], WM_CF_SHOW);
   
-  RADIO_SetFont(langRadioButton, &GUI_FontArialBold14_8_Unicode);
-  RADIO_SetText(langRadioButton, "Українська", 0);
-  RADIO_SetText(langRadioButton, "Русский", 1);
-  RADIO_SetText(langRadioButton, "English", 2);
+  RADIO_SetFont(windingRadioButton, &GUI_FontArialBold14_8_Unicode);
+  RADIO_SetText(windingRadioButton, pWindingSelection1Title[eeprom_bs_settings_tbl.chLngGUIText], 0);
+  RADIO_SetText(windingRadioButton, pWindingSelection2Title[eeprom_bs_settings_tbl.chLngGUIText], 1);
   
-  BUTTON_SetFont(langButtonOK, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(langButtonOK, "ENTER");
-  BUTTON_SetFont(langButtonCancel, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(langButtonCancel, "ESC");
+  BUTTON_SetFont(windingButtonOK, &GUI_FontArialBold14_8_Unicode);
+  BUTTON_SetText(windingButtonOK, pButtonEnterTitle[eeprom_bs_settings_tbl.chLngGUIText]);
+  BUTTON_SetFont(windingButtonCancel, &GUI_FontArialBold14_8_Unicode);
+  BUTTON_SetText(windingButtonCancel, pButtonEscTitle[eeprom_bs_settings_tbl.chLngGUIText]);
   
-  RADIO_SetValue(langRadioButton, eeprom_bs_settings_tbl.chLngGUIText);
+  RADIO_SetValue(windingRadioButton, eeprom_bs_settings_tbl.chWinding);
 }
 
-void change_language_next() {
-  int index = RADIO_GetValue(langRadioButton);
-  if (index >= LANG_LIST_SIZE - 1) {
+void change_winding_next() {
+  int index = RADIO_GetValue(windingRadioButton);
+  if (index >= 1) {
     index = 0;
   } else {
     index++;
   }
-  RADIO_SetValue(langRadioButton, index);
+  RADIO_SetValue(windingRadioButton, index);
 }
 
-void change_language_previous() {
-  int index = RADIO_GetValue(langRadioButton);
+void change_winding_previous() {
+  int index = RADIO_GetValue(windingRadioButton);
   if (index <= 0) {
-    index = LANG_LIST_SIZE - 1;
+    index = 1;
   } else {
     index--;
   }
-  RADIO_SetValue(langRadioButton, index);
+  RADIO_SetValue(windingRadioButton, index);
 }
 
-void set_current_language(int index_position) {
-  if (index_position == ID_LANG_BUTTON_CANCEL) {
-    RADIO_SetValue(langRadioButton, eeprom_bs_settings_tbl.chLngGUIText);
+void set_current_winding(int index_position) {
+  if (index_position == ID_WINDING_BUTTON_CANCEL) {
+    RADIO_SetValue(windingRadioButton, eeprom_bs_settings_tbl.chWinding);
   } else {
-    change_language = 1;
-    eeprom_bs_settings_tbl.chLngGUIText = RADIO_GetValue(langRadioButton);
+    eeprom_bs_settings_tbl.chWinding = RADIO_GetValue(windingRadioButton);
     _SET_BIT(control_spi1_taskes, TASK_START_WRITE_SETTINGS_BS_EEPROM_BIT);
   }
 }

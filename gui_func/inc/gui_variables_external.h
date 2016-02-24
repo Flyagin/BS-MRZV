@@ -4,7 +4,6 @@
 #include "../inc/const_BS_BL.h"
 #include "../inc/type_definition_BS.h"
 
-extern unsigned char sel_language;
 extern _Bool change_language;
 
 extern _Bool start_gui_exec;
@@ -41,6 +40,12 @@ extern WM_HWIN langRadioButton;
 extern WM_HWIN langButtonOK;
 extern WM_HWIN langButtonCancel;
 extern int lang_id_list[MAX_LEVEL_LANG_DLG];
+
+extern WM_HWIN windingWin;
+extern WM_HWIN windingRadioButton;
+extern WM_HWIN windingButtonOK;
+extern WM_HWIN windingButtonCancel;
+extern int winding_id_list[MAX_LEVEL_WINDING_DLG];
 
 /**Measurements**************************************/
 extern __TOTAL_MEASUREMENT gui_total_measurement;

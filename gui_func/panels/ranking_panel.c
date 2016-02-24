@@ -1267,14 +1267,14 @@ static void rPaintRankPanel() {
     if (current_ekran.index_position == ID_RANK_AN_DIG_REC_PG && ignore_hbit(an_dig_rec_index) != 0) {
       char explanationText[100] = {0};
       explanationText[0] = ' ';
-      _CONCAT_STR(explanationText, confExplText[sel_language]);
-      _CONCAT_STR(explanationText, editModeAdditionalText[sel_language]);
+      _CONCAT_STR(explanationText, confExplText[eeprom_bs_settings_tbl.chLngGUIText]);
+      _CONCAT_STR(explanationText, editModeAdditionalText[eeprom_bs_settings_tbl.chLngGUIText]);
       EDIT_SetText(hEdit, explanationText);
     } else {
       char explanationText[100] = {0};
       unsigned int i = 0;
-      for (; _rankItem[current_ekran.index_position].pExplanation[sel_language][i] != '\0'; i++) {
-        explanationText[i] = _rankItem[current_ekran.index_position].pExplanation[sel_language][i];
+      for (; _rankItem[current_ekran.index_position].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+        explanationText[i] = _rankItem[current_ekran.index_position].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i];
       }
       if (current_ekran.index_position != ID_RANK_F_PG
           && current_ekran.index_position != ID_RANK_TRG_SET_PL_PG
@@ -1284,137 +1284,137 @@ static void rPaintRankPanel() {
       ) {
         _CONCAT_STR(explanationText, "; ");
       }
-      _CONCAT_STR(explanationText, confExplText[sel_language]);
-      _CONCAT_STR(explanationText, editModeAdditionalText[sel_language]);
+      _CONCAT_STR(explanationText, confExplText[eeprom_bs_settings_tbl.chLngGUIText]);
+      _CONCAT_STR(explanationText, editModeAdditionalText[eeprom_bs_settings_tbl.chLngGUIText]);
       EDIT_SetText(hEdit, explanationText);
     }
   } else {
-    EDIT_SetText(hEdit, _rankItem[current_ekran.index_position].pExplanation[sel_language]);
+    EDIT_SetText(hEdit, _rankItem[current_ekran.index_position].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   }
   
-  FRAMEWIN_SetText(rankMultiPageWin, rankFrmText[sel_language]);
+  FRAMEWIN_SetText(rankMultiPageWin, rankFrmText[eeprom_bs_settings_tbl.chLngGUIText]);
   
   for (int _id = ID_RANK_DISCRETE_INPUT_PG; _id < MAX_LEVEL_RANK_PG; _id++) {
-    MULTIPAGE_SetText(rankHMultiPage, _rankItem[_id].pText[sel_language], _id);
+    MULTIPAGE_SetText(rankHMultiPage, _rankItem[_id].pText[eeprom_bs_settings_tbl.chLngGUIText], _id);
   }
   
   switch(current_ekran.index_position) {
     case ID_RANK_DISCRETE_INPUT_PG:
       {
-        if (sel_rank_di_language != sel_language) {
-          sel_rank_di_language = sel_language;
+        if (sel_rank_di_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_di_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_DI_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDIPgs, di_id_list[i]), rank_checkbox_item[sel_language][di_id_list[i] - GUI_ID_BIT_HVSW_ON/*первый идентификатор для ранж.*/]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDIPgs, di_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][di_id_list[i] - GUI_ID_BIT_HVSW_ON/*первый идентификатор для ранж.*/]);
           }
         }
         break;
       }
     case ID_RANK_DISCRETE_OUTPUT_PG:
       {
-        if (sel_rank_do_language != sel_language) {
-          sel_rank_do_language = sel_language;
+        if (sel_rank_do_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_do_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_DO_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_LED_PG:
       {
-        if (sel_rank_led_language != sel_language) {
-          sel_rank_led_language = sel_language;
+        if (sel_rank_led_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_led_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_LED_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_DF_PLUS_PG:
       {
-        if (sel_rank_df_plus_language != sel_language) {
-          sel_rank_df_plus_language = sel_language;
+        if (sel_rank_df_plus_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_df_plus_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_DF_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_DF_MINUS_PG:
       {
-        if (sel_rank_df_minus_language != sel_language) {
-          sel_rank_df_minus_language = sel_language;
+        if (sel_rank_df_minus_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_df_minus_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_DF_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_DF_BLK_PG:
       {
-        if (sel_rank_df_blk_language != sel_language) {
-          sel_rank_df_blk_language = sel_language;
+        if (sel_rank_df_blk_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_df_blk_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_DF_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_F_PG:
       {
-        if (sel_rank_f_language != sel_language) {
-          sel_rank_f_language = sel_language;
+        if (sel_rank_f_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_f_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_F_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankFPgs, f_id_list[i]), rank_checkbox_item[sel_language][f_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankFPgs, f_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][f_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_TRG_SET_PL_PG:
       {
-        if (sel_rank_trg_set_pl_language != sel_language) {
-          sel_rank_trg_set_pl_language = sel_language;
+        if (sel_rank_trg_set_pl_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_trg_set_pl_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_TRG_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_TRG_SET_MN_PG:
       {
-        if (sel_rank_trg_set_mn_language != sel_language) {
-          sel_rank_trg_set_mn_language = sel_language;
+        if (sel_rank_trg_set_mn_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_trg_set_mn_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_TRG_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_TRG_RST_PL_PG:
       {
-        if (sel_rank_trg_rst_pl_language != sel_language) {
-          sel_rank_trg_rst_pl_language = sel_language;
+        if (sel_rank_trg_rst_pl_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_trg_rst_pl_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_TRG_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_TRG_RST_MN_PG:
       {
-        if (sel_rank_trg_rst_mn_language != sel_language) {
-          sel_rank_trg_rst_mn_language = sel_language;
+        if (sel_rank_trg_rst_mn_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_trg_rst_mn_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_TRG_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
       }
     case ID_RANK_AN_DIG_REC_PG:
       {
-        if (sel_rank_an_dig_rec_language != sel_language) {
-          sel_rank_an_dig_rec_language = sel_language;
+        if (sel_rank_an_dig_rec_language != eeprom_bs_settings_tbl.chLngGUIText) {
+          sel_rank_an_dig_rec_language = eeprom_bs_settings_tbl.chLngGUIText;
           for (int i = 0; i < NUM_AN_DIG_REC_FUNCS; i++) {
-            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[sel_language][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
+            CHECKBOX_SetText(WM_GetDialogItem(rankDOLedOFDTArDrPgs, doLedDfDtArDr_id_list[i]), rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][doLedDfDtArDr_id_list[i] - GUI_ID_BIT_HVSW_ON]);
           }
         }
         break;
@@ -1643,7 +1643,7 @@ void init_sub_pg(int _pg_index) {
       MULTIPAGE_AddPage(
         *pMultiPg,
         *pFuncPg,
-        rank_pgs_item[_pg_index][sel_language][i]
+        rank_pgs_item[_pg_index][eeprom_bs_settings_tbl.chLngGUIText][i]
       );
       if (i > 0) MULTIPAGE_DisablePage(*pMultiPg, i);
     }
@@ -1671,7 +1671,7 @@ void init_sub_pg(int _pg_index) {
 
 void rank_panel_init() {
   rankMultiPageWin = FRAMEWIN_Create(
-      rankFrmText[sel_language],
+      rankFrmText[eeprom_bs_settings_tbl.chLngGUIText],
       _cbRankWin,
       WM_CF_HIDE,
       RANK_PG_X2, RANK_PG_Y2,
@@ -1733,7 +1733,7 @@ void rank_panel_init() {
     MULTIPAGE_AddPage(
       rankHMultiPage,
       rankPgs[_pg_index],
-      _rankItem[_pg_index].pText[sel_language]
+      _rankItem[_pg_index].pText[eeprom_bs_settings_tbl.chLngGUIText]
     );
     //панели подвкладок
     init_sub_pg(_pg_index);
@@ -1938,17 +1938,17 @@ void select_rank_multipage(int index) {
   if (current_ekran.edition != 0) {
     char explanationText[100] = {0};
     unsigned int i = 0;
-    for (; _rankItem[current_ekran.index_position].pExplanation[sel_language][i] != '\0'; i++) {
-      explanationText[i] = _rankItem[current_ekran.index_position].pExplanation[sel_language][i];
+    for (; _rankItem[current_ekran.index_position].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+      explanationText[i] = _rankItem[current_ekran.index_position].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i];
     }
     if (current_ekran.index_position != ID_RANK_F_PG) {
       _CONCAT_STR(explanationText, "; ");
     }
-    _CONCAT_STR(explanationText, confExplText[sel_language]);
-    _CONCAT_STR(explanationText, editModeAdditionalText[sel_language]);
+    _CONCAT_STR(explanationText, confExplText[eeprom_bs_settings_tbl.chLngGUIText]);
+    _CONCAT_STR(explanationText, editModeAdditionalText[eeprom_bs_settings_tbl.chLngGUIText]);
     EDIT_SetText(hEdit, explanationText);
   } else {
-    EDIT_SetText(hEdit, _rankItem[current_ekran.index_position].pExplanation[sel_language]);
+    EDIT_SetText(hEdit, _rankItem[current_ekran.index_position].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   }
   for (int i = 0; i < MAX_LEVEL_RANK_PG; i++) {
     if (MULTIPAGE_IsPageEnabled(rankHMultiPage, i)) {

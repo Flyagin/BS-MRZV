@@ -1,4 +1,5 @@
 #include "header_mal.h"
+#include <stdlib.h>
 
 
 /*****************************
@@ -24,6 +25,38 @@ int strlen_mal(char *str)
   return index;
 }
 /*****************************/
+
+
+/*****************************
+Копіювання n байтів
+*****************************/
+void strcpy_fly(char *to, char *from, int n) 
+{
+  while(n!=0){
+    *to = *from;
+    to++;
+    from++;
+    n--;
+  }
+}
+/*****************************/
+
+/*****************************
+Додавання одного рядка до іншого і записом результату у виділену пам'ять
+*****************************/
+char* strcat_heap_fly(char *str1, char *str2) 
+{
+  char* result;
+  int index1 = 0, index2 = 0;
+  while ( str1[index1] != '\0') index1++;
+  while ( str2[index2] != '\0') index2++;
+  result = (char*)malloc(index1+index2+1);
+  strcpy_fly(result, str1, index1);
+  strcpy_fly(result + index1, str2, index2 + 1);
+  return result;
+}
+/*****************************/
+
 
 /*****************************
 Вставлення одного рядка у інший з вказаної позиції

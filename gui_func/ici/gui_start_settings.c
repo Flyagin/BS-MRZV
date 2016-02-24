@@ -22,8 +22,6 @@ void gui_init() {
   
   GUI_UC_SetEncodeUTF8();
   
-  sel_language = /*ENG_LANG*/RUS_LANG;
-  
   desctop_init();
   rank_panel_init();
   

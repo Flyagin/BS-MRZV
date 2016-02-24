@@ -1,6 +1,4 @@
 
-#include "gui_header.h"
-
 #include "header_mal.h"
 
 /**
@@ -21,6 +19,13 @@ void show_window(int win_id) {
       {
         if (langWin == WM_UNATTACHED) {
           lang_dlg_init();
+        }
+        break;
+      }
+    case ID_WINDING_DLG:
+      {
+        if (windingWin == WM_UNATTACHED) {
+          winding_dlg_init();
         }
         break;
       }
@@ -247,6 +252,13 @@ void hide_window(int win_id) {
         langWin = WM_UNATTACHED;
         break;
       }
+    case ID_WINDING_DLG:
+      {
+        WM_HideWindow(windingWin);
+        WM_DeleteWindow(windingWin);
+        windingWin = WM_UNATTACHED;
+        break;
+      }
     case ID_MEAS_PG:
       {
         WM_HideWindow(measMultiPageWin);
@@ -319,11 +331,11 @@ void win_handler() {
       {
         if (change_language) {
           for (int i = 0; i < ICONVIEW_SIZE; i++) {
-            ICONVIEW_SetItemText(iconWin, i, _aBitmapItem[i].pText[sel_language]);
+            ICONVIEW_SetItemText(iconWin, i, _aBitmapItem[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
           }
         }
         ICONVIEW_SetSel(iconWin, sel_icon);
-        EDIT_SetText(hEdit, _aBitmapItem[sel_icon].pExplanation[sel_language]);
+        EDIT_SetText(hEdit, _aBitmapItem[sel_icon].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
         start_gui_exec = 1;
         break;
       }
@@ -345,6 +357,33 @@ void win_handler() {
           case ID_LANG_BUTTON_CANCEL:
             {
               WM_SetFocus(langButtonCancel);
+              start_gui_exec = 1;
+              break;
+            }
+          default:
+            //do nothing
+            break;
+        }
+        break;
+      }
+    case ID_WINDING_DLG:
+      {
+        switch (sel_index) {
+          case ID_WINDING_RADIO:
+            {
+              WM_SetFocus(windingRadioButton);
+              start_gui_exec = 1;
+              break;
+            }
+          case ID_WINDING_BUTTON_OK:
+            {
+              WM_SetFocus(windingButtonOK);
+              start_gui_exec = 1;
+              break;
+            }
+          case ID_WINDING_BUTTON_CANCEL:
+            {
+              WM_SetFocus(windingButtonCancel);
               start_gui_exec = 1;
               break;
             }

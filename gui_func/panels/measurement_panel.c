@@ -1,6 +1,7 @@
 
-#include "gui_header.h"
 #include "header_mal.h"
+
+const char* pWindingSubstr[2][LANG_LIST_SIZE] = {{" (ïåðâ.)"," (ïåðâ.)"," (prim.)"}, {" (âòîð.)", " (âòîð.)", " (second.)"}};
 
 /*********************************************************************
 *
@@ -111,23 +112,23 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate2[] = {
 static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate3[] = {
   { WINDOW_CreateIndirect, "Dialog 3", ID_MEAS_PG_2, MEAS_PG_X, MEAS_PG_Y, MEAS_PG_WIDTH, MEAS_PG_HEIGHT, 0 },
   
-  { TEXT_CreateIndirect, "Â¿ IC-UBC", ID_FIRST_ANGLES_MEAS, 10, 5, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ IB-UCA", ID_FIRST_ANGLES_MEAS + 1, 10, 20, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ IC-UAB", ID_FIRST_ANGLES_MEAS + 2, 10, 35, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ I2-U2", ID_FIRST_ANGLES_MEAS + 3, 10, 50, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ 3I0-3U0", ID_FIRST_ANGLES_MEAS + 4, 10, 65, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? IC-UBC", ID_FIRST_ANGLES_MEAS, 10, 5, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? IB-UCA", ID_FIRST_ANGLES_MEAS + 1, 10, 20, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? IC-UAB", ID_FIRST_ANGLES_MEAS + 2, 10, 35, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? I2-U2", ID_FIRST_ANGLES_MEAS + 3, 10, 50, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? 3I0-3U0", ID_FIRST_ANGLES_MEAS + 4, 10, 65, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "ERR.ANGLE", ID_FIRST_ANGLES_MEAS + 5, 10, 80, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ Ia", ID_FIRST_ANGLES_MEAS + 6, 10, 95, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ Ib", ID_FIRST_ANGLES_MEAS + 7, 10, 110, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? Ia", ID_FIRST_ANGLES_MEAS + 6, 10, 95, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? Ib", ID_FIRST_ANGLES_MEAS + 7, 10, 110, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Â¿ Ic", ID_FIRST_ANGLES_MEAS + 8, 155, 5, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ Ub", ID_FIRST_ANGLES_MEAS + 9, 155, 20, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ Uc", ID_FIRST_ANGLES_MEAS + 10, 155, 35, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ 3U0", ID_FIRST_ANGLES_MEAS + 11, 155, 50, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ 3I0", ID_FIRST_ANGLES_MEAS + 12, 155, 65, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ Isyn", ID_FIRST_ANGLES_MEAS + 13, 155, 80, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ Usyn", ID_FIRST_ANGLES_MEAS + 14, 155, 95, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Â¿ Ubc_TN2", ID_FIRST_ANGLES_MEAS + 15, 155, 110, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? Ic", ID_FIRST_ANGLES_MEAS + 8, 155, 5, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? Ub", ID_FIRST_ANGLES_MEAS + 9, 155, 20, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? Uc", ID_FIRST_ANGLES_MEAS + 10, 155, 35, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? 3U0", ID_FIRST_ANGLES_MEAS + 11, 155, 50, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? 3I0", ID_FIRST_ANGLES_MEAS + 12, 155, 65, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? Isyn", ID_FIRST_ANGLES_MEAS + 13, 155, 80, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? Usyn", ID_FIRST_ANGLES_MEAS + 14, 155, 95, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? Ubc_TN2", ID_FIRST_ANGLES_MEAS + 15, 155, 110, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "=", ID_FIRST_ANGLES_MEAS + 16, 75, 5, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "=", ID_FIRST_ANGLES_MEAS + 17, 75, 20, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -240,7 +241,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate5[] = {
 static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { WINDOW_CreateIndirect, "Dialog 6", ID_MEAS_PG_4, MEAS_PG_X, MEAS_PG_Y, MEAS_PG_WIDTH, MEAS_PG_HEIGHT, 0 },
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–1:", ID_MEAS_RES_SPEED_STAGE1_TEXT, 10, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹1:", ID_MEAS_RES_SPEED_STAGE1_TEXT, 10, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS, 10, 17, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 1, 10, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -254,7 +255,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 37, 75, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 38, 75, 45, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–2:", ID_MEAS_RES_SPEED_STAGE2_TEXT, 10, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹2:", ID_MEAS_RES_SPEED_STAGE2_TEXT, 10, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 3, 10, 73, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 4, 10, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -268,7 +269,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 40, 75, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 41, 75, 101, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–3:", ID_MEAS_RES_SPEED_STAGE3_TEXT, 10, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹3:", ID_MEAS_RES_SPEED_STAGE3_TEXT, 10, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 6, 10, 129, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 7, 10, 143, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -283,7 +284,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 44, 75, 157, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–4:", ID_MEAS_RES_SPEED_STAGE4_TEXT, 155, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹4:", ID_MEAS_RES_SPEED_STAGE4_TEXT, 155, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 9, 155, 17, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 10, 155, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -297,7 +298,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 46, 200, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 47, 200, 45, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–5:", ID_MEAS_RES_SPEED_STAGE5_TEXT, 155, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹5:", ID_MEAS_RES_SPEED_STAGE5_TEXT, 155, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 12, 155, 73, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 13, 155, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -311,7 +312,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 49, 200, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 50, 200, 101, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "ÐžÐ±Ñ‰Ð¸Ðµ:", ID_MEAS_RES_SPEED_COMMON_TEXT, 155, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Îáùèå:", ID_MEAS_RES_SPEED_COMMON_TEXT, 155, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Zab", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 15, 155, 129, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zbc", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 16, 155, 143, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -329,7 +330,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
 static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { WINDOW_CreateIndirect, "Resistance Angle Dialog", ID_RESISTANCE_ANGLE_PG, MEAS_PG_X, MEAS_PG_Y, MEAS_PG_WIDTH, MEAS_PG_HEIGHT, 0 },
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–1:", ID_MEAS_RES_ANGLE_STAGE1_TEXT, 10, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹1:", ID_MEAS_RES_ANGLE_STAGE1_TEXT, 10, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS, 10, 17, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 1, 10, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -343,7 +344,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 37, 75, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 38, 75, 45, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–2:", ID_MEAS_RES_ANGLE_STAGE2_TEXT, 10, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹2:", ID_MEAS_RES_ANGLE_STAGE2_TEXT, 10, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 3, 10, 73, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 4, 10, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -357,7 +358,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 40, 75, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 41, 75, 101, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–3:", ID_MEAS_RES_ANGLE_STAGE3_TEXT, 10, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹3:", ID_MEAS_RES_ANGLE_STAGE3_TEXT, 10, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 6, 10, 129, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 7, 10, 143, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -372,7 +373,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 44, 75, 157, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–4:", ID_MEAS_RES_ANGLE_STAGE4_TEXT, 155, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹4:", ID_MEAS_RES_ANGLE_STAGE4_TEXT, 155, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 9, 155, 17, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 10, 155, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -386,7 +387,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 46, 200, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 47, 200, 45, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ â„–5:", ID_MEAS_RES_ANGLE_STAGE5_TEXT, 155, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Ñòóïåíü ¹5:", ID_MEAS_RES_ANGLE_STAGE5_TEXT, 155, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 12, 155, 73, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 13, 155, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -400,7 +401,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 49, 200, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 50, 200, 101, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "ÐžÐ±Ñ‰Ð¸Ðµ:", ID_MEAS_RES_ANGLE_COMMON_TEXT, 155, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Îáùèå:", ID_MEAS_RES_ANGLE_COMMON_TEXT, 155, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Zab", ID_FIRST_RESISTANCE_ANGLE_MEAS + 15, 155, 129, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zbc", ID_FIRST_RESISTANCE_ANGLE_MEAS + 16, 155, 143, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -437,7 +438,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate7[] = {
   { TEXT_CreateIndirect, "React.Pow.C", ID_FIRST_OTHER_MEAS + 16,    10, 245, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Full Pow.A", ID_FIRST_OTHER_MEAS + 17,     10, 260, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Full Pow.B", ID_FIRST_OTHER_MEAS + 18,     10, 275, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Full Pow.Ð¡", ID_FIRST_OTHER_MEAS + 19,     10, 290, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Full Pow.Ñ", ID_FIRST_OTHER_MEAS + 19,     10, 290, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Sum.Act.Pow.", ID_FIRST_OTHER_MEAS + 20,   10, 305, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Sum.React.Pow.", ID_FIRST_OTHER_MEAS + 21, 10, 320, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Sum.Full.Pow", ID_FIRST_OTHER_MEAS + 22,   10, 335, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -702,7 +703,7 @@ void update_measurement_pg() {
       text[j] = 0;
     }
     _PARSE_INT_TO_DOUBLE_STR(current_meas_p -> measurement[meas_const_arr[cnt]], precisions[cnt], text);
-    _CONCAT_STR(text, meas_item_units[ID_MEAS_FOURIER_PG][sel_language][cnt]);
+    _CONCAT_STR(text, meas_item_units[ID_MEAS_FOURIER_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
     cnt++;
@@ -743,7 +744,7 @@ void update_measurement_i_pg() {
       text[j] = 0;
     }
     _PARSE_INT_TO_DOUBLE_STR(current_meas_p -> measurement_i[meas_i_const_arr[cnt]], precisions[cnt], text);
-    _CONCAT_STR(text, meas_item_units[ID_MEAS_SUM_EQUATION_PG][sel_language][cnt]);
+    _CONCAT_STR(text, meas_item_units[ID_MEAS_SUM_EQUATION_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
     cnt++;
@@ -786,7 +787,7 @@ void update_angles_pg() {
       text[j] = 0;
     }
     _PARSE_INT_TO_STR(angles_arr[cnt], text);
-    _CONCAT_STR(text, meas_item_units[ID_MEAS_ANGLES_PG][sel_language][cnt]);
+    _CONCAT_STR(text, meas_item_units[ID_MEAS_ANGLES_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
     cnt++;
@@ -840,7 +841,7 @@ void update_resistances_pg() {
       text[j] = 0;
     }
     _PARSE_INT_TO_DOUBLE_STR(resistances_arr[cnt], precision, text);
-    _CONCAT_STR(text, meas_item_units[ID_MEAS_RESISTANCES_PG][sel_language][cnt]);
+    _CONCAT_STR(text, meas_item_units[ID_MEAS_RESISTANCES_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
     cnt++;
@@ -884,7 +885,7 @@ void update_speed_resistance_change_pg() {
       text[j] = 0;
     }
     _PARSE_INT_TO_DOUBLE_STR(speed_resistance_changes_arr[cnt], precision, text);
-    _CONCAT_STR(text, meas_item_units[ID_MEAS_SPEED_RESISTANCE_CHANGE_PG][sel_language][cnt]);
+    _CONCAT_STR(text, meas_item_units[ID_MEAS_SPEED_RESISTANCE_CHANGE_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
     cnt++;
@@ -927,7 +928,7 @@ void update_resistance_angle_pg() {
       text[j] = 0;
     }
     _PARSE_INT_TO_STR(resistance_angle_arr[cnt], text);
-    _CONCAT_STR(text, meas_item_units[ID_MEAS_RESISTANCE_ANGLE_PG][sel_language][cnt]);
+    _CONCAT_STR(text, meas_item_units[ID_MEAS_RESISTANCE_ANGLE_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
     cnt++;
@@ -991,7 +992,7 @@ void update_other_meas_pg() {
     } else {
       _PARSE_INT_TO_DOUBLE_STR(other_meas_arr[cnt], precision_arr[cnt], text);
     }
-    _CONCAT_STR(text, meas_item_units[ID_MEAS_OTHER_PG][sel_language][cnt]);
+    _CONCAT_STR(text, meas_item_units[ID_MEAS_OTHER_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
     cnt++;
@@ -1006,7 +1007,7 @@ void measurement_panel_init() {
   int x0 = 0;
   int y0 = 20;
   
-  measMultiPageWin = FRAMEWIN_Create(measFrmText[sel_language], _cbMeasWin, WM_CF_SHOW, x0, y0, frmWinWidth, frmWinHeight);
+  measMultiPageWin = FRAMEWIN_Create(measFrmText[eeprom_bs_settings_tbl.chLngGUIText], _cbMeasWin, WM_CF_SHOW, x0, y0, frmWinWidth, frmWinHeight);
   FRAMEWIN_SetFont(measMultiPageWin, &GUI_FontArialBold14_8_Unicode);
   FRAMEWIN_SetTitleVis(measMultiPageWin, 0/*hidden*/);
   
@@ -1020,7 +1021,7 @@ void measurement_panel_init() {
   for (int id = ID_FIRST_FOURIER_MEAS; id <= ID_LAST_FOURIER_MEAS; id++) {
     TEXT_SetFont(WM_GetDialogItem(measPgs[ID_MEAS_FOURIER_PG], id), &GUI_FontArialStandard14_8_Unicode);
   }
-  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_FOURIER_PG], _measItem[ID_MEAS_FOURIER_PG].pText[sel_language]);
+  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_FOURIER_PG], _measItem[ID_MEAS_FOURIER_PG].pText[eeprom_bs_settings_tbl.chLngGUIText]);
   
   measPgs[ID_MEAS_SUM_EQUATION_PG] = GUI_CreateDialogBox(_aMeasPgCreate2,
                                 GUI_COUNTOF(_aMeasPgCreate2),
@@ -1028,7 +1029,7 @@ void measurement_panel_init() {
   for (int id = ID_FIRST_SUM_EQUATION_MEAS; id <= ID_LAST_SUM_EQUATION_MEAS; id++) {
     TEXT_SetFont(WM_GetDialogItem(measPgs[ID_MEAS_SUM_EQUATION_PG], id), &GUI_FontArialStandard14_8_Unicode);
   }
-  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_SUM_EQUATION_PG], _measItem[ID_MEAS_SUM_EQUATION_PG].pText[sel_language]);
+  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_SUM_EQUATION_PG], _measItem[ID_MEAS_SUM_EQUATION_PG].pText[eeprom_bs_settings_tbl.chLngGUIText]);
   
   measPgs[ID_MEAS_ANGLES_PG] = GUI_CreateDialogBox(_aMeasPgCreate3,
                                 GUI_COUNTOF(_aMeasPgCreate3),
@@ -1036,7 +1037,7 @@ void measurement_panel_init() {
   for (int id = ID_FIRST_ANGLES_MEAS; id <= ID_LAST_ANGLES_MEAS; id++) {
     TEXT_SetFont(WM_GetDialogItem(measPgs[ID_MEAS_ANGLES_PG], id), &GUI_FontArialStandard14_8_Unicode);
   }
-  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_ANGLES_PG], _measItem[ID_MEAS_ANGLES_PG].pText[sel_language]);
+  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_ANGLES_PG], _measItem[ID_MEAS_ANGLES_PG].pText[eeprom_bs_settings_tbl.chLngGUIText]);
   
   resistancesMulPg = MULTIPAGE_CreateEx(0, 0, frmWinWidth - 5, frmWinHeight, WM_GetClientWindow(measHMultiPage), WM_CF_SHOW, 0, 0);
   MULTIPAGE_SetFont(resistancesMulPg, &GUI_FontArialBold14_8_Unicode);
@@ -1063,12 +1064,12 @@ void measurement_panel_init() {
       _PARSE_INT_TO_STR((i + 1), strVal);
       MULTIPAGE_AddPage(resistancesMulPg, measPgs[ID_MEAS_RESISTANCES_PG], strVal);
     } else {
-      MULTIPAGE_AddPage(resistancesMulPg, commonResistancesPg, commonText[sel_language]);
+      MULTIPAGE_AddPage(resistancesMulPg, commonResistancesPg, commonText[eeprom_bs_settings_tbl.chLngGUIText]);
     }
     if (i > 0) MULTIPAGE_DisablePage(resistancesMulPg, i);
   }
   MULTIPAGE_SelectPage(resistancesMulPg, resistancesPosition);
-  MULTIPAGE_AddPage(measHMultiPage, resistancesMulPg, _measItem[ID_MEAS_RESISTANCES_PG].pText[sel_language]);
+  MULTIPAGE_AddPage(measHMultiPage, resistancesMulPg, _measItem[ID_MEAS_RESISTANCES_PG].pText[eeprom_bs_settings_tbl.chLngGUIText]);
   
   measPgs[ID_MEAS_SPEED_RESISTANCE_CHANGE_PG] = GUI_CreateDialogBox(_aMeasPgCreate6,
                                 GUI_COUNTOF(_aMeasPgCreate6),
@@ -1079,7 +1080,7 @@ void measurement_panel_init() {
   for (int id = ID_MEAS_RES_SPEED_STAGE1_TEXT; id <= ID_MEAS_RES_SPEED_COMMON_TEXT; id++) {
     TEXT_SetFont(WM_GetDialogItem(measPgs[ID_MEAS_SPEED_RESISTANCE_CHANGE_PG], id), &GUI_FontArialBold14_8_Unicode);
   }
-  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_SPEED_RESISTANCE_CHANGE_PG], _measItem[ID_MEAS_SPEED_RESISTANCE_CHANGE_PG].pText[sel_language]);
+  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_SPEED_RESISTANCE_CHANGE_PG], _measItem[ID_MEAS_SPEED_RESISTANCE_CHANGE_PG].pText[eeprom_bs_settings_tbl.chLngGUIText]);
   
   measPgs[ID_MEAS_RESISTANCE_ANGLE_PG] = GUI_CreateDialogBox(_aMeasResistAngle,
                                 GUI_COUNTOF(_aMeasResistAngle),
@@ -1090,7 +1091,7 @@ void measurement_panel_init() {
   for (int id = ID_MEAS_RES_ANGLE_STAGE1_TEXT; id <= ID_MEAS_RES_ANGLE_COMMON_TEXT; id++) {
     TEXT_SetFont(WM_GetDialogItem(measPgs[ID_MEAS_RESISTANCE_ANGLE_PG], id), &GUI_FontArialBold14_8_Unicode);
   }
-  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_RESISTANCE_ANGLE_PG], _measItem[ID_MEAS_RESISTANCE_ANGLE_PG].pText[sel_language]);
+  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_RESISTANCE_ANGLE_PG], _measItem[ID_MEAS_RESISTANCE_ANGLE_PG].pText[eeprom_bs_settings_tbl.chLngGUIText]);
   
   measPgs[ID_MEAS_OTHER_PG] = GUI_CreateDialogBox(_aMeasPgCreate7,
                                 GUI_COUNTOF(_aMeasPgCreate7),
@@ -1101,7 +1102,7 @@ void measurement_panel_init() {
   measPgScroll = SCROLLBAR_CreateAttached(WM_GetClientWindow(measPgs[ID_MEAS_OTHER_PG]), SCROLLBAR_CF_VERTICAL);
   SCROLLBAR_SetNumItems(measPgScroll, NUMBER_OTHER_MEAS * MEAS_LABEL_HEIGHT);
   SCROLLBAR_SetPageSize(measPgScroll, NUMBER_SHOWING_OTHER_MEAS * MEAS_LABEL_HEIGHT);
-  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_OTHER_PG], _measItem[ID_MEAS_OTHER_PG].pText[sel_language]);
+  MULTIPAGE_AddPage(measHMultiPage, measPgs[ID_MEAS_OTHER_PG], _measItem[ID_MEAS_OTHER_PG].pText[eeprom_bs_settings_tbl.chLngGUIText]);
   
   MULTIPAGE_SetBkColor(measHMultiPage, GUI_USER_LIGHTGRAY, MULTIPAGE_CI_DISABLED);
   MULTIPAGE_SetBkColor(measHMultiPage, GUI_BLACK, MULTIPAGE_CI_ENABLED);
@@ -1158,7 +1159,7 @@ void meas_scrolling() {
 
 void select_meas_multipage(int index) {
   #define STAGE_NAME_LENGTH       25
-  
+  char* p;
   char stageNum[2] = {0};
   char stageName[STAGE_NAME_LENGTH] = {0};
   char editFullText[EDIT_TEXT_MAX_LEN] = {0};
@@ -1167,20 +1168,22 @@ void select_meas_multipage(int index) {
       {
         if (resistancesPosition < MEAS_NUM_LEVEL_RESISTANCES - 1) {
           _PARSE_INT_TO_STR((resistancesPosition + 1), stageNum);
-          _CONCAT_STR(stageName, stageText[sel_language]);
-          _CONCAT_STR(stageName, " â„–");
+          _CONCAT_STR(stageName, stageText[eeprom_bs_settings_tbl.chLngGUIText]);
+          _CONCAT_STR(stageName, " ¹");
           _CONCAT_STR(stageName, stageNum);
           _CONCAT_STR(stageName, ") ");
-          _CONCAT_STR(editFullText, _measItem[index].pExplanation[sel_language]);
+          _CONCAT_STR(editFullText, _measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
           _CONCAT_STR(editFullText, " (");
           _CONCAT_STR(editFullText, stageName);
         } else {
-          _CONCAT_STR(editFullText, _measItem[index].pExplanation[sel_language]);
+          _CONCAT_STR(editFullText, _measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
           _CONCAT_STR(editFullText, " (");
-          _CONCAT_STR(editFullText, commonText[sel_language]);
+          _CONCAT_STR(editFullText, commonText[eeprom_bs_settings_tbl.chLngGUIText]);
           _CONCAT_STR(editFullText, ") ");
         }
-        EDIT_SetText(hEdit, editFullText);
+        p = (char*)(strcat_heap_fly((char*)editFullText, (char*)(pWindingSubstr[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText])));
+        EDIT_SetText(hEdit, p);
+        free(p);
         break;
       }
     case ID_MEAS_SPEED_RESISTANCE_CHANGE_PG:
@@ -1188,12 +1191,12 @@ void select_meas_multipage(int index) {
         for (int i = 0; i < MEAS_NUM_LEVEL_RESISTANCES; i++) {
           if (i < MEAS_NUM_LEVEL_RESISTANCES - 1) {
             _PARSE_INT_TO_STR((i + 1), stageNum);
-            _CONCAT_STR(stageName, stageText[sel_language]);
-            _CONCAT_STR(stageName, " â„–");
+            _CONCAT_STR(stageName, stageText[eeprom_bs_settings_tbl.chLngGUIText]);
+            _CONCAT_STR(stageName, " ¹");
             _CONCAT_STR(stageName, stageNum);
             _CONCAT_STR(stageName, ": ");
           } else {
-            _CONCAT_STR(stageName, commonText[sel_language]);
+            _CONCAT_STR(stageName, commonText[eeprom_bs_settings_tbl.chLngGUIText]);
             _CONCAT_STR(stageName, ": ");
           }
           TEXT_SetText(WM_GetDialogItem(measMultiPageWin, ID_MEAS_RES_SPEED_STAGE1_TEXT + i), stageName);
@@ -1201,7 +1204,9 @@ void select_meas_multipage(int index) {
             stageName[j] = '\0';
           }
         }
-        EDIT_SetText(hEdit, _measItem[index].pExplanation[sel_language]);
+        p = (char*)(strcat_heap_fly((char*)(_measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]), (char*)(pWindingSubstr[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText])));
+        EDIT_SetText(hEdit, p);
+        free(p);
         break;
       }
     case ID_MEAS_RESISTANCE_ANGLE_PG:
@@ -1209,12 +1214,12 @@ void select_meas_multipage(int index) {
         for (int i = 0; i < MEAS_NUM_LEVEL_RESISTANCES; i++) {
           if (i < MEAS_NUM_LEVEL_RESISTANCES - 1) {
             _PARSE_INT_TO_STR((i + 1), stageNum);
-            _CONCAT_STR(stageName, stageText[sel_language]);
-            _CONCAT_STR(stageName, " â„–");
+            _CONCAT_STR(stageName, stageText[eeprom_bs_settings_tbl.chLngGUIText]);
+            _CONCAT_STR(stageName, " ¹");
             _CONCAT_STR(stageName, stageNum);
             _CONCAT_STR(stageName, ": ");
           } else {
-            _CONCAT_STR(stageName, commonText[sel_language]);
+            _CONCAT_STR(stageName, commonText[eeprom_bs_settings_tbl.chLngGUIText]);
             _CONCAT_STR(stageName, ": ");
           }
           TEXT_SetText(WM_GetDialogItem(measMultiPageWin, ID_MEAS_RES_ANGLE_STAGE1_TEXT + i), stageName);
@@ -1222,21 +1227,25 @@ void select_meas_multipage(int index) {
             stageName[j] = '\0';
           }
         }
-        EDIT_SetText(hEdit, _measItem[index].pExplanation[sel_language]);
+        p = (char*)(strcat_heap_fly((char*)(_measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]), (char*)(pWindingSubstr[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText])));
+        EDIT_SetText(hEdit, p);
+        free(p);
         break;
       }
     default:
       {
-        EDIT_SetText(hEdit, _measItem[index].pExplanation[sel_language]);
+        p = (char*)(strcat_heap_fly((char*)(_measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]), (char*)(pWindingSubstr[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText])));
+        EDIT_SetText(hEdit, p);
+        free(p);
         break;
       }
   }
   for (int i = 0; i < MAX_LEVEL_MEAS_PG; i++) {
-    MULTIPAGE_SetText(measHMultiPage, _measItem[i].pText[sel_language], i);
+    MULTIPAGE_SetText(measHMultiPage, _measItem[i].pText[eeprom_bs_settings_tbl.chLngGUIText], i);
     switch(i) {
       case ID_MEAS_RESISTANCES_PG:
         {
-          MULTIPAGE_SetText(resistancesMulPg, commonText[sel_language], MEAS_NUM_LEVEL_RESISTANCES - 1);
+          MULTIPAGE_SetText(resistancesMulPg, commonText[eeprom_bs_settings_tbl.chLngGUIText], MEAS_NUM_LEVEL_RESISTANCES - 1);
           break;
         }
       default:break;

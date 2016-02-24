@@ -10,13 +10,13 @@ void update_do_status_panel() {
   if (current_ekran.edition != 0) {
     char explanationText[100] = {0};
     unsigned int i = 0;
-    for (; _rankDlgDOItem[0].pExplanation[sel_language][i] != '\0'; i++) {
-      explanationText[i] = _rankDlgDOItem[0].pExplanation[sel_language][i];
+    for (; _rankDlgDOItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+      explanationText[i] = _rankDlgDOItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i];
     }
-    _CONCAT_STR(explanationText, editModeAdditionalText[sel_language]);
+    _CONCAT_STR(explanationText, editModeAdditionalText[eeprom_bs_settings_tbl.chLngGUIText]);
     EDIT_SetText(hEdit, explanationText);
   } else {
-    EDIT_SetText(hEdit, _rankDlgDOItem[0].pExplanation[sel_language]);
+    EDIT_SetText(hEdit, _rankDlgDOItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   }
 }
 
@@ -27,8 +27,8 @@ void update_do_status_panel() {
 void update_do_title() {
   char titleText[100] = {0};
   unsigned int i = 0;
-  for (; _rankDlgDOItem[0].pText[sel_language][i] != '\0'; i++) {
-    titleText[i] = _rankDlgDOItem[0].pText[sel_language][i];
+  for (; _rankDlgDOItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+    titleText[i] = _rankDlgDOItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i];
   }
   char numberDOText[3] = {0};
   int numPg = do_index + 1;
@@ -42,13 +42,13 @@ void update_do_title() {
 *       Обновление меток диалогового окна
 */
 void update_do_labels() {
-  TEXT_SetText(WM_GetDialogItem(rankDlgDOPg, ID_RANK_DO_TEXT_LABEL), typeDOTextLabels[sel_language]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDOPg, ID_RANK_DO_TEXT_LABEL), typeDOTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   
   DROPDOWN_Handle typeDOListBox = WM_GetDialogItem(rankDlgDOPg, ID_RANK_DO_TYPE);
   DROPDOWN_DeleteItem(typeDOListBox, 0);
-  DROPDOWN_InsertString(typeDOListBox, typesDO0[sel_language], 0);
+  DROPDOWN_InsertString(typeDOListBox, typesDO0[eeprom_bs_settings_tbl.chLngGUIText], 0);
   DROPDOWN_DeleteItem(typeDOListBox, 1);
-  DROPDOWN_InsertString(typeDOListBox, typesDO1[sel_language], 1);
+  DROPDOWN_InsertString(typeDOListBox, typesDO1[eeprom_bs_settings_tbl.chLngGUIText], 1);
 }
 
 /*********************************************************************
@@ -140,10 +140,10 @@ void rank_dlg_do_init() {
   BUTTON_Handle ESC_Button_do_rank_dlg;
   BUTTON_Handle ENTER_Button_do_rank_dlg;
   
-  rankDlgDOPg = FRAMEWIN_CreateEx(x0, y0, WIDTH_DLG, HEIGHT_DLG, 0, WM_CF_SHOW, 0, win_id_list[ID_RANK_DO_DLG], _rankDlgDOItem[0].pText[sel_language], _cbRankDlgWin);
+  rankDlgDOPg = FRAMEWIN_CreateEx(x0, y0, WIDTH_DLG, HEIGHT_DLG, 0, WM_CF_SHOW, 0, win_id_list[ID_RANK_DO_DLG], _rankDlgDOItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText], _cbRankDlgWin);
   FRAMEWIN_SetFont(rankDlgDOPg, &GUI_FontArialBold14_8_Unicode);
   
-  label = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDOPg, WM_CF_SHOW, 0, ID_RANK_DO_TEXT_LABEL, typeDOTextLabels[sel_language]);
+  label = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDOPg, WM_CF_SHOW, 0, ID_RANK_DO_TEXT_LABEL, typeDOTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(label, &GUI_FontArialBold14_8_Unicode);
   
   typeDOListBox = DROPDOWN_CreateEx(x_components, y_textLabel, WIDTH_COMP + 25, HEIGHT_COMP, rankDlgDOPg, WM_CF_SHOW, DROPDOWN_CF_AUTOSCROLLBAR, ID_RANK_DO_TYPE);
@@ -151,8 +151,8 @@ void rank_dlg_do_init() {
   DROPDOWN_SetBkColor(typeDOListBox, DROPDOWN_CI_UNSEL, GUI_GRAY);
   DROPDOWN_SetBkColor(typeDOListBox, DROPDOWN_CI_SEL, GUI_GRAY);
   DROPDOWN_SetBkColor(typeDOListBox, DROPDOWN_CI_SELFOCUS, GUI_BLUE);
-  DROPDOWN_AddString(typeDOListBox, typesDO0[sel_language]);
-  DROPDOWN_AddString(typeDOListBox, typesDO1[sel_language]);
+  DROPDOWN_AddString(typeDOListBox, typesDO0[eeprom_bs_settings_tbl.chLngGUIText]);
+  DROPDOWN_AddString(typeDOListBox, typesDO1[eeprom_bs_settings_tbl.chLngGUIText]);
   
   ESC_Button_do_rank_dlg = BUTTON_CreateEx(x_b, y_b, WIDTH_B, HEIGHT_B, rankDlgDOPg, WM_CF_SHOW, 0, ID_RANK_DO_DLGBUT_ESC);
   BUTTON_SetFont(ESC_Button_do_rank_dlg, &GUI_FontArialBold14_8_Unicode);

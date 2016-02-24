@@ -446,7 +446,7 @@ const char* ZOP_pickup_info_1(
     }
   case 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP1_PICKUP1_MAX/1000;
       *p_shift = ZOP1_PICKUP1_SHIFT;
@@ -455,7 +455,7 @@ const char* ZOP_pickup_info_1(
     }
   case 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP1_PICKUP2_MAX/1000;
       *p_shift = ZOP1_PICKUP2_SHIFT;
@@ -464,7 +464,7 @@ const char* ZOP_pickup_info_1(
     }
   case 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP1_PICKUP3_MAX/1000;
       *p_shift = ZOP1_PICKUP3_SHIFT;
@@ -473,7 +473,7 @@ const char* ZOP_pickup_info_1(
     }
   case 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP1_PICKUP4_MAX/1000;
       *p_shift = ZOP1_PICKUP4_SHIFT;
@@ -482,7 +482,7 @@ const char* ZOP_pickup_info_1(
     }
   case 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP1_PICKUP5_MAX/1000;
       *p_shift = ZOP1_PICKUP5_SHIFT;
@@ -500,7 +500,7 @@ const char* ZOP_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_ZOP1 + 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP2_PICKUP1_MAX/1000;
       *p_shift = ZOP2_PICKUP1_SHIFT;
@@ -509,7 +509,7 @@ const char* ZOP_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_ZOP1 + 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP2_PICKUP2_MAX/1000;
       *p_shift = ZOP2_PICKUP2_SHIFT;
@@ -518,7 +518,7 @@ const char* ZOP_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_ZOP1 + 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP2_PICKUP3_MAX/1000;
       *p_shift = ZOP2_PICKUP3_SHIFT;
@@ -527,7 +527,7 @@ const char* ZOP_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_ZOP1 + 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP2_PICKUP4_MAX/1000;
       *p_shift = ZOP2_PICKUP4_SHIFT;
@@ -536,7 +536,7 @@ const char* ZOP_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_ZOP1 + 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = ZOP2_PICKUP5_MAX/1000;
       *p_shift = ZOP2_PICKUP5_SHIFT;
@@ -560,7 +560,7 @@ const char* ZOP_delay_info_1(
                               int *p_shift
                              )
 {
-  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[sel_language];
+  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   *p_min = 0;
 
   switch (number)
@@ -636,12 +636,12 @@ const char* ZOP_pickup_dimention(unsigned int number)
   case MAX_NUMBER_PICKUP_ZOP1 + 3:
   case MAX_NUMBER_PICKUP_ZOP1 + 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   default:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   }

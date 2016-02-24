@@ -1331,6 +1331,7 @@ unsigned char chAmtStopBit;
 unsigned char chSleepTmVal;//Час переходу у «режим сну» (1÷60 хв. з кроком 1 хв.)
 
 char chLngGUIText;//Мова інтерфейсу меню (0 – «Українська»; 1 – «Русский»; 2 – «English»)
+char chWinding;//Обмотка (0 - первинна; 1 - вторинна)
 
 
 unsigned short int psw_interface_USB;

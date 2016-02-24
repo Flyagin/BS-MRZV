@@ -181,7 +181,7 @@ const char* Umax_pickup_info_1(
   {
   case 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = UMAX1_PICKUP0_MAX/1000;
       *p_shift = UMAX1_PICKUP0_SHIFT;
@@ -190,7 +190,7 @@ const char* Umax_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_UMAX1 + 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = UMAX2_PICKUP0_MAX/1000;
       *p_shift = UMAX2_PICKUP0_SHIFT;
@@ -214,7 +214,7 @@ const char* Umax_delay_info_1(
                               int *p_shift
                              )
 {
-  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[sel_language];
+  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   *p_min = 0;
 
   switch (number)
@@ -251,7 +251,7 @@ const char* Umax_pickup_dimention(unsigned int number)
   {
   default:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   }

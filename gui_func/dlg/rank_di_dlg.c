@@ -35,13 +35,13 @@ void update_di_status_panel() {
   if (current_ekran.edition != 0) {
     char explanationText[100] = {0};
     unsigned int i = 0;
-    for (; _rankDlgDIItem[0].pExplanation[sel_language][i] != '\0'; i++) {
-      explanationText[i] = _rankDlgDIItem[0].pExplanation[sel_language][i];
+    for (; _rankDlgDIItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+      explanationText[i] = _rankDlgDIItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i];
     }
-    _CONCAT_STR(explanationText, editModeAdditionalText[sel_language]);
+    _CONCAT_STR(explanationText, editModeAdditionalText[eeprom_bs_settings_tbl.chLngGUIText]);
     EDIT_SetText(hEdit, explanationText);
   } else {
-    EDIT_SetText(hEdit, _rankDlgDIItem[0].pExplanation[sel_language]);
+    EDIT_SetText(hEdit, _rankDlgDIItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   }
 }
 
@@ -52,8 +52,8 @@ void update_di_status_panel() {
 void update_di_title() {
   char titleText[100] = {0};
   unsigned int i = 0;
-  for (; _rankDlgDIItem[0].pText[sel_language][i] != '\0'; i++) {
-    titleText[i] = _rankDlgDIItem[0].pText[sel_language][i];
+  for (; _rankDlgDIItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+    titleText[i] = _rankDlgDIItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i];
   }
   char numberDIText[3] = {0};
   int numPg = di_index + 1;
@@ -67,22 +67,22 @@ void update_di_title() {
 *       Обновление меток диалогового окна
 */
 void update_di_labels() {
-  TEXT_SetText(WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_TEXT_LABEL1), durationDITextLabels[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_UNIT), msUnits[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_TEXT_LABEL2), signalTypeDITextLabels[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_TEXT_LABEL3), typeDITextLabels[sel_language]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_TEXT_LABEL1), durationDITextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_UNIT), msUnits[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_TEXT_LABEL2), signalTypeDITextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_TEXT_LABEL3), typeDITextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   
   //обновление названий для "тип вх. сигналов" и для "вид входа" в соответствии с выбранным языком
   DROPDOWN_Handle signalTypeDIListBox = WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_SIGNAL_TYPE);
   DROPDOWN_Handle typeDIListBox = WM_GetDialogItem(rankDlgDIPg, ID_RANK_DI_TYPE);
   DROPDOWN_DeleteItem(signalTypeDIListBox, 0);
-  DROPDOWN_InsertString(signalTypeDIListBox, signalTypesDI0[sel_language], 0);
+  DROPDOWN_InsertString(signalTypeDIListBox, signalTypesDI0[eeprom_bs_settings_tbl.chLngGUIText], 0);
   DROPDOWN_DeleteItem(signalTypeDIListBox, 1);
-  DROPDOWN_InsertString(signalTypeDIListBox, signalTypesDI1[sel_language], 1);
+  DROPDOWN_InsertString(signalTypeDIListBox, signalTypesDI1[eeprom_bs_settings_tbl.chLngGUIText], 1);
   DROPDOWN_DeleteItem(typeDIListBox, 0);
-  DROPDOWN_InsertString(typeDIListBox, typesDI0[sel_language], 0);
+  DROPDOWN_InsertString(typeDIListBox, typesDI0[eeprom_bs_settings_tbl.chLngGUIText], 0);
   DROPDOWN_DeleteItem(typeDIListBox, 1);
-  DROPDOWN_InsertString(typeDIListBox, typesDI1[sel_language], 1);
+  DROPDOWN_InsertString(typeDIListBox, typesDI1[eeprom_bs_settings_tbl.chLngGUIText], 1);
 }
 
 /*********************************************************************
@@ -181,21 +181,21 @@ void rank_dlg_di_init() {
   BUTTON_Handle ESC_Button_di_rank_dlg;
   BUTTON_Handle ENTER_Button_di_rank_dlg;
   
-  rankDlgDIPg = FRAMEWIN_CreateEx(x0, y0, WIDTH_DLG, HEIGHT_DLG, 0, WM_CF_SHOW, 0, win_id_list[ID_RANK_DI_DLG], _rankDlgDIItem[0].pText[sel_language], _cbRankDlgWin);
+  rankDlgDIPg = FRAMEWIN_CreateEx(x0, y0, WIDTH_DLG, HEIGHT_DLG, 0, WM_CF_SHOW, 0, win_id_list[ID_RANK_DI_DLG], _rankDlgDIItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText], _cbRankDlgWin);
   FRAMEWIN_SetFont(rankDlgDIPg, &GUI_FontArialBold14_8_Unicode);
   
-  label1 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_TEXT_LABEL1, durationDITextLabels[sel_language]);
+  label1 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_TEXT_LABEL1, durationDITextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(label1, &GUI_FontArialBold14_8_Unicode);
   
-  durationUnit = TEXT_CreateEx(x_components + WIDTH_COMP + 5, y_textLabel, 20, HEIGHT_T, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_UNIT, msUnits[sel_language]);
+  durationUnit = TEXT_CreateEx(x_components + WIDTH_COMP + 5, y_textLabel, 20, HEIGHT_T, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_UNIT, msUnits[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(durationUnit, &GUI_FontArialBold14_8_Unicode);
   
   y_textLabel += HEIGHT_T + 10;
-  label2 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_TEXT_LABEL2, signalTypeDITextLabels[sel_language]);
+  label2 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_TEXT_LABEL2, signalTypeDITextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(label2, &GUI_FontArialBold14_8_Unicode);
   
   y_textLabel += HEIGHT_T + 10;
-  label3 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_TEXT_LABEL3, typeDITextLabels[sel_language]);
+  label3 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_TEXT_LABEL3, typeDITextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(label3, &GUI_FontArialBold14_8_Unicode);
   
   durationDITextField = EDIT_CreateEx(x_components, y_components, WIDTH_COMP, HEIGHT_COMP, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_DURATION, RANK_DI_DURATION_VAL_LENGTH);
@@ -208,8 +208,8 @@ void rank_dlg_di_init() {
   DROPDOWN_SetBkColor(signalTypeDIListBox, DROPDOWN_CI_UNSEL, GUI_GRAY);
   DROPDOWN_SetBkColor(signalTypeDIListBox, DROPDOWN_CI_SEL, GUI_GRAY);
   DROPDOWN_SetBkColor(signalTypeDIListBox, DROPDOWN_CI_SELFOCUS, GUI_BLUE);
-  DROPDOWN_AddString(signalTypeDIListBox, signalTypesDI0[sel_language]);
-  DROPDOWN_AddString(signalTypeDIListBox, signalTypesDI1[sel_language]);
+  DROPDOWN_AddString(signalTypeDIListBox, signalTypesDI0[eeprom_bs_settings_tbl.chLngGUIText]);
+  DROPDOWN_AddString(signalTypeDIListBox, signalTypesDI1[eeprom_bs_settings_tbl.chLngGUIText]);
   
   y_components += HEIGHT_COMP + 11;
   typeDIListBox = DROPDOWN_CreateEx(x_components, y_components, WIDTH_COMP + 25, HEIGHT_COMP, rankDlgDIPg, WM_CF_SHOW, DROPDOWN_CF_AUTOSCROLLBAR, ID_RANK_DI_TYPE);
@@ -217,8 +217,8 @@ void rank_dlg_di_init() {
   DROPDOWN_SetBkColor(typeDIListBox, DROPDOWN_CI_UNSEL, GUI_GRAY);
   DROPDOWN_SetBkColor(typeDIListBox, DROPDOWN_CI_SEL, GUI_GRAY);
   DROPDOWN_SetBkColor(typeDIListBox, DROPDOWN_CI_SELFOCUS, GUI_BLUE);
-  DROPDOWN_AddString(typeDIListBox, typesDI0[sel_language]);
-  DROPDOWN_AddString(typeDIListBox, typesDI1[sel_language]);
+  DROPDOWN_AddString(typeDIListBox, typesDI0[eeprom_bs_settings_tbl.chLngGUIText]);
+  DROPDOWN_AddString(typeDIListBox, typesDI1[eeprom_bs_settings_tbl.chLngGUIText]);
   
   ESC_Button_di_rank_dlg = BUTTON_CreateEx(x_b, y_b, WIDTH_B, HEIGHT_B, rankDlgDIPg, WM_CF_SHOW, 0, ID_RANK_DI_DLGBUT_ESC);
   BUTTON_SetFont(ESC_Button_di_rank_dlg, &GUI_FontArialBold14_8_Unicode);

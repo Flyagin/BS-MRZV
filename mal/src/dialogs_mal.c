@@ -82,7 +82,7 @@ void dialog_password_show(int win_id, unsigned int index)
     }
   }
   
-  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_HIDE, 0, id_framewin, Dialog_password_title[index].ptitle[sel_language], _cbEmpty);
+  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_HIDE, 0, id_framewin, Dialog_password_title[index].ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
   FRAMEWIN_SetFont(*Dialog_FrameWin, &GUI_FontArialBold14_8_Unicode);
   FRAMEWIN_SetTextAlign(*Dialog_FrameWin, GUI_TA_LEFT);
 
@@ -98,11 +98,11 @@ void dialog_password_show(int win_id, unsigned int index)
   
   *Dialog_DP_ESC_Button = BUTTON_CreateEx(shift_to_button_x, YSIZE_E_B + 2*shift_to_button_y, XSIZE_B, YSIZE_E_B, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_dp_cancel_button);
   BUTTON_SetFont(*Dialog_DP_ESC_Button, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(*Dialog_DP_ESC_Button, ENTER_ESC[1].ptitle[sel_language]);
+  BUTTON_SetText(*Dialog_DP_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
   *Dialog_DP_ENTER_Button = BUTTON_CreateEx(3*shift_to_button_x + XSIZE_B, YSIZE_E_B + 2*shift_to_button_y, XSIZE_B, YSIZE_E_B, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_dp_ok_button);
   BUTTON_SetFont(*Dialog_DP_ENTER_Button, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(*Dialog_DP_ENTER_Button, ENTER_ESC[0].ptitle[sel_language]);
+  BUTTON_SetText(*Dialog_DP_ENTER_Button, ENTER_ESC[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
 #undef XSIZE_W
 #undef YSIZE_W
@@ -195,7 +195,7 @@ void dialog_confirmation_show(int win_id)
   int x0 = (GUI_X_MAX - XSIZE_W) >> 1;
   int y0 = (GUI_Y_MAX - YSIZE_W) >> 1;
   
-  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_HIDE, 0, id_framewin, Dialog_confirmation_title.ptitle[sel_language], _cbEmpty);
+  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_HIDE, 0, id_framewin, Dialog_confirmation_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
   FRAMEWIN_SetFont(*Dialog_FrameWin, &GUI_FontArialBold14_8_Unicode);
   FRAMEWIN_SetTextAlign(*Dialog_FrameWin, GUI_TA_LEFT);
 
@@ -205,18 +205,18 @@ void dialog_confirmation_show(int win_id)
   int shift_to_button_x = (XSIZE_W - 2*(XSIZE_B + B_size)) >> 2;
   int shift_to_button_y = (YSIZE_W - 2*B_size - T_hight - D_size - YSIZE_T - YSIZE_B)/3;
   
-  *Dialog_DC_Text = TEXT_CreateEx(shift_to_button_x, shift_to_button_y, (XSIZE_W - 2*(shift_to_button_x + B_size)), YSIZE_T, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_dc_text, Dialog_message->ptitle[sel_language]);
+  *Dialog_DC_Text = TEXT_CreateEx(shift_to_button_x, shift_to_button_y, (XSIZE_W - 2*(shift_to_button_x + B_size)), YSIZE_T, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_dc_text, Dialog_message->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(*Dialog_DC_Text, &GUI_FontArialStandard15_9_Unicode);
   TEXT_SetTextAlign(*Dialog_DC_Text, TEXT_CF_HCENTER | GUI_TA_VCENTER);
   TEXT_SetWrapMode(*Dialog_DC_Text, GUI_WRAPMODE_WORD);
   
   *Dialog_DC_ESC_Button = BUTTON_CreateEx(shift_to_button_x, YSIZE_T + 2*shift_to_button_y, XSIZE_B, YSIZE_B, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_dc_cancel_button);
   BUTTON_SetFont(*Dialog_DC_ESC_Button, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(*Dialog_DC_ESC_Button, ENTER_ESC[1].ptitle[sel_language]);
+  BUTTON_SetText(*Dialog_DC_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
   *Dialog_DC_ENTER_Button = BUTTON_CreateEx(3*shift_to_button_x + XSIZE_B, YSIZE_T + 2*shift_to_button_y, XSIZE_B, YSIZE_B, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_dc_ok_button);
   BUTTON_SetFont(*Dialog_DC_ENTER_Button, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(*Dialog_DC_ENTER_Button, ENTER_ESC[0].ptitle[sel_language]);
+  BUTTON_SetText(*Dialog_DC_ENTER_Button, ENTER_ESC[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
 #undef XSIZE_W
 #undef YSIZE_W
@@ -290,7 +290,7 @@ void dialog_error_show(int win_id)
   int x0 = (GUI_X_MAX - XSIZE_W) >> 1;
   int y0 = (GUI_Y_MAX - YSIZE_W) >> 1;
   
-  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_SHOW, 0, id_framewin, Dialog_message->ptitle[sel_language], _cbEmpty);
+  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_SHOW, 0, id_framewin, Dialog_message->ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
   FRAMEWIN_SetFont(*Dialog_FrameWin, &GUI_FontArialBold14_8_Unicode);
   FRAMEWIN_SetTextAlign(*Dialog_FrameWin, GUI_TA_LEFT);
 
@@ -300,18 +300,18 @@ void dialog_error_show(int win_id)
   int shift_to_button_x = (XSIZE_W - 2*(XSIZE_B + B_size)) >> 2;
   int shift_to_button_y = (YSIZE_W - 2*B_size - T_hight - D_size - YSIZE_T - YSIZE_B)/3;
   
-  *Dialog_DE_Text = TEXT_CreateEx(10, shift_to_button_y, (XSIZE_W - 2*(10 + B_size)), YSIZE_T, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_de_text, Dialog_error_message.ptitle[sel_language]);
+  *Dialog_DE_Text = TEXT_CreateEx(10, shift_to_button_y, (XSIZE_W - 2*(10 + B_size)), YSIZE_T, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_de_text, Dialog_error_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(*Dialog_DE_Text, &GUI_FontArialStandard15_9_Unicode);
   TEXT_SetTextAlign(*Dialog_DE_Text, TEXT_CF_HCENTER | GUI_TA_VCENTER);
   TEXT_SetWrapMode(*Dialog_DE_Text, GUI_WRAPMODE_WORD);
   
   *Dialog_DE_ESC_Button = BUTTON_CreateEx(shift_to_button_x, YSIZE_T + 2*shift_to_button_y, XSIZE_B, YSIZE_B, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_de_cancel_button);
   BUTTON_SetFont(*Dialog_DE_ESC_Button, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(*Dialog_DE_ESC_Button, ENTER_ESC[1].ptitle[sel_language]);
+  BUTTON_SetText(*Dialog_DE_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
   *Dialog_DE_ENTER_Button = BUTTON_CreateEx(3*shift_to_button_x + XSIZE_B, YSIZE_T + 2*shift_to_button_y, XSIZE_B, YSIZE_B, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_de_ok_button);
   BUTTON_SetFont(*Dialog_DE_ENTER_Button, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(*Dialog_DE_ENTER_Button, ENTER_ESC[0].ptitle[sel_language]);
+  BUTTON_SetText(*Dialog_DE_ENTER_Button, ENTER_ESC[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
 #undef XSIZE_W
 #undef YSIZE_W
@@ -377,7 +377,7 @@ void unreliable_error_show(int win_id)
     }
   }
   
-  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_HIDE, 0, id_framewin, Unreliable_error_title.ptitle[sel_language], _cbEmpty);
+  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_HIDE, 0, id_framewin, Unreliable_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
   FRAMEWIN_SetFont(*Dialog_FrameWin, &GUI_FontArialBold14_8_Unicode);
   FRAMEWIN_SetTextAlign(*Dialog_FrameWin, GUI_TA_CENTER);
   FRAMEWIN_SetBarColor(*Dialog_FrameWin, 0, GUI_DARKRED);
@@ -391,7 +391,7 @@ void unreliable_error_show(int win_id)
   int shift_to_button_x = (XSIZE_W - (XSIZE_B + B_size)) >> 1;
   int shift_to_button_y = (YSIZE_W - 2*B_size - T_hight - D_size - YSIZE_T - YSIZE_B)/3;
   
-  *Dialog_Text = TEXT_CreateEx(10, shift_to_button_y, (XSIZE_W - 2*(10 + B_size)), YSIZE_T, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_text, Unreliable_error_message.ptitle[sel_language]);
+  *Dialog_Text = TEXT_CreateEx(10, shift_to_button_y, (XSIZE_W - 2*(10 + B_size)), YSIZE_T, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_text, Unreliable_error_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(*Dialog_Text, &GUI_FontArialStandard15_9_Unicode);
   TEXT_SetTextColor(*Dialog_Text, GUI_WHITE);
   TEXT_SetTextAlign(*Dialog_Text, TEXT_CF_HCENTER | GUI_TA_VCENTER);
@@ -399,7 +399,7 @@ void unreliable_error_show(int win_id)
   
   *Dialog_ESC_Button = BUTTON_CreateEx(shift_to_button_x, YSIZE_T + 2*shift_to_button_y, XSIZE_B, YSIZE_B, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_cancel_button);
   BUTTON_SetFont(*Dialog_ESC_Button, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(*Dialog_ESC_Button, ENTER_ESC[1].ptitle[sel_language]);
+  BUTTON_SetText(*Dialog_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
 #undef XSIZE_W
 #undef YSIZE_W

@@ -7,6 +7,8 @@ extern void main_routines_for_spi1(void);
 
 extern void strcat_mal(char*, char*);
 extern int strlen_mal(char*);
+extern void strcpy_fly(char *, char *, int);
+extern char* strcat_heap_fly(char *, char *);
 extern int strinsert_mal(char*, int, char*);
 extern int strdel_mal(char*, int, int);
 extern int strcmp_mal(char*, char*);
@@ -217,3 +219,6 @@ extern void ChangeConfRS485(unsigned BaudRate, unsigned PARITY, unsigned StopBit
 extern void clean_table_data_dr(void);
 extern void main_routines_for_ar(void);
 
+extern void set_current_winding(int);
+extern void change_winding_next();
+extern  void change_winding_previous();

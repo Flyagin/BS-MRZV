@@ -77,9 +77,13 @@ int main()  @ "Fast_function"
   StartUPInitKBD();
   StartUPInitLCD();
   CollectCfgTbls();
-  gui_init();
   
   start_tasks_mal();
+//  eeprom_bs_settings_tbl.chWinding = 1;
+//  eeprom_bs_settings_tbl.chLngGUIText = 1;
+//  change_language = 1;
+//  _SET_BIT(control_spi1_taskes, TASK_START_WRITE_SETTINGS_BS_EEPROM_BIT);
+  gui_init();
   
 #ifdef  flash  
   while(1);

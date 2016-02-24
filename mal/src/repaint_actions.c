@@ -7,7 +7,7 @@ static void change_names_menu(MENU_Handle hObj, unsigned int *index)
   {
     MENU_ITEM_DATA Item;
     MENU_GetItem(hObj, id_menu[*index], &Item);
-    Item.pText = menu_option_title[*index].ptitle[sel_language];
+    Item.pText = menu_option_title[*index].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
     MENU_SetItem(hObj, id_menu[*index], &Item);
     (*index)++;
     
@@ -32,7 +32,7 @@ void repaint_actions(__index_level_menu id_panel)
   
   MENU_ITEM_DATA Item;
   MENU_GetItem(hMin_settings, ID_MENU_MIN_SETTINGS_PRT, &Item);
-  Item.pText = menu_option_title[1].ptitle[sel_language];
+  Item.pText = menu_option_title[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   if (error_data)
     Item.Flags = 0;
   else
@@ -40,7 +40,7 @@ void repaint_actions(__index_level_menu id_panel)
   MENU_SetItem(hMin_settings, ID_MENU_MIN_SETTINGS_PRT, &Item);
 
   MENU_GetItem(hMin_settings, ID_MENU_MIN_SETTINGS_1, &Item);
-  Item.pText = menu_option_title[2].ptitle[sel_language];
+  Item.pText = menu_option_title[2].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   if (error_data_1)
     Item.Flags = 0;
   else
@@ -48,7 +48,7 @@ void repaint_actions(__index_level_menu id_panel)
   MENU_SetItem(hMin_settings, ID_MENU_MIN_SETTINGS_1, &Item);
 
   MENU_GetItem(hOption, ID_MENU_OPTION_LANGUAGE, &Item);
-  Item.pText = menu_option_title[4].ptitle[sel_language];
+  Item.pText = menu_option_title[4].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   if (error_data_1)
     Item.Flags = MENU_IF_DISABLED;
   else
@@ -56,7 +56,7 @@ void repaint_actions(__index_level_menu id_panel)
   MENU_SetItem(hOption, ID_MENU_OPTION_LANGUAGE, &Item);
 
   MENU_GetItem(hOption, ID_MENU_OPTION_LCD, &Item);
-  Item.pText = menu_option_title[5].ptitle[sel_language];
+  Item.pText = menu_option_title[5].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   if (error_data_1)
     Item.Flags = MENU_IF_DISABLED;
   else
@@ -64,7 +64,7 @@ void repaint_actions(__index_level_menu id_panel)
   MENU_SetItem(hOption, ID_MENU_OPTION_LCD, &Item);
 
   MENU_GetItem(hPasswords, ID_MENU_OPTION_PASSWORD1, &Item);
-  Item.pText = menu_option_title[7].ptitle[sel_language];
+  Item.pText = menu_option_title[7].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   if (error_data_1)
     Item.Flags = MENU_IF_DISABLED;
   else
@@ -72,7 +72,7 @@ void repaint_actions(__index_level_menu id_panel)
   MENU_SetItem(hPasswords, ID_MENU_OPTION_PASSWORD1, &Item);  
 
   MENU_GetItem(hPasswords, ID_MENU_OPTION_PASSWORD2, &Item);
-  Item.pText = menu_option_title[8].ptitle[sel_language];
+  Item.pText = menu_option_title[8].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   if (error_data_1)
     Item.Flags = MENU_IF_DISABLED;
   else
@@ -83,7 +83,7 @@ void repaint_actions(__index_level_menu id_panel)
   for (unsigned int i = 0; i < NumItems; i++)
   {
     MENU_GetItem(hCommands, (ID_MENU_COMMANDS_1 + i), &Item);
-    Item.pText = menu_option_title[15 + i].ptitle[sel_language];
+    Item.pText = menu_option_title[15 + i].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
     if (error_data)
       Item.Flags = MENU_IF_DISABLED;
     else
@@ -109,7 +109,7 @@ void repaint_actions(__index_level_menu id_panel)
       strcat_mal(new_name, string_point);
     else
       strcat_mal(new_name, string_empty);
-    strcat_mal(new_name, (char *)menu_option_title[10 + i].ptitle[sel_language]);
+    strcat_mal(new_name, (char *)menu_option_title[10 + i].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
     Item.pText = new_name;
 
@@ -127,7 +127,7 @@ void repaint_actions(__index_level_menu id_panel)
     {
       for (unsigned int i = 0; i < ICONVIEW_SIZE; i++) 
       {
-        ICONVIEW_SetItemText(iconWin, i, _aBitmapItem[i].pText[sel_language]);
+        ICONVIEW_SetItemText(iconWin, i, _aBitmapItem[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
       }
       
       break;
@@ -188,9 +188,9 @@ void repaint_actions(__index_level_menu id_panel)
       }
       WM_SetFocus(*Dialog_FrameWin);
 
-      FRAMEWIN_SetText(*Dialog_FrameWin, Dialog_password_title[index].ptitle[sel_language]);
-      BUTTON_SetText(*Dialog_DP_ENTER_Button, ENTER_ESC[0].ptitle[sel_language]);
-      BUTTON_SetText(*Dialog_DP_ESC_Button, ENTER_ESC[1].ptitle[sel_language]);
+      FRAMEWIN_SetText(*Dialog_FrameWin, Dialog_password_title[index].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      BUTTON_SetText(*Dialog_DP_ENTER_Button, ENTER_ESC[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      BUTTON_SetText(*Dialog_DP_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
       Set_Test_and_cursor_into_EDIT(*Dialog_DP_Text, point_to_typed_password, *point_to_cursor_position_dp, 1, '*');
       break;
@@ -229,10 +229,10 @@ void repaint_actions(__index_level_menu id_panel)
       }
       WM_SetFocus(*Dialog_FrameWin);
 
-      FRAMEWIN_SetText(*Dialog_FrameWin, Dialog_confirmation_title.ptitle[sel_language]);
-      TEXT_SetText(*Dialog_DC_Text, Dialog_message->ptitle[sel_language]);
-      BUTTON_SetText(*Dialog_DC_ESC_Button, ENTER_ESC[1].ptitle[sel_language]);
-      BUTTON_SetText(*Dialog_DC_ENTER_Button, ENTER_ESC[0].ptitle[sel_language]);
+      FRAMEWIN_SetText(*Dialog_FrameWin, Dialog_confirmation_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      TEXT_SetText(*Dialog_DC_Text, Dialog_message->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      BUTTON_SetText(*Dialog_DC_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      BUTTON_SetText(*Dialog_DC_ENTER_Button, ENTER_ESC[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       WM_SetFocus(*Dialog_DC_ENTER_Button);
 
       break;
@@ -260,12 +260,12 @@ void repaint_actions(__index_level_menu id_panel)
           case ID_RANK_PG:
           case ID_CONFIG_PG:
             {
-              FRAMEWIN_SetText(Dialog_error_FrameWin, rank_msg_title[sel_language]);
+              FRAMEWIN_SetText(Dialog_error_FrameWin, rank_msg_title[eeprom_bs_settings_tbl.chLngGUIText]);
               break;
             }
           default:
             {
-              FRAMEWIN_SetText(Dialog_error_FrameWin, Dialog_error_title.ptitle[sel_language]);
+              FRAMEWIN_SetText(Dialog_error_FrameWin, Dialog_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
               break;
             }
           }
@@ -283,7 +283,7 @@ void repaint_actions(__index_level_menu id_panel)
       
           Dialog_DE_ENTER_Button = &DE_ENTER_level_2_Button;
 
-          FRAMEWIN_SetText(Dialog_error_level_2_FrameWin, Dialog_error_title.ptitle[sel_language]);
+          FRAMEWIN_SetText(Dialog_error_level_2_FrameWin, Dialog_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
           break;
         }
@@ -295,9 +295,9 @@ void repaint_actions(__index_level_menu id_panel)
       
       WM_SetFocus(*Dialog_FrameWin);
 
-      TEXT_SetText(*Dialog_DE_Text, Dialog_message->ptitle[sel_language]);
-      BUTTON_SetText(*Dialog_DE_ESC_Button, ENTER_ESC[1].ptitle[sel_language]);
-      BUTTON_SetText(*Dialog_DE_ENTER_Button, ENTER_ESC[0].ptitle[sel_language]);
+      TEXT_SetText(*Dialog_DE_Text, Dialog_message->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      BUTTON_SetText(*Dialog_DE_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      BUTTON_SetText(*Dialog_DE_ENTER_Button, ENTER_ESC[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       WM_SetFocus(*Dialog_DE_ENTER_Button);
 
       break;
@@ -330,9 +330,9 @@ void repaint_actions(__index_level_menu id_panel)
       }
       
       WM_SetFocus(*Dialog_FrameWin);
-      FRAMEWIN_SetText(*Dialog_FrameWin, Unreliable_error_title.ptitle[sel_language]);
-      TEXT_SetText(*Dialog_Text, Unreliable_error_message.ptitle[sel_language]);
-      BUTTON_SetText(*Dialog_ESC_Button, ENTER_ESC[1].ptitle[sel_language]);
+      FRAMEWIN_SetText(*Dialog_FrameWin, Unreliable_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      TEXT_SetText(*Dialog_Text, Unreliable_error_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      BUTTON_SetText(*Dialog_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       WM_SetFocus(*Dialog_ESC_Button);
 
       break;
@@ -340,9 +340,9 @@ void repaint_actions(__index_level_menu id_panel)
   case ID_LCD_SETTINGS:
     {
       WM_SetFocus(LCD_Settings_FrameWin);
-      FRAMEWIN_SetText(LCD_Settings_FrameWin, LCD_Settings_title.ptitle[sel_language]);
-      TEXT_SetText(LCD_Settings_t, LCD_Settings_Delay_title.ptitle[sel_language]);
-      TEXT_SetText(LCD_Settings_d, LCD_Settings_Delay_dimention.ptitle[sel_language]);
+      FRAMEWIN_SetText(LCD_Settings_FrameWin, LCD_Settings_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      TEXT_SetText(LCD_Settings_t, LCD_Settings_Delay_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      TEXT_SetText(LCD_Settings_d, LCD_Settings_Delay_dimention.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       WM_SetFocus(LCD_Settings_Edit);
 
       break;
@@ -485,7 +485,7 @@ void repaint_actions(__index_level_menu id_panel)
 
           for (unsigned int i = 0; i < max_number_pickup_protection; i++)
           {
-            TEXT_SetText(*(Protection_Pickup_t + i),  (Protection_Pickup_title + i)->ptitle[sel_language]);
+            TEXT_SetText(*(Protection_Pickup_t + i),  (Protection_Pickup_title + i)->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
             const char *p_title = NULL;
             p_title = (*Protection_pickup_dimantion)(i);
@@ -619,8 +619,8 @@ void repaint_actions(__index_level_menu id_panel)
 
           for (unsigned int i = 0; i < max_number_delay_protection; i++)
           {
-            TEXT_SetText(*(Protection_Delay_t + index_shift + i),  (Protection_Delay_title + index_shift + i)->ptitle[sel_language]);
-            TEXT_SetText(*(Protection_Delay_m + index_shift + i),  MEASURES[MEASURES_OF_SECOND].ptitle[sel_language]);
+            TEXT_SetText(*(Protection_Delay_t + index_shift + i),  (Protection_Delay_title + index_shift + i)->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+            TEXT_SetText(*(Protection_Delay_m + index_shift + i),  MEASURES[MEASURES_OF_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
           }
 
           break;
@@ -751,7 +751,7 @@ void repaint_actions(__index_level_menu id_panel)
 
           for (unsigned int i = 0; i < max_number_ctrl_protection; i++)
           {
-            TEXT_SetText(*(Protection_State_t + i),  (Protection_State_title + i)->ptitle[sel_language]);
+            TEXT_SetText(*(Protection_State_t + i),  (Protection_State_title + i)->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
         
             int j_max;
             const TITLE *p_control_list_name;
@@ -760,7 +760,7 @@ void repaint_actions(__index_level_menu id_panel)
             for (int j = 0; j < j_max; j++)
             {
               DROPDOWN_DeleteItem(*(Protection_State_v + i), (j + 1)); //Tomu shcho 0-j index je povidomlennja "", jake oznachaje, shcho dani nedostovirni
-              DROPDOWN_InsertString(*(Protection_State_v + i), (p_control_list_name + j)->ptitle[sel_language], (j + 1));
+              DROPDOWN_InsertString(*(Protection_State_v + i), (p_control_list_name + j)->ptitle[eeprom_bs_settings_tbl.chLngGUIText], (j + 1));
             }
           }
           
@@ -840,13 +840,13 @@ void repaint_actions(__index_level_menu id_panel)
       {
         for (unsigned int i = 0; i < (groups + 1); i++)
         {
-          MULTIPAGE_SetText(*Protection_MultiPage_groups, _MultiPage_groups_Items[i].pText[sel_language], i);
+          MULTIPAGE_SetText(*Protection_MultiPage_groups, _MultiPage_groups_Items[i].pText[eeprom_bs_settings_tbl.chLngGUIText], i);
         }
       }
 
       for (unsigned int i = 0; i < MAX_PAGES_PROTECTION_SDC; i++)
       {
-        MULTIPAGE_SetText(*Protection_MultiPage_type_info, _MultiPage_type_info_Items[i].pText[sel_language], i);
+        MULTIPAGE_SetText(*Protection_MultiPage_type_info, _MultiPage_type_info_Items[i].pText[eeprom_bs_settings_tbl.chLngGUIText], i);
       }
       
       break;
@@ -855,31 +855,31 @@ void repaint_actions(__index_level_menu id_panel)
     {
       for (int i = 0; i < SETTINGS_SIZE; i++)
       {
-        ICONVIEW_SetItemText(Settings_IconView, i, _aBitmapItem_settings[i].pText[sel_language]);
+        ICONVIEW_SetItemText(Settings_IconView, i, _aBitmapItem_settings[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
       }
       
       break;
     }
   case ID_TRANSFORMER_PG:
     {
-      TEXT_SetText(Transformer_t[0], Transformer_title[0].ptitle[sel_language]);
+      TEXT_SetText(Transformer_t[0], Transformer_title[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       for (int i = 0; i < 3; i++)
       {
         DROPDOWN_DeleteItem(Transformer_v[0], (i + 1)); //Tomu shcho 0-j index je povidomlennja "", jake oznachaje, shcho dani nedostovirni
-        DROPDOWN_InsertString(Transformer_v[0], Transformer_line_title[i].ptitle[sel_language], (i + 1));
+        DROPDOWN_InsertString(Transformer_v[0], Transformer_line_title[i].ptitle[eeprom_bs_settings_tbl.chLngGUIText], (i + 1));
       }
 
-      TEXT_SetText(Transformer_t[1], Transformer_title[1].ptitle[sel_language]);
-      TEXT_SetText(Transformer_t[2], Transformer_title[2].ptitle[sel_language]);
+      TEXT_SetText(Transformer_t[1], Transformer_title[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      TEXT_SetText(Transformer_t[2], Transformer_title[2].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
       break;
     }
   case ID_RESURS_PG:
     {
-      FRAMEWIN_SetText(Resurs_FrameWin, Resurs_panel_title.ptitle[sel_language]);
+      FRAMEWIN_SetText(Resurs_FrameWin, Resurs_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       for (unsigned int i = 0; i < MAX_NUMBER_ITEMS_RESURS; i++)
       {
-        TEXT_SetText(Resurs_t[i], Resurs_title[i].ptitle[sel_language]);
+        TEXT_SetText(Resurs_t[i], Resurs_title[i].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       }
       
       break;
@@ -888,28 +888,28 @@ void repaint_actions(__index_level_menu id_panel)
     {
       for (int i = 0; i < COMM_SIZE; i++)
       {
-        ICONVIEW_SetItemText(Comm_IconView, i, _aBitmapItem_Comm[i].pText[sel_language]);
+        ICONVIEW_SetItemText(Comm_IconView, i, _aBitmapItem_Comm[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
       }
       
       break;
     }
   case ID_MODBUS_PG:
     {
-      TEXT_SetText(Modbus_t[0], Modbus_title[0].ptitle[sel_language]);
+      TEXT_SetText(Modbus_t[0], Modbus_title[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
-      TEXT_SetText(Modbus_t[1], Modbus_title[1].ptitle[sel_language]);
+      TEXT_SetText(Modbus_t[1], Modbus_title[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
-      TEXT_SetText(Modbus_t[2], Modbus_title[2].ptitle[sel_language]);
+      TEXT_SetText(Modbus_t[2], Modbus_title[2].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       for (int i = 0; i < 3; i++)
       {
         DROPDOWN_DeleteItem(Modbus_v[2], (i + 1));
-        DROPDOWN_InsertString(Modbus_v[2], Parity_title[i].ptitle[sel_language], (i + 1));
+        DROPDOWN_InsertString(Modbus_v[2], Parity_title[i].ptitle[eeprom_bs_settings_tbl.chLngGUIText], (i + 1));
       }
 
-      TEXT_SetText(Modbus_t[3], Modbus_title[3].ptitle[sel_language]);
+      TEXT_SetText(Modbus_t[3], Modbus_title[3].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
-      TEXT_SetText(Modbus_t[4], Modbus_title[4].ptitle[sel_language]);
-      TEXT_SetText(Modbus_d,  Modbus_Timeout_dimention.ptitle[sel_language]);
+      TEXT_SetText(Modbus_t[4], Modbus_title[4].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      TEXT_SetText(Modbus_d,  Modbus_Timeout_dimention.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       
       break;
     }
@@ -919,7 +919,7 @@ void repaint_actions(__index_level_menu id_panel)
     }
   case ID_CLOCK_PG:
     {
-      TEXT_SetText(Clock_t[4], Calibration_title[sel_language]);
+      TEXT_SetText(Clock_t[4], Calibration_title[eeprom_bs_settings_tbl.chLngGUIText]);
       break;
     }
   case ID_TM_PG:
@@ -945,14 +945,14 @@ void repaint_actions(__index_level_menu id_panel)
           {
           case 0:
             {
-              HEADER_SetItemText(TM_IO_Header, 0, TM_IO_columns[0].ptitle[sel_language]);
-              HEADER_SetItemText(TM_IO_Header, 1, TM_IO_columns[1].ptitle[sel_language]);
+              HEADER_SetItemText(TM_IO_Header, 0, TM_IO_columns[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+              HEADER_SetItemText(TM_IO_Header, 1, TM_IO_columns[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
               break;
             }
           case 1:
             {
-              HEADER_SetItemText(TM_F_Header, 0, TM_F_columns[0].ptitle[sel_language]);
-              HEADER_SetItemText(TM_F_Header, 1, TM_F_columns[1].ptitle[sel_language]);
+              HEADER_SetItemText(TM_F_Header, 0, TM_F_columns[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+              HEADER_SetItemText(TM_F_Header, 1, TM_F_columns[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
               break;
             }
           default: break;
@@ -963,7 +963,7 @@ void repaint_actions(__index_level_menu id_panel)
         }
       case ID_DIAGNOSTICS_PG:
         {
-          number_pages = 3;
+          number_pages = 4;
 
           Info_n_FrameWin = &Diagnostics_FrameWin;
           Info_n_panel_title = &Diagnostics_panel_title;
@@ -979,73 +979,75 @@ void repaint_actions(__index_level_menu id_panel)
         }
       }
       
-      FRAMEWIN_SetText(*Info_n_FrameWin, Info_n_panel_title->ptitle[sel_language]);
+      FRAMEWIN_SetText(*Info_n_FrameWin, Info_n_panel_title->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       for (unsigned int i = 0; i < number_pages; i++)
       {
         char title[256];
         title[0] = '\0';
-        strcat_mal(title, (char *)Page_name[i].pText[sel_language]);
+        strcat_mal(title, (char *)Page_name[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
 
         if (id_panel == ID_DIAGNOSTICS_PG)
         {
-          unsigned int *target_array;
-          if (i == 0)
-            target_array = diagnostics_bs_mrzv_tmp;
-          else if (i == 1)
-            target_array = diagnostics_bo_mrzv_m_tmp;
-          else
-            target_array = diagnostics_bo_mrzv_l_tmp;
+          if (i < (number_pages - 1))
+          {
+            unsigned int *target_array;
+            if (i == 0)
+              target_array = diagnostics_bs_mrzv_tmp;
+            else if (i == 1)
+              target_array = diagnostics_bo_mrzv_m_tmp;
+            else 
+              target_array = diagnostics_bo_mrzv_l_tmp;
           
-          unsigned int number_set_bits = 0;
-          for (unsigned int j = 0; j < ALL_NUMB_DIAGNOSTICS; j++)
-          {
-            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
-          }
+            unsigned int number_set_bits = 0;
+            for (unsigned int j = 0; j < ALL_NUMB_DIAGNOSTICS; j++)
+            {
+              if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+            }
         
-          char number_sting[3 + 3 + 1];
-          number_sting[0] = ' ';
-          number_sting[1] = '[';
-          if (number_set_bits > 1000)
-          {
-            number_sting[2] = '?';
+            char number_sting[3 + 3 + 1];
+            number_sting[0] = ' ';
+            number_sting[1] = '[';
+            if (number_set_bits > 1000)
+            {
+              number_sting[2] = '?';
 
-            number_sting[3] = ']';
-            number_sting[4] = '\0';
+              number_sting[3] = ']';
+              number_sting[4] = '\0';
+            }
+            else if (number_set_bits > 100)
+            {
+              number_sting[2] = number_set_bits/100 + 0x30;
+              number_set_bits %= 100;
+
+              number_sting[3] = number_set_bits/10 + 0x30;
+              number_set_bits %= 10;
+
+              number_sting[4] = number_set_bits + 0x30;
+
+              number_sting[5] = ']';
+              number_sting[6] = '\0';
+            }
+            else if (number_set_bits > 10)
+            {
+              number_sting[2] = number_set_bits/10 + 0x30;
+              number_set_bits %= 10;
+
+              number_sting[3] = number_set_bits + 0x30;
+
+              number_sting[4] = ']';
+              number_sting[5] = '\0';
+            }
+            else
+            {
+              number_sting[2] = number_set_bits + 0x30;
+
+              number_sting[3] = ']';
+              number_sting[4] = '\0';
+            }
+
+            strcat_mal(title, number_sting);
           }
-          else if (number_set_bits > 100)
-          {
-            number_sting[2] = number_set_bits/100 + 0x30;
-            number_set_bits %= 100;
-
-            number_sting[3] = number_set_bits/10 + 0x30;
-            number_set_bits %= 10;
-
-            number_sting[4] = number_set_bits + 0x30;
-
-            number_sting[5] = ']';
-            number_sting[6] = '\0';
-          }
-          else if (number_set_bits > 10)
-          {
-            number_sting[2] = number_set_bits/10 + 0x30;
-            number_set_bits %= 10;
-
-            number_sting[3] = number_set_bits + 0x30;
-
-            number_sting[4] = ']';
-            number_sting[5] = '\0';
-          }
-          else
-          {
-            number_sting[2] = number_set_bits + 0x30;
-
-            number_sting[3] = ']';
-            number_sting[4] = '\0';
-          }
-
-          strcat_mal(title, number_sting);
         }
-
         
         MULTIPAGE_SetText(*Info_n_MultiPage_type_info, title, i);
       }
@@ -1054,21 +1056,21 @@ void repaint_actions(__index_level_menu id_panel)
     }
   case ID_ABOUT_PG:
     {
-      FRAMEWIN_SetText(About_FrameWin, About_title.ptitle[sel_language]);
+      FRAMEWIN_SetText(About_FrameWin, About_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
       TITLE About_Line_x_2_text = {ABOUT_LINE_X_2_UKR, ABOUT_LINE_X_2_RUS, ABOUT_LINE_X_2_ENG};
       char string_point[] = ".";
       char string_1[256], string_2[256];
       string_1[0] = string_2[0] = '\0';
       TITLE About_Line_1_text = {ABOUT_LINE_1_UKR, ABOUT_LINE_1_RUS, ABOUT_LINE_1_ENG};
-      strcat_mal(string_1, (char *)About_Line_1_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       unsigned int number_tmp = pDevIdentification.IdentNumberDevice;
       if (int_to_str (number_tmp, string_2)) strcat_mal(string_1, string_2);
       TEXT_SetText(About_Line_1, string_1);
 
       string_1[0] = string_2[0] = '\0';
       TITLE About_Line_2_1_text = {ABOUT_LINE_2_1_UKR, ABOUT_LINE_2_1_RUS, ABOUT_LINE_2_1_ENG};
-      strcat_mal(string_1, (char *)About_Line_2_1_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_2_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       if (int_to_str (pTotVerInfoBs->mVerInfo.ver, string_2))
       {
         strcat_mal(string_1, string_2);
@@ -1091,7 +1093,7 @@ void repaint_actions(__index_level_menu id_panel)
             {
               strcat_mal(string_1, string_2);
 
-              strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[sel_language]);
+              strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
         
               unsigned int index = 0;
               while ((string_1[index] != '\0') && (index < (256 - ((sizeof(__DATE__) - 1) + (sizeof(__TIME__) - 1) + 1)))) index++;
@@ -1117,7 +1119,7 @@ void repaint_actions(__index_level_menu id_panel)
 
       string_1[0] = string_2[0] = '\0';
       TITLE About_Line_3_1_text = {ABOUT_LINE_3_1_UKR, ABOUT_LINE_3_1_RUS, ABOUT_LINE_3_1_ENG};
-      strcat_mal(string_1, (char *)About_Line_3_1_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_3_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       if (int_to_str (pTotVerInfoBm->mVerInfo.ver, string_2))
       {
         strcat_mal(string_1, string_2);
@@ -1140,7 +1142,7 @@ void repaint_actions(__index_level_menu id_panel)
             {
               strcat_mal(string_1, string_2);
 
-              strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[sel_language]);
+              strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
         
               unsigned int index = 0;
               while ((string_1[index] != '\0') && (index < (256 - ((sizeof(__DATE__) - 1) + (sizeof(__TIME__) - 1) + 1)))) index++;
@@ -1166,7 +1168,7 @@ void repaint_actions(__index_level_menu id_panel)
 
       string_1[0] = string_2[0] = '\0';
       TITLE About_Line_4_1_text = {ABOUT_LINE_4_1_UKR, ABOUT_LINE_4_1_RUS, ABOUT_LINE_4_1_ENG};
-      strcat_mal(string_1, (char *)About_Line_4_1_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_4_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       if (int_to_str (pTotVerInfoBr->mVerInfo.ver, string_2))
       {
         strcat_mal(string_1, string_2);
@@ -1189,7 +1191,7 @@ void repaint_actions(__index_level_menu id_panel)
             {
               strcat_mal(string_1, string_2);
 
-              strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[sel_language]);
+              strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
         
               unsigned int index = 0;
               while ((string_1[index] != '\0') && (index < (256 - ((sizeof(__DATE__) - 1) + (sizeof(__TIME__) - 1) + 1)))) index++;
@@ -1216,7 +1218,7 @@ void repaint_actions(__index_level_menu id_panel)
 
       string_1[0] = string_2[0] = '\0';
       TITLE About_Line_5_1_text = {ABOUT_LINE_5_1_UKR, ABOUT_LINE_5_1_RUS, ABOUT_LINE_5_1_ENG};
-      strcat_mal(string_1, (char *)About_Line_5_1_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_5_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       if (int_to_str (BO_MRZV_KP_V1X, string_2))
       {
         strcat_mal(string_1, string_2);
@@ -1231,39 +1233,39 @@ void repaint_actions(__index_level_menu id_panel)
     
       string_1[0] = '\0';
       TITLE About_Line_6_text = {ABOUT_LINE_6_UKR, ABOUT_LINE_6_RUS, ABOUT_LINE_6_ENG};
-      strcat_mal(string_1, (char *)About_Line_6_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_6_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       TEXT_SetText(About_Line_6, string_1);
 
       string_1[0] = '\0';
       TITLE About_Line_7_text = {ABOUT_LINE_7_UKR, ABOUT_LINE_7_RUS, ABOUT_LINE_7_ENG};
-      strcat_mal(string_1, (char *)About_Line_7_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_7_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       TEXT_SetText(About_Line_7, string_1);
 
       string_1[0] = '\0';
       TITLE About_Line_8_text = {ABOUT_LINE_8_UKR, ABOUT_LINE_8_RUS, ABOUT_LINE_8_ENG};
-      strcat_mal(string_1, (char *)About_Line_8_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_8_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       TEXT_SetText(About_Line_8, string_1);
   
       string_1[0] = '\0';
       TITLE About_Line_9_text = {ABOUT_LINE_9_UKR, ABOUT_LINE_9_RUS, ABOUT_LINE_9_ENG};
-      strcat_mal(string_1, (char *)About_Line_9_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_9_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       TEXT_SetText(About_Line_9, string_1);
   
       string_1[0] = '\0';
       TITLE About_Line_10_text = {ABOUT_LINE_10_UKR, ABOUT_LINE_10_RUS, ABOUT_LINE_10_ENG};
-      strcat_mal(string_1, (char *)About_Line_10_text.ptitle[sel_language]);
+      strcat_mal(string_1, (char *)About_Line_10_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       TEXT_SetText(About_Line_10, string_1);
 
       break;
     }
   case ID_REGISTRATORS_PG:
     {
-      FRAMEWIN_SetText(Registrators_FrameWin, Registrators_panel_title.ptitle[sel_language]);
+      FRAMEWIN_SetText(Registrators_FrameWin, Registrators_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       for (unsigned int i = 0; i < 3; i++)
       {
-        MULTIPAGE_SetText(Registrators_MultiPage_type, Registrators_MultiPage_Items[i].pText[sel_language], i);
+        MULTIPAGE_SetText(Registrators_MultiPage_type, Registrators_MultiPage_Items[i].pText[eeprom_bs_settings_tbl.chLngGUIText], i);
       }
-      TEXT_SetText(Registrator_number_from, title_from.ptitle[sel_language]);
+      TEXT_SetText(Registrator_number_from, title_from.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
       break;
     }

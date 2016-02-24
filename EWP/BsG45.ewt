@@ -5771,6 +5771,9 @@
         <file>
           <name>$PROJ_DIR$\..\gui_func\dlg\rank_led_dlg.c</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\gui_func\dlg\WindingDLG.c</name>
+        </file>
       </group>
       <group>
         <name>ici</name>

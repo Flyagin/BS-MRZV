@@ -109,8 +109,8 @@ static void _cbProtection_FrameWin(WM_MESSAGE * pMsg)
 //              //Помічаємо, що дані змінені
 //              char title[256];
 //              title[0] = '\0';
-//              strcat_mal(title, (char *)Net_panel_title.ptitle[sel_language]);
-//              strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+//              strcat_mal(title, (char *)Net_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+//              strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 //              strcat_mal(title, "*");
 //              FRAMEWIN_SetText(Net_FrameWin, title);
 //              current_ekran.edition = 2;
@@ -159,7 +159,7 @@ void Net_panel_show(void)
   if (Net_FrameWin == WM_UNATTACHED)
   {
     //Stvorjujemo FrameWin
-    Net_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_NET_FRAMEWIN, Net_panel_title.ptitle[sel_language], _cbProtection_FrameWin);
+    Net_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_NET_FRAMEWIN, Net_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbProtection_FrameWin);
     FRAMEWIN_SetFont(Net_FrameWin, &GUI_FontArialBold14_8_Unicode);
     FRAMEWIN_SetTextAlign(Net_FrameWin, GUI_TA_HCENTER);
     FRAMEWIN_SetBarColor(Net_FrameWin, 1, GUI_GREEN);
@@ -178,18 +178,18 @@ Peremaljovuvannja paneli comunicaciji
 *****************************/
 void redraw_panel_Net(void)
 {
-  EDIT_SetText(hEdit, _aBitmapItem_Comm[COMM_NET_ID].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem_Comm[COMM_NET_ID].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   
   char title[256];
   title[0] = '\0';
-  strcat_mal(title, (char *)Net_panel_title.ptitle[sel_language]);
+  strcat_mal(title, (char *)Net_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
   unsigned int error_data_1 = _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_BIT) | _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_EMPTY_BIT);
   
   if (error_data_1)
   {
     //Nalashtuvannja nemaje u tablyci nalashtuvan
-    strcat_mal(title, (char *)ERROR_MES.ptitle[sel_language]);
+    strcat_mal(title, (char *)ERROR_MES.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     FRAMEWIN_SetText(Net_FrameWin, title);
 
     FRAMEWIN_SetBarColor(Net_FrameWin, 1, GUI_RED);
@@ -206,7 +206,7 @@ void redraw_panel_Net(void)
     //Nalashtuvannja realno je u tablyci nalashtuvan
     if (current_ekran.edition != 0)
     {
-      strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+      strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       if (current_ekran.edition != 1)
       {
         //Помічаємо, що дані змінені

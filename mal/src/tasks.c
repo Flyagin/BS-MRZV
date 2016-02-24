@@ -386,7 +386,10 @@ void make_min_settings_1(AuxCfgTbl1Dsc *target)
   
   target->chSleepTmVal = TIMEOUT_LCD_MAX;
   
-  target->chLngGUIText = 3;
+  target->chLngGUIText = ENG_LANG;
+  change_language = 1;
+  
+  target->chWinding = 0;
   
   target->psw_interface_USB = 0;
   target->psw_interface_RS485 = 0;

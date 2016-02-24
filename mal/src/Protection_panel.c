@@ -351,8 +351,8 @@ static void _cbPickups_Protection(WM_MESSAGE * pMsg)
                   //Помічаємо, що дані змінені
                   char title[256];
                   title[0] = '\0';
-                  strcat_mal(title, (char *)Protection_panel_title->ptitle[sel_language]);
-                  strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+                  strcat_mal(title, (char *)Protection_panel_title->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+                  strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
                   strcat_mal(title, "*");
                   FRAMEWIN_SetText(*Protection_FrameWin, title);
                   current_ekran.edition = 2;
@@ -732,8 +732,8 @@ static void _cbDelays_Protection(WM_MESSAGE * pMsg)
                   //Помічаємо, що дані змінені
                   char title[256];
                   title[0] = '\0';
-                  strcat_mal(title, (char *)Protection_panel_title->ptitle[sel_language]);
-                  strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+                  strcat_mal(title, (char *)Protection_panel_title->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+                  strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
                   strcat_mal(title, "*");
                   FRAMEWIN_SetText(*Protection_FrameWin, title);
                   current_ekran.edition = 2;
@@ -1604,7 +1604,7 @@ void protection_settings_panel_show(unsigned int id_protection)
   {
     
     //Створюємо FrameWin для уставок-витримок-налаштування МСЗ
-    *Protection_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, id_protection_framewin, Protection_panel_title->ptitle[sel_language], _cbEmpty);
+    *Protection_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, id_protection_framewin, Protection_panel_title->ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
     FRAMEWIN_SetFont(*Protection_FrameWin, &GUI_FontArialBold14_8_Unicode);
     FRAMEWIN_SetTextAlign(*Protection_FrameWin, GUI_TA_HCENTER);
     FRAMEWIN_SetBarColor(*Protection_FrameWin, 1, GUI_GREEN);
@@ -1627,7 +1627,7 @@ void protection_settings_panel_show(unsigned int id_protection)
       *Protection_Window_group = WINDOW_CreateEx(0, 0, X_SIZE, Y_SIZE, WM_UNATTACHED,  WM_CF_SHOW, 0, id_protection_groups, _cbEmpty);
       for (unsigned int i = 0; i < (groups + 1); i++)
       {
-        MULTIPAGE_AddPage(*Protection_MultiPage_groups, *Protection_Window_group, _MultiPage_groups_Items[i].pText[sel_language]);
+        MULTIPAGE_AddPage(*Protection_MultiPage_groups, *Protection_Window_group, _MultiPage_groups_Items[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
         MULTIPAGE_DisablePage(*Protection_MultiPage_groups, i);
       }
       MULTIPAGE_EnablePage(*Protection_MultiPage_groups, 0);
@@ -1695,7 +1695,7 @@ void protection_settings_panel_show(unsigned int id_protection)
         DZ_SubPages_delay[1] = WINDOW_CreateEx(0, 0, (x_wight_parent_window - 6)/*X_SIZE - 26*/, 5*SHIFT_Y + 6,  WM_GetClientWindow(*(Protection_Pages + 1)),  WM_CF_HIDE, 0, ID_DZ_SUBDELAYS_1, subcb);
       }
 
-      MULTIPAGE_AddPage(*Protection_MultiPage_type_info, *(Protection_Pages + i), _MultiPage_type_info_Items[i].pText[sel_language]);
+      MULTIPAGE_AddPage(*Protection_MultiPage_type_info, *(Protection_Pages + i), _MultiPage_type_info_Items[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
       MULTIPAGE_DisablePage(*Protection_MultiPage_type_info, i);
     
       if ((id_protection == ID_DZ_PG) && (i == 1))
@@ -1732,7 +1732,7 @@ void protection_settings_panel_show(unsigned int id_protection)
     {
       int y0 =  ROW_1_Y + i*SHIFT_Y;
 
-      *(Protection_Pickup_t + i) = TEXT_CreateEx(COL_1_X, y0, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(*(Protection_Pages + 0)), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, id_text_protection_pickup_0_title + i,  (Protection_Pickup_title + i)->ptitle[sel_language]);
+      *(Protection_Pickup_t + i) = TEXT_CreateEx(COL_1_X, y0, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(*(Protection_Pages + 0)), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, id_text_protection_pickup_0_title + i,  (Protection_Pickup_title + i)->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       TEXT_SetFont(*(Protection_Pickup_t + i), &GUI_FontArialStandard14_8_Unicode);
 
     
@@ -1805,7 +1805,7 @@ void protection_settings_panel_show(unsigned int id_protection)
     {
       int y0 =  ROW_1_Y + i*SHIFT_Y;
 
-      *(Protection_Delay_t + i) = TEXT_CreateEx(COL_1_X, y0, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Parent_Window), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, id_text_protection_delay_0_title + i,  (Protection_Delay_title + i)->ptitle[sel_language]);
+      *(Protection_Delay_t + i) = TEXT_CreateEx(COL_1_X, y0, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Parent_Window), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, id_text_protection_delay_0_title + i,  (Protection_Delay_title + i)->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       TEXT_SetFont(*(Protection_Delay_t + i), &GUI_FontArialStandard14_8_Unicode);
     
       *(Protection_Delay_v + i) = EDIT_CreateUser(COL_1_X + SHIFT_X1, y0, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Parent_Window), WM_CF_SHOW, 0, id_ed_protection_delay_value_0 + i, 10, sizeof(__info_data));
@@ -1843,7 +1843,7 @@ void protection_settings_panel_show(unsigned int id_protection)
       {
         int y0 =  ROW_1_Y + (i - MAX_NUMBER_DELAY_DZ)*SHIFT_Y;
 
-        *(Protection_Delay_t + i) = TEXT_CreateEx(COL_1_X, y0, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Parent_Window), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, id_text_protection_delay_0_title + i,  (Protection_Delay_title + i)->ptitle[sel_language]);
+        *(Protection_Delay_t + i) = TEXT_CreateEx(COL_1_X, y0, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Parent_Window), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, id_text_protection_delay_0_title + i,  (Protection_Delay_title + i)->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
         TEXT_SetFont(*(Protection_Delay_t + i), &GUI_FontArialStandard14_8_Unicode);
     
         *(Protection_Delay_v + i) = EDIT_CreateUser(COL_1_X + SHIFT_X1, y0, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Parent_Window), WM_CF_SHOW, 0, id_ed_protection_delay_value_0 + i, 10, sizeof(__info_data));
@@ -1918,7 +1918,7 @@ void protection_settings_panel_show(unsigned int id_protection)
         x0 = COL_1_X + SHIFT_X2;
       }
     
-      *(Protection_State_t + i) = TEXT_CreateEx(x0, y0, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(*(Protection_Pages + 2)), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, id_text_protection_state_0 + i, (Protection_State_title + i)->ptitle[sel_language]);
+      *(Protection_State_t + i) = TEXT_CreateEx(x0, y0, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(*(Protection_Pages + 2)), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, id_text_protection_state_0 + i, (Protection_State_title + i)->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       TEXT_SetFont(*(Protection_State_t + i), &GUI_FontArialStandard14_8_Unicode);
 
       *(Protection_State_v + i) = DROPDOWN_CreateEx(x0 + SHIFT_X1, y0, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(*(Protection_Pages + 2)), WM_CF_SHOW, DROPDOWN_CF_AUTOSCROLLBAR, id_dd_protection_state_0 + i);
@@ -1934,7 +1934,7 @@ void protection_settings_panel_show(unsigned int id_protection)
       DROPDOWN_AddString(*(Protection_State_v + i), "");
       for (int j = 0; j < j_max; j++)
       {
-        DROPDOWN_AddString(*(Protection_State_v + i), (p_control_list_name + j)->ptitle[sel_language]);
+        DROPDOWN_AddString(*(Protection_State_v + i), (p_control_list_name + j)->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       }
     
     }
@@ -1976,7 +1976,7 @@ void redraw_panel_protection(__index_level_menu id_protection)
 
   unsigned int groups = AMOUNT_SERIES_PPSPM_SETTINGS;
   
-  EDIT_SetText(hEdit, _aBitmapItem_settings[SETTINGS_DZ_ID + (int)(id_protection - ID_DZ_PG)].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem_settings[SETTINGS_DZ_ID + (int)(id_protection - ID_DZ_PG)].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   switch (id_protection)
   {
   case ID_DZ_PG:
@@ -2224,13 +2224,13 @@ void redraw_panel_protection(__index_level_menu id_protection)
 
   char title[256];
   title[0] = '\0';
-  strcat_mal(title, (char *)Protection_panel_title->ptitle[sel_language]);
+  strcat_mal(title, (char *)Protection_panel_title->ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
   
   unsigned int error_data = _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_PRT_EEPROM_BIT) | _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_PRT_EEPROM_EMPTY_BIT);
   if (error_data)
   {
     //Nalashtuvannja nemaje u tablyci nalashtuvan
-    strcat_mal(title, (char *)ERROR_MES.ptitle[sel_language]);
+    strcat_mal(title, (char *)ERROR_MES.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     FRAMEWIN_SetText(*Protection_FrameWin, title);
 
     FRAMEWIN_SetBarColor(*Protection_FrameWin, 1, GUI_RED);
@@ -2241,7 +2241,7 @@ void redraw_panel_protection(__index_level_menu id_protection)
     //Nalashtuvannja realno je u tablyci nalashtuvan
     if (current_ekran.edition != 0)
     {
-      strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+      strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       if (current_ekran.edition != 1)
       {
         //Помічаємо, що дані змінені

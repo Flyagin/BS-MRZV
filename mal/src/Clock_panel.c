@@ -43,7 +43,7 @@ void clock_panel_show(void)
   if (Clock_FrameWin == WM_UNATTACHED)
   {
     //Stvorjujemo FrameWin
-    Clock_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_CLOCK_FRAMEWIN, Clock_panel_title.ptitle[sel_language], _cbEmpty);
+    Clock_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_CLOCK_FRAMEWIN, Clock_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
     FRAMEWIN_SetFont(Clock_FrameWin, &GUI_FontArialBold14_8_Unicode);
     FRAMEWIN_SetTextAlign(Clock_FrameWin, GUI_TA_HCENTER);
     FRAMEWIN_SetBarColor(Clock_FrameWin, 1, GUI_GREEN);
@@ -147,7 +147,7 @@ void clock_panel_show(void)
     EDIT_SetTextMode(Clock_v[5]);  
 
     //Calibration
-    Clock_t[4] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 2*SHIFT_Y, WIDTH_X_T_C, HIGHT_Y, WM_GetClientWindow(Clock_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_CLOCK_TEXT_CALIBRATION,  Calibration_title[sel_language]);
+    Clock_t[4] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 2*SHIFT_Y, WIDTH_X_T_C, HIGHT_Y, WM_GetClientWindow(Clock_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_CLOCK_TEXT_CALIBRATION,  Calibration_title[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Clock_t[4], &GUI_FontArialStandard14_8_Unicode);
 
     Clock_v[6] = EDIT_CreateUser(COL_1_X + WIDTH_X_T_C, ROW_1_Y + 2*SHIFT_Y, WIDTH_X_V3, HIGHT_Y, WM_GetClientWindow(Clock_FrameWin), WM_CF_SHOW, 0, ID_CLOCK_EDIT_CALIBRATION, 3, sizeof(__info_data));
@@ -173,14 +173,14 @@ Peremaljovuvannja paneli daty i chasu
 *****************************/
 void redraw_panel_clock(void)
 {
-  EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_CLOCK_ID].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_CLOCK_ID].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
 
   char title[256];
   title[0] = '\0';
-  strcat_mal(title, (char *)Clock_panel_title.ptitle[sel_language]);
+  strcat_mal(title, (char *)Clock_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
   if (current_ekran.edition != 0)
   {
-    strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+    strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     if (current_ekran.edition != 1)
     {
       //Помічаємо, що дані змінені
@@ -240,7 +240,7 @@ void redraw_panel_clock(void)
     case 1:
       {
         data_tmp1 = point[6];
-        s = _apMonth[sel_language];
+        s = _apMonth[eeprom_bs_settings_tbl.chLngGUIText];
         shift = 0;
         break;
       }

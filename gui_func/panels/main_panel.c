@@ -39,7 +39,7 @@ static void _cbWinHandler(WM_MESSAGE * pMsg) {
             int Index = pData->ItemId - ID_MENU_MIN_SETTINGS;
             if (Index >= 0) 
             {
-              EDIT_SetText(hEdit, menu_option_explanation[Index].ptitle[sel_language]);
+              EDIT_SetText(hEdit, menu_option_explanation[Index].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
             }
             else 
             {
@@ -307,7 +307,7 @@ static void desctop_iconViewer_init() {
                            ICONVIEW_CF_AUTOSCROLLBAR_V, ID_ICONVIEW0, 64 + 7, 64 + 12); //55, 60
   
   for (unsigned int i = 0; i < ICONVIEW_SIZE; i++) {
-    ICONVIEW_AddBitmapItem(iconWin, _aBitmapItem[i].pBitmap, _aBitmapItem[i].pText[sel_language]);
+    ICONVIEW_AddBitmapItem(iconWin, _aBitmapItem[i].pBitmap, _aBitmapItem[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
   }
   ICONVIEW_SetBkColor(iconWin, ICONVIEW_CI_SEL, GUI_BLUE | 0x50000000);
   ICONVIEW_SetTextColor(iconWin, ICONVIEW_CI_UNSEL, GUI_RED);
@@ -323,7 +323,7 @@ static void desctop_edit_init() {
   EDIT_SetBkColor(hEdit, EDIT_CI_DISABLED, GUI_LIGHTGRAY);
   EDIT_SetBkColor(hEdit, EDIT_CI_ENABLED, GUI_WHITE);
   EDIT_SetFont(hEdit, &GUI_FontArialNarrow15_8_Unicode);
-  EDIT_SetText(hEdit, _aBitmapItem[sel_icon].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem[sel_icon].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
 
   width = 3*EDIT_HEIGHT/4;
   Edit_groups = EDIT_CreateEx(x0, EDIT_Y, width, EDIT_HEIGHT, WM_HBKWIN, WM_CF_SHOW, 0, ID_EDIT_GROUP, 1);

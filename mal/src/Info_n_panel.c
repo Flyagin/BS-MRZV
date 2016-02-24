@@ -64,7 +64,7 @@ void info_n_panel_show(unsigned int id_protection)
     }
   case ID_DIAGNOSTICS_PG:
     {
-      number_pages = 3;
+      number_pages = 4;
       
       id_info_n_framewin = ID_DIAGNOSTICS_FRAMEWIN;
       Info_n_panel_title = &Diagnostics_panel_title;
@@ -92,7 +92,7 @@ void info_n_panel_show(unsigned int id_protection)
   {
     
     //Створюємо FrameWin
-    *Info_n_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, id_info_n_framewin, Info_n_panel_title->ptitle[sel_language], _cbEmpty);
+    *Info_n_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, id_info_n_framewin, Info_n_panel_title->ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
     FRAMEWIN_SetFont(*Info_n_FrameWin, &GUI_FontArialBold14_8_Unicode);
     FRAMEWIN_SetTextAlign(*Info_n_FrameWin, GUI_TA_HCENTER);
     FRAMEWIN_SetBarColor(*Info_n_FrameWin, 1, GUI_GREEN);
@@ -117,7 +117,7 @@ void info_n_panel_show(unsigned int id_protection)
         *(Info_n_Pages + i) = WINDOW_CreateEx(0, 0, (X_SIZE - 6), Y_SIZE - 42,  WM_UNATTACHED,  WM_CF_SHOW, 0, id_info_n_page_1 + i, cb);
         WINDOW_SetBkColor(*(Info_n_Pages + i), GUI_GRAY);
 
-        MULTIPAGE_AddPage(*Info_n_MultiPage_type_info, *(Info_n_Pages + i), Page_name[i].pText[sel_language]);
+        MULTIPAGE_AddPage(*Info_n_MultiPage_type_info, *(Info_n_Pages + i), Page_name[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
         MULTIPAGE_DisablePage(*Info_n_MultiPage_type_info, i);
       }
       MULTIPAGE_EnablePage(*Info_n_MultiPage_type_info, 0);
@@ -125,9 +125,9 @@ void info_n_panel_show(unsigned int id_protection)
     
       TM_IO_Header = HEADER_CreateAttached(TM_Pages[0], ID_TM_IO_HEADER, 0);
       HEADER_SetFont(TM_IO_Header, &GUI_FontArialBold14_8_Unicode);
-      HEADER_AddItem(TM_IO_Header, (X_SIZE - 6)/2, TM_IO_columns[0].ptitle[sel_language], GUI_TA_VCENTER | GUI_TA_HCENTER);
+      HEADER_AddItem(TM_IO_Header, (X_SIZE - 6)/2, TM_IO_columns[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText], GUI_TA_VCENTER | GUI_TA_HCENTER);
       TM_IO_Pages[0] = WINDOW_CreateEx(0, 15, (X_SIZE - 6)/2 - 1, Y_SIZE - 52,  WM_GetClientWindow(TM_Pages[0]),  WM_CF_SHOW, 0, ID_TM_IO_PAGE_1, _cbEmpty);
-      HEADER_AddItem(TM_IO_Header, (X_SIZE - 6)/2, TM_IO_columns[1].ptitle[sel_language], GUI_TA_VCENTER | GUI_TA_HCENTER);
+      HEADER_AddItem(TM_IO_Header, (X_SIZE - 6)/2, TM_IO_columns[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText], GUI_TA_VCENTER | GUI_TA_HCENTER);
       TM_IO_Pages[1] = WINDOW_CreateEx((X_SIZE - 6)/2 + 1, 15, (X_SIZE - 6)/2 - 1, Y_SIZE - 52,  WM_GetClientWindow(TM_Pages[0]),  WM_CF_SHOW, 0, ID_TM_IO_PAGE_2, _cbEmpty);
 
       *(ScrollBar_Info_n_Pages + 1) = SCROLLBAR_CreateAttached(WM_GetClientWindow(*(Info_n_Pages + 1)), SCROLLBAR_CF_VERTICAL);
@@ -135,10 +135,10 @@ void info_n_panel_show(unsigned int id_protection)
 
       TM_F_Header = HEADER_CreateAttached(TM_Pages[1], ID_TM_F_HEADER, 0);
       HEADER_SetFont(TM_F_Header, &GUI_FontArialBold14_8_Unicode);
-      HEADER_AddItem(TM_F_Header, (X_SIZE - 6 - 10)/2, TM_F_columns[0].ptitle[sel_language], GUI_TA_VCENTER | GUI_TA_HCENTER);
+      HEADER_AddItem(TM_F_Header, (X_SIZE - 6 - 10)/2, TM_F_columns[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText], GUI_TA_VCENTER | GUI_TA_HCENTER);
       TM_F_Pages[0] = WINDOW_CreateEx(0, 15, (X_SIZE - 6 - 10)/2 - 1, Y_SIZE - 52,  WM_GetClientWindow(TM_Pages[1]),  WM_CF_SHOW, 0, ID_TM_F_PAGE_1, _cbEmpty);
       WINDOW_SetBkColor(TM_F_Pages[0], GUI_WHITE);
-      HEADER_AddItem(TM_F_Header, (X_SIZE - 6 - 10)/2, TM_F_columns[1].ptitle[sel_language], GUI_TA_VCENTER | GUI_TA_HCENTER);
+      HEADER_AddItem(TM_F_Header, (X_SIZE - 6 - 10)/2, TM_F_columns[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText], GUI_TA_VCENTER | GUI_TA_HCENTER);
       TM_F_Pages[1] = WINDOW_CreateEx((X_SIZE - 6 - 10)/2 + 1, 15, (X_SIZE - 6 - 10)/2 - 1, Y_SIZE - 52,  WM_GetClientWindow(TM_Pages[1]),  WM_CF_SHOW, 0, ID_TM_F_PAGE_2, _cbEmpty);
       WINDOW_SetBkColor(TM_F_Pages[1], GUI_WHITE);
 
@@ -225,7 +225,7 @@ void info_n_panel_show(unsigned int id_protection)
 
       for (unsigned int i = 0; i < number_pages; i++)
       {
-        MULTIPAGE_AddPage(*Info_n_MultiPage_type_info, *Info_n_Pages, Page_name[i].pText[sel_language]);
+        MULTIPAGE_AddPage(*Info_n_MultiPage_type_info, *Info_n_Pages, Page_name[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
         MULTIPAGE_DisablePage(*Info_n_MultiPage_type_info, i);
       }
       MULTIPAGE_EnablePage(*Info_n_MultiPage_type_info, 0);
@@ -245,7 +245,7 @@ void info_n_panel_show(unsigned int id_protection)
       {
         char empty = '\0';
         Diagnostics_Info[i] = TEXT_CreateEx(X_START, Y_START + i*(Y_WHIGHT + Y_INTERVAL), X_WHIGHT, Y_WHIGHT, WM_GetClientWindow(*Info_n_Pages), WM_CF_SHOW, TEXT_CF_LEFT | GUI_TA_BOTTOM, id_base_info + i,  &empty);
-        TEXT_SetFont(Diagnostics_Info[i], &GUI_FontArialStandard14_8_Unicode);
+        TEXT_SetFont(Diagnostics_Info[i], &GUI_CourierNewStandard14_8_Unicode);
       }
       
 #undef X_START
@@ -277,16 +277,16 @@ void redraw_panel_info_n(__index_level_menu id_protection)
       
       number_pages = 2;
 
-      EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_IO_ID].pExplanation[sel_language]);
+      EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_IO_ID].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
       break;
     }
   case ID_DIAGNOSTICS_PG:
     {
       Info_n_MultiPage_type_info = &Diagnostics_MultiPage_type_info;
       
-      number_pages = 3;
+      number_pages = 4;
 
-      EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_DIAGN_ID].pExplanation[sel_language]);
+      EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_DIAGN_ID].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
       break;
     }
   default:
@@ -410,7 +410,7 @@ void redraw_panel_info_n(__index_level_menu id_protection)
              ) 
           {
             TEXT_SetTextAlign(TM_F[i][0], TEXT_CF_HCENTER | TEXT_CF_BOTTOM);
-            TEXT_SetText(TM_F[i][0], NONE.ptitle[sel_language]);
+            TEXT_SetText(TM_F[i][0], NONE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
             for (unsigned int j = 1; j < MAX_NUMBER_F_IN_PANEL; j++)
             {
@@ -450,7 +450,7 @@ void redraw_panel_info_n(__index_level_menu id_protection)
                 }
 
                 char interrogatory[]  = "???";
-                point_string = ((bit != 0) && (continue_index < All_NUMB_RANK_ELEM)) ? rank_checkbox_item[sel_language][continue_index++] : interrogatory;
+                point_string = ((bit != 0) && (continue_index < All_NUMB_RANK_ELEM)) ? rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
               }
               else point_string = &empty;
               
@@ -510,7 +510,7 @@ void redraw_panel_info_n(__index_level_menu id_protection)
            ) 
         {
           TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_HCENTER | TEXT_CF_BOTTOM);
-          TEXT_SetText(Diagnostics_Info[0], NONE.ptitle[sel_language]);
+          TEXT_SetText(Diagnostics_Info[0], NONE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
           for (unsigned int j = 1; j < MAX_NUMBER_DIAGN_IN_PANEL; j++)
           {
@@ -550,12 +550,297 @@ void redraw_panel_info_n(__index_level_menu id_protection)
               }
 
               char interrogatory[]  = "???";
-              point_string = ((bit != 0) && (continue_index < All_NUMB_RANK_ELEM)) ? target_name[sel_language][continue_index++] : interrogatory;
+              point_string = ((bit != 0) && (continue_index < All_NUMB_RANK_ELEM)) ? target_name[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
             }
             else point_string = &empty;
               
             TEXT_SetText(Diagnostics_Info[i], point_string);
           }
+        }
+
+        break;
+      }
+    case 3:
+      {
+        unsigned int Diagnostics_max_number_bits_tmp = (Diagnistics_max_number_bits[current_ekran.index_position] < MAX_NUMBER_DIAGN_IN_PANEL) ? MAX_NUMBER_DIAGN_IN_PANEL : Diagnistics_max_number_bits[current_ekran.index_position];
+        SCROLLBAR_SetNumItems(ScrollBar_Diagnostics_Pages, Diagnostics_max_number_bits_tmp);
+        SCROLLBAR_SetValue(ScrollBar_Diagnostics_Pages, current_ekran.index_position_1);
+        
+        char empty = '\0';
+        char string[30 + 1 + 10 + 1];/*30 - zagolovok; 1 - znak; 10 - chyslo; 1 symvol kincja rjadka*/
+        TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_LEFT | TEXT_CF_BOTTOM);
+
+        for (unsigned int i = 0; i < MAX_NUMBER_DIAGN_IN_PANEL; i++)
+        {
+          char *point_string;
+          string[0] = '\0';
+          
+          char string_digit[1 + 10 + 1];
+          switch (current_ekran.index_position_1 + i)
+          {
+          case 0:
+            {
+              strcat_mal(string, "  uiAmtSpiGoodPacket          ");
+              
+              extern unsigned long uiAmtSpiGoodPacket;
+              
+              unsigned int digits_tmp[10];
+              unsigned int number_digits = 0;
+              unsigned long temp_value = uiAmtSpiGoodPacket;
+              string_digit[0] = ' ';
+              do
+              {
+                digits_tmp[number_digits++] = temp_value % 10;
+                temp_value /= 10;
+              }
+              while (temp_value > 0);
+              
+              for (unsigned int j = 0; j < number_digits; j++) string_digit[1 + j] = 0x30 + digits_tmp[number_digits - 1 - j];
+              string_digit[1 + number_digits] = '\0';
+              strcat_mal(string, string_digit);
+              
+              point_string = string;
+              break;
+            }
+          case 1:
+            {
+              strcat_mal(string, "  uiAmtSpiBadPacket           ");
+              
+              extern unsigned long uiAmtSpiBadPacket;
+              
+              unsigned int digits_tmp[10];
+              unsigned int number_digits = 0;
+              unsigned long temp_value = uiAmtSpiBadPacket;
+              string_digit[0] = ' ';
+              do
+              {
+                digits_tmp[number_digits++] = temp_value % 10;
+                temp_value /= 10;
+              }
+              while (temp_value > 0);
+              
+              for (unsigned int j = 0; j < number_digits; j++) string_digit[1 + j] = 0x30 + digits_tmp[number_digits - 1 - j];
+              string_digit[1 + number_digits] = '\0';
+              strcat_mal(string, string_digit);
+              
+              point_string = string;
+              break;
+            }
+          case 2:
+            {
+              strcat_mal(string, "  lAmtCallReInitDmaSpi        ");
+              
+              extern long lAmtCallReInitDmaSpi;
+              
+              unsigned int digits_tmp[10];
+              unsigned int number_digits = 0;
+              long temp_value = lAmtCallReInitDmaSpi;
+              if (temp_value >= 0)
+              {
+                string_digit[0] = ' ';
+              }
+              else
+              {
+                string_digit[0] = '-';
+                temp_value = -temp_value;
+              }
+              do
+              {
+                digits_tmp[number_digits++] = temp_value % 10;
+                temp_value /= 10;
+              }
+              while (temp_value > 0);
+              
+              for (unsigned int j = 0; j < number_digits; j++) string_digit[1 + j] = 0x30 + digits_tmp[number_digits - 1 - j];
+              string_digit[1 + number_digits] = '\0';
+              strcat_mal(string, string_digit);
+              
+              point_string = string;
+              break;
+            }
+          case 3:
+            {
+              strcat_mal(string, "  uiAmtU2BadPacket            ");
+              
+              extern unsigned long uiAmtU2BadPacket;
+              
+              unsigned int digits_tmp[10];
+              unsigned int number_digits = 0;
+              unsigned long temp_value = uiAmtU2BadPacket;
+              string_digit[0] = ' ';
+              do
+              {
+                digits_tmp[number_digits++] = temp_value % 10;
+                temp_value /= 10;
+              }
+              while (temp_value > 0);
+              
+              for (unsigned int j = 0; j < number_digits; j++) string_digit[1 + j] = 0x30 + digits_tmp[number_digits - 1 - j];
+              string_digit[1 + number_digits] = '\0';
+              strcat_mal(string, string_digit);
+              
+              point_string = string;
+              break;
+            }
+          case 4:
+            {
+              strcat_mal(string, "  uiAmtU2GoodPacket           ");
+              
+              extern unsigned long uiAmtU2GoodPacket;
+              
+              unsigned int digits_tmp[10];
+              unsigned int number_digits = 0;
+              unsigned long temp_value = uiAmtU2GoodPacket;
+              string_digit[0] = ' ';
+              do
+              {
+                digits_tmp[number_digits++] = temp_value % 10;
+                temp_value /= 10;
+              }
+              while (temp_value > 0);
+              
+              for (unsigned int j = 0; j < number_digits; j++) string_digit[1 + j] = 0x30 + digits_tmp[number_digits - 1 - j];
+              string_digit[1 + number_digits] = '\0';
+              strcat_mal(string, string_digit);
+              
+              point_string = string;
+              break;
+            }
+          case 5:
+            {
+              strcat_mal(string, "  ulCtrTransmitLpduHSU2       ");
+              
+              extern unsigned long ulCtrTransmitLpduHSU2;
+              
+              unsigned int digits_tmp[10];
+              unsigned int number_digits = 0;
+              unsigned long temp_value = ulCtrTransmitLpduHSU2;
+              string_digit[0] = ' ';
+              do
+              {
+                digits_tmp[number_digits++] = temp_value % 10;
+                temp_value /= 10;
+              }
+              while (temp_value > 0);
+              
+              for (unsigned int j = 0; j < number_digits; j++) string_digit[1 + j] = 0x30 + digits_tmp[number_digits - 1 - j];
+              string_digit[1 + number_digits] = '\0';
+              strcat_mal(string, string_digit);
+              
+              point_string = string;
+              break;
+            }
+          case 6:
+            {
+              strcat_mal(string, "  lCtrCallsTrLpduHSU2         ");
+              
+              extern long lCtrCallsTrLpduHSU2;
+              
+              unsigned int digits_tmp[10];
+              unsigned int number_digits = 0;
+              long temp_value = lCtrCallsTrLpduHSU2;
+              if (temp_value >= 0)
+              {
+                string_digit[0] = ' ';
+              }
+              else
+              {
+                string_digit[0] = '-';
+                temp_value = -temp_value;
+              }
+              do
+              {
+                digits_tmp[number_digits++] = temp_value % 10;
+                temp_value /= 10;
+              }
+              while (temp_value > 0);
+              
+              for (unsigned int j = 0; j < number_digits; j++) string_digit[1 + j] = 0x30 + digits_tmp[number_digits - 1 - j];
+              string_digit[1 + number_digits] = '\0';
+              strcat_mal(string, string_digit);
+              
+              point_string = string;
+              break;
+            }
+          case 7:
+            {
+              strcat_mal(string, "  lTcr_Tncr_Set               ");
+              
+              extern long lTcr_Tncr_Set;
+              
+              unsigned int digits_tmp[10];
+              unsigned int number_digits = 0;
+              long temp_value = lTcr_Tncr_Set;
+              if (temp_value >= 0)
+              {
+                string_digit[0] = ' ';
+              }
+              else
+              {
+                string_digit[0] = '-';
+                temp_value = -temp_value;
+              }
+              do
+              {
+                digits_tmp[number_digits++] = temp_value % 10;
+                temp_value /= 10;
+              }
+              while (temp_value > 0);
+              
+              for (unsigned int j = 0; j < number_digits; j++) string_digit[1 + j] = 0x30 + digits_tmp[number_digits - 1 - j];
+              string_digit[1 + number_digits] = '\0';
+              strcat_mal(string, string_digit);
+              
+              point_string = string;
+              break;
+            }
+          case 8:
+            {
+              strcat_mal(string, "  ulAmountReinitU2            ");
+              
+              extern long ulAmountReinitU2;
+              
+              unsigned int digits_tmp[10];
+              unsigned int number_digits = 0;
+              long temp_value = ulAmountReinitU2;
+              if (temp_value >= 0)
+              {
+                string_digit[0] = ' ';
+              }
+              else
+              {
+                string_digit[0] = '-';
+                temp_value = -temp_value;
+              }
+              do
+              {
+                digits_tmp[number_digits++] = temp_value % 10;
+                temp_value /= 10;
+              }
+              while (temp_value > 0);
+              
+              for (unsigned int j = 0; j < number_digits; j++) string_digit[1 + j] = 0x30 + digits_tmp[number_digits - 1 - j];
+              string_digit[1 + number_digits] = '\0';
+              strcat_mal(string, string_digit);
+              
+              point_string = string;
+              break;
+            }
+          default:
+            {
+              point_string = &empty;
+            }
+          }
+//          if ((current_ekran.index_position_1 + i) < number_rows)
+//          {
+//
+//            char interrogatory[]  = "???";
+//            point_string = ((bit != 0) && (continue_index < All_NUMB_RANK_ELEM)) ? target_name[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
+//            
+//          }
+//          else point_string = &empty;
+              
+          TEXT_SetText(Diagnostics_Info[i], point_string);
         }
 
         break;

@@ -48,6 +48,14 @@
 #define TITLE_DIAGNOSTICS_PAGE_3_ENG             "BO(log.)"
 #define EXPL_DIAGNOSTICS_PAGE_3_ENG              "BO-MRZV(log.) Diagnostics state"
 
+#define TITLE_DIAGNOSTICS_PAGE_4_UKR             "Міжпроц.обмін"
+#define EXPL_DIAGNOSTICS_PAGE_4_UKR              "Стан діагностики міжпроц.обміну"
+#define TITLE_DIAGNOSTICS_PAGE_4_RUS             "Междупроц.обмен"
+#define EXPL_DIAGNOSTICS_PAGE_4_RUS              "Состояние диагностики междупроц.обмена"
+#define TITLE_DIAGNOSTICS_PAGE_4_ENG             "Interprocessor traffic"
+#define EXPL_DIAGNOSTICS_PAGE_4_ENG              "Interprocessor traffic diagnostics state"
+
+
 #define DIAGN_BS_MRZV_UKR_NAME_LIST \
 {\
   "Помилка 0",\

@@ -5,6 +5,7 @@ extern void gui_routines();
 extern void gui_init();
 extern void desctop_init();
 extern void lang_dlg_init();
+extern void winding_dlg_init();
 extern void measurement_panel_init();
 extern void configuration_panel_init();
 extern void rank_panel_init();

@@ -82,16 +82,16 @@ void configuration_panel_init() {
   int buttonX = 5;
   int buttonY = frmWinHeight - (buttonHeight + 5);
   
-  sel_conf_language = sel_language;
+  sel_conf_language = eeprom_bs_settings_tbl.chLngGUIText;
   
-  configPageWin = FRAMEWIN_Create(confFrmText[sel_language], _cbConfigWin, WM_CF_SHOW, x0, y0, frmWinWidth, frmWinHeight);
+  configPageWin = FRAMEWIN_Create(confFrmText[eeprom_bs_settings_tbl.chLngGUIText], _cbConfigWin, WM_CF_SHOW, x0, y0, frmWinWidth, frmWinHeight);
   FRAMEWIN_SetFont(configPageWin, &GUI_FontArialBold14_8_Unicode);
   
   for (int i = 0; i < NUM_CONF_ITEMS; i++) {
     int id = i + ID_CONF_DSTP_CFG_PRT_ONB;
     CHECKBOX_Handle checkBox = CHECKBOX_Create(checkBoxX, checkBoxY, checkBoxWidth, checkBoxHeight, configPageWin, id, WM_CF_SHOW);
     CHECKBOX_SetFont(checkBox, &GUI_FontArialStandard14_8_Unicode);
-    CHECKBOX_SetText(checkBox, conf_checkbox_item[sel_language][i]);
+    CHECKBOX_SetText(checkBox, conf_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][i]);
     CHECKBOX_SetBoxBkColor(checkBox, GUI_USER_LIGHTGRAY, CHECKBOX_CI_DISABLED);
     CHECKBOX_SetBoxBkColor(checkBox, GUI_YELLOW, CHECKBOX_CI_ENABLED);
     CHECKBOX_SetFocusColor(checkBox, GUI_BLUE);
@@ -100,12 +100,12 @@ void configuration_panel_init() {
   
   BUTTON_Handle ESC_Button = BUTTON_CreateEx(buttonX, buttonY, buttonWidth, buttonHeight, configPageWin, WM_CF_SHOW, 0, ID_CONF_BUTTON_ESC);
   BUTTON_SetFont(ESC_Button, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(ESC_Button, escButtonExpl[sel_language]);
+  BUTTON_SetText(ESC_Button, escButtonExpl[eeprom_bs_settings_tbl.chLngGUIText]);
   
   buttonX = frmWinWidth - (buttonWidth + 5);
   BUTTON_Handle ENTER_Button = BUTTON_CreateEx(buttonX, buttonY, buttonWidth, buttonHeight, configPageWin, WM_CF_SHOW, 0, ID_CONF_BUTTON_ENTER);
   BUTTON_SetFont(ENTER_Button, &GUI_FontArialBold14_8_Unicode);
-  BUTTON_SetText(ENTER_Button, enterButtonExpl[sel_language]);
+  BUTTON_SetText(ENTER_Button, enterButtonExpl[eeprom_bs_settings_tbl.chLngGUIText]);
 }
 
 void copy_config_settings_to_buff() {
@@ -146,8 +146,8 @@ void update_conf_item() {
   
   for (int i = 0; i < NUM_CONF_ITEMS; i++) {
     CHECKBOX_Handle checkBox = WM_GetDialogItem(configPageWin, ID_CONF_DSTP_CFG_PRT_ONB + i);
-    if (sel_conf_language != sel_language) {
-      CHECKBOX_SetText(checkBox, conf_checkbox_item[sel_language][i]);
+    if (sel_conf_language != eeprom_bs_settings_tbl.chLngGUIText) {
+      CHECKBOX_SetText(checkBox, conf_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][i]);
     }
     if (WM_HasFocus(checkBox)) {
       CHECKBOX_SetTextColor(checkBox, GUI_YELLOW);
@@ -167,36 +167,36 @@ void update_conf_item() {
     }
   }
   
-  if (sel_conf_language != sel_language) {
-    sel_conf_language = sel_language;
+  if (sel_conf_language != eeprom_bs_settings_tbl.chLngGUIText) {
+    sel_conf_language = eeprom_bs_settings_tbl.chLngGUIText;
     
     BUTTON_SetText(
       WM_GetDialogItem(
         configPageWin,
         ID_CONF_BUTTON_ESC
       ),
-      escButtonExpl[sel_language]
+      escButtonExpl[eeprom_bs_settings_tbl.chLngGUIText]
     );
     BUTTON_SetText(
       WM_GetDialogItem(
         configPageWin,
         ID_CONF_BUTTON_ENTER
       ),
-      enterButtonExpl[sel_language]
+      enterButtonExpl[eeprom_bs_settings_tbl.chLngGUIText]
     );
   }
   
   char titleText[100] = {0};
   unsigned int i = 0;
-  for (; confFrmText[sel_language][i] != '\0'; i++) {
-    titleText[i] = confFrmText[sel_language][i];
+  for (; confFrmText[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+    titleText[i] = confFrmText[eeprom_bs_settings_tbl.chLngGUIText][i];
   }
   
   if (current_ekran.edition != 0) {
-    _CONCAT_STR(titleText, editModeAdditionalText[sel_language]);
+    _CONCAT_STR(titleText, editModeAdditionalText[eeprom_bs_settings_tbl.chLngGUIText]);
   }
   
   FRAMEWIN_SetText(configPageWin, titleText);
   
-  EDIT_SetText(hEdit, confExplText[sel_language]);
+  EDIT_SetText(hEdit, confExplText[eeprom_bs_settings_tbl.chLngGUIText]);
 }

@@ -52,8 +52,8 @@ static void _cbProtection_FrameWin(WM_MESSAGE * pMsg)
               //Помічаємо, що дані змінені
               char title[256];
               title[0] = '\0';
-              strcat_mal(title, (char *)LCD_Settings_title.ptitle[sel_language]);
-              strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+              strcat_mal(title, (char *)LCD_Settings_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+              strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
               strcat_mal(title, "*");
               FRAMEWIN_SetText(LCD_Settings_FrameWin, title);
               current_ekran.edition_level_2 = 2;
@@ -114,14 +114,14 @@ void lcd_settings_show()
   int y0 = (GUI_Y_MAX - YSIZE_W) >> 1;
   
   
-  LCD_Settings_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_SHOW, 0, ID_LCD_SETTINGS_FRAMEWIN, LCD_Settings_title.ptitle[sel_language], _cbProtection_FrameWin);
+  LCD_Settings_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_SHOW, 0, ID_LCD_SETTINGS_FRAMEWIN, LCD_Settings_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbProtection_FrameWin);
   FRAMEWIN_SetFont(LCD_Settings_FrameWin, &GUI_FontArialBold14_8_Unicode);
   FRAMEWIN_SetTextAlign(LCD_Settings_FrameWin, GUI_TA_HCENTER);
   FRAMEWIN_SetBarColor(LCD_Settings_FrameWin, 1, GUI_GREEN);
   FRAMEWIN_SetBarColor(LCD_Settings_FrameWin, 0, GUI_LIGHTGRAY);
   FRAMEWIN_SetTextColor(LCD_Settings_FrameWin, GUI_BLUE);
 
-  LCD_Settings_t = TEXT_CreateEx(COL_1_X, ROW_1_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(LCD_Settings_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_LCD_SETTINGS_TITLE,  LCD_Settings_Delay_title.ptitle[sel_language]);
+  LCD_Settings_t = TEXT_CreateEx(COL_1_X, ROW_1_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(LCD_Settings_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_LCD_SETTINGS_TITLE,  LCD_Settings_Delay_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(LCD_Settings_t, &GUI_FontArialStandard14_8_Unicode);
 
 
@@ -172,7 +172,7 @@ void lcd_settings_show()
   EDIT_SetUserData(LCD_Settings_Edit, &info_data, sizeof(__info_data));
   EDIT_SetFloatMode(LCD_Settings_Edit, 0, _min, _max, shift, GUI_EDIT_SUPPRESS_LEADING_ZEROES);
   
-  LCD_Settings_d = TEXT_CreateEx(COL_1_X + SHIFT_X2 , ROW_1_Y, 20, HIGHT_Y, WM_GetClientWindow(LCD_Settings_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_LCD_SETTINGS_DIMENSION,  LCD_Settings_Delay_dimention.ptitle[sel_language]);
+  LCD_Settings_d = TEXT_CreateEx(COL_1_X + SHIFT_X2 , ROW_1_Y, 20, HIGHT_Y, WM_GetClientWindow(LCD_Settings_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_LCD_SETTINGS_DIMENSION,  LCD_Settings_Delay_dimention.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(LCD_Settings_d, &GUI_FontArialStandard14_8_Unicode);
 
 #undef XSIZE_W
@@ -197,7 +197,7 @@ void redraw_panel_lcd_settings(void)
 {
   char title[256];
   title[0] = '\0';
-  strcat_mal(title, (char *)LCD_Settings_title.ptitle[sel_language]);
+  strcat_mal(title, (char *)LCD_Settings_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
   unsigned int error_data_1 = _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_BIT) | _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_EMPTY_BIT);
 
@@ -205,7 +205,7 @@ void redraw_panel_lcd_settings(void)
   if (error_data_1)
   {
     //Nalashtuvannja nemaje u tablyci nalashtuvan
-    strcat_mal(title, (char *)ERROR_MES.ptitle[sel_language]);
+    strcat_mal(title, (char *)ERROR_MES.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     FRAMEWIN_SetText(LCD_Settings_FrameWin, title);
 
     FRAMEWIN_SetBarColor(LCD_Settings_FrameWin, 1, GUI_RED);
@@ -218,7 +218,7 @@ void redraw_panel_lcd_settings(void)
     //Nalashtuvannja realno je u tablyci nalashtuvan
     if (current_ekran.edition_level_2 != 0)
     {
-      strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+      strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       if (current_ekran.edition_level_2 != 1)
       {
         //Помічаємо, що дані змінені

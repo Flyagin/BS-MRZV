@@ -28,7 +28,7 @@ extern int position_in_level_1_menu_Modbus;
 extern int position_in_level_1_menu_Net;
 extern int position_in_level_1_menu_Clock;
 extern int position_in_level_1_menu_TM[2];
-extern int position_in_level_1_menu_Diagnostics[3];
+extern int position_in_level_1_menu_Diagnostics[4];
 
 extern const TITLE MODE;
 extern const TITLE ERROR_MES;
@@ -271,7 +271,7 @@ extern const TITLE Diagnostics_panel_title;
 extern const LANG_ITEM Diagnostics_Page_name[];
 extern SCROLLBAR_Handle ScrollBar_Diagnostics_Pages;
 extern WM_HWIN Diagnostics_Info[MAX_NUMBER_DIAGN_IN_PANEL];
-extern unsigned int Diagnistics_max_number_bits[3];
+extern unsigned int Diagnistics_max_number_bits[4];
 
 extern char *diagnostics_bs_mrzv_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS];
 extern char *diagnostics_bo_mrzv_m_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS];
@@ -344,7 +344,6 @@ extern CfgTblDsc edit_settings;
 extern AuxCfgTbl1Dsc edit_settings_1;
 
 extern _Bool change_language;
-extern unsigned char sel_language;
 
 //Обмін через SPI1
 extern unsigned char Temporaty_SPI1_Buffer_Tx[SIZE_BUFFER_FOR_RED];

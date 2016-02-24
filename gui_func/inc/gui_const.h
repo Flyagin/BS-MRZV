@@ -30,6 +30,7 @@ typedef enum __index_level_menu
 {
   ID_EKRAN_MAIN = 0,
   ID_LANG_DLG,
+  ID_WINDING_DLG,
   ID_MAIN_MENU,
   ID_MEAS_PG,
   ID_CONFIG_PG,
@@ -157,6 +158,20 @@ typedef enum __index_level_lang_dlg
   
   MAX_LEVEL_LANG_DLG
 } __index_level_lang_dlg;
+/*********************************************************************/
+
+/*********************************************************************
+*
+*       Winding win constants
+*/
+typedef enum __index_level_winding_dlg
+{
+  ID_WINDING_RADIO = 0,
+  ID_WINDING_BUTTON_OK,
+  ID_WINDING_BUTTON_CANCEL,
+  
+  MAX_LEVEL_WINDING_DLG
+} __index_level_winding_dlg;
 /*********************************************************************/
 
 /*********************************************************************

@@ -3490,7 +3490,7 @@ const char* DZ_pickup_info_1(
   {
   case 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP0_MAX/1000;
       *p_min = -(*p_max);
@@ -3501,7 +3501,7 @@ const char* DZ_pickup_info_1(
     }
   case 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP1_MAX/1000;
       *p_min = -(*p_max);
@@ -3512,7 +3512,7 @@ const char* DZ_pickup_info_1(
     }
   case 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP2_MAX/1000;
       *p_min = -(*p_max);
@@ -3523,7 +3523,7 @@ const char* DZ_pickup_info_1(
     }
   case 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP3_MAX/1000;
       *p_min = -(*p_max);
@@ -3534,7 +3534,7 @@ const char* DZ_pickup_info_1(
     }
   case 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP4_MAX/1000;
       *p_min = -(*p_max);
@@ -3545,7 +3545,7 @@ const char* DZ_pickup_info_1(
     }
   case 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP5_MAX/1000;
       *p_min = -(*p_max);
@@ -3556,7 +3556,7 @@ const char* DZ_pickup_info_1(
     }
   case 6:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP6_MAX/1000;
       *p_min = -(*p_max);
@@ -3567,7 +3567,7 @@ const char* DZ_pickup_info_1(
     }
   case 7:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP7_MAX/1000;
       *p_min = -(*p_max);
@@ -3578,7 +3578,7 @@ const char* DZ_pickup_info_1(
     }
   case 8:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP8_MAX/1000;
       *p_min = -(*p_max);
@@ -3589,7 +3589,7 @@ const char* DZ_pickup_info_1(
     }
   case 9:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP9_MAX/1000;
       *p_min = -(*p_max);
@@ -3600,7 +3600,7 @@ const char* DZ_pickup_info_1(
     }
   case 10:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP10_MAX/1000;
       *p_min = -(*p_max);
@@ -3611,7 +3611,7 @@ const char* DZ_pickup_info_1(
     }
   case 11:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP11_MAX/1000;
       *p_min = -(*p_max);
@@ -3622,7 +3622,7 @@ const char* DZ_pickup_info_1(
     }
   case 12:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP12_MAX/1000;
       *p_min = -(*p_max);
@@ -3633,7 +3633,7 @@ const char* DZ_pickup_info_1(
     }
   case 13:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP13_MAX/1000;
       *p_min = -(*p_max);
@@ -3644,7 +3644,7 @@ const char* DZ_pickup_info_1(
     }
   case 14:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP14_MAX/1000;
       *p_min = -(*p_max);
@@ -3655,7 +3655,7 @@ const char* DZ_pickup_info_1(
     }
   case 15:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP15_MAX/1000;
       *p_min = -(*p_max);
@@ -3675,7 +3675,7 @@ const char* DZ_pickup_info_1(
     }
   case 17:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ1_PICKUP17_MAX/1000;
       *p_shift = DZ1_PICKUP17_SHIFT;
@@ -3685,7 +3685,7 @@ const char* DZ_pickup_info_1(
 
   case MAX_NUMBER_PICKUP_DZ1 + 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP0_MAX/1000;
       *p_min = -(*p_max);
@@ -3696,7 +3696,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP1_MAX/1000;
       *p_min = -(*p_max);
@@ -3707,7 +3707,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP2_MAX/1000;
       *p_min = -(*p_max);
@@ -3718,7 +3718,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP3_MAX/1000;
       *p_min = -(*p_max);
@@ -3729,7 +3729,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP4_MAX/1000;
       *p_min = -(*p_max);
@@ -3740,7 +3740,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP5_MAX/1000;
       *p_min = -(*p_max);
@@ -3751,7 +3751,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 6:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP6_MAX/1000;
       *p_min = -(*p_max);
@@ -3762,7 +3762,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 7:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP7_MAX/1000;
       *p_min = -(*p_max);
@@ -3773,7 +3773,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 8:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP8_MAX/1000;
       *p_min = -(*p_max);
@@ -3784,7 +3784,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 9:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP9_MAX/1000;
       *p_min = -(*p_max);
@@ -3795,7 +3795,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 10:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP10_MAX/1000;
       *p_min = -(*p_max);
@@ -3806,7 +3806,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 11:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP11_MAX/1000;
       *p_min = -(*p_max);
@@ -3817,7 +3817,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 12:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP12_MAX/1000;
       *p_min = -(*p_max);
@@ -3828,7 +3828,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 13:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP13_MAX/1000;
       *p_min = -(*p_max);
@@ -3839,7 +3839,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 14:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP14_MAX/1000;
       *p_min = -(*p_max);
@@ -3850,7 +3850,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 15:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP15_MAX/1000;
       *p_min = -(*p_max);
@@ -3870,7 +3870,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + 17:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ2_PICKUP17_MAX/1000;
       *p_shift = DZ2_PICKUP17_SHIFT;
@@ -3880,7 +3880,7 @@ const char* DZ_pickup_info_1(
 
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP0_MAX/1000;
       *p_min = -(*p_max);
@@ -3891,7 +3891,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP1_MAX/1000;
       *p_min = -(*p_max);
@@ -3902,7 +3902,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP2_MAX/1000;
       *p_min = -(*p_max);
@@ -3913,7 +3913,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP3_MAX/1000;
       *p_min = -(*p_max);
@@ -3924,7 +3924,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP4_MAX/1000;
       *p_min = -(*p_max);
@@ -3935,7 +3935,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP5_MAX/1000;
       *p_min = -(*p_max);
@@ -3946,7 +3946,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 6:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP6_MAX/1000;
       *p_min = -(*p_max);
@@ -3957,7 +3957,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 7:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP7_MAX/1000;
       *p_min = -(*p_max);
@@ -3968,7 +3968,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 8:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP8_MAX/1000;
       *p_min = -(*p_max);
@@ -3979,7 +3979,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 9:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP9_MAX/1000;
       *p_min = -(*p_max);
@@ -3990,7 +3990,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 10:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP10_MAX/1000;
       *p_min = -(*p_max);
@@ -4001,7 +4001,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 11:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP11_MAX/1000;
       *p_min = -(*p_max);
@@ -4012,7 +4012,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 12:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP12_MAX/1000;
       *p_min = -(*p_max);
@@ -4023,7 +4023,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 13:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP13_MAX/1000;
       *p_min = -(*p_max);
@@ -4034,7 +4034,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 14:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP14_MAX/1000;
       *p_min = -(*p_max);
@@ -4045,7 +4045,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 15:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP15_MAX/1000;
       *p_min = -(*p_max);
@@ -4065,7 +4065,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + 17:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ3_PICKUP17_MAX/1000;
       *p_shift = DZ3_PICKUP17_SHIFT;
@@ -4075,7 +4075,7 @@ const char* DZ_pickup_info_1(
 
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP0_MAX/1000;
       *p_min = -(*p_max);
@@ -4086,7 +4086,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP1_MAX/1000;
       *p_min = -(*p_max);
@@ -4097,7 +4097,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP2_MAX/1000;
       *p_min = -(*p_max);
@@ -4108,7 +4108,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP3_MAX/1000;
       *p_min = -(*p_max);
@@ -4119,7 +4119,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP4_MAX/1000;
       *p_min = -(*p_max);
@@ -4130,7 +4130,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP5_MAX/1000;
       *p_min = -(*p_max);
@@ -4141,7 +4141,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 6:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP6_MAX/1000;
       *p_min = -(*p_max);
@@ -4152,7 +4152,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 7:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP7_MAX/1000;
       *p_min = -(*p_max);
@@ -4163,7 +4163,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 8:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP8_MAX/1000;
       *p_min = -(*p_max);
@@ -4174,7 +4174,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 9:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP9_MAX/1000;
       *p_min = -(*p_max);
@@ -4185,7 +4185,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 10:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP10_MAX/1000;
       *p_min = -(*p_max);
@@ -4196,7 +4196,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 11:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP11_MAX/1000;
       *p_min = -(*p_max);
@@ -4207,7 +4207,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 12:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP12_MAX/1000;
       *p_min = -(*p_max);
@@ -4218,7 +4218,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 13:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP13_MAX/1000;
       *p_min = -(*p_max);
@@ -4229,7 +4229,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 14:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP14_MAX/1000;
       *p_min = -(*p_max);
@@ -4240,7 +4240,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 15:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP15_MAX/1000;
       *p_min = -(*p_max);
@@ -4260,7 +4260,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 17:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ4_PICKUP17_MAX/1000;
       *p_shift = DZ4_PICKUP17_SHIFT;
@@ -4270,7 +4270,7 @@ const char* DZ_pickup_info_1(
   
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP0_MAX/1000;
       *p_min = -(*p_max);
@@ -4281,7 +4281,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP1_MAX/1000;
       *p_min = -(*p_max);
@@ -4292,7 +4292,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP2_MAX/1000;
       *p_min = -(*p_max);
@@ -4303,7 +4303,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP3_MAX/1000;
       *p_min = -(*p_max);
@@ -4314,7 +4314,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP4_MAX/1000;
       *p_min = -(*p_max);
@@ -4325,7 +4325,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP5_MAX/1000;
       *p_min = -(*p_max);
@@ -4336,7 +4336,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 6:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP6_MAX/1000;
       *p_min = -(*p_max);
@@ -4347,7 +4347,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 7:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP7_MAX/1000;
       *p_min = -(*p_max);
@@ -4358,7 +4358,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 8:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP8_MAX/1000;
       *p_min = -(*p_max);
@@ -4369,7 +4369,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 9:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP9_MAX/1000;
       *p_min = -(*p_max);
@@ -4380,7 +4380,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 10:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP10_MAX/1000;
       *p_min = -(*p_max);
@@ -4391,7 +4391,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 11:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP11_MAX/1000;
       *p_min = -(*p_max);
@@ -4402,7 +4402,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 12:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP12_MAX/1000;
       *p_min = -(*p_max);
@@ -4413,7 +4413,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 13:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP13_MAX/1000;
       *p_min = -(*p_max);
@@ -4424,7 +4424,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 14:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP14_MAX/1000;
       *p_min = -(*p_max);
@@ -4435,7 +4435,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 15:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP15_MAX/1000;
       *p_min = -(*p_max);
@@ -4455,7 +4455,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 17:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = DZ5_PICKUP17_MAX/1000;
       *p_shift = DZ5_PICKUP17_SHIFT;
@@ -4464,7 +4464,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_MF_DZ_PICKUP0_MAX/1000;
       *p_min = -(*p_max);
@@ -4475,7 +4475,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_MF_DZ_PICKUP1_MAX/1000;
       *p_min = -(*p_max);
@@ -4486,7 +4486,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_MF_DZ_PICKUP2_MAX/1000;
       *p_min = -(*p_max);
@@ -4497,7 +4497,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_MF_DZ_PICKUP3_MAX/1000;
       *p_min = -(*p_max);
@@ -4508,7 +4508,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_MF_DZ_PICKUP4_MAX/1000;
       *p_min = -(*p_max);
@@ -4519,7 +4519,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_MF_DZ_PICKUP5_MAX/1000;
       *p_min = -(*p_max);
@@ -4530,7 +4530,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 6:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_MF_DZ_PICKUP6_MAX/1000;
       *p_shift = KOL_MF_DZ_PICKUP6_SHIFT;
@@ -4539,7 +4539,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 7:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_MF_DZ_PICKUP7_MAX/1000;
       *p_shift = KOL_MF_DZ_PICKUP7_SHIFT;
@@ -4548,7 +4548,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 8:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_MF_DZ_PICKUP8_MAX/1000;
       *p_shift = KOL_MF_DZ_PICKUP8_SHIFT;
@@ -4557,7 +4557,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_OF_DZ_PICKUP0_MAX/1000;
       *p_min = -(*p_max);
@@ -4568,7 +4568,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_OF_DZ_PICKUP1_MAX/1000;
       *p_min = -(*p_max);
@@ -4579,7 +4579,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_OF_DZ_PICKUP2_MAX/1000;
       *p_min = -(*p_max);
@@ -4590,7 +4590,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_OF_DZ_PICKUP3_MAX/1000;
       *p_min = -(*p_max);
@@ -4601,7 +4601,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_OF_DZ_PICKUP4_MAX/1000;
       *p_min = -(*p_max);
@@ -4612,7 +4612,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 5:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_OF_DZ_PICKUP5_MAX/1000;
       *p_min = -(*p_max);
@@ -4623,7 +4623,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 6:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_OF_DZ_PICKUP6_MAX/1000;
       *p_shift = KOL_OF_DZ_PICKUP6_SHIFT;
@@ -4632,7 +4632,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 7:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_OF_DZ_PICKUP7_MAX/1000;
       *p_shift = KOL_OF_DZ_PICKUP7_SHIFT;
@@ -4641,7 +4641,7 @@ const char* DZ_pickup_info_1(
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 8:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = KOL_OF_DZ_PICKUP8_MAX/1000;
       *p_shift = KOL_OF_DZ_PICKUP8_SHIFT;
@@ -4665,7 +4665,7 @@ const char* DZ_delay_info_1(
                              int *p_shift
                             )
 {
-  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[sel_language];
+  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
  *p_min = 0;
  
   switch (number)
@@ -5191,7 +5191,7 @@ const char* DZ_pickup_dimention(unsigned int number)
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + 17:
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + 17:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_CURRENT].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + 6:
@@ -5201,12 +5201,12 @@ const char* DZ_pickup_dimention(unsigned int number)
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 7:
   case MAX_NUMBER_PICKUP_DZ1 + MAX_NUMBER_PICKUP_DZ2 + MAX_NUMBER_PICKUP_DZ3 + MAX_NUMBER_PICKUP_DZ4 + MAX_NUMBER_PICKUP_DZ5 + MAX_NUMBER_PICKUP_KOL_MF_DZ + 8:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE_DIV_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   default:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_RESISTANCE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   }

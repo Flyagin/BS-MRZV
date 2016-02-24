@@ -30,13 +30,13 @@ void update_an_rec_status_panel() {
   if (current_ekran.edition != 0) {
     char explanationText[100] = {0};
     unsigned int i = 0;
-    for (; _rankDlgAnRecItem[0].pExplanation[sel_language][i] != '\0'; i++) {
-      explanationText[i] = _rankDlgAnRecItem[0].pExplanation[sel_language][i];
+    for (; _rankDlgAnRecItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+      explanationText[i] = _rankDlgAnRecItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i];
     }
-    _CONCAT_STR(explanationText, editModeAdditionalText[sel_language]);
+    _CONCAT_STR(explanationText, editModeAdditionalText[eeprom_bs_settings_tbl.chLngGUIText]);
     EDIT_SetText(hEdit, explanationText);
   } else {
-    EDIT_SetText(hEdit, _rankDlgAnRecItem[0].pExplanation[sel_language]);
+    EDIT_SetText(hEdit, _rankDlgAnRecItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   }
 }
 
@@ -47,8 +47,8 @@ void update_an_rec_status_panel() {
 void update_an_rec_title() {
   char titleText[100] = {0};
   unsigned int i = 0;
-  for (; _rankDlgAnRecItem[0].pText[sel_language][i] != '\0'; i++) {
-    titleText[i] = _rankDlgAnRecItem[0].pText[sel_language][i];
+  for (; _rankDlgAnRecItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+    titleText[i] = _rankDlgAnRecItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i];
   }
   FRAMEWIN_SetText(rankDlgAnRecPg, titleText);
 }
@@ -58,10 +58,10 @@ void update_an_rec_title() {
 *       Обновление меток диалогового окна
 */
 void update_an_rec_labels() {
-  TEXT_SetText(WM_GetDialogItem(rankDlgAnRecPg, ID_RANK_AN_REC_TEXT_LABEL1), timePreFaultArrTextLabels[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgAnRecPg, ID_RANK_AN_REC_UNIT1), secUnits[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgAnRecPg, ID_RANK_AN_REC_TEXT_LABEL2), timePostFaultArrTextLabels[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgAnRecPg, ID_RANK_AN_REC_UNIT2), secUnits[sel_language]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgAnRecPg, ID_RANK_AN_REC_TEXT_LABEL1), timePreFaultArrTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgAnRecPg, ID_RANK_AN_REC_UNIT1), secUnits[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgAnRecPg, ID_RANK_AN_REC_TEXT_LABEL2), timePostFaultArrTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgAnRecPg, ID_RANK_AN_REC_UNIT2), secUnits[eeprom_bs_settings_tbl.chLngGUIText]);
 }
 
 /*********************************************************************
@@ -138,7 +138,7 @@ void rank_dlg_an_rec_init() {
     WM_CF_SHOW,
     0,
     win_id_list[ID_RANK_AN_REC_DLG],
-    _rankDlgAnRecItem[0].pText[sel_language],
+    _rankDlgAnRecItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText],
     _cbRankDlgWin
   );
   FRAMEWIN_SetFont(rankDlgAnRecPg, &GUI_FontArialBold14_8_Unicode);
@@ -150,7 +150,7 @@ void rank_dlg_an_rec_init() {
     WM_CF_SHOW,
     0,
     ID_RANK_AN_REC_TEXT_LABEL1,
-    timePreFaultArrTextLabels[sel_language]
+    timePreFaultArrTextLabels[eeprom_bs_settings_tbl.chLngGUIText]
   );
   TEXT_SetFont(label1, &GUI_FontArialBold14_8_Unicode);
   
@@ -161,7 +161,7 @@ void rank_dlg_an_rec_init() {
     WM_CF_SHOW,
     0,
     ID_RANK_AN_REC_UNIT1,
-    msUnits[sel_language]
+    msUnits[eeprom_bs_settings_tbl.chLngGUIText]
   );
   TEXT_SetFont(timePreFaultArrUnit, &GUI_FontArialBold14_8_Unicode);
   
@@ -173,7 +173,7 @@ void rank_dlg_an_rec_init() {
     WM_CF_SHOW,
     0,
     ID_RANK_AN_REC_TEXT_LABEL2,
-    timePostFaultArrTextLabels[sel_language]
+    timePostFaultArrTextLabels[eeprom_bs_settings_tbl.chLngGUIText]
   );
   TEXT_SetFont(label2, &GUI_FontArialBold14_8_Unicode);
   
@@ -184,7 +184,7 @@ void rank_dlg_an_rec_init() {
     WM_CF_SHOW,
     0,
     ID_RANK_AN_REC_UNIT2,
-    msUnits[sel_language]
+    msUnits[eeprom_bs_settings_tbl.chLngGUIText]
   );
   TEXT_SetFont(timePostFaultArrUnit, &GUI_FontArialBold14_8_Unicode);
   

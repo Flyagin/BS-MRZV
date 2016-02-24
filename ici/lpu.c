@@ -1480,7 +1480,7 @@ unsigned long uiAmtSpiBadPacket = 0;
 
 extern unsigned char chEntry_Spi0;
 static char chTotalBadPacketCtr = 0;
-static long lAmtCallReInitDmaSpi = 0;
+/*static*/ long lAmtCallReInitDmaSpi = 0;
 extern long lSpi0HdwState;
 extern volatile  long spi0_txsize, spi0_rxsize,spi0_rxget,spi0_rxfill;
 //""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

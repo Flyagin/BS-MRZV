@@ -28,7 +28,7 @@ void settings_panel_show(void)
       {
         pBitmap = pBitmaps_prt_off[i - 2];
       }
-      ICONVIEW_AddBitmapItem(Settings_IconView, pBitmap, _aBitmapItem_settings[i].pText[sel_language]);
+      ICONVIEW_AddBitmapItem(Settings_IconView, pBitmap, _aBitmapItem_settings[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
     }
     ICONVIEW_SetBkColor(Settings_IconView, ICONVIEW_CI_BK, GUI_BLACK);
     ICONVIEW_SetBkColor(Settings_IconView, ICONVIEW_CI_SEL, GUI_BLUE | 0x50000000);
@@ -59,7 +59,7 @@ void redraw_panel_settings(void)
   int sel_index = current_ekran.index_position;
   ICONVIEW_SetSel(Settings_IconView, sel_index);
   
-  EDIT_SetText(hEdit, _aBitmapItem_settings[sel_index].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem_settings[sel_index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   WM_SetFocus(Settings_IconView);
 }
 /*****************************/

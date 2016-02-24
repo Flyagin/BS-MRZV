@@ -13,7 +13,6 @@ _Bool start_gui_exec = 0;
 _Bool gui_update = 0;
 
 _Bool change_language = 0;
-unsigned char sel_language;
 
 WM_HWIN desctopWin;
 
@@ -55,7 +54,18 @@ WM_HWIN langRadioButton;
 WM_HWIN langButtonOK;
 WM_HWIN langButtonCancel;
 
+WM_HWIN windingWin = WM_UNATTACHED;
+WM_HWIN windingRadioButton;
+WM_HWIN windingButtonOK;
+WM_HWIN windingButtonCancel;
+
 int lang_id_list[MAX_LEVEL_LANG_DLG] = {
+  GUI_ID_RADIO0,
+  GUI_ID_BUTTON0,
+  GUI_ID_BUTTON1
+};
+
+int winding_id_list[MAX_LEVEL_WINDING_DLG] = {
   GUI_ID_RADIO0,
   GUI_ID_BUTTON0,
   GUI_ID_BUTTON1

@@ -107,8 +107,8 @@ static void _cbProtection_FrameWin(WM_MESSAGE * pMsg)
               //Помічаємо, що дані змінені
               char title[256];
               title[0] = '\0';
-              strcat_mal(title, (char *)Transformer_panel_title.ptitle[sel_language]);
-              strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+              strcat_mal(title, (char *)Transformer_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+              strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
               strcat_mal(title, "*");
               FRAMEWIN_SetText(Transformer_FrameWin, title);
               current_ekran.edition = 2;
@@ -157,7 +157,7 @@ void transformer_panel_show(void)
   if (Transformer_FrameWin == WM_UNATTACHED)
   {
     //Stvorjujemo FrameWin
-    Transformer_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_TRANSFORMER_FRAMEWIN, Transformer_panel_title.ptitle[sel_language], _cbProtection_FrameWin);
+    Transformer_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_TRANSFORMER_FRAMEWIN, Transformer_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbProtection_FrameWin);
     FRAMEWIN_SetFont(Transformer_FrameWin, &GUI_FontArialBold14_8_Unicode);
     FRAMEWIN_SetTextAlign(Transformer_FrameWin, GUI_TA_HCENTER);
     FRAMEWIN_SetBarColor(Transformer_FrameWin, 1, GUI_GREEN);
@@ -178,7 +178,7 @@ void transformer_panel_show(void)
     SCROLLBAR_SetPageSize(ScrollBar_Transformer, 6*SHIFT_Y);
 
     //Linija
-    Transformer_t[0] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 0*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Transformer_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_TRANSFORMER_LINIJA_TITLE,  Transformer_title[0].ptitle[sel_language]);
+    Transformer_t[0] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 0*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Transformer_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_TRANSFORMER_LINIJA_TITLE,  Transformer_title[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Transformer_t[0], &GUI_FontArialStandard14_8_Unicode);
     Transformer_v[0] = DROPDOWN_CreateEx(COL_1_X + SHIFT_X1, ROW_1_Y + 0*SHIFT_Y, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Transformer_FrameWin), WM_CF_SHOW, DROPDOWN_CF_AUTOSCROLLBAR, ID_TRANSFORMER_LINIJA_VALUE);
     DROPDOWN_SetFont(Transformer_v[0], &GUI_FontArialStandard14_8_Unicode);
@@ -186,10 +186,10 @@ void transformer_panel_show(void)
     DROPDOWN_SetBkColor(Transformer_v[0],DROPDOWN_CI_SEL,  GUI_GRAY);
     DROPDOWN_SetBkColor(Transformer_v[0],DROPDOWN_CI_SELFOCUS, GUI_BLUE);
     DROPDOWN_AddString(Transformer_v[0], "");
-    for (int i = 0; i < 3; i++) DROPDOWN_AddString(Transformer_v[0], Transformer_line_title[i].ptitle[sel_language]);
+    for (int i = 0; i < 3; i++) DROPDOWN_AddString(Transformer_v[0], Transformer_line_title[i].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
     //TT
-    Transformer_t[1] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 1*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Transformer_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_TRANSFORMER_CT_TITLE,  Transformer_title[1].ptitle[sel_language]);
+    Transformer_t[1] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 1*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Transformer_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_TRANSFORMER_CT_TITLE,  Transformer_title[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Transformer_t[1], &GUI_FontArialStandard14_8_Unicode);
     Transformer_v[1] = EDIT_CreateUser(COL_1_X + SHIFT_X1, ROW_1_Y + 1*SHIFT_Y, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Transformer_FrameWin), WM_CF_SHOW, 0, ID_TRANSFORMER_CT_VALUE, 3, sizeof(__info_data));
     EDIT_SetFont(Transformer_v[1], &GUI_FontArialStandard14_8_Unicode);
@@ -240,7 +240,7 @@ void transformer_panel_show(void)
     }
 
     //TН
-    Transformer_t[2] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 2*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Transformer_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_TRANSFORMER_VT_TITLE,  Transformer_title[2].ptitle[sel_language]);
+    Transformer_t[2] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 2*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Transformer_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_TRANSFORMER_VT_TITLE,  Transformer_title[2].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Transformer_t[2], &GUI_FontArialStandard14_8_Unicode);
     Transformer_v[2] = EDIT_CreateUser(COL_1_X + SHIFT_X1, ROW_1_Y + 2*SHIFT_Y, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Transformer_FrameWin), WM_CF_SHOW, 0, ID_TRANSFORMER_VT_VALUE, 3, sizeof(__info_data));
     EDIT_SetFont(Transformer_v[2], &GUI_FontArialStandard14_8_Unicode);
@@ -311,18 +311,18 @@ Peremaljovuvannja paneli nalashtuvan vymirjuvan
 *****************************/
 void redraw_panel_transformer(void)
 {
-  EDIT_SetText(hEdit, _aBitmapItem_settings[TRANSFORMER_ID].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem_settings[TRANSFORMER_ID].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   
   char title[256];
   title[0] = '\0';
-  strcat_mal(title, (char *)Transformer_panel_title.ptitle[sel_language]);
+  strcat_mal(title, (char *)Transformer_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
   
   unsigned int error_data = _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_PRT_EEPROM_BIT) | _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_PRT_EEPROM_EMPTY_BIT);
 
   if (error_data)
   {
     //Nalashtuvannja nemaje u tablyci nalashtuvan
-    strcat_mal(title, (char *)ERROR_MES.ptitle[sel_language]);
+    strcat_mal(title, (char *)ERROR_MES.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     FRAMEWIN_SetText(Transformer_FrameWin, title);
 
     FRAMEWIN_SetBarColor(Transformer_FrameWin, 1, GUI_RED);
@@ -337,7 +337,7 @@ void redraw_panel_transformer(void)
     //Nalashtuvannja realno je u tablyci nalashtuvan
     if (current_ekran.edition != 0)
     {
-      strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+      strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       if (current_ekran.edition != 1)
       {
         //Помічаємо, що дані змінені

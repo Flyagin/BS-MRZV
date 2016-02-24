@@ -34,41 +34,41 @@ void desctop_menu_init_mal()
   hAbout        = MENU_CreateEx(0, 0, 0, 0, WM_UNATTACHED,  0, MENU_CF_VERTICAL, 0);
 
   // Add menu items to main menu
-  _AddMenuItem(hMenu_main, hMin_settings, menu_option_title[0].ptitle[sel_language], id_menu[0], 0);
+  _AddMenuItem(hMenu_main, hMin_settings, menu_option_title[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[0], 0);
   // Add menu items to menu 'Min.settings'
-  _AddMenuItem(hMin_settings, 0, menu_option_title[1].ptitle[sel_language], id_menu[1], MENU_IF_DISABLED);
-  _AddMenuItem(hMin_settings, 0, menu_option_title[2].ptitle[sel_language], id_menu[2], MENU_IF_DISABLED);
+  _AddMenuItem(hMin_settings, 0, menu_option_title[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[1], MENU_IF_DISABLED);
+  _AddMenuItem(hMin_settings, 0, menu_option_title[2].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[2], MENU_IF_DISABLED);
 
   // Add menu items to main menu
-  _AddMenuItem(hMenu_main, hOption, menu_option_title[3].ptitle[sel_language], id_menu[3], 0);
+  _AddMenuItem(hMenu_main, hOption, menu_option_title[3].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[3], 0);
   // Add menu items to menu 'Option'
-  _AddMenuItem(hOption, 0, menu_option_title[4].ptitle[sel_language], id_menu[4], 0);
-  _AddMenuItem(hOption, 0, menu_option_title[5].ptitle[sel_language], id_menu[5], 0);
-  _AddMenuItem(hOption, hPasswords, menu_option_title[6].ptitle[sel_language], id_menu[6], 0);
+  _AddMenuItem(hOption, 0, menu_option_title[4].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[4], 0);
+  _AddMenuItem(hOption, 0, menu_option_title[5].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[5], 0);
+  _AddMenuItem(hOption, hPasswords, menu_option_title[6].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[6], 0);
   // Add menu items to menu 'Passwords'
-  _AddMenuItem(hPasswords, 0, menu_option_title[7].ptitle[sel_language], id_menu[7], 0);
-  _AddMenuItem(hPasswords, 0, menu_option_title[8].ptitle[sel_language], id_menu[8], 0);
+  _AddMenuItem(hPasswords, 0, menu_option_title[7].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[7], 0);
+  _AddMenuItem(hPasswords, 0, menu_option_title[8].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[8], 0);
 
   // Add menu items to main menu
-  _AddMenuItem(hMenu_main, hPickup_Group, menu_option_title[9].ptitle[sel_language], id_menu[9], 0);
+  _AddMenuItem(hMenu_main, hPickup_Group, menu_option_title[9].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[9], 0);
   // Add menu items to menu 'Min.settings'
-  _AddMenuItem(hPickup_Group, 0, menu_option_title[10].ptitle[sel_language], id_menu[10], 0);
-  _AddMenuItem(hPickup_Group, 0, menu_option_title[11].ptitle[sel_language], id_menu[11], 0);
-  _AddMenuItem(hPickup_Group, 0, menu_option_title[12].ptitle[sel_language], id_menu[12], 0);
-  _AddMenuItem(hPickup_Group, 0, menu_option_title[13].ptitle[sel_language], id_menu[13], 0);
+  _AddMenuItem(hPickup_Group, 0, menu_option_title[10].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[10], 0);
+  _AddMenuItem(hPickup_Group, 0, menu_option_title[11].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[11], 0);
+  _AddMenuItem(hPickup_Group, 0, menu_option_title[12].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[12], 0);
+  _AddMenuItem(hPickup_Group, 0, menu_option_title[13].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[13], 0);
 
   // Add menu items to main menu
-  _AddMenuItem(hMenu_main, hCommands, menu_option_title[14].ptitle[sel_language], id_menu[14], 0);
+  _AddMenuItem(hMenu_main, hCommands, menu_option_title[14].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[14], 0);
   // Add menu items to menu 'Commands'
-  _AddMenuItem(hCommands, 0, menu_option_title[15].ptitle[sel_language], id_menu[15], 0);
-  _AddMenuItem(hCommands, 0, menu_option_title[16].ptitle[sel_language], id_menu[16], 0);
-  _AddMenuItem(hCommands, 0, menu_option_title[17].ptitle[sel_language], id_menu[17], 0);
-  _AddMenuItem(hCommands, 0, menu_option_title[18].ptitle[sel_language], id_menu[18], 0);
-  _AddMenuItem(hCommands, 0, menu_option_title[19].ptitle[sel_language], id_menu[19], 0);
+  _AddMenuItem(hCommands, 0, menu_option_title[15].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[15], 0);
+  _AddMenuItem(hCommands, 0, menu_option_title[16].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[16], 0);
+  _AddMenuItem(hCommands, 0, menu_option_title[17].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[17], 0);
+  _AddMenuItem(hCommands, 0, menu_option_title[18].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[18], 0);
+  _AddMenuItem(hCommands, 0, menu_option_title[19].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[19], 0);
 
   // Add menu items to main menu
-  _AddMenuItem(hMenu_main, hAbout, menu_option_title[20].ptitle[sel_language], id_menu[20], 0);
+  _AddMenuItem(hMenu_main, hAbout, menu_option_title[20].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[20], 0);
   // Add menu items to menu 'About'
-  _AddMenuItem(hAbout, 0, menu_option_title[21].ptitle[sel_language], id_menu[21], 0);
+  _AddMenuItem(hAbout, 0, menu_option_title[21].ptitle[eeprom_bs_settings_tbl.chLngGUIText], id_menu[21], 0);
 }
 /***/

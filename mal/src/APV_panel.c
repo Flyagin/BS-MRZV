@@ -423,7 +423,7 @@ const char* APV_pickup_info_1(
   {
   case 0:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       *p_max = APV_PICKUP0_MAX/1000;
       *p_shift = APV_PICKUP0_SHIFT;
@@ -432,7 +432,7 @@ const char* APV_pickup_info_1(
     }
   case 1:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = APV_PICKUP1_MAX/1000;
       *p_shift = APV_PICKUP1_SHIFT;
@@ -441,7 +441,7 @@ const char* APV_pickup_info_1(
     }
   case 2:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = APV_PICKUP2_MAX/1000;
       *p_shift = APV_PICKUP2_SHIFT;
@@ -450,7 +450,7 @@ const char* APV_pickup_info_1(
     }
   case 3:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = APV_PICKUP3_MAX/1000;
       *p_shift = APV_PICKUP3_SHIFT;
@@ -459,7 +459,7 @@ const char* APV_pickup_info_1(
     }
   case 4:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = APV_PICKUP4_MAX/1000;
       *p_shift = APV_PICKUP4_SHIFT;
@@ -477,7 +477,7 @@ const char* APV_pickup_info_1(
     }
   case 6:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_DEGREE_DIV_SECOND].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_DEGREE_DIV_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
         
       *p_max = APV_PICKUP6_MAX/1000;
       *p_shift = APV_PICKUP6_SHIFT;
@@ -501,7 +501,7 @@ const char* APV_delay_info_1(
                               int *p_shift
                              )
 {
-  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[sel_language];
+  const char *p_pickup_dimention = MEASURES[MEASURES_OF_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
   *p_min = 0;
 
   switch (number)
@@ -599,12 +599,12 @@ const char* APV_pickup_dimention(unsigned int number)
     }
   case 6:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_DEGREE_DIV_SECOND].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_DEGREE_DIV_SECOND].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   default:
     {
-      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[sel_language];
+      p_pickup_dimention = MEASURES[MEASURES_OF_VOLTAGE].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       break;
     }
   }

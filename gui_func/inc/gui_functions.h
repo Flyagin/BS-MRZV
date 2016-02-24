@@ -5,6 +5,7 @@
 void gui_init();
 void desctop_init();
 void lang_dlg_init();
+void winding_dlg_init();
 void measurement_panel_init();
 void configuration_panel_init();
 void rank_panel_init();

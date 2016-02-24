@@ -13,7 +13,7 @@ void registrators_panel_show(void)
   if (Registrators_FrameWin == WM_UNATTACHED)
   {
     //Stvorjujemo FrameWin
-    Registrators_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_REGISTRATORS_FRAMEWIN, Registrators_panel_title.ptitle[sel_language], _cbEmpty);
+    Registrators_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_REGISTRATORS_FRAMEWIN, Registrators_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
     FRAMEWIN_SetFont(Registrators_FrameWin, &GUI_FontArialBold14_8_Unicode);
     FRAMEWIN_SetTextAlign(Registrators_FrameWin, GUI_TA_HCENTER);
     FRAMEWIN_SetBarColor(Registrators_FrameWin, 1, GUI_GREEN);
@@ -43,7 +43,7 @@ void registrators_panel_show(void)
     DROPDOWN_SetBkColor(Registrator_number,DROPDOWN_CI_SEL,  GUI_WHITE);
     DROPDOWN_SetBkColor(Registrator_number,DROPDOWN_CI_SELFOCUS, GUI_WHITE);
     
-    Registrator_number_from = TEXT_CreateEx(70, 10, 20, 15, WM_GetClientWindow(Registrators_Window_up_left), WM_CF_SHOW, TEXT_CF_HCENTER | TEXT_CF_VCENTER, ID_REGISTRATOR_NUMBER_FROM, title_from.ptitle[sel_language]);
+    Registrator_number_from = TEXT_CreateEx(70, 10, 20, 15, WM_GetClientWindow(Registrators_Window_up_left), WM_CF_SHOW, TEXT_CF_HCENTER | TEXT_CF_VCENTER, ID_REGISTRATOR_NUMBER_FROM, title_from.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Registrator_number_from, &GUI_FontArialStandard14_8_Unicode);
 
     Registrator_total_number = TEXT_CreateEx(100, 10, 30, 15, WM_GetClientWindow(Registrators_Window_up_left), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_REGISTRATOR_TOTAL_NUMBER, "???");
@@ -57,7 +57,7 @@ void registrators_panel_show(void)
     
     for (unsigned int i = 0; i < 3; i++)
     {
-      MULTIPAGE_AddPage(Registrators_MultiPage_type, Registrators_Window, Registrators_MultiPage_Items[i].pText[sel_language]);
+      MULTIPAGE_AddPage(Registrators_MultiPage_type, Registrators_Window, Registrators_MultiPage_Items[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
       MULTIPAGE_DisablePage(Registrators_MultiPage_type, i);
     }
     MULTIPAGE_EnablePage(Registrators_MultiPage_type, current_ekran.index_position);
@@ -75,7 +75,7 @@ Peremaljovuvannja paneli dlja rejestratoriv
 *****************************/
 void redraw_panel_registrators(void)
 {
-  EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_REGISTRATORS_ID].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_REGISTRATORS_ID].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   
   int index_position_tmp = current_ekran.index_position;
   if (MULTIPAGE_GetSelection(Registrators_MultiPage_type) != index_position_tmp)

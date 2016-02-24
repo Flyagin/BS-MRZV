@@ -206,7 +206,7 @@
         </option>
         <option>
           <name>CCListCMnemonics</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCListCMessages</name>
@@ -214,7 +214,7 @@
         </option>
         <option>
           <name>CCListAssFile</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCListAssSource</name>
@@ -5401,6 +5401,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\gui_func\dlg\rank_led_dlg.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\gui_func\dlg\WindingDLG.c</name>
         </file>
       </group>
       <group>

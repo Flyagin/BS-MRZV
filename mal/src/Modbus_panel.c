@@ -109,8 +109,8 @@ static void _cbProtection_FrameWin(WM_MESSAGE * pMsg)
               //Помічаємо, що дані змінені
               char title[256];
               title[0] = '\0';
-              strcat_mal(title, (char *)Modbus_panel_title.ptitle[sel_language]);
-              strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+              strcat_mal(title, (char *)Modbus_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+              strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
               strcat_mal(title, "*");
               FRAMEWIN_SetText(Modbus_FrameWin, title);
               current_ekran.edition = 2;
@@ -159,7 +159,7 @@ void Modbus_panel_show(void)
   if (Modbus_FrameWin == WM_UNATTACHED)
   {
     //Stvorjujemo FrameWin
-    Modbus_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_MODBUS_FRAMEWIN, Modbus_panel_title.ptitle[sel_language], _cbProtection_FrameWin);
+    Modbus_FrameWin = FRAMEWIN_CreateEx(X0, Y0, X_SIZE, Y_SIZE, 0, WM_CF_HIDE, 0, ID_MODBUS_FRAMEWIN, Modbus_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbProtection_FrameWin);
     FRAMEWIN_SetFont(Modbus_FrameWin, &GUI_FontArialBold14_8_Unicode);
     FRAMEWIN_SetTextAlign(Modbus_FrameWin, GUI_TA_HCENTER);
     FRAMEWIN_SetBarColor(Modbus_FrameWin, 1, GUI_GREEN);
@@ -180,7 +180,7 @@ void Modbus_panel_show(void)
     SCROLLBAR_SetPageSize(ScrollBar_Modbus, 6*SHIFT_Y);
 
     //Address
-    Modbus_t[0] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 0*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_ADDRESS_TITLE,  Modbus_title[0].ptitle[sel_language]);
+    Modbus_t[0] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 0*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_ADDRESS_TITLE,  Modbus_title[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Modbus_t[0], &GUI_FontArialStandard14_8_Unicode);
     Modbus_v[0] = EDIT_CreateUser(COL_1_X + SHIFT_X1, ROW_1_Y + 0*SHIFT_Y, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, 0, ID_MODBUS_ADDRESS_VALUE, 3, sizeof(__info_data));
     EDIT_SetFont(Modbus_v[0], &GUI_FontArialStandard14_8_Unicode);
@@ -231,7 +231,7 @@ void Modbus_panel_show(void)
     EDIT_SetFloatMode(Modbus_v[0], 0, _min, _max, shift, GUI_EDIT_SUPPRESS_LEADING_ZEROES);
 
     //Baud Rate
-    Modbus_t[1] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 1*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_BAUD_RATE_TITLE,  Modbus_title[1].ptitle[sel_language]);
+    Modbus_t[1] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 1*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_BAUD_RATE_TITLE,  Modbus_title[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Modbus_t[1], &GUI_FontArialStandard14_8_Unicode);
     Modbus_v[1] = DROPDOWN_CreateEx(COL_1_X + SHIFT_X1, ROW_1_Y + 1*SHIFT_Y, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, DROPDOWN_CF_AUTOSCROLLBAR, ID_MODBUS_BAUD_RATE_VALUE);
     DROPDOWN_SetFont(Modbus_v[1], &GUI_FontArialStandard14_8_Unicode);
@@ -242,7 +242,7 @@ void Modbus_panel_show(void)
     for (int i = 0; i < 7; i++) DROPDOWN_AddString(Modbus_v[1], Baud_rate_title[i]);
 
     //Parity
-    Modbus_t[2] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 2*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_PARITY_TITLE,  Modbus_title[2].ptitle[sel_language]);
+    Modbus_t[2] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 2*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_PARITY_TITLE,  Modbus_title[2].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Modbus_t[2], &GUI_FontArialStandard14_8_Unicode);
     Modbus_v[2] = DROPDOWN_CreateEx(COL_1_X + SHIFT_X1, ROW_1_Y + 2*SHIFT_Y, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, DROPDOWN_CF_AUTOSCROLLBAR, ID_MODBUS_PARITY_VALUE);
     DROPDOWN_SetFont(Modbus_v[2], &GUI_FontArialStandard14_8_Unicode);
@@ -250,10 +250,10 @@ void Modbus_panel_show(void)
     DROPDOWN_SetBkColor(Modbus_v[2],DROPDOWN_CI_SEL,  GUI_GRAY);
     DROPDOWN_SetBkColor(Modbus_v[2],DROPDOWN_CI_SELFOCUS, GUI_BLUE);
     DROPDOWN_AddString(Modbus_v[2], "");
-    for (int i = 0; i < 3; i++) DROPDOWN_AddString(Modbus_v[2], Parity_title[i].ptitle[sel_language]);
+    for (int i = 0; i < 3; i++) DROPDOWN_AddString(Modbus_v[2], Parity_title[i].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
     //Stop bits
-    Modbus_t[3] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 3*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_STOP_BITS_TITLE,  Modbus_title[3].ptitle[sel_language]);
+    Modbus_t[3] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 3*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_STOP_BITS_TITLE,  Modbus_title[3].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Modbus_t[3], &GUI_FontArialStandard14_8_Unicode);
     Modbus_v[3] = DROPDOWN_CreateEx(COL_1_X + SHIFT_X1, ROW_1_Y + 3*SHIFT_Y, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, DROPDOWN_CF_AUTOSCROLLBAR, ID_MODBUS_STOP_BITS_VALUE);
     DROPDOWN_SetFont(Modbus_v[3], &GUI_FontArialStandard14_8_Unicode);
@@ -264,7 +264,7 @@ void Modbus_panel_show(void)
     for (int i = 0; i < 2; i++) DROPDOWN_AddString(Modbus_v[3], Stop_bits_title[i]);
 
     //Time-Out
-    Modbus_t[4] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 4*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_TIMEOUT_TITLE,  Modbus_title[4].ptitle[sel_language]);
+    Modbus_t[4] = TEXT_CreateEx(COL_1_X, ROW_1_Y + 4*SHIFT_Y, WIDTH_X_T, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_TIMEOUT_TITLE,  Modbus_title[4].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Modbus_t[4], &GUI_FontArialStandard14_8_Unicode);
     Modbus_v[4] = EDIT_CreateUser(COL_1_X + SHIFT_X1, ROW_1_Y + 4*SHIFT_Y, WIDTH_X_V, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, 0, ID_MODBUS_TIMEOUT_VALUE, 5, sizeof(__info_data));
     EDIT_SetFont(Modbus_v[4], &GUI_FontArialStandard14_8_Unicode);
@@ -313,7 +313,7 @@ void Modbus_panel_show(void)
     EDIT_SetUserData(Modbus_v[4], &info_data, sizeof(__info_data));
     EDIT_SetFloatMode(Modbus_v[4], 0, _min, _max, shift, GUI_EDIT_SUPPRESS_LEADING_ZEROES);
 
-    Modbus_d = TEXT_CreateEx(COL_1_X + SHIFT_X2 , ROW_1_Y + 4*SHIFT_Y, 40, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_TIMEOUT_DIMENSION,  Modbus_Timeout_dimention.ptitle[sel_language]);
+    Modbus_d = TEXT_CreateEx(COL_1_X + SHIFT_X2 , ROW_1_Y + 4*SHIFT_Y, 40, HIGHT_Y, WM_GetClientWindow(Modbus_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_MODBUS_TIMEOUT_DIMENSION,  Modbus_Timeout_dimention.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     TEXT_SetFont(Modbus_d, &GUI_FontArialStandard14_8_Unicode);
     
 #undef COL_1_X
@@ -337,18 +337,18 @@ Peremaljovuvannja paneli comunicaciji
 *****************************/
 void redraw_panel_Modbus(void)
 {
-  EDIT_SetText(hEdit, _aBitmapItem_Comm[COMM_MODBUS_ID].pExplanation[sel_language]);
+  EDIT_SetText(hEdit, _aBitmapItem_Comm[COMM_MODBUS_ID].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   
   char title[256];
   title[0] = '\0';
-  strcat_mal(title, (char *)Modbus_panel_title.ptitle[sel_language]);
+  strcat_mal(title, (char *)Modbus_panel_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
   unsigned int error_data_1 = _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_BIT) | _CHECK_SET_BIT(diagnostyka, ERROR_SETTINGS_BS_EEPROM_EMPTY_BIT);
   
   if (error_data_1)
   {
     //Nalashtuvannja nemaje u tablyci nalashtuvan
-    strcat_mal(title, (char *)ERROR_MES.ptitle[sel_language]);
+    strcat_mal(title, (char *)ERROR_MES.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     FRAMEWIN_SetText(Modbus_FrameWin, title);
 
     FRAMEWIN_SetBarColor(Modbus_FrameWin, 1, GUI_RED);
@@ -365,7 +365,7 @@ void redraw_panel_Modbus(void)
     //Nalashtuvannja realno je u tablyci nalashtuvan
     if (current_ekran.edition != 0)
     {
-      strcat_mal(title, (char *)MODE.ptitle[sel_language]);
+      strcat_mal(title, (char *)MODE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       if (current_ekran.edition != 1)
       {
         //Помічаємо, що дані змінені

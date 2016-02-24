@@ -1367,6 +1367,196 @@ void main_menu_function(void)
           
           break;
         }
+      case ID_WINDING_DLG:
+        {
+          if ((command_menu & (1 << REWRITE_MENU)) != 0)
+          {
+            //Стоїть команда на обновлення вмістимого екрану
+            command_menu &= (unsigned int)(~(1 << REWRITE_MENU));
+            show_window(ID_WINDING_DLG);
+          } else {
+            //Натиснута та кнопка, на яку треба відреагувати
+            if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_ESC) != 0)
+            {
+              //Зафіксована натиснута кнопка ESC
+              _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_ESC);
+              
+              if (
+                  (key_pressed[0] == 0) &&
+                  (key_pressed[1] == 0)
+                 )  
+              {
+                /*
+                Поряд з кнопкою ESC не була натиснута інша кнопка
+                Можна виконувати дії
+                */
+                set_current_winding(ID_WINDING_BUTTON_CANCEL); //set previous language
+                
+                hide_window(ID_WINDING_DLG);
+                //hide_window(ID_WINDING_DLG);
+                /*if(current_ekran.current_level == ID_EKRAN_MAIN){
+                    hide_window(ID_LANG_DLG);
+                    current_ekran.current_level = previous_level_in_current_level_menu[ID_LANG_DLG];
+                }
+                else{
+                    hide_window(ID_WINDING_DLG);
+                    current_ekran.current_level = previous_level_in_current_level_menu[ID_WINDING_DLG];
+                } */   
+                current_ekran.current_level = previous_level_in_current_level_menu[ID_WINDING_DLG];
+                current_ekran.index_position = position_in_current_level_menu[current_ekran.current_level];
+                current_modal_form = false;
+                
+                /*
+                Завершальною операцією є зняття команди на перемальованування
+                старого пункту меню і виставлення команди на обновлення ногого 
+                пункту меню
+                */
+                command_state &= (unsigned int)(~(1 << REDRAW));
+                command_menu |= (1 << REWRITE_MENU);
+              }
+              else command_state |= (1 << ERROR_FIXED);
+            }
+            else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_RIGHT) != 0)
+            {
+              //Зафіксована натиснута кнопка RIGHT
+              _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_RIGHT);
+              
+              if (
+                  (key_pressed[0] == 0) &&
+                  (key_pressed[1] == 0)
+                 )  
+              {
+                /*
+                Поряд з кнопкою RIGHT не була натиснута інша кнопка
+                Можна виконувати дії
+                */
+                change_winding_next();
+              }
+              else command_state |= (1 << ERROR_FIXED);
+            }
+            else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_LEFT) != 0)
+            {
+              //Зафіксована натиснута кнопка LEFT
+              _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_LEFT);
+              
+              if (
+                  (key_pressed[0] == 0) &&
+                  (key_pressed[1] == 0)
+                 )  
+              {
+                /*
+                Поряд з кнопкою LEFT не була натиснута інша кнопка
+                Можна виконувати дії
+                */
+                change_winding_previous();
+              }
+              else command_state |= (1 << ERROR_FIXED);
+            }
+            else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_UP) != 0)
+            {
+              //Зафіксована натиснута кнопка UP
+              _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_UP);
+              
+              if (
+                  (key_pressed[0] == 0) &&
+                  (key_pressed[1] == 0)
+                 )  
+              {
+                /*
+                Поряд з кнопкою UP не була натиснута інша кнопка
+                Можна виконувати дії
+                */
+                change_winding_previous();
+              }
+              else command_state |= (1 << ERROR_FIXED);
+            }
+            else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_DOWN) != 0)
+            {
+              //Зафіксована натиснута кнопка DOWN
+              _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_DOWN);
+              
+              if (
+                  (key_pressed[0] == 0) &&
+                  (key_pressed[1] == 0)
+                 )  
+              {
+                /*
+                Поряд з кнопкою DOWN не була натиснута інша кнопка
+                Можна виконувати дії
+                */
+                change_winding_next();
+              }
+              else command_state |= (1 << ERROR_FIXED);
+            }
+            else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_TAB) != 0)
+            {
+              //Зафіксована натиснута кнопка TAB
+              _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_TAB);
+              
+              if (
+                  (key_pressed[0] == 0) &&
+                  (key_pressed[1] == 0)
+                 )  
+              {
+                /*
+                Поряд з кнопкою TAB не була натиснута інша кнопка
+                Можна виконувати дії
+                */
+                if (++current_ekran.index_position >= MAX_LEVEL_WINDING_DLG)
+                  current_ekran.index_position = 0;
+              }
+              else command_state |= (1 << ERROR_FIXED);
+            }
+            else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_ENTER) != 0)
+            {
+              //Зафіксована натиснута кнопка ENTER
+              _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_ENTER);
+              
+              if (
+                  (key_pressed[0] == 0) &&
+                  (key_pressed[1] == 0)
+                 )  
+              {
+                /*
+                Поряд з кнопкою ENTER не була натиснута інша кнопка
+                Можна виконувати дії
+                */
+                set_current_winding(current_ekran.index_position); //check CANCEL or OK into set_current_language
+                
+                hide_window(ID_WINDING_DLG);
+                current_ekran.current_level = previous_level_in_current_level_menu[ID_WINDING_DLG];
+                current_ekran.index_position = position_in_current_level_menu[current_ekran.current_level];
+                current_modal_form = false;
+                
+                /*
+                Завершальною операцією є зняття команди на перемальованування
+                старого пункту меню і виставлення команди на обновлення ногого 
+                пункту меню
+                */
+                command_state &= (unsigned int)(~(1 << REDRAW));
+                command_menu |= (1 << REWRITE_MENU);
+              }
+              else command_state |= (1 << ERROR_FIXED);
+            }
+            else
+            {
+              unsigned int key_maska[RANG_KEY] = {0, 0};
+              _SET_KEY_BIT(key_maska, VK_OFFSET_CTRL);
+              
+              key_pressed[0] &= key_maska[0];
+              key_pressed[1] &= key_maska[1];
+              command_state &= (unsigned int)(~(1 << REDRAW));
+            }
+          }
+          
+          if (command_state == (1 << REDRAW))
+          {
+            //redraw language dialog
+            win_handler();
+          }
+          
+          break;
+        }
       case ID_MEAS_PG:
         {
           if ((command_menu & (1 << REWRITE_MENU)) != 0)
@@ -1426,9 +1616,9 @@ void main_menu_function(void)
                 Можна виконувати дії
                 */
                 
-                show_window(langWin);
-                previous_level_in_current_level_menu[ID_LANG_DLG] = current_ekran.current_level;
-                current_ekran.current_level = ID_LANG_DLG;
+                show_window(windingWin);
+                previous_level_in_current_level_menu[ID_WINDING_DLG] = current_ekran.current_level;
+                current_ekran.current_level = ID_WINDING_DLG;
                 meas_index_position = current_ekran.index_position;
                 current_ekran.index_position = 0;
                 
@@ -3566,6 +3756,9 @@ void main_menu_function(void)
                       {
                         copy_settings_from_buff(previous_level_in_current_level_menu[ID_DIALOG_CONFIRMATION]);
                         
+                        //Komanda na zapys zminenykh nalashtuvan jaki idut do BO(r)
+                        shbsRQChangeCfgTablesState |= 1<< BS_RQ_WR_CFG_TBL_BIT;
+                        
                         previous_level_in_current_level_menu[ID_DIALOG_ERROR] = previous_level_in_current_level_menu[ID_DIALOG_CONFIRMATION];
                         position_in_current_level_menu[ID_DIALOG_ERROR] = position_in_current_level_menu[ID_DIALOG_CONFIRMATION];
                         
@@ -3691,6 +3884,7 @@ void main_menu_function(void)
                     {
                       //Podaty komandu na actyvaciju komandy "Minimalni dodatkovi nalashtuvannja"
                       make_min_settings_1(&eeprom_bs_settings_tbl);
+                      ChangeConfRS485(eeprom_bs_settings_tbl.chSpeed, eeprom_bs_settings_tbl.chParityCheck, eeprom_bs_settings_tbl.chAmtStopBit);
 
                       //Komanda na zapys zminenykh nalashtuvan jaki tilky dlja BS
                       _SET_BIT(control_spi1_taskes, TASK_START_WRITE_SETTINGS_BS_EEPROM_BIT);
@@ -7248,7 +7442,7 @@ void main_menu_function(void)
             }
           case ID_DIAGNOSTICS_PG:
             {
-              number_pages = 3;
+              number_pages = 4;
               
               Panel_Win = &Diagnostics_FrameWin;
               point_to_position_in_level_1_menu = position_in_level_1_menu_Diagnostics;

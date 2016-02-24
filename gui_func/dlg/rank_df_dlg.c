@@ -35,13 +35,13 @@ void update_df_status_panel() {
   if (current_ekran.edition != 0) {
     char explanationText[100] = {0};
     unsigned int i = 0;
-    for (; _rankDlgDFItem[0].pExplanation[sel_language][i] != '\0'; i++) {
-      explanationText[i] = _rankDlgDFItem[0].pExplanation[sel_language][i];
+    for (; _rankDlgDFItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+      explanationText[i] = _rankDlgDFItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText][i];
     }
-    _CONCAT_STR(explanationText, editModeAdditionalText[sel_language]);
+    _CONCAT_STR(explanationText, editModeAdditionalText[eeprom_bs_settings_tbl.chLngGUIText]);
     EDIT_SetText(hEdit, explanationText);
   } else {
-    EDIT_SetText(hEdit, _rankDlgDFItem[0].pExplanation[sel_language]);
+    EDIT_SetText(hEdit, _rankDlgDFItem[0].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   }
 }
 
@@ -52,8 +52,8 @@ void update_df_status_panel() {
 void update_df_title() {
   char titleText[100] = {0};
   unsigned int i = 0;
-  for (; _rankDlgDFItem[0].pText[sel_language][i] != '\0'; i++) {
-    titleText[i] = _rankDlgDFItem[0].pText[sel_language][i];
+  for (; _rankDlgDFItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i] != '\0'; i++) {
+    titleText[i] = _rankDlgDFItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText][i];
   }
   char numberDFText[3] = {0};
   int numPg = df_index + 1;
@@ -67,18 +67,18 @@ void update_df_title() {
 *       Обновление меток диалогового окна
 */
 void update_df_labels() {
-  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_TEXT_LABEL1), tmrDelayDFTextLabels[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_UNIT1), secUnits[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_TEXT_LABEL2), tmrWorkDFTextLabels[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_UNIT2), secUnits[sel_language]);
-  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_TEXT_LABEL3), typeDFTextLabels[sel_language]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_TEXT_LABEL1), tmrDelayDFTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_UNIT1), secUnits[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_TEXT_LABEL2), tmrWorkDFTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_UNIT2), secUnits[eeprom_bs_settings_tbl.chLngGUIText]);
+  TEXT_SetText(WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_TEXT_LABEL3), typeDFTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   
   //обновление названия для "тип функции" в соответствии с выбранным языком
   DROPDOWN_Handle typeDFListBox = WM_GetDialogItem(rankDlgDFPg, ID_RANK_DF_TYPE);
   DROPDOWN_DeleteItem(typeDFListBox, 0);
-  DROPDOWN_InsertString(typeDFListBox, typesDF0[sel_language], 0);
+  DROPDOWN_InsertString(typeDFListBox, typesDF0[eeprom_bs_settings_tbl.chLngGUIText], 0);
   DROPDOWN_DeleteItem(typeDFListBox, 1);
-  DROPDOWN_InsertString(typeDFListBox, typesDF1[sel_language], 1);
+  DROPDOWN_InsertString(typeDFListBox, typesDF1[eeprom_bs_settings_tbl.chLngGUIText], 1);
 }
 
 /*********************************************************************
@@ -150,24 +150,24 @@ void rank_dlg_df_init() {
   BUTTON_Handle ESC_Button_df_rank_dlg;
   BUTTON_Handle ENTER_Button_df_rank_dlg;
   
-  rankDlgDFPg = FRAMEWIN_CreateEx(x0, y0, WIDTH_DLG, HEIGHT_DLG, 0, WM_CF_SHOW, 0, win_id_list[ID_RANK_DF_DLG], _rankDlgDFItem[0].pText[sel_language], _cbRankDlgWin);
+  rankDlgDFPg = FRAMEWIN_CreateEx(x0, y0, WIDTH_DLG, HEIGHT_DLG, 0, WM_CF_SHOW, 0, win_id_list[ID_RANK_DF_DLG], _rankDlgDFItem[0].pText[eeprom_bs_settings_tbl.chLngGUIText], _cbRankDlgWin);
   FRAMEWIN_SetFont(rankDlgDFPg, &GUI_FontArialBold14_8_Unicode);
   
-  label1 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_TEXT_LABEL1, tmrDelayDFTextLabels[sel_language]);
+  label1 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_TEXT_LABEL1, tmrDelayDFTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(label1, &GUI_FontArialBold14_8_Unicode);
   
-  tmrDelayUnit = TEXT_CreateEx(x_components + WIDTH_COMP + 5, y_textLabel, 20, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_UNIT1, msUnits[sel_language]);
+  tmrDelayUnit = TEXT_CreateEx(x_components + WIDTH_COMP + 5, y_textLabel, 20, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_UNIT1, msUnits[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(tmrDelayUnit, &GUI_FontArialBold14_8_Unicode);
   
   y_textLabel += HEIGHT_T + 10;
-  label2 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_TEXT_LABEL2, tmrWorkDFTextLabels[sel_language]);
+  label2 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_TEXT_LABEL2, tmrWorkDFTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(label2, &GUI_FontArialBold14_8_Unicode);
   
-  tmrWorkUnit = TEXT_CreateEx(x_components + WIDTH_COMP + 5, y_textLabel, 20, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_UNIT2, msUnits[sel_language]);
+  tmrWorkUnit = TEXT_CreateEx(x_components + WIDTH_COMP + 5, y_textLabel, 20, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_UNIT2, msUnits[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(tmrWorkUnit, &GUI_FontArialBold14_8_Unicode);
   
   y_textLabel += HEIGHT_T + 10;
-  label3 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_TEXT_LABEL3, typeDFTextLabels[sel_language]);
+  label3 = TEXT_CreateEx(x_textLabel, y_textLabel, WIDTH_T, HEIGHT_T, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_TEXT_LABEL3, typeDFTextLabels[eeprom_bs_settings_tbl.chLngGUIText]);
   TEXT_SetFont(label3, &GUI_FontArialBold14_8_Unicode);
   
   tmrDelayDFTextField = EDIT_CreateEx(x_components, y_components, WIDTH_COMP, HEIGHT_COMP, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_TMR_DELAY, RANK_DF_TMR_DELAY_VAL_LENGTH);
@@ -185,8 +185,8 @@ void rank_dlg_df_init() {
   DROPDOWN_SetBkColor(typeDFListBox, DROPDOWN_CI_UNSEL, GUI_GRAY);
   DROPDOWN_SetBkColor(typeDFListBox, DROPDOWN_CI_SEL, GUI_GRAY);
   DROPDOWN_SetBkColor(typeDFListBox, DROPDOWN_CI_SELFOCUS, GUI_BLUE);
-  DROPDOWN_AddString(typeDFListBox, typesDF0[sel_language]);
-  DROPDOWN_AddString(typeDFListBox, typesDF1[sel_language]);
+  DROPDOWN_AddString(typeDFListBox, typesDF0[eeprom_bs_settings_tbl.chLngGUIText]);
+  DROPDOWN_AddString(typeDFListBox, typesDF1[eeprom_bs_settings_tbl.chLngGUIText]);
   
   ESC_Button_df_rank_dlg = BUTTON_CreateEx(x_b, y_b, WIDTH_B, HEIGHT_B, rankDlgDFPg, WM_CF_SHOW, 0, ID_RANK_DF_DLGBUT_ESC);
   BUTTON_SetFont(ESC_Button_df_rank_dlg, &GUI_FontArialBold14_8_Unicode);

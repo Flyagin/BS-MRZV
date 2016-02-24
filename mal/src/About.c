@@ -311,7 +311,7 @@ void About_show()
     int x0 = (GUI_X_MAX - XSIZE_W) >> 1;
     int y0 = (GUI_Y_MAX - YSIZE_W) >> 1;
   
-    About_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_SHOW, 0, ID_ABOUT_FRAMEWIN, About_title.ptitle[sel_language], _cbEmpty);
+    About_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_SHOW, 0, ID_ABOUT_FRAMEWIN, About_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
     FRAMEWIN_SetFont(About_FrameWin, &GUI_FontArialBold14_8_Unicode);
     FRAMEWIN_SetTextAlign(About_FrameWin, GUI_TA_LEFT);
     FRAMEWIN_SetBarColor(About_FrameWin, 1, GUI_GREEN);
@@ -323,7 +323,7 @@ void About_show()
     char string_1[256], string_2[256];
     string_1[0] = string_2[0] = '\0';
     TITLE About_Line_1_text = {ABOUT_LINE_1_UKR, ABOUT_LINE_1_RUS, ABOUT_LINE_1_ENG};
-    strcat_mal(string_1, (char *)About_Line_1_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     unsigned int number_tmp = pDevIdentification.IdentNumberDevice;
     if (int_to_str (number_tmp, string_2)) strcat_mal(string_1, string_2);
     About_Line_1 = TEXT_CreateEx(3, 3 + 0*13, (XSIZE_W - 2*3), 10, WM_GetClientWindow(About_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_ABOUT_LINE_1,  string_1);
@@ -331,7 +331,7 @@ void About_show()
 
     string_1[0] = string_2[0] = '\0';
     TITLE About_Line_2_1_text = {ABOUT_LINE_2_1_UKR, ABOUT_LINE_2_1_RUS, ABOUT_LINE_2_1_ENG};
-    strcat_mal(string_1, (char *)About_Line_2_1_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_2_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     if (int_to_str (pTotVerInfoBs->mVerInfo.ver, string_2))
     {
       strcat_mal(string_1, string_2);
@@ -354,7 +354,7 @@ void About_show()
           {
             strcat_mal(string_1, string_2);
 
-            strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[sel_language]);
+            strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
         
             unsigned int index = 0;
             while ((string_1[index] != '\0') && (index < (256 - ((sizeof(__DATE__) - 1) + (sizeof(__TIME__) - 1) + 1)))) index++;
@@ -381,7 +381,7 @@ void About_show()
 
     string_1[0] = string_2[0] = '\0';
     TITLE About_Line_3_1_text = {ABOUT_LINE_3_1_UKR, ABOUT_LINE_3_1_RUS, ABOUT_LINE_3_1_ENG};
-    strcat_mal(string_1, (char *)About_Line_3_1_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_3_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     if (int_to_str (pTotVerInfoBm->mVerInfo.ver, string_2))
     {
       strcat_mal(string_1, string_2);
@@ -404,7 +404,7 @@ void About_show()
           {
             strcat_mal(string_1, string_2);
 
-            strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[sel_language]);
+            strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
         
             unsigned int index = 0;
             while ((string_1[index] != '\0') && (index < (256 - ((sizeof(__DATE__) - 1) + (sizeof(__TIME__) - 1) + 1)))) index++;
@@ -431,7 +431,7 @@ void About_show()
 
     string_1[0] = string_2[0] = '\0';
     TITLE About_Line_4_1_text = {ABOUT_LINE_4_1_UKR, ABOUT_LINE_4_1_RUS, ABOUT_LINE_4_1_ENG};
-    strcat_mal(string_1, (char *)About_Line_4_1_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_4_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     if (int_to_str (pTotVerInfoBr->mVerInfo.ver, string_2))
     {
       strcat_mal(string_1, string_2);
@@ -454,7 +454,7 @@ void About_show()
           {
             strcat_mal(string_1, string_2);
 
-            strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[sel_language]);
+            strcat_mal(string_1, (char *)About_Line_x_2_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
         
             unsigned int index = 0;
             while ((string_1[index] != '\0') && (index < (256 - ((sizeof(__DATE__) - 1) + (sizeof(__TIME__) - 1) + 1)))) index++;
@@ -481,7 +481,7 @@ void About_show()
 
     string_1[0] = string_2[0] = '\0';
     TITLE About_Line_5_1_text = {ABOUT_LINE_5_1_UKR, ABOUT_LINE_5_1_RUS, ABOUT_LINE_5_1_ENG};
-    strcat_mal(string_1, (char *)About_Line_5_1_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_5_1_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     if (int_to_str (BO_MRZV_KP_V1X, string_2))
     {
       strcat_mal(string_1, string_2);
@@ -500,31 +500,31 @@ void About_show()
 
     string_1[0] = '\0';
     TITLE About_Line_6_text = {ABOUT_LINE_6_UKR, ABOUT_LINE_6_RUS, ABOUT_LINE_6_ENG};
-    strcat_mal(string_1, (char *)About_Line_6_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_6_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     About_Line_6 = TEXT_CreateEx(3*3 + 91, 3 + 13*13/2, (XSIZE_W - 91 - 4*3), 10, WM_GetClientWindow(About_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_ABOUT_LINE_6,  string_1);
     TEXT_SetFont(About_Line_6, &GUI_FontArialNarrow15_8_Unicode);
 
     string_1[0] = '\0';
     TITLE About_Line_7_text = {ABOUT_LINE_7_UKR, ABOUT_LINE_7_RUS, ABOUT_LINE_7_ENG};
-    strcat_mal(string_1, (char *)About_Line_7_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_7_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     About_Line_7 = TEXT_CreateEx(3*3 + 91, 3 + 15*13/2, (XSIZE_W - 91 - 4*3), 10, WM_GetClientWindow(About_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_ABOUT_LINE_7,  string_1);
     TEXT_SetFont(About_Line_7, &GUI_FontArialNarrow15_8_Unicode);
 
     string_1[0] = '\0';
     TITLE About_Line_8_text = {ABOUT_LINE_8_UKR, ABOUT_LINE_8_RUS, ABOUT_LINE_8_ENG};
-    strcat_mal(string_1, (char *)About_Line_8_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_8_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     About_Line_8 = TEXT_CreateEx(3*3 + 91, 3 + 17*13/2, (XSIZE_W - 91 - 4*3), 10, WM_GetClientWindow(About_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_ABOUT_LINE_8,  string_1);
     TEXT_SetFont(About_Line_8, &GUI_FontArialNarrow15_8_Unicode);
   
     string_1[0] = '\0';
     TITLE About_Line_9_text = {ABOUT_LINE_9_UKR, ABOUT_LINE_9_RUS, ABOUT_LINE_9_ENG};
-    strcat_mal(string_1, (char *)About_Line_9_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_9_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     About_Line_9 = TEXT_CreateEx(3*3 + 91, 3 + 19*13/2, (XSIZE_W - 91 - 4*3), 10, WM_GetClientWindow(About_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_ABOUT_LINE_9,  string_1);
     TEXT_SetFont(About_Line_9, &GUI_FontArialNarrow15_8_Unicode);
   
     string_1[0] = '\0';
     TITLE About_Line_10_text = {ABOUT_LINE_10_UKR, ABOUT_LINE_10_RUS, ABOUT_LINE_10_ENG};
-    strcat_mal(string_1, (char *)About_Line_10_text.ptitle[sel_language]);
+    strcat_mal(string_1, (char *)About_Line_10_text.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
     About_Line_10 = TEXT_CreateEx(3, 3 + 21*13/2, (XSIZE_W - 91 - 4*3), 10, WM_GetClientWindow(About_FrameWin), WM_CF_SHOW, TEXT_CF_LEFT | TEXT_CF_VCENTER, ID_ABOUT_LINE_10,  string_1);
     TEXT_SetFont(About_Line_10, &GUI_FontArialNarrow15_8_Unicode);
   

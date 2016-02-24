@@ -11,8 +11,8 @@
 
 #define START_ADDR_GLOBAL_BOUND1                                0
 #define LAST_ADDR_GLOBAL_BOUND1                                 1000 // начинается ранжирование
-#define START_ADDR_GLOBAL_BOUND2                                1509   
-#define LAST_ADDR_GLOBAL_BOUND2                                 4000
+#define START_ADDR_GLOBAL_BOUND2                                4308   
+#define LAST_ADDR_GLOBAL_BOUND2                                 6039
 
 /******************************************************************************/
 /********************** Device identification *********************************/
@@ -617,73 +617,605 @@
 /*                       Уставки МТЗ первой ступени                           */
 /******************************************************************************/
 
-#define G1_START_ADDR_MCP1                                         310
+#define PERVAYA_GRUPPA_USTAVOK                                     4308
+#define VTORAYA_GRUPPA_USTAVOK                                     4740
+#define TRETYA_GRUPPA_USTAVOK                                     5173
+#define CHETVERTAYA_GRUPPA_USTAVOK                                  5606
 
-#define MCP1_ANGLE_ROTATION_RANGE                               0
-#define MCP1_CURRENT_FORWARD                                    1
-#define MCP1_CURRENT_REVERSE                                    2
-#define MCP1_VOLTAGE                                            3
-#define MCP1_CURRENT                                            4
-#define MCP1_CURRENT_BORING                                     5
+#define START_ADDR_MTZ1                      0
+#define G1_START_ADDR_MTZ1                   PERVAYA_GRUPPA_USTAVOK + START_ADDR_MTZ1
+#define G2_START_ADDR_MTZ1                   VTORAYA_GRUPPA_USTAVOK + START_ADDR_MTZ1
+#define G3_START_ADDR_MTZ1                   TRETYA_GRUPPA_USTAVOK + START_ADDR_MTZ1
+#define G4_START_ADDR_MTZ1                   CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_MTZ1
 
-// выдержки
-#define MCP1_TIME_STAGE_FORWARD                                 6
-#define MCP1_TIME_STAGE_REVERSE                                 7
-#define MCP1_TIME_STAGE                                         8
-#define MCP1_TIME_STAGE_USTP                                    9
 
-//#define LAST_ADDR_MCP1                                          320
 
-/******************************************************************************/
-/*                       Уставки МТЗ второй ступени                           */
-/******************************************************************************/
+#define USTAV_MTZ1                                              0
+#define USTAV_MTZ1_NAPR_VPER                                    1
+#define USTAV_MTZ1_NAPR_NAZ                                     2
+#define USTAV_MTZ1_S_PUSKOM_PO_U                                3
+#define U_PUSKA_MTZ1                                            4
+#define UGOL_POVOR_ZONY_SRAB_MTZ1                               5
 
+
+
+#define USTAV_MTZ1_KMIN                                50
+#define USTAV_MTZ1_NAPR_VPER_KMIN                      10
+#define USTAV_MTZ1_NAPR_NAZ_KMIN                       10
+#define USTAV_MTZ1_S_PUSKOM_PO_U_KMIN                  10
+#define U_PUSKA_MTZ1_KMIN                              200
+#define UGOL_POVOR_ZONY_SRAB_MTZ1_KMIN                 0
+
+#define USTAV_MTZ1_KMAX                                15000
+#define USTAV_MTZ1_NAPR_VPER_KMAX                      15000
+#define USTAV_MTZ1_NAPR_NAZ_KMAX                       15000
+#define USTAV_MTZ1_S_PUSKOM_PO_U_KMAX                  15000
+#define U_PUSKA_MTZ1_KMAX                              15000
+#define UGOL_POVOR_ZONY_SRAB_MTZ1_KMAX                 90
+
+
+
+
+
+#define VIDERZH_VREM_MTZ1                                       6
+#define VIDERZH_VREM_MTZ1_NAPR_VPER                             7
+#define VIDERZH_VREM_MTZ1_NAPR_NAZ                              8
+#define VIDERZH_VREM_MTZ1_S_PUSKOM_PO_U                         9
+
+
+
+
+
+#define VIDERZH_VREM_MTZ1_KMIN                              0
+#define VIDERZH_VREM_MTZ1_NAPR_VPER_KMIN                    0
+#define VIDERZH_VREM_MTZ1_NAPR_NAZ_KMIN                     0
+#define VIDERZH_VREM_MTZ1_S_PUSKOM_PO_U_KMIN                0
+
+#define VIDERZH_VREM_MTZ1_KMAX                              2500
+#define VIDERZH_VREM_MTZ1_NAPR_VPER_KMAX                    3200
+#define VIDERZH_VREM_MTZ1_NAPR_NAZ_KMAX                     3200
+#define VIDERZH_VREM_MTZ1_S_PUSKOM_PO_U_KMAX                3200
+
+
+#define START_ADDR_MTZ2                      10
+#define G1_START_ADDR_MTZ2                   PERVAYA_GRUPPA_USTAVOK + START_ADDR_MTZ2
+#define G2_START_ADDR_MTZ2                   VTORAYA_GRUPPA_USTAVOK + START_ADDR_MTZ2
+#define G3_START_ADDR_MTZ2                   TRETYA_GRUPPA_USTAVOK + START_ADDR_MTZ2
+#define G4_START_ADDR_MTZ2                   CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_MTZ2
+
+
+#define USTAV_MTZ2                                              0
+#define USTAV_MTZ2_NAPR_VPER                                    1
+#define USTAV_MTZ2_NAPR_NAZ                                     2
+#define USTAV_MTZ2_S_PUSKOM_PO_U                                3
+#define U_PUSKA_MTZ2                                            4
+#define UGOL_POVOR_ZONY_SRAB_MTZ2                               5
+#define VIDERZH_VREM_MTZ2                                       6
+#define VIDERZH_VREM_MTZ2_NAPR_VPER                             7
+#define VIDERZH_VREM_MTZ2_NAPR_NAZ                              8
+#define VIDERZH_VREM_MTZ2_S_PUSKOM_PO_U                         9
+#define VIDERZH_VVODA_USK_MTZ2                                  10
+#define VIDERZH_USK_MTZ2_VV                                     11
+#define VIDERZH_USK_MTZ2_OU                                     12
+#define VIDERZH_USK_MTZ2_TU                                     13
+#define VIDERZH_USK_MTZ2_NAPR_VPER_VV                           14
+#define VIDERZH_USK_MTZ2_NAPR_VPER_OU                           15
+#define VIDERZH_USK_MTZ2_NAPR_VPER_TU                           16
+#define VIDERZH_USK_MTZ2_NAPR_NAZ_VV                            17
+#define VIDERZH_USK_MTZ2_NAPR_NAZ_OU                            18
+#define VIDERZH_USK_MTZ2_NAPR_NAZ_TU                            19
+#define VIDERZH_USK_MTZ2_S_PUSKOM_PO_U_VV                       20
+#define VIDERZH_USK_MTZ2_S_PUSKOM_PO_U_OU                       21
+#define VIDERZH_USK_MTZ2_S_PUSKOM_PO_U_TU                       22
+
+
+
+
+#define USTAV_MTZ2_KMIN 50
+#define USTAV_MTZ2_NAPR_VPER_KMIN 10
+#define USTAV_MTZ2_NAPR_NAZ_KMIN 10
+#define USTAV_MTZ2_S_PUSKOM_PO_U_KMIN 10
+#define U_PUSKA_MTZ2_KMIN 200
+#define UGOL_POVOR_ZONY_SRAB_MTZ2_KMIN 0
+#define VIDERZH_VREM_MTZ2_KMIN 0
+#define VIDERZH_VREM_MTZ2_NAPR_VPER_KMIN 0
+#define VIDERZH_VREM_MTZ2_NAPR_NAZ_KMIN 0
+#define VIDERZH_VREM_MTZ2_S_PUSKOM_PO_U_KMIN 0
+#define VIDERZH_VVODA_USK_MTZ2_KMIN 20
+#define VIDERZH_USK_MTZ2_VV_KMIN 0
+#define VIDERZH_USK_MTZ2_OU_KMIN 0
+#define VIDERZH_USK_MTZ2_TU_KMIN 0
+#define VIDERZH_USK_MTZ2_NAPR_VPER_VV_KMIN 0
+#define VIDERZH_USK_MTZ2_NAPR_VPER_OU_KMIN 0
+#define VIDERZH_USK_MTZ2_NAPR_VPER_TU_KMIN 0
+#define VIDERZH_USK_MTZ2_NAPR_NAZ_VV_KMIN 0
+#define VIDERZH_USK_MTZ2_NAPR_NAZ_OU_KMIN 0
+#define VIDERZH_USK_MTZ2_NAPR_NAZ_TU_KMIN 0
+#define VIDERZH_USK_MTZ2_S_PUSKOM_PO_U_VV_KMIN 0
+#define VIDERZH_USK_MTZ2_S_PUSKOM_PO_U_OU_KMIN 0
+#define VIDERZH_USK_MTZ2_S_PUSKOM_PO_U_TU_KMIN 0
+
+#define USTAV_MTZ2_KMAX 15000
+#define USTAV_MTZ2_NAPR_VPER_KMAX 15000
+#define USTAV_MTZ2_NAPR_NAZ_KMAX 15000
+#define USTAV_MTZ2_S_PUSKOM_PO_U_KMAX 15000
+#define U_PUSKA_MTZ2_KMAX 15000
+#define UGOL_POVOR_ZONY_SRAB_MTZ2_KMAX 90
+#define VIDERZH_VREM_MTZ2_KMAX 30000
+#define VIDERZH_VREM_MTZ2_NAPR_VPER_KMAX 3200
+#define VIDERZH_VREM_MTZ2_NAPR_NAZ_KMAX 3200
+#define VIDERZH_VREM_MTZ2_S_PUSKOM_PO_U_KMAX 3200
+#define VIDERZH_VVODA_USK_MTZ2_KMAX 500
+#define VIDERZH_USK_MTZ2_VV_KMAX 500
+#define VIDERZH_USK_MTZ2_OU_KMAX 500
+#define VIDERZH_USK_MTZ2_TU_KMAX 500
+#define VIDERZH_USK_MTZ2_NAPR_VPER_VV_KMAX 500
+#define VIDERZH_USK_MTZ2_NAPR_VPER_OU_KMAX 500
+#define VIDERZH_USK_MTZ2_NAPR_VPER_TU_KMAX 500
+#define VIDERZH_USK_MTZ2_NAPR_NAZ_VV_KMAX 500
+#define VIDERZH_USK_MTZ2_NAPR_NAZ_OU_KMAX 500
+#define VIDERZH_USK_MTZ2_NAPR_NAZ_TU_KMAX 500
+#define VIDERZH_USK_MTZ2_S_PUSKOM_PO_U_VV_KMAX 500
+#define VIDERZH_USK_MTZ2_S_PUSKOM_PO_U_OU_KMAX 500
+#define VIDERZH_USK_MTZ2_S_PUSKOM_PO_U_TU_KMAX 500
+
+
+
+
+#define START_ADDR_MTZ3                      33
+#define G1_START_ADDR_MTZ3                   PERVAYA_GRUPPA_USTAVOK + START_ADDR_MTZ3
+#define G2_START_ADDR_MTZ3                   VTORAYA_GRUPPA_USTAVOK + START_ADDR_MTZ3
+#define G3_START_ADDR_MTZ3                   TRETYA_GRUPPA_USTAVOK + START_ADDR_MTZ3
+#define G4_START_ADDR_MTZ3                   CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_MTZ3
+
+#define START_ADDR_MTZ4                      56
+#define G1_START_ADDR_MTZ4                   PERVAYA_GRUPPA_USTAVOK + START_ADDR_MTZ4
+#define G2_START_ADDR_MTZ4                   VTORAYA_GRUPPA_USTAVOK + START_ADDR_MTZ4
+#define G3_START_ADDR_MTZ4                   TRETYA_GRUPPA_USTAVOK + START_ADDR_MTZ4
+#define G4_START_ADDR_MTZ4                   CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_MTZ4
+
+#define START_ADDR_MTZ5                      79
+#define G1_START_ADDR_MTZ5                   PERVAYA_GRUPPA_USTAVOK + START_ADDR_MTZ5
+#define G2_START_ADDR_MTZ5                   VTORAYA_GRUPPA_USTAVOK + START_ADDR_MTZ5
+#define G3_START_ADDR_MTZ5                   TRETYA_GRUPPA_USTAVOK + START_ADDR_MTZ5
+#define G4_START_ADDR_MTZ5                   CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_MTZ5
+
+
+
+#define START_ADDR_ZOP                       252
+#define G1_START_ADDR_ZOP                    PERVAYA_GRUPPA_USTAVOK + START_ADDR_ZOP
+#define G2_START_ADDR_ZOP                    VTORAYA_GRUPPA_USTAVOK + START_ADDR_ZOP
+#define G3_START_ADDR_ZOP                    TRETYA_GRUPPA_USTAVOK + START_ADDR_ZOP
+#define G4_START_ADDR_ZOP                    CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_ZOP
+
+
+#define I_DLYA_ZOP1_PRYAM                                       0
+#define U_DLYA_ZOP1_PRYAM                                       1
+#define I_DLYA_ZOP1_OBR                                         2
+#define U_DLYA_ZOP1_OBR                                         3
+#define UGOL_POVOROTA_ZOP1                                      4
+#define VIDERZH_ZOP1                                            5
+#define VIDERZH_ZOP1_VPER                                       6
+#define VIDERZH_ZOP1_NAZ                                        7
+#define I_DLYA_ZOP2_PRYAM                                       8
+#define U_DLYA_ZOP2_PRYAM                                       9
+#define I_DLYA_ZOP2_OBR                                         10
+#define U_DLYA_ZOP2_OBR                                         11
+#define UGOL_POVOR_ZOP2                                         12
+#define VIDERZH_ZOP2                                            13
+#define VIDERZH_ZOP2_VPER                                       14
+#define VIDERZH_ZOP2_NAZ                                        15
+
+
+
+#define I_DLYA_ZOP1_PRYAM_KMIN 25
+#define U_DLYA_ZOP1_PRYAM_KMIN 1000
+#define I_DLYA_ZOP1_OBR_KMIN 25
+#define U_DLYA_ZOP1_OBR_KMIN 1000
+#define UGOL_POVOROTA_ZOP1_KMIN 0
+#define VIDERZH_ZOP1_KMIN 0
+#define VIDERZH_ZOP1_VPER_KMIN 0
+#define VIDERZH_ZOP1_NAZ_KMIN 0
+#define I_DLYA_ZOP2_PRYAM_KMIN 25
+#define U_DLYA_ZOP2_PRYAM_KMIN 1000
+#define I_DLYA_ZOP2_OBR_KMIN 25
+#define U_DLYA_ZOP2_OBR_KMIN 1000
+#define UGOL_POVOR_ZOP2_KMIN 0
+#define VIDERZH_ZOP2_KMIN 0
+#define VIDERZH_ZOP2_VPER_KMIN 0
+#define VIDERZH_ZOP2_NAZ_KMIN 0
+
+#define I_DLYA_ZOP1_PRYAM_KMAX 5000
+#define U_DLYA_ZOP1_PRYAM_KMAX 15000
+#define I_DLYA_ZOP1_OBR_KMAX 5000
+#define U_DLYA_ZOP1_OBR_KMAX 15000
+#define UGOL_POVOROTA_ZOP1_KMAX 90
+#define VIDERZH_ZOP1_KMAX 3200
+#define VIDERZH_ZOP1_VPER_KMAX 3200
+#define VIDERZH_ZOP1_NAZ_KMAX 3200
+#define I_DLYA_ZOP2_PRYAM_KMAX 5000
+#define U_DLYA_ZOP2_PRYAM_KMAX 15000
+#define I_DLYA_ZOP2_OBR_KMAX 5000
+#define U_DLYA_ZOP2_OBR_KMAX 15000
+#define UGOL_POVOR_ZOP2_KMAX 90
+#define VIDERZH_ZOP2_KMAX 3200
+#define VIDERZH_ZOP2_VPER_KMAX 3200
+#define VIDERZH_ZOP2_NAZ_KMAX 3200
+
+
+
+#define START_ADDR_TZNP                                         268
+#define G1_START_ADDR_TZNP                    PERVAYA_GRUPPA_USTAVOK + START_ADDR_TZNP
+#define G2_START_ADDR_TZNP                    VTORAYA_GRUPPA_USTAVOK + START_ADDR_TZNP
+#define G3_START_ADDR_TZNP                    TRETYA_GRUPPA_USTAVOK + START_ADDR_TZNP
+#define G4_START_ADDR_TZNP                    CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_TZNP
+
+
+#define USTAV_TZNP1_3I0                                         0
+#define USTAV_TZNP1_3U0                                         1
+#define UGOL_TZNP1_3I0                                          2
+#define VIDERZH_TZNP1                                           3
+#define VIDERZH_TZNP1_VV                                        4
+#define VIDERZH_TZNP1_OU                                        5
+#define VIDERZH_TZNP1_TU                                        6
+#define VIDERZH_TZNP1_3I0                                       7
+#define VIDERZH_TZNP1_3I0_VV                                    8
+#define VIDERZH_TZNP1_3I0_OU                                    9
+#define VIDERZH_TZNP1_3I0_TU                                    10
+#define VIDERZH_TZNP1_3U0                                       11
+#define DL_FORM_IMP_USK_TZNP1                                   12
+#define USTAV_TZNP2_3I0                                         13
+#define USTAV_TZNP2_3U0                                         14
+#define UGOL_TZNP2_3I0                                          15
+#define VIDERZH_TZNP2                                           16
+#define VIDERZH_TZNP2_VV                                        17
+#define VIDERZH_TZNP2_OU                                        18
+#define VIDERZH_TZNP2_TU                                        19
+#define VIDERZH_TZNP2_3I0                                       20
+#define VIDERZH_TZNP2_3I0_VV                                    21
+#define VIDERZH_TZNP2_3I0_OU                                    22
+#define VIDERZH_TZNP2_3I0_TU                                    23
+#define VIDERZH_TZNP2_3U0                                       24
+#define DL_FORM_IMP_USK_TZNP2                                   25
+#define USTAV_TZNP3_3I0                                         26
+#define USTAV_TZNP3_3U0                                         27
+#define UGOL_TZNP3_3I0                                          28
+#define VIDERZH_TZNP3                                           29
+#define VIDERZH_TZNP3_VV                                        30
+#define VIDERZH_TZNP3_OU                                        31
+#define VIDERZH_TZNP3_TU                                        32
+#define VIDERZH_TZNP3_3I0                                       33
+#define VIDERZH_TZNP3_3I0_VV                                    34
+#define VIDERZH_TZNP3_3I0_OU                                    35
+#define VIDERZH_TZNP3_3I0_TU                                    36
+#define VIDERZH_TZNP3_3U0                                       37
+#define DL_FORM_IMP_USK_TZNP3                                   38
+#define USTAV_TZNP4_3I0                                         39
+#define USTAV_TZNP4_3U0                                         40
+#define UGOL_TZNP4_3I0                                          41
+#define VIDERZH_TZNP4                                           42
+#define VIDERZH_TZNP4_VV                                        43
+#define VIDERZH_TZNP4_OU                                        44
+#define VIDERZH_TZNP4_TU                                        45
+#define VIDERZH_TZNP4_3I0                                       46
+#define VIDERZH_TZNP4_3I0_VV                                    47
+#define VIDERZH_TZNP4_3I0_OU                                    48
+#define VIDERZH_TZNP4_3I0_TU                                    49
+#define VIDERZH_TZNP4_3U0                                       50
+#define DL_FORM_IMP_USK_TZNP4                                   51
+#define USTAV_TZNP5_3I0                                         52
+#define USTAV_TZNP5_3U0                                         53
+#define UGOL_TZNP5_3I0                                          54
+#define VIDERZH_TZNP5                                           55
+#define VIDERZH_TZNP5_VV                                        56
+#define VIDERZH_TZNP5_OU                                        57
+#define VIDERZH_TZNP5_TU                                        58
+#define VIDERZH_TZNP5_3I0                                       59
+#define VIDERZH_TZNP5_3I0_VV                                    60
+#define VIDERZH_TZNP5_3I0_OU                                    61
+#define VIDERZH_TZNP5_3I0_TU                                    62
+#define VIDERZH_TZNP5_3U0                                       63
+#define DL_FORM_IMP_USK_TZNP5                                   64
+
+
+
+#define USTAV_TZNP1_3I0_KMIN 25
+#define USTAV_TZNP1_3U0_KMIN 1000
+#define UGOL_TZNP1_3I0_KMIN 0
+#define VIDERZH_TZNP1_KMIN 0
+#define VIDERZH_TZNP1_VV_KMIN 0
+#define VIDERZH_TZNP1_OU_KMIN 0
+#define VIDERZH_TZNP1_TU_KMIN 0
+#define VIDERZH_TZNP1_3I0_KMIN 0
+#define VIDERZH_TZNP1_3I0_VV_KMIN 0
+#define VIDERZH_TZNP1_3I0_OU_KMIN 0
+#define VIDERZH_TZNP1_3I0_TU_KMIN 0
+#define VIDERZH_TZNP1_3U0_KMIN 0
+#define DL_FORM_IMP_USK_TZNP1_KMIN 0
+#define USTAV_TZNP2_3I0_KMIN 25
+#define USTAV_TZNP2_3U0_KMIN 1000
+#define UGOL_TZNP2_3I0_KMIN 0
+#define VIDERZH_TZNP2_KMIN 0
+#define VIDERZH_TZNP2_VV_KMIN 0
+#define VIDERZH_TZNP2_OU_KMIN 0
+#define VIDERZH_TZNP2_TU_KMIN 0
+#define VIDERZH_TZNP2_3I0_KMIN 0
+#define VIDERZH_TZNP2_3I0_VV_KMIN 0
+#define VIDERZH_TZNP2_3I0_OU_KMIN 0
+#define VIDERZH_TZNP2_3I0_TU_KMIN 0
+#define VIDERZH_TZNP2_3U0_KMIN 0
+#define DL_FORM_IMP_USK_TZNP2_KMIN 0
+#define USTAV_TZNP3_3I0_KMIN 25
+#define USTAV_TZNP3_3U0_KMIN 1000
+#define UGOL_TZNP3_3I0_KMIN 0
+#define VIDERZH_TZNP3_KMIN 0
+#define VIDERZH_TZNP3_VV_KMIN 0
+#define VIDERZH_TZNP3_OU_KMIN 0
+#define VIDERZH_TZNP3_TU_KMIN 0
+#define VIDERZH_TZNP3_3I0_KMIN 0
+#define VIDERZH_TZNP3_3I0_VV_KMIN 0
+#define VIDERZH_TZNP3_3I0_OU_KMIN 0
+#define VIDERZH_TZNP3_3I0_TU_KMIN 0
+#define VIDERZH_TZNP3_3U0_KMIN 0
+#define DL_FORM_IMP_USK_TZNP3_KMIN 0
+#define USTAV_TZNP4_3I0_KMIN 25
+#define USTAV_TZNP4_3U0_KMIN 1000
+#define UGOL_TZNP4_3I0_KMIN 0
+#define VIDERZH_TZNP4_KMIN 0
+#define VIDERZH_TZNP4_VV_KMIN 0
+#define VIDERZH_TZNP4_OU_KMIN 0
+#define VIDERZH_TZNP4_TU_KMIN 0
+#define VIDERZH_TZNP4_3I0_KMIN 0
+#define VIDERZH_TZNP4_3I0_VV_KMIN 0
+#define VIDERZH_TZNP4_3I0_OU_KMIN 0
+#define VIDERZH_TZNP4_3I0_TU_KMIN 0
+#define VIDERZH_TZNP4_3U0_KMIN 0
+#define DL_FORM_IMP_USK_TZNP4_KMIN 0
+#define USTAV_TZNP5_3I0_KMIN 25
+#define USTAV_TZNP5_3U0_KMIN 1000
+#define UGOL_TZNP5_3I0_KMIN 0
+#define VIDERZH_TZNP5_KMIN 0
+#define VIDERZH_TZNP5_VV_KMIN 0
+#define VIDERZH_TZNP5_OU_KMIN 0
+#define VIDERZH_TZNP5_TU_KMIN 0
+#define VIDERZH_TZNP5_3I0_KMIN 0
+#define VIDERZH_TZNP5_3I0_VV_KMIN 0
+#define VIDERZH_TZNP5_3I0_OU_KMIN 0
+#define VIDERZH_TZNP5_3I0_TU_KMIN 0
+#define VIDERZH_TZNP5_3U0_KMIN 0
+#define DL_FORM_IMP_USK_TZNP5_KMIN 0
+
+#define USTAV_TZNP1_3I0_KMAX 15000
+#define USTAV_TZNP1_3U0_KMAX 15000
+#define UGOL_TZNP1_3I0_KMAX 90
+#define VIDERZH_TZNP1_KMAX 3200
+#define VIDERZH_TZNP1_VV_KMAX 1000
+#define VIDERZH_TZNP1_OU_KMAX 1000
+#define VIDERZH_TZNP1_TU_KMAX 1000
+#define VIDERZH_TZNP1_3I0_KMAX 3200
+#define VIDERZH_TZNP1_3I0_VV_KMAX 1000
+#define VIDERZH_TZNP1_3I0_OU_KMAX 1000
+#define VIDERZH_TZNP1_3I0_TU_KMAX 1000
+#define VIDERZH_TZNP1_3U0_KMAX 3200
+#define DL_FORM_IMP_USK_TZNP1_KMAX 1000
+#define USTAV_TZNP2_3I0_KMAX 15000
+#define USTAV_TZNP2_3U0_KMAX 15000
+#define UGOL_TZNP2_3I0_KMAX 90
+#define VIDERZH_TZNP2_KMAX 3200
+#define VIDERZH_TZNP2_VV_KMAX 1000
+#define VIDERZH_TZNP2_OU_KMAX 1000
+#define VIDERZH_TZNP2_TU_KMAX 1000
+#define VIDERZH_TZNP2_3I0_KMAX 3200
+#define VIDERZH_TZNP2_3I0_VV_KMAX 1000
+#define VIDERZH_TZNP2_3I0_OU_KMAX 1000
+#define VIDERZH_TZNP2_3I0_TU_KMAX 1000
+#define VIDERZH_TZNP2_3U0_KMAX 3200
+#define DL_FORM_IMP_USK_TZNP2_KMAX 1000
+#define USTAV_TZNP3_3I0_KMAX 15000
+#define USTAV_TZNP3_3U0_KMAX 15000
+#define UGOL_TZNP3_3I0_KMAX 90
+#define VIDERZH_TZNP3_KMAX 3200
+#define VIDERZH_TZNP3_VV_KMAX 1000
+#define VIDERZH_TZNP3_OU_KMAX 1000
+#define VIDERZH_TZNP3_TU_KMAX 1000
+#define VIDERZH_TZNP3_3I0_KMAX 3200
+#define VIDERZH_TZNP3_3I0_VV_KMAX 1000
+#define VIDERZH_TZNP3_3I0_OU_KMAX 1000
+#define VIDERZH_TZNP3_3I0_TU_KMAX 1000
+#define VIDERZH_TZNP3_3U0_KMAX 3200
+#define DL_FORM_IMP_USK_TZNP3_KMAX 1000
+#define USTAV_TZNP4_3I0_KMAX 15000
+#define USTAV_TZNP4_3U0_KMAX 15000
+#define UGOL_TZNP4_3I0_KMAX 90
+#define VIDERZH_TZNP4_KMAX 3200
+#define VIDERZH_TZNP4_VV_KMAX 1000
+#define VIDERZH_TZNP4_OU_KMAX 1000
+#define VIDERZH_TZNP4_TU_KMAX 1000
+#define VIDERZH_TZNP4_3I0_KMAX 3200
+#define VIDERZH_TZNP4_3I0_VV_KMAX 1000
+#define VIDERZH_TZNP4_3I0_OU_KMAX 1000
+#define VIDERZH_TZNP4_3I0_TU_KMAX 1000
+#define VIDERZH_TZNP4_3U0_KMAX 3200
+#define DL_FORM_IMP_USK_TZNP4_KMAX 1000
+#define USTAV_TZNP5_3I0_KMAX 15000
+#define USTAV_TZNP5_3U0_KMAX 15000
+#define UGOL_TZNP5_3I0_KMAX 90
+#define VIDERZH_TZNP5_KMAX 3200
+#define VIDERZH_TZNP5_VV_KMAX 1000
+#define VIDERZH_TZNP5_OU_KMAX 1000
+#define VIDERZH_TZNP5_TU_KMAX 1000
+#define VIDERZH_TZNP5_3I0_KMAX 3200
+#define VIDERZH_TZNP5_3I0_VV_KMAX 1000
+#define VIDERZH_TZNP5_3I0_OU_KMAX 1000
+#define VIDERZH_TZNP5_3I0_TU_KMAX 1000
+#define VIDERZH_TZNP5_3U0_KMAX 3200
+#define DL_FORM_IMP_USK_TZNP5_KMAX 1000
+
+
+
+
+
+#define START_ADDR_ZNMIN                                        333
+#define G1_START_ADDR_ZNMIN                    PERVAYA_GRUPPA_USTAVOK + START_ADDR_ZNMIN
+#define G2_START_ADDR_ZNMIN                    VTORAYA_GRUPPA_USTAVOK + START_ADDR_ZNMIN
+#define G3_START_ADDR_ZNMIN                    TRETYA_GRUPPA_USTAVOK + START_ADDR_ZNMIN
+#define G4_START_ADDR_ZNMIN                    CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_ZNMIN
+
+#define USTAV_ZNMIN1                                            0
+#define VIDERZH_ZNMIN1                                          1
+#define BLOKIR_ZNMIN1_PO_I                                      2
+#define USTAV_ZNMIN2                                            3
+#define VIDERZH_ZNMIN2                                          4
+#define BLOKIR_ZNMIN2_PO_I                                      5
+
+
+
+
+#define USTAV_ZNMIN1_KMIN 1400
+#define VIDERZH_ZNMIN1_KMIN 10
+#define BLOKIR_ZNMIN1_PO_I_KMIN 25
+#define USTAV_ZNMIN2_KMIN 1400
+#define VIDERZH_ZNMIN2_KMIN 10
+#define BLOKIR_ZNMIN2_PO_I_KMIN 25
+
+#define USTAV_ZNMIN1_KMAX 11000
+#define VIDERZH_ZNMIN1_KMAX 3200
+#define BLOKIR_ZNMIN1_PO_I_KMAX 500
+#define USTAV_ZNMIN2_KMAX 11000
+#define VIDERZH_ZNMIN2_KMAX 3200
+#define BLOKIR_ZNMIN2_PO_I_KMAX 500
+
+
+
+
+#define START_ADDR_ZNMAX                                        339
+#define G1_START_ADDR_ZNMAX                    PERVAYA_GRUPPA_USTAVOK + START_ADDR_ZNMAX
+#define G2_START_ADDR_ZNMAX                    VTORAYA_GRUPPA_USTAVOK + START_ADDR_ZNMAX
+#define G3_START_ADDR_ZNMAX                    TRETYA_GRUPPA_USTAVOK + START_ADDR_ZNMAX
+#define G4_START_ADDR_ZNMAX                    CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_ZNMAX
+
+
+#define USTAV_ZNMAX1                                            0
+#define VIDERZH_ZNMAX1                                          1
+#define USTAV_ZNMAX2                                            2
+#define VIDERZH_ZNMAX2                                          3
+
+
+
+
+#define USTAV_ZNMAX1_KMIN 2300
+#define VIDERZH_ZNMAX1_KMIN 1
+#define USTAV_ZNMAX2_KMIN 2300
+#define VIDERZH_ZNMAX2_KMIN 1
+
+#define USTAV_ZNMAX1_KMAX 14000
+#define VIDERZH_ZNMAX1_KMAX 3200
+#define USTAV_ZNMAX2_KMAX 14000
+#define VIDERZH_ZNMAX2_KMAX 3200
+
+
+
+#define START_ADDR_APV                                          343
+#define G1_START_ADDR_APV                      PERVAYA_GRUPPA_USTAVOK + START_ADDR_APV
+#define G2_START_ADDR_APV                      VTORAYA_GRUPPA_USTAVOK + START_ADDR_APV
+#define G3_START_ADDR_APV                      TRETYA_GRUPPA_USTAVOK + START_ADDR_APV
+#define G4_START_ADDR_APV                      CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_APV
+
+
+#define PO_APV1                                                 0
+#define PO_APV2                                                 1
+#define PO_APV3                                                 2
+#define PO_APV4                                                 3
+#define RAZNICA_NAPR                                            4
+#define UGOL_RASSOGL                                            5
+#define SKOROST_SKOLZH                                          6
+#define VIDERZH_OZH_U_APV1                                      7
+#define VIDERZH_OZH_SINHR_APV1                                  8
+#define VIDERZH_DL_BLOK_APV1                                    9
+#define VIDERZH_DL_APV1                                         10
+#define VIDERZH_DL_ZAPR_APV1                                    11
+#define VIDERZH_DL_BLOK_APV_OT_VV                               12
+#define VIDERZH_OZH_U_APV2                                      13
+#define VIDERZH_OZH_SINHR_APV2                                  14
+#define VIDERZH_DL_BLOK_APV2                                    15
+#define VIDERZH_DL_APV2                                         16
+
+
+
+
+
+
+#define PO_APV1_KMIN 4000
+#define PO_APV2_KMIN 100
+#define PO_APV3_KMIN 4000
+#define PO_APV4_KMIN 100
+#define RAZNICA_NAPR_KMIN 100
+#define UGOL_RASSOGL_KMIN 5
+#define SKOROST_SKOLZH_KMIN 50
+#define VIDERZH_OZH_U_APV1_KMIN 0
+#define VIDERZH_OZH_SINHR_APV1_KMIN 0
+#define VIDERZH_DL_BLOK_APV1_KMIN 0
+#define VIDERZH_DL_APV1_KMIN 0
+#define VIDERZH_DL_ZAPR_APV1_KMIN 0
+#define VIDERZH_DL_BLOK_APV_OT_VV_KMIN 0
+#define VIDERZH_OZH_U_APV2_KMIN 0
+#define VIDERZH_OZH_SINHR_APV2_KMIN 0
+#define VIDERZH_DL_BLOK_APV2_KMIN 0
+#define VIDERZH_DL_APV2_KMIN 0
+
+#define PO_APV1_KMAX 14000
+#define PO_APV2_KMAX 2000
+#define PO_APV3_KMAX 14000
+#define PO_APV4_KMAX 2000
+#define RAZNICA_NAPR_KMAX 2000
+#define UGOL_RASSOGL_KMAX 50
+#define SKOROST_SKOLZH_KMAX 300
+#define VIDERZH_OZH_U_APV1_KMAX 3200
+#define VIDERZH_OZH_SINHR_APV1_KMAX 3200
+#define VIDERZH_DL_BLOK_APV1_KMAX 3200
+#define VIDERZH_DL_APV1_KMAX 3200
+#define VIDERZH_DL_ZAPR_APV1_KMAX 3200
+#define VIDERZH_DL_BLOK_APV_OT_VV_KMAX 3200
+#define VIDERZH_OZH_U_APV2_KMAX 3200
+#define VIDERZH_OZH_SINHR_APV2_KMAX 3200
+#define VIDERZH_DL_BLOK_APV2_KMAX 3200
+#define VIDERZH_DL_APV2_KMAX 3200
+
+
+
+
+
+#define START_ADDR_UROV                                         360
+#define G1_START_ADDR_UROV                     PERVAYA_GRUPPA_USTAVOK + START_ADDR_UROV
+#define G2_START_ADDR_UROV                     VTORAYA_GRUPPA_USTAVOK + START_ADDR_UROV
+#define G3_START_ADDR_UROV                     TRETYA_GRUPPA_USTAVOK + START_ADDR_UROV
+#define G4_START_ADDR_UROV                     CHETVERTAYA_GRUPPA_USTAVOK + START_ADDR_UROV
+
+
+#define USTAV_UROV1                                             0
+#define VIDERZH_UROV1                                           1
+#define VIDERZH_UROV2                                           2
+
+
+
+#define USTAV_UROV1_KMIN 25
+#define VIDERZH_UROV1_KMIN 0
+#define VIDERZH_UROV2_KMIN 0
+
+#define USTAV_UROV1_KMAX 500
+#define VIDERZH_UROV1_KMAX 3200
+#define VIDERZH_UROV2_KMAX 3200
+
+
+
+#define G1_START_ADDR_MCP1                                         4308
 #define G1_START_ADDR_MCP2                                         320
-
-// уставки
-#define MCP_ANGLE_ROTATION_RANGE                                0
-#define MCP_CURRENT_FORWARD                                     1
-#define MCP_CURRENT_REVERSE                                     2
-#define MCP_VOLTAGE                                             3
-#define MCP_CURRENT                                             4
-#define MCP_CURRENT_BORING                                      5
-
-//выдержки
-#define MCP_TIME_STAGE_ACLT                                     6
-#define MCP_TIME_STAGE_ACLT_FWD                                 7
-#define MCP_TIME_STAGE_ACLT_RVRS                                8
-#define MCP_TIME_STAGE_ACLT_USTP                                9
-#define MCP_TAU_ACL_IMP                                         10
-#define MCP_TIME_STAGE_FORWARD                                  11
-#define MCP_TIME_STAGE_REVERSE                                  12
-#define MCP_TIME_STAGE                                          13
-#define MCP_TIME_STAGE_USTP                                     14
- 
-//#define LAST_ADDR_MCP2                                          335
-
-/******************************************************************************/
-/*                Уставки МТЗ третьей ступени (ГРАНИЦЫ)                       */
-/*                  поля дублируются из второго этапа                         */
-/******************************************************************************/
-
 #define G1_START_ADDR_MCP3                                         335
-//#define LAST_ADDR_MCP3                                          350
-
-/******************************************************************************/
-/*                Уставки МТЗ четвертой ступени (ГРАНИЦЫ)                     */
-/*                  поля дублируются из второго этапа                         */
-/******************************************************************************/
-
 #define G1_START_ADDR_MCP4                                         350
-//#define LAST_ADDR_MCP4                                          365
-
-/******************************************************************************/
-/*                Уставки МТЗ пятой ступени (ГРАНИЦЫ)                         */
-/*                 поля дублируются из второго этапа                          */
-/******************************************************************************/
-
 #define G1_START_ADDR_MCP5                                         365
-//#define LAST_ADDR_MCP5                                          380
+
+
+
 
 /************************ Уставки первой ступени ДЗ ***************************/
 // Уставки однофазного КЗ 
@@ -2034,8 +2566,9 @@
 /* Юстировка                                                                  */
 /******************************************************************************/
 #define MA_POSSIBILITY_USTUVANNJA                               50016
-#define MA_ADDRESS_FIRST_USTUVANNJA                             50017
-#define MA_ADDRESS_LAST_USTUVANNJA                              (MA_ADDRESS_FIRST_USTUVANNJA + NUMBER_CANALS)
+#define MA_ADDRESS_FIRST_USTUVANNJA                             61968
+#define MA_ADDRESS_LAST_USTUVANNJA                              61978
+//!!!#define MA_ADDRESS_LAST_USTUVANNJA                              (MA_ADDRESS_FIRST_USTUVANNJA + NUMBER_CANALS)
 /******************************************************************************/
 
 /******************************************************************************/
