@@ -619,8 +619,8 @@
 
 #define PERVAYA_GRUPPA_USTAVOK                                     4308
 #define VTORAYA_GRUPPA_USTAVOK                                     4740
-#define TRETYA_GRUPPA_USTAVOK                                     5173
-#define CHETVERTAYA_GRUPPA_USTAVOK                                  5606
+#define TRETYA_GRUPPA_USTAVOK                                     5172
+#define CHETVERTAYA_GRUPPA_USTAVOK                                  5604
 
 #define START_ADDR_MTZ1                      0
 #define G1_START_ADDR_MTZ1                   PERVAYA_GRUPPA_USTAVOK + START_ADDR_MTZ1
