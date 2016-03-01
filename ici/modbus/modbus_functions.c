@@ -169,10 +169,6 @@ _Bool check_addr_measurements2(unsigned short quantity_of_registers,
   return false;
 }
 
-_Bool check_addr_measurements4(unsigned short quantity_of_registers,
-                               unsigned short start_addr){
-                                 if(start_addr >= M_ADDRESS_FIRST_MEASUREMENTS_2  &&
-
 
 _Bool check_addr_measurements3(unsigned short quantity_of_registers,
                                  unsigned short start_addr) {
