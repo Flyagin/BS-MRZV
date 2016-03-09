@@ -76,7 +76,7 @@ int main()  @ "Fast_function"
   
   StartUPInitKBD();
   StartUPInitLCD();
-  CollectCfgTbls();
+//  CollectCfgTbls();
   
   start_tasks_mal();
 //  eeprom_bs_settings_tbl.chWinding = 1;

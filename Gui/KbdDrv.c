@@ -197,8 +197,9 @@ void handle_kbd(void)
       pv2 = sLV.pvOrSC;
       (((KbdUNFldHolderDsc*)pv2)->UNFKeyField.arUl[0]) =~ (((KbdUNFldHolderDsc*)pv1)->UNFKeyField.arUl[0]);
       (((KbdUNFldHolderDsc*)pv2)->UNFKeyField.arUl[1]) =~ (((KbdUNFldHolderDsc*)pv1)->UNFKeyField.arUl[1]);
+#ifndef KBD_2016   	  
       (((KbdUNFldHolderDsc*)pv2)->UNFKeyField.arUl[1]) &= 0xf;//Mask Clear not used Hi bit
-      
+    
       //Clear Key 5D,5F,6F
       sLV.shVal     = (4*6) + 3;
       sLV.uChIdxByte = sLV.shVal >> 3;
@@ -212,7 +213,7 @@ void handle_kbd(void)
       sLV.uChIdxByte = sLV.shVal >> 3;
       sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
       ((unsigned char*)pv2)[sLV.uChIdxByte] &=(unsigned char) ~(1 << sLV.uChIdxBit);
-      
+#endif      
       i = (((KbdUNFldHolderDsc*)pv2)->UNFKeyField.arUl[0]);
       i |= (((KbdUNFldHolderDsc*)pv2)->UNFKeyField.arUl[1]);
       

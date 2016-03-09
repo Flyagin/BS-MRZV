@@ -1229,7 +1229,9 @@ UNN_PrgEvtBmBrBs hldUNN_PrgEvt @ "DDR2_Bank1_2_variables";
 void FindException(void)  @ "Fast_function"
 {
 hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBs.UNBsRamPrgEvts.chArBsPrgEvts[0] = 1<< ERROR_BS_TEST1_BIT;
-
+hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBr  = holderDiagnBrBs.UNN_Sdfe.muPrgEvtBmBrBs.RamPrgEvtFld.hldrPrgEvtBr;
+hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBm  = holderDiagnBrBs.UNN_Sdfe.muPrgEvtBmBrBs.RamPrgEvtFld.hldrPrgEvtBm;
+//hPrgEvtMangInfo.hldFixUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBr 
 }
 
 

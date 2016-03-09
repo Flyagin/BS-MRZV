@@ -689,8 +689,8 @@ extern TRAtrCmdSOCTpuUnitDsc  holderTRAtrCmdSOCTpuUnit;
 //extern RVAtrCmdSOCTpuUnitDsc  holderRVAtrCmdSOCTpuUnit;	
 
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-#define SIZE_TPDU_DIAGN_BS_CNL_SPI 16
-#define SIZE_TPDU_DIAGN_BS_CNL_HSU2 16
+#define SIZE_TPDU_DIAGN_BS_CNL_SPI  40
+#define SIZE_TPDU_DIAGN_BS_CNL_HSU2 40
 //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 //~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
 //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

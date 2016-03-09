@@ -1,7 +1,7 @@
  #ifndef kbddrv_h
 #define kbddrv_h
 
-
+#define KBD_2016 
 #include "../LibG45/boards/bs_g45/board.h"
 //
 #define SW1 (1<<26)
@@ -34,19 +34,72 @@
 #define _CLEAR_KEY_BIT(_key_array, _number_bit)                                                 \
         _key_array[_number_bit >> 5] &= (unsigned int)(~(1 << (_number_bit & 0x1f)))
 
-enum __rang_key {
+		
+#ifdef KBD_2016 	
+	enum __rang_key1 {
+  VK_OFFSET_MINUS = 0,
+  VK_OFFSET_PLUS,
+  VK_OFFSET_BACK_SPACE,
+  VK_OFFSET_ESC,
+  VK_OFFSET_INS,
+  VK_OFFSET_DEL,
+  
+  VK_OFFSET_7,
+  VK_OFFSET_8,
+  VK_OFFSET_9,
+  VK_OFFSET_HOME,
+  VK_OFFSET_UP,
+  VK_OFFSET_PG_UP,
+
+  VK_OFFSET_4,
+  VK_OFFSET_5,
+  VK_OFFSET_6,
+  VK_OFFSET_LEFT,
+  VK_OFFSET_ENTER,
+  VK_OFFSET_RIGHT,
+  
+  VK_OFFSET_1,
+  VK_OFFSET_2,
+  VK_OFFSET_3,
+  VK_OFFSET_END,
+  VK_OFFSET_DOWN,
+  VK_OFFSET_PG_DN,
+  
+  VK_OFFSET_POINT,
+  VK_OFFSET_0,
+  VK_OFFSET_TAB,
+  VK_OFFSET_F1,
+  VK_OFFSET_F2,
+  VK_OFFSET_F3,
+  
+  VK_OFFSET_CTRL,
+  VK_OFFSET_SHIFT,
+  VK_OFFSET_ALT,
+  VK_OFFSET_F4,
+  VK_OFFSET_F5,
+  VK_OFFSET_F6,
+
+  
+  /*----------------*/
+  NR_KEY_ITEMS
+};
+
+#else
+	enum __rang_key {
   VK_OFFSET_MINUS = 0,
   VK_OFFSET_PLUS,
   VK_OFFSET_TAB,
   VK_OFFSET_HOME,
   VK_OFFSET_UP,
   VK_OFFSET_PG_UP,
+  
   VK_OFFSET_7,
   VK_OFFSET_8,
   VK_OFFSET_9,
   VK_OFFSET_LEFT,
   VK_OFFSET_DOWN,
   VK_OFFSET_RIGHT,
+  
   VK_OFFSET_4,
   VK_OFFSET_5,
   VK_OFFSET_6,
@@ -73,8 +126,19 @@ enum __rang_key {
   /*----------------*/
   NR_KEY_ITEMS
 };
+#endif		
 
-#define _KEY_MASK_ ((unsigned int)0xFFFFFFFF0)
+
+
+
+#ifdef KBD_2016 	
+	#define _KEY_MASK_ ((unsigned int)0xFFFFFFFF0)
+#else
+	#define _KEY_MASK_ ((unsigned int)0xFFFFFFFF0)
+#endif
+
+
+
 
 //#define VK_MINUS                                0
 //#define VK_PLUS                                 1
