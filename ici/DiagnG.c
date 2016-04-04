@@ -835,7 +835,7 @@ register StateExchInfo *pStateExchInfo = &hldrRdPrgEvtInfo;
 				i = DelEU(chQueOrdNum,(PFV_VL) RdServicePrgEvtDFl);
 				if(charPrgEvtRecordWasRead == 1 )
 				{
-					charPrgEvtRecordWasRead = 2;
+					 charPrgEvtRecordWasRead = 2;
 					i = Eval_CS((char*)arPrgEvtRecord_T1_WrBuf,sizeof(PrgEvtRecord_T1_Dsc)*AMOUNT_PRG_EVT_RECORD);
 					if(i != hPrgEvtMangInfo.ulCheckSum_arPrgEvt)
 					{

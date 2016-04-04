@@ -55,7 +55,7 @@ FCoilWrpDsc  hldFCoilWrp = {
 
 int AppReqTransmitFCoil;
 //int AppReqReceiveFCoil ; //
-
+#pragma default_function_attributes = @ "Fast_function"  
 
 void ActivateServTrApCnFCoilCTpuUnitSpi(void)
 {
@@ -166,7 +166,7 @@ register void *pv;
 
 }
 
-
+#pragma default_function_attributes = 
 
 
 

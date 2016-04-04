@@ -1,7 +1,7 @@
  #ifndef kbddrv_h
 #define kbddrv_h
 
-//#define KBD_2016 
+#define KBD_2016 
 #include "../LibG45/boards/bs_g45/board.h"
 //
 #define SW1 (1<<26)

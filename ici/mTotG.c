@@ -54,6 +54,7 @@ sizeof(__TOTAL_MEASUREMENT ),	(void*)&holderTotMeasG.UNTotMeas.total_measurement
 int AppReqTransmitTotMeasG;
 int AppReqReceiveTotMeasG;
 
+#pragma default_function_attributes = @ "Fast_function"  
 long UpdateRVTotMeasGCTpuUnit(void* pvLDC, long lID)
 {
 register long i;//,j;
@@ -236,5 +237,5 @@ ExitGetMeasPrt:
 	return lR;
 }
 
-
+#pragma default_function_attributes = 
 

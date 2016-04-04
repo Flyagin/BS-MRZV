@@ -35,7 +35,7 @@
 #include    "../inc/ici_ef.h"
 
  
-
+#pragma default_function_attributes = @ "Fast_function"  
 
 
 
@@ -666,7 +666,7 @@ PrtTblStateDsc locPrtTblState;
 
 
 
-
+#pragma default_function_attributes = 
 
 
 

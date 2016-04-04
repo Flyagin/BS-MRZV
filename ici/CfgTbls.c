@@ -41,7 +41,7 @@
 #define BS_RQ_SET_MIN_CFG_TBL_BIT  (3)
 
 #endif
-
+#pragma default_function_attributes = @ "Fast_function"
 long lStateWriting = 0;
 
 //
@@ -604,7 +604,7 @@ void RefreshCfgTables(void)   //@ "Fast_function"
 			PrepareDhldStngIciTblforTrOnBM();
 			PrepareDholderPrtTblforTrOnBR();
 			shbsRefreshCfgTablesState |= (1<<BS_RF_CFG_VAR_USED_BIT);
-			shbsRefreshCfgTablesState |=(1<<RQ_WR_STNG_TBL_BIT)|(1<<RQ_WR_PRT_TBL_BIT);
+			shbsRefreshCfgTablesState |=(1<<RQ_WR_PRT_TBL_BIT);//(1<<RQ_WR_STNG_TBL_BIT)|
 			shbsRQChangeCfgTablesState &= ~(1<<BS_RQ_WR_CFG_TBL_BIT);
 			shbsRefreshCfgTablesState &=~(1<<BS_RF_CFG_VAR_USED_BIT);
 			goto ExitRefreshCfgTables;
@@ -1956,6 +1956,7 @@ return lDiffCount;
 
 
 
+#pragma default_function_attributes = 
 
 
 

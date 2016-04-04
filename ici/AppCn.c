@@ -46,6 +46,7 @@ long lActualPrTrObj;
 #include    "CfgTbls.h"
 
 
+
 //extern AuxCfgTbl1Dsc pAuxCfgTbl1Dsc;
 
 
@@ -1169,5 +1170,4 @@ void Ici10msRing(void)
 
 #include    "srvUgO.c"
 #include    "AbnD.c"
-
 

@@ -52,7 +52,7 @@ DateTimeWrpDsc  hldDateTimeWrp = {
 
 };
 
-
+#pragma default_function_attributes = @ "Fast_function"  
 int AppReqTransmitDateTime;
 //int AppReqReceiveDateTime ; //
 
@@ -167,7 +167,7 @@ register void *pv;
 }
 
 
-
+#pragma default_function_attributes = 
 
 
 
