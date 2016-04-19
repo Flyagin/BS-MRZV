@@ -672,7 +672,7 @@ void update_measurement_pg() {
   #define _TEXT_MEAS_LENGTH_    17 //signe + max val + point + precision + unit
   
   #define MEAS_CONST_ARR {      \
-    INDEX_3I0,                  \
+    INDEX_IA,                   \
     INDEX_IA,                   \
     INDEX_IB,                   \
     INDEX_IC,                   \
@@ -718,7 +718,7 @@ void update_measurement_i_pg() {
   #define _TEXT_MEAS_I_LENGTH_          17 //signe + max val + point + precision + unit
   
   #define MEAS_I_CONST_ARR {    \
-    INDEX_3I0,                  \
+    INDEX_IA,                   \
     INDEX_IA,                   \
     INDEX_IB,                   \
     INDEX_IC,                   \

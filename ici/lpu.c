@@ -1563,6 +1563,7 @@ sLV.PacketGood++;
 
 sLV.ushSizeLDC = ((RVStateLpuSpiDsc *)pv)->ushSizeLDC = i;
 // ((RVStateLpuHSU2Dsc *)pv)->ushSizeLDC = i;
+if( (i+(SIZE_LPCI_FLD_CNL_SPI)) < (SIZE_LPDU_CNL_SPI+4))
 j = Eval_CS(pDst,i+(SIZE_LPCI_FLD_CNL_SPI)); 
 if (j!=pDst[i+(SIZE_LPCI_FLD_CNL_SPI)])
 {

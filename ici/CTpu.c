@@ -128,8 +128,10 @@ TRAtrCmdSOCTpuUnitDsc  holderTRAtrCmdSOCTpuUnit = {
 {'A','t','r',' ','C','m','d',' '},
 {ID_CNL_SPI,ID_CNL_SPI,0,0,SIZE_TPDU_ATR_CMD_CNL_SPI,DEFAULT_SIZE_ATR_CMD_MSG,ID_ATR_CMD_UNIT,0,holderTRAtrCmdSOCTpuUnit.arUchTR}
 };
-
-
+RVAtrCmdSOCTpuUnitDsc  holderRVAtrCmdSOCTpuUnit = {
+ {0,0,0,0},
+ {0,0,SIZE_TPDU_ATR_CMD_CNL_SPI,0,0,(void*)&(holderRVAtrCmdSOCTpuUnit.arUchRV)}//holderAtrCmdReally?
+ };
 
 RVDiagnBsBmSOCTpuUnitDsc  holderRVDiagnBsBmSOCTpuUnit = {
 {'D','i','a','g','n',' ','R','V'},

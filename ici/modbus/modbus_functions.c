@@ -169,7 +169,6 @@ _Bool check_addr_measurements2(unsigned short quantity_of_registers,
   return false;
 }
 
-
 _Bool check_addr_measurements3(unsigned short quantity_of_registers,
                                  unsigned short start_addr) {
   if (start_addr >= M_ADDRESS_FIRST_MEASUREMENTS_3                         &&
@@ -246,7 +245,7 @@ _Bool check_addr_yust(unsigned short quantity_of_registers, unsigned short start
   }
   return false;
 }
-// 
+
 _Bool check_addr_dig_outputs(unsigned short quantity_of_outputs, unsigned short start_addr) {
   if (start_addr >= START_ADDR_DO_VALUES                         &&
       start_addr <= START_ADDR_DO_VALUES + DO_QUANTITY           &&
@@ -603,12 +602,12 @@ void func3() {
       for (unsigned short i = 0; i < quantity_of_registers; i++) {
         switch (i + address) {
           case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_3I0_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff0000) >> 16;
+ //           response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff000000) >> 24;
+ //           response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff0000) >> 16;
             break;
           case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_3I0_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_3I0] & 0xff;
+     //       response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff00) >> 8;
+     //       response[index++] = current_meas_p -> measurement[INDEX_3I0] & 0xff;
             break;
           case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_IA_Hi:
             response[index++] = (current_meas_p -> measurement[INDEX_IA] & 0xff000000) >> 24;
@@ -741,12 +740,12 @@ void func3() {
       for (unsigned short i = 0; i < quantity_of_registers; i++) {
         switch (i + address) {
           case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_3I0_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff0000) >> 16;
+          //  response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff000000) >> 24;
+          //  response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff0000) >> 16;
             break;
           case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_3I0_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_3I0] & 0xff;
+  //          response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff00) >> 8;
+  //          response[index++] = current_meas_p -> measurement_i[INDEX_3I0] & 0xff;
             break;
           case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_IA_Hi:
             response[index++] = (current_meas_p -> measurement_i[INDEX_IA] & 0xff000000) >> 24;

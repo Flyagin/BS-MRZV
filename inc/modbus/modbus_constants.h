@@ -69,7 +69,7 @@ enum modbus_func_code_list
 
 #define READ_YUST_COUNTER_MAX_VALUE             100000
 
-#define NUMBER_CANALS_ADC1                      4
+#define NUMBER_CANALS_ADC1                      3
 #define NUMBER_CANALS_ADC2                      4
 #define NUMBER_CANALS_ADC3                      3
 #define NUMBER_CANALS_SPI1                      (NUMBER_CANALS_ADC1 + NUMBER_CANALS_ADC2)

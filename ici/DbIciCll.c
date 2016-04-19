@@ -66,7 +66,7 @@ short shbsRQ_DbgIciCallChangeState @  "DMA_BUFFERS";
 
 
 
-
+extern char chReqKeyCallAtrCmd;
 
 char chSureExecuteIciCall = 0; 
 
@@ -104,6 +104,9 @@ void IciDbgCall_I_Fn(void)//RefreshIciUnits
 		}
 		goto ExitIciDbgCall_I_Fn;
 	}
+	if( chReqKeyCallAtrCmd)
+	CallKeyAtrCmd();//F1
+
 	
 	
 /*
@@ -174,32 +177,6 @@ void IciDbgCall_I_Fn(void)//RefreshIciUnits
 
 	
 
-//	if(shbsRefreshCfgTablesState== 0)
-//	{
-//		if (shbsRQChangeCfgTablesState&(1<<BS_RQ_SET_MIN_CFG_TBL_BIT))
-//		{
-//			shbsRefreshCfgTablesState |= (1<<BS_RF_CFG_VAR_USED_BIT);
-//			//Recode Req Bit
-//			//..if(shbsRQChangeCfgTablesState&(1<<BS_RQ_SET_MIN_CFG_TBL_BIT) )
-//			shbsRefreshCfgTablesState |= 1<<RQ_WR_MIN_CFG_TBL_BIT;
-//			SPIOperationTable |= EEPROM_WRITE_SETTINGS;
-//			shbsRQChangeCfgTablesState &= ~(1<<BS_RQ_SET_MIN_CFG_TBL_BIT);
-//			shbsRefreshCfgTablesState &=~(1<<BS_RF_CFG_VAR_USED_BIT);
-//			goto ExitRefreshCfgTables;
-//		}
-//		if (shbsRQChangeCfgTablesState&(1<<BS_RQ_WR_CFG_TBL_BIT))
-//		{
-//			SPIOperationTable |= EEPROM_WRITE_SETTINGS;
-//			PrepareDhldStngIciTblforTrOnBM();
-//			PrepareDholderPrtTblforTrOnBR();
-//			shbsRefreshCfgTablesState |= (1<<BS_RF_CFG_VAR_USED_BIT);
-//			shbsRefreshCfgTablesState |=(1<<RQ_WR_STNG_TBL_BIT)|(1<<RQ_WR_PRT_TBL_BIT);
-//			shbsRQChangeCfgTablesState &= ~(1<<BS_RQ_WR_CFG_TBL_BIT);
-//			shbsRefreshCfgTablesState &=~(1<<BS_RF_CFG_VAR_USED_BIT);
-//			goto ExitRefreshCfgTables;
-//		}
-//	
-//	}
 
 
 

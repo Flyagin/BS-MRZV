@@ -295,41 +295,13 @@ AT91C_BASE_SMC->SMC_CTRL0 = ( (AT91C_SMC_READMODE & (1<<0))
 	//SetUpArm926ej();
 
     
-    // Disable RTT and PIT interrupts (potential problem when program A
+    // Disable RTT and PIT interrupts (potential p roblem when program A
     // configures RTT, then program B wants to use PIT only, interrupts
     // from the RTT will still occur since they both use AT91C_ID_SYS)
     AT91C_BASE_RTTC->RTTC_RTMR &= (unsigned int)(~(AT91C_RTTC_ALMIEN | AT91C_RTTC_RTTINCIEN));
     AT91C_BASE_PITC->PITC_PIMR &= (unsigned int)(~AT91C_PITC_PITIEN);
 #if !defined(ddram)
     BOARD_ConfigureDdram(DDR_MICRON_MT47H32M16HR, 16);
-    
-//    unsigned int j;
-//    unsigned int *ptr = (unsigned int *) 0x70000000;
-//
-//    for (j = 0; j < 32*1024*1024; ++j) {
-//
-//        if (j & 1) {
-//            ptr[j] = 0x55AA55AA ;
-//        }
-//        else {
-//            ptr[j] = 0xAA55AA55 ;
-//        }
-//    }
-//   
-//    for (j = 0; j < 32*1024*1024; ++j) {
-//        if (j & 1) {
-//            if (ptr[j] != 0x55AA55AA ) {
-//               break;
-//            }
-//        }
-//        else {
-//            if (ptr[j] != 0xAA55AA55 ) {
-//                break;
-//              
-//            }
-//        }
-//    }
-    
 #endif    
 	#ifdef BS_G45_TEST // 
     //StartTest();
@@ -337,8 +309,7 @@ AT91C_BASE_SMC->SMC_CTRL0 = ( (AT91C_SMC_READMODE & (1<<0))
 //  	#ifdef  BS_G45_FL_RL
 //			__asm volatile("BKPT 4");
 //	#endif  
-//    StartTest();
-//    StartTestDDR1();
+    StartTest();
 //	   printf("board_lowlevel.Test Passed \n");
 #endif
 

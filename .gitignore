@@ -11,11 +11,19 @@ my.bat
 # Ігнорувати *.pdf
 my.pdf
 # Ігнорувати *.docx
-my.docx
+*.docx
 # Ігнорувати *.pub
 *.pub
 # Ігнорувати *.png
 *.png
+# Ігнорувати *.ses
+*.ses
+# Ігнорувати *.pnproj
+*.pnproj
+# Ігнорувати *.pnws
+*.pnws
+# Ігнорувати *.log
+*.log
 
 # Ігнорувати файли з папки settings/
 settings/

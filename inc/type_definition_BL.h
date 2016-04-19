@@ -3,7 +3,7 @@
 
 typedef struct
 {
-  int measurement_bl[NUMBER_CANALS - 2 + 4 + 1];
+  int measurement_bl[NUMBER_CANALS + 4];
   int ortogonal_rotate[2 * NUMBER_CANALS];
   
   int linear_voltage[3];

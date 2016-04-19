@@ -324,7 +324,7 @@ typedef struct tag_PrepDecompouseTrEvtDsc
 //~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
 //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 //~~~~~~~~~~~~~~~~ 
-#define NUMBER_CANALS_ADC1              4
+#define NUMBER_CANALS_ADC1              3
 #define NUMBER_CANALS_ADC2              4
 #define NUMBER_CANALS_ADC3              3
 #define NUMBER_CANALS_SPI1              (NUMBER_CANALS_ADC1 + NUMBER_CANALS_ADC2)
@@ -633,6 +633,7 @@ void PrepDecompouseDateTimeUnitSpi(void);
 void PrepDecompouseAtrCmdUnitSpi(void);
  void PrepDecompouseAbsNumeratorsUnitSPI(void); 
 void PrepDecompouseDiagnUnitSPI(void) ;
+void PrepDecompouseAtrCmdUnitSpiSecure(void);
 
 void PrepDecompouseSrcTest1Unit(void);
 //void PrepDecompouse Unit(void)
@@ -681,6 +682,6 @@ extern int AppReqReceiveTeleMechs ;
 extern void TestCopyTeleMechsData(void);
 
 extern void DiagnProcess100msEvt(void);
-
+extern void ProcessTransmitStubSeqSpi(void);
 
 #endif /* ApCn_h */

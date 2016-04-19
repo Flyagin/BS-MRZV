@@ -388,7 +388,7 @@ EndBlockHSU0State:
 		//~PrepDecompouseGoosBUnitSpi();
 		PrepDecompouseDateTimeUnitSpi();
 		PrepDecompouseFCoilUnitSpi();
-		PrepDecompouseAtrCmdUnitSpi();
+		PrepDecompouseAtrCmdUnitSpiSecure();//PrepDecompouseAtrCmdUnitSpi();
 		PrepDecompousePrtTblPrMngSpi();
 		PrepDecompousePrtTblTptUnitSpi();
 		//~PrepDecompouseGoosBUnitSpi();
@@ -434,7 +434,7 @@ EndBlockSpiState:
 		 ProcessTransmitStubSeqSpi();
 ;	
 	}	
-ExitProcessTransmitEvt:	
+//ExitProcessTransmitEvt:	
 return;
 }
 //void ProcessTransmitEvt1(void)
@@ -624,7 +624,7 @@ void ProcessReceiveEvt(void)  @ "Fastest_function" //Fast_function"
 {
 register long i;
 register void *pv;
-struct 
+/*struct 
 	{
 
 		//char chFld1,chFld2,chFld3,chFld4;
@@ -634,7 +634,7 @@ struct
 		//void  *pOriginTR, *pOriginTpCn;
 		
 	} sLV;
-sLV.chBusyChnl = 0;i = 0;
+sLV.chBusyChnl = 0;i = 0;*/
 
 //	pv = (void*)&hldrHSU7LpduUnit;
 //	if( ((RVStateLpuHSU7Dsc*)pv)->uchLpuHSU7State == 1 )
@@ -1016,7 +1016,7 @@ void ExecProxy(void)  @ "Fastest_function" //Fast_function"
 {
     register void* pv;
 	register long i,j;
-	struct 
+/*	struct 
 	{
 		unsigned char uChIdxBit ;
 		//short shErr;
@@ -1027,7 +1027,7 @@ void ExecProxy(void)  @ "Fastest_function" //Fast_function"
 	} sLV;
 	//PFL_VL pfl_vl;
 	sLV.uChIdxBit = 0;
-	
+	*/
 	
 
 	

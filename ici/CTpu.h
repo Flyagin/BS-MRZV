@@ -659,7 +659,7 @@ extern TRDateTimeSOCTpuUnitDsc  holderTRDateTimeSOCTpuUnit;
 //~~~~~~~~~~~~~~~~ 
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-#define SIZE_TPDU_ATR_CMD_CNL_SPI 36
+#define SIZE_TPDU_ATR_CMD_CNL_SPI 40
 //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 //~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
 //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -686,7 +686,7 @@ typedef struct tag_RVAtrcmdSOCTpuUnitDsc
 
 extern TRAtrCmdSOCTpuUnitDsc  holderTRAtrCmdSOCTpuUnit;
 
-//extern RVAtrCmdSOCTpuUnitDsc  holderRVAtrCmdSOCTpuUnit;	
+extern RVAtrCmdSOCTpuUnitDsc  holderRVAtrCmdSOCTpuUnit;	
 
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 #define SIZE_TPDU_DIAGN_BS_CNL_SPI  40

@@ -54,6 +54,8 @@ extern void BOARD_ConfigureVddMemSel(unsigned char VddMemSel);
 
 extern void BOARD_ConfigureDdram(unsigned char ddrModel, unsigned char busWidth);
 
+extern void BOARD_ConfigureDdramCp1(unsigned char busWidth);
+
 extern void BOARD_ConfigureSdram(unsigned char busWidth);
 
 extern void BOARD_ConfigureNandFlash(unsigned char busWidth);
