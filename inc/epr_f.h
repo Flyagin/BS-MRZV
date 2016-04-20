@@ -634,8 +634,6 @@ RESET_OT7_DI_F_EPRF_ONB               ,//Вх Сброс От7
 SET_OT8_DI_F_EPRF_ONB                 ,//Вх   Уст От8   
 RESET_OT8_DI_F_EPRF_ONB               ,//Вх Сброс От8 
 
-RESET_HCB_MNU_CMD_ONB,
-
 RESERV_MAX_F_EPRF_ONB
 
 
