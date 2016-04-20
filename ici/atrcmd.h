@@ -380,7 +380,7 @@ RESERV_MAX_ATRFG_ONB
 
 };
 
-
+#define AMOUNT_BYTE_FOR_KEPRF   (((RESERV_MAX_F_EPRF_ONB)>>3) +1) 
 #define AMOUNT_BYTE_FOR_ATRFG   (((RESERV_MAX_ATRFG_ONB)>>3) +1) 
 //~~~      - 
 //``````````````````````````````````````````````````````````````````````````````````

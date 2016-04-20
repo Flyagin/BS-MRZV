@@ -167,13 +167,14 @@ void handle_kbd(void)
     unsigned char uChIdxByte;
     unsigned char uChIdxBit;
     short shVal;
-    
+	long lActiveKey;
+    KbdUNFldHolderDsc hScanCode;
     //unsigned long scancode;  
     void *pvOrCurSC1;
     void *pvOrCurSC2;
     void *pvOrSC;  
   } sLV;
-  
+  sLV.lActiveKey = 0;
   sLV.pvOrCurSC1 = (void*) &hldCurScanCode1;
   sLV.pvOrCurSC2 = (void*) &hldCurScanCode2;
   sLV.pvOrSC     = (void*) &hldScanCode;
@@ -194,7 +195,7 @@ void handle_kbd(void)
          &&
        (((KbdUNFldHolderDsc*)pv1)->UNFKeyField.arUl[1]) == (((KbdUNFldHolderDsc*)pv2)->UNFKeyField.arUl[1])
     ) {
-      pv2 = sLV.pvOrSC;
+      pv2 = sLV.pvOrSC;sLV.lActiveKey = 1;sLV.hScanCode = hldScanCode;
       (((KbdUNFldHolderDsc*)pv2)->UNFKeyField.arUl[0]) =~ (((KbdUNFldHolderDsc*)pv1)->UNFKeyField.arUl[0]);
       (((KbdUNFldHolderDsc*)pv2)->UNFKeyField.arUl[1]) =~ (((KbdUNFldHolderDsc*)pv1)->UNFKeyField.arUl[1]);
       (((KbdUNFldHolderDsc*)pv2)->UNFKeyField.arUl[1]) &= 0xf;//Mask Clear not used Hi bit
@@ -267,77 +268,90 @@ void handle_kbd(void)
     }
   }
 extern char chReqKeyCallAtrCmd;
-pv2	= sLV.pvOrSC;
-	sLV.shVal     = VK_OFFSET_F1;
-    sLV.uChIdxByte = sLV.shVal >> 3;
-    sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
-	if(
-	(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
-	){
-		if((chReqKeyCallAtrCmd&1) == 0)
-			chReqKeyCallAtrCmd |= 1;
-    }
-	sLV.shVal     = VK_OFFSET_F2;
-    sLV.uChIdxByte = sLV.shVal >> 3;
-    sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
-	if(
-	(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
-	){
-		if((chReqKeyCallAtrCmd&(1<<1)) == 0)
-			chReqKeyCallAtrCmd |= 1<<1;
-    }
-    sLV.shVal     = VK_OFFSET_F3;
-    sLV.uChIdxByte = sLV.shVal >> 3;
-    sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
-	if(
-	(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
-	){
-		if((chReqKeyCallAtrCmd&(1<<2)) == 0)
-			chReqKeyCallAtrCmd |= 1<<2;
-    }
-    sLV.shVal     = VK_OFFSET_F4;
-    sLV.uChIdxByte = sLV.shVal >> 3;
-    sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
-	if(
-	(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
-	){
-		if((chReqKeyCallAtrCmd&(1<<3)) == 0)
-			chReqKeyCallAtrCmd |= 1<<3;
-    }
-    
-      
-    #ifndef KBD_2016
-	sLV.shVal     = VK_OFFSET_LED;
-    sLV.uChIdxByte = sLV.shVal >> 3;
-    sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
-	if(
-	(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
-	)	
-    {
-		if((chReqKeyCallAtrCmd&(1<<4)) == 0)
-			chReqKeyCallAtrCmd |= 1<<4;
-    }
-    #else
-    sLV.shVal     = VK_OFFSET_F5;
-    sLV.uChIdxByte = sLV.shVal >> 3;
-    sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
-	if(
-	(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
-	){
-		if((chReqKeyCallAtrCmd&(1<<4)) == 0)
-			chReqKeyCallAtrCmd |= 1<<4;
-    }
-    sLV.shVal     = VK_OFFSET_F6;
-    sLV.uChIdxByte = sLV.shVal >> 3;
-    sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
-	if(
-	(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
-	){
-		if((chReqKeyCallAtrCmd&(1<<5)) == 0)
-			chReqKeyCallAtrCmd |= 1<<5;
-    }
-    
-    #endif 
+    if(sLV.lActiveKey){
+	
+		pv2	= sLV.pvOrSC;
+		pv1 = (void*) &sLV.hScanCode;
+		sLV.shVal     = VK_OFFSET_F1;
+		sLV.uChIdxByte = sLV.shVal >> 3;
+		sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
+		//sLV.hScanCode = hldScanCode
+		if(
+		((((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))) == 0
+		&&
+		((((unsigned char*)pv1)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit)))
+		
+		){
+			if((chReqKeyCallAtrCmd&1) == 0)
+				chReqKeyCallAtrCmd |= 1;
+		}
+		sLV.shVal     = VK_OFFSET_F2;
+		sLV.uChIdxByte = sLV.shVal >> 3;
+		sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
+		if(
+		(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
+		){
+			if((chReqKeyCallAtrCmd&(1<<1)) == 0)
+				chReqKeyCallAtrCmd |= 1<<1;
+		}
+		sLV.shVal     = VK_OFFSET_F3;
+		sLV.uChIdxByte = sLV.shVal >> 3;
+		sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
+		if(
+		(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
+		){
+			if((chReqKeyCallAtrCmd&(1<<2)) == 0)
+				chReqKeyCallAtrCmd |= 1<<2;
+		}
+		sLV.shVal     = VK_OFFSET_F4;
+		sLV.uChIdxByte = sLV.shVal >> 3;
+		sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
+		if(
+		(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
+		){
+			if((chReqKeyCallAtrCmd&(1<<3)) == 0)
+				chReqKeyCallAtrCmd |= 1<<3;
+		}
+		
+		
+		#ifndef KBD_2016
+		sLV.shVal     = VK_OFFSET_LED;
+		sLV.uChIdxByte = sLV.shVal >> 3;
+		sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
+		if(
+		(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
+		)	
+		{
+			if((chReqKeyCallAtrCmd&(1<<4)) == 0)
+				chReqKeyCallAtrCmd |= 1<<4;
+		}
+		#else
+		sLV.shVal     = VK_OFFSET_F5;
+		sLV.uChIdxByte = sLV.shVal >> 3;
+		sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
+		if(
+		(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
+		){
+			if((chReqKeyCallAtrCmd&(1<<4)) == 0)
+				chReqKeyCallAtrCmd |= 1<<4;
+		}
+		sLV.shVal     = VK_OFFSET_F6;
+		sLV.uChIdxByte = sLV.shVal >> 3;
+		sLV.uChIdxBit  = sLV.shVal - (8*sLV.uChIdxByte);
+		if(
+		(((unsigned char*)pv2)[sLV.uChIdxByte]) &((unsigned char) (1 << sLV.uChIdxBit))
+		){
+			if((chReqKeyCallAtrCmd&(1<<5)) == 0)
+				chReqKeyCallAtrCmd |= 1<<5;
+		}
+		
+		#endif
+	}
+	for(i = 0,pv1 = (void*)&arChTmrActivation[0]; i< 6; i++ ){
+		
+		if( *((char*)pv1+i)&& chReqKeyCallAtrCmd&(1<<i))
+		*((char*)pv1+i) -= 1;
+	}
   //for(i = 0; i< 10; i++ )
   //{
   //  kbd_scan(sLV.pvOrCurSC1);???????Why Keyboard have stoped ICI???

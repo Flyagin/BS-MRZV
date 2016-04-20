@@ -865,9 +865,12 @@ char chReqKeyCallAtrCmd = 0;
 short shStateQueueAtrCmd =0;
 //char chSizeQueueHldAtrCmd = 0;
 //AtrCmdHldDsc arHldAtrCmd[SIZE_QUEUE_ATR_CMD];
+
 void PutAtrCmdData(void *p_in_param,void *pOut)
 {
-register I32 i,j;
+
+#ifdef 	RECODE_ATR_CMD_DATA	
+	register I32 i,j;
 register void *pvL; 		
 			//Clr AtrCmd
 	for (i = 0,pvL = (void*)pOut;//&(holderAtrCmd.UNAtrCmd.chArAtrCmd[0]);
@@ -882,7 +885,11 @@ register void *pvL;
 					i,
 					j
 				);
-	}
+	}		
+#else					
+	memcpy(pOut,(const void*)&p_in_param,AMOUNT_BYTE_FOR_KEPRF );    	
+#endif		
+
 	
 		
 }
@@ -976,9 +983,9 @@ register long i;
 				chReqKeyCallAtrCmd &= ~(1<<0);
 				AppReqTransmitAtrCmd ++;
 			}
-			i = 21;
+			arChTmrActivation[0] = i = 41;
 		}
-		arChTmrActivation[0] = --i;
+		//arChTmrActivation[0] = i;
 	}
 	
 	if(chReqKeyCallAtrCmd &(1<<1)){ //F2
@@ -992,50 +999,72 @@ register long i;
 				chReqKeyCallAtrCmd &= ~(1<<1);
 				AppReqTransmitAtrCmd ++;
 			}	
-			i = 21;
+			arChTmrActivation[1] = i = 41;
 		}
-		arChTmrActivation[1] = --i;
+		//arChTmrActivation[1] = i;
 	}
 
 	
 	if(chReqKeyCallAtrCmd &(1<<2)){ //F3
-		if(AppReqTransmitAtrCmd==0){
+		i = arChTmrActivation[2];//Ctr
+		if(i== 0 && AppReqTransmitAtrCmd==0){
 			PutAtrCmdData((void*)&(eeprom_prt_tbl.uc_ar_key_rank_cfg[2*AMOUNT_BYTE_FOR_KEPRF]),
 			(void*)&(holderAtrCmd.UNAtrCmd.chArAtrCmd[0]));
-			AppReqTransmitAtrCmd ++;
-			chReqKeyCallAtrCmd &= ~(1<<2);
+			i = ActivateTrAtrCmdExec((void*)&holderAtrCmd,(SIZE_ATR_CMD ));
+			if(i==(-1)){
+				chReqKeyCallAtrCmd &= ~(1<<2);
+				AppReqTransmitAtrCmd ++;
+			}	
+			arChTmrActivation[2] = i = 41;
+			
+
 		}
 	}
 
 	
-//	if(chReqKeyCallAtrCmd &(1<<3)){ //F4
-//		if(AppReqTransmitAtrCmd==0){
-//			PutAtrCmdData((void*)&(eeprom_prt_tbl.uc_ar_key_rank_cfg[3*AMOUNT_BYTE_FOR_KEPRF]),
-//			(void*)&(holderAtrCmd.UNAtrCmd.chArAtrCmd[0]));
-//			AppReqTransmitAtrCmd ++;
-//			chReqKeyCallAtrCmd &= ~(1<<3);
-//		}
-//	}
-//
-//	
-//	if(chReqKeyCallAtrCmd &(1<<4)){ //F5
-//		if(AppReqTransmitAtrCmd==0){
-//			PutAtrCmdData((void*)&(eeprom_prt_tbl.uc_ar_key_rank_cfg[4*AMOUNT_BYTE_FOR_KEPRF]),
-//			(void*)&(holderAtrCmd.UNAtrCmd.chArAtrCmd[0]));
-//			AppReqTransmitAtrCmd ++;
-//			chReqKeyCallAtrCmd &= ~(1<<4);
-//		}
-//	}
-//
-//	
-//	if(chReqKeyCallAtrCmd &(1<<5)){ //F6
-//		if(AppReqTransmitAtrCmd==0){
-//			PutAtrCmdData((void*)&(eeprom_prt_tbl.uc_ar_key_rank_cfg[5*AMOUNT_BYTE_FOR_KEPRF]),
-//			(void*)&(holderAtrCmd.UNAtrCmd.chArAtrCmd[0]));
-//			AppReqTransmitAtrCmd ++;
-//			chReqKeyCallAtrCmd &= ~(1<<5);
-//		}
-//	}
+	if(chReqKeyCallAtrCmd &(1<<3)){ //F4
+		i = arChTmrActivation[3];//Ctr
+		if(i== 0 && AppReqTransmitAtrCmd==0){
+			PutAtrCmdData((void*)&(eeprom_prt_tbl.uc_ar_key_rank_cfg[3*AMOUNT_BYTE_FOR_KEPRF]),
+			(void*)&(holderAtrCmd.UNAtrCmd.chArAtrCmd[0]));
+			i = ActivateTrAtrCmdExec((void*)&holderAtrCmd,(SIZE_ATR_CMD ));
+			if(i==(-1)){
+				chReqKeyCallAtrCmd &= ~(1<<3);
+				AppReqTransmitAtrCmd ++;
+			}	
+			arChTmrActivation[3] = i = 41;
+		}
+	}
+
+	
+	if(chReqKeyCallAtrCmd &(1<<4)){ //F5
+		i = arChTmrActivation[4];//Ctr
+		if(i== 0 && AppReqTransmitAtrCmd==0){
+			PutAtrCmdData((void*)&(eeprom_prt_tbl.uc_ar_key_rank_cfg[4*AMOUNT_BYTE_FOR_KEPRF]),
+			(void*)&(holderAtrCmd.UNAtrCmd.chArAtrCmd[0]));
+			i = ActivateTrAtrCmdExec((void*)&holderAtrCmd,(SIZE_ATR_CMD ));
+			if(i==(-1)){
+				chReqKeyCallAtrCmd &= ~(1<<4);
+				AppReqTransmitAtrCmd ++;
+			}	
+			arChTmrActivation[4] = i = 41;
+		}
+	}
+
+	
+	if(chReqKeyCallAtrCmd &(1<<5)){ //F6
+		i = arChTmrActivation[5];//Ctr
+		if(i== 0 && AppReqTransmitAtrCmd==0){
+			PutAtrCmdData((void*)&(eeprom_prt_tbl.uc_ar_key_rank_cfg[5*AMOUNT_BYTE_FOR_KEPRF]),
+			(void*)&(holderAtrCmd.UNAtrCmd.chArAtrCmd[0]));
+			i = ActivateTrAtrCmdExec((void*)&holderAtrCmd,(SIZE_ATR_CMD ));
+			if(i==(-1)){
+				chReqKeyCallAtrCmd &= ~(1<<5);
+				AppReqTransmitAtrCmd ++;
+			}	
+			arChTmrActivation[5] = i = 41;
+		}
+	}
 
 	
 	
@@ -1049,8 +1078,8 @@ void CheckQueueAtrCmd(void)
 }
 	
 const char arAtrs_f_IN_Cmd_f [] = { 
-HVSW_ON_DI_ATRFG_ONB   ,//HVSW_ON_DI_F_EPRF_ONB                 ,// Вкл. ВВ 
-HVSW_OFF_DI_ATRFG_ONB  ,//HVSW_OFF_DI_F_EPRF_ONB                ,// Откл. ВВ 
+HVSW_ON_DI_ATRFG_ONB   		  ,//HVSW_ON_DI_F_EPRF_ONB                 ,// Вкл. ВВ 
+HVSW_OFF_DI_ATRFG_ONB  		  ,//HVSW_OFF_DI_F_EPRF_ONB                ,// Откл. ВВ 
 RESET_SIGOUT_DI_ATRFG_ONB     ,//RESET_SIGOUT_DI_F_EPRF_ONB            ,// Сброс Реле
 RESET_LED_DI_ATRFG_ONB        ,//RESET_LED_DI_F_EPRF_ONB               ,// Сброс индикаци
 //

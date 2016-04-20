@@ -204,7 +204,7 @@ typedef struct tag_KbdU32
 extern void StartUPInitKBD(void);
 extern void kbd_scan(void*pv);
 extern KbdUNFldHolderDsc hldScanCode;
-
+extern char arChTmrActivation [6];
 //extern unsigned int uiCtrHideScr; 
 //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 //~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~

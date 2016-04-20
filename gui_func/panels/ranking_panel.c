@@ -1680,7 +1680,7 @@ void rank_panel_init() {
   FRAMEWIN_SetFont(rankMultiPageWin, &GUI_FontArialBold14_8_Unicode);
   FRAMEWIN_SetTitleVis(rankMultiPageWin, 0/*hidden*/);
   
-  //Главная панель вкладок
+  //Главная панель вкладокgit
   rankHMultiPage = MULTIPAGE_CreateEx(
       RANK_PG_X, RANK_PG_Y,
       RANK_PG_WIDTH2, RANK_PG_HEIGHT2,
