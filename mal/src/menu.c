@@ -4228,10 +4228,18 @@ void main_menu_function(void)
               }
               else command_state |= (1 << ERROR_FIXED);
             }
+#ifdef KBD_2016
+            else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_BACK_SPACE) != 0)
+#else
             else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_TAB) != 0)
+#endif
             {
               //Зафіксована натиснута кнопка TAB(має бути насправді Backspace)
+#ifdef KBD_2016
+              _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_BACK_SPACE);
+#else
               _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_TAB);
+#endif
               
               if (
                   (key_pressed[0] == 0) &&
