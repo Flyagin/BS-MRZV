@@ -680,6 +680,8 @@ extern void HSU2StallHundler(void);
 extern void TeleMechsRvServCTpuApCnUnit(void);
 extern int AppReqReceiveTeleMechs ;
 extern void TestCopyTeleMechsData(void);
+extern int AppReqReceiveApcs;
+extern void ApcsRvServCTpuApCnUnit(void);
 
 extern void DiagnProcess100msEvt(void);
 extern void ProcessTransmitStubSeqSpi(void);

@@ -29,16 +29,17 @@
 * 000  NEW  11/03/14   Markovsky A       Creation
 *----------------------------------------------------------------------------*/
 
-
+#include <string.h>
 #include    "Apcs.h"
 ApcsHldDsc holderApcs = {
-
-{0,0,0,0}
+{0},
+{0,0}
 };
 
 ApcsHldDsc holderApcsIciCopy = {
+{0},
+{0,0}
 
-{0,0,0,0}
 };
 
 //#include "constants.h"
@@ -60,7 +61,7 @@ ApcsHldDsc holderApcsIciCopy = {
 ApcsWrpDsc hldApcsWrp = {
 
 #ifdef __TYPE_DEFINITION__
-sizeof(SIZE_APCS ),	(void*)	&holderApcs.UNApcs.lArApcs[0],		
+sizeof(SIZE_APCS ),	(void*)	&holderApcs,		
 #endif
 #ifndef __TYPE_DEFINITION__
 0,	(void*)	0,
@@ -271,23 +272,23 @@ else
 			((RVBaseCTpuUnitDsc*)pv)->ulRvCount = lID;
 			if (lID >= (long)(SIZE_APCS))
 			{
-				 pvLDC = ((RVBaseCTpuUnitDsc*)pv)->pUchRV;
-				 i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalChange;i++;
-				((ApcsHldDsc*)pvLDC)-> statistics.lTotalChange = i;
+				// pvLDC = ((RVBaseCTpuUnitDsc*)pv)->pUchRV;
+				// i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalChange;i++;
+				//((ApcsHldDsc*)pvLDC)-> statistics.lTotalChange = i;
 				//Sucess Terminate Session
 				if (lID == (long)(SIZE_APCS))
 				{
 					//Activate App Func
 					AppReqReceiveApcs++;
-					i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalGoodChange;i++;
-					((ApcsHldDsc*)pvLDC)-> statistics.lTotalGoodChange = i;
+					//i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalGoodChange;i++;
+					//((ApcsHldDsc*)pvLDC)-> statistics.lTotalGoodChange = i;
 				}
 				else{
 						 //pvLDC = ((RVBaseCTpuUnitDsc*)pv)->pUchRV;
-						i = ((ApcsHldDsc*)pvLDC)-> statistics.lErrors;i++;
-						((ApcsHldDsc*)pvLDC)-> statistics.lErrors = i;
-						i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalBadChange;i++;
-						((ApcsHldDsc*)pvLDC)-> statistics.lTotalBadChange = i;
+						//i = ((ApcsHldDsc*)pvLDC)-> statistics.lErrors;i++;
+						//((ApcsHldDsc*)pvLDC)-> statistics.lErrors = i;
+						//i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalBadChange;i++;
+						//((ApcsHldDsc*)pvLDC)-> statistics.lTotalBadChange = i;
 						
 				}
 				 sLV.chNeedClrSesData++;
@@ -298,13 +299,13 @@ else
 		{
 			;//Error Sesion
 			
-			 pvLDC = ((RVBaseCTpuUnitDsc*)pv)->pUchRV;
-			i = ((ApcsHldDsc*)pvLDC)-> statistics.lErrors;i++;
-			((ApcsHldDsc*)pvLDC)-> statistics.lErrors = i;
-			i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalBadChange;i++;
-			((ApcsHldDsc*)pvLDC)-> statistics.lTotalBadChange = i;
-			i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalChange;i++;
-			((ApcsHldDsc*)pvLDC)-> statistics.lTotalChange = i;
+			// pvLDC = ((RVBaseCTpuUnitDsc*)pv)->pUchRV;
+			//i = ((ApcsHldDsc*)pvLDC)-> statistics.lErrors;i++;
+			//((ApcsHldDsc*)pvLDC)-> statistics.lErrors = i;
+			//i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalBadChange;i++;
+			//((ApcsHldDsc*)pvLDC)-> statistics.lTotalBadChange = i;
+			//i = ((ApcsHldDsc*)pvLDC)-> statistics.lTotalChange;i++;
+			//((ApcsHldDsc*)pvLDC)-> statistics.lTotalChange = i;
 			 sLV.chNeedClrSesData++;
 			
 			
@@ -329,7 +330,12 @@ void ApcsRvServCTpuApCnUnit(void)
 {
 
 AppReqReceiveApcs = 0;
+memcpy((void*)&holderApcsIciCopy,
+(const void*)&holderRVApcsSOCTpuUnit.RvCnHldr.pUchRV,
+ SIZE_APCS);
+////Inform Other
 
+// ,
 }
 
 

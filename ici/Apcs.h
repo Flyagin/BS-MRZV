@@ -30,31 +30,37 @@
 *----------------------------------------------------------------------------*/
 #ifndef Apcs_H
 #define Apcs_H
-#ifndef __TYPE_DEFINITION__
-#define SIZE_APCS 20
-#endif 
+
+typedef struct HvpBrOnCalcInfo_TAG{
+
+	long lResourceCB;   //Resurs Vikluchtelya
+	long lAmountSetOnCB;//Kol-vo otkl
+
+}HvpBrOnCalcInfoDsc;
+
+
+
+#define __TYPE_DEFINITION__
 #ifdef __TYPE_DEFINITION__
-//#define SIZE_APCS ( ((sizeof( __MEASUREMENT_TO_PROTECTION )>>2)<<2) + 4*(1&&(sizeof(__MEASUREMENT_TO_PROTECTION ))&3) )
+#define SIZE_WRP 1
+#define SIZE_APCS ( sizeof(HvpBrOnCalcInfoDsc)+SIZE_WRP)
+#else
 #define SIZE_APCS 20
 #endif
 typedef struct tag_ApcsHldDsc
 {
+	char  chArWrp[SIZE_WRP];//Header Info
 	union 
 	{
 	    	char   chArApcs [SIZE_APCS];
 	    	long   lArApcs  [SIZE_APCS>>2];
 #ifdef __TYPE_DEFINITION__
 			//Obj xxx_Apcs;
+			HvpBrOnCalcInfoDsc hldHvpBrOnCalcInfo;
 #endif
             
 	}UNApcs;
-	struct
-	{
-		long lErrors;
-		long lTotalBadChange;
-		long lTotalGoodChange;
-		long lTotalChange;
-	}statistics;
+	
 }ApcsHldDsc;
 
 

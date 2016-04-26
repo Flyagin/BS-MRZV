@@ -955,6 +955,8 @@ long SetCmdHVPS(void *p_in_param, int nID_Activation)
 				else
 					return ERROR_EXEC;
 			}
+			else
+				return STATE_EXEC;
 			
 		//}
 	}

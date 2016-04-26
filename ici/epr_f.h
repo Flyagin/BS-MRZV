@@ -634,7 +634,58 @@ RESET_OT7_DI_F_EPRF_ONB               ,//Вх Сброс От7
 SET_OT8_DI_F_EPRF_ONB                 ,//Вх   Уст От8   
 RESET_OT8_DI_F_EPRF_ONB               ,//Вх Сброс От8 
 
+
+
 RESERV_MAX_F_EPRF_ONB
+
+
+
+};
+
+enum ENMEpr_F_Key_Mnu_f {
+
+HVSW_ON_DI_F_CMD_ONB                 ,// Вкл. ВВ 
+HVSW_OFF_DI_F_CMD_ONB                ,// Откл. ВВ 
+RESET_SIGOUT_DI_F_CMD_ONB            ,// Сброс Реле
+RESET_LED_DI_F_CMD_ONB               ,// Сброс индикаци
+
+EDF01_DI_F_CMD_ONB                   ,// Вх Оф 01  
+EDF02_DI_F_CMD_ONB                   ,// Вх Оф 02 
+EDF03_DI_F_CMD_ONB                   ,// Вх Оф 03 
+EDF04_DI_F_CMD_ONB                   ,// Вх Оф 04 
+EDF05_DI_F_CMD_ONB                   ,// Вх Оф 05 
+EDF06_DI_F_CMD_ONB                   ,// Вх Оф 06 
+EDF07_DI_F_CMD_ONB                   ,// Вх Оф 07 
+EDF08_DI_F_CMD_ONB                   ,// Вх Оф 08 
+EDF09_DI_F_CMD_ONB                   ,// Вх Оф 09 
+EDF10_DI_F_CMD_ONB                   ,// Вх Оф 10 
+EDF11_DI_F_CMD_ONB                   ,// Вх Оф 11 
+EDF12_DI_F_CMD_ONB                   ,// Вх Оф 12 
+EDF13_DI_F_CMD_ONB                   ,// Вх Оф 13 
+EDF14_DI_F_CMD_ONB                   ,// Вх Оф 14 
+EDF15_DI_F_CMD_ONB                   ,// Вх Оф 15 
+EDF16_DI_F_CMD_ONB                   ,// Вх Оф 16 
+
+SET_OT1_DI_F_CMD_ONB                 ,//Вх Уст   От1 
+RESET_OT1_DI_F_CMD_ONB               ,//Вх Сброс От1 
+SET_OT2_DI_F_CMD_ONB                 ,//Вх   Уст От2   
+RESET_OT2_DI_F_CMD_ONB               ,//Вх Сброс От2 
+SET_OT3_DI_F_CMD_ONB                 ,//Вх   Уст От3   
+RESET_OT3_DI_F_CMD_ONB               ,//Вх Сброс От3 
+SET_OT4_DI_F_CMD_ONB                 ,//Вх   Уст От4   
+RESET_OT4_DI_F_CMD_ONB               ,//Вх Сброс От4 
+SET_OT5_DI_F_CMD_ONB                 ,//Вх Уст   От5 
+RESET_OT5_DI_F_CMD_ONB               ,//Вх Сброс От5 
+SET_OT6_DI_F_CMD_ONB                 ,//Вх Уст   От6   
+RESET_OT6_DI_F_CMD_ONB               ,//Вх Сброс От6 
+SET_OT7_DI_F_CMD_ONB                 ,//Вх   Уст От7   
+RESET_OT7_DI_F_CMD_ONB               ,//Вх Сброс От7 
+SET_OT8_DI_F_CMD_ONB                 ,//Вх   Уст От8   
+RESET_OT8_DI_F_CMD_ONB               ,//Вх Сброс От8 
+
+RESET_HCB_MNU_CMD_ONB,
+
+RESERV_MAX_F_CMD_ONB
 
 
 

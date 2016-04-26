@@ -85,7 +85,7 @@ RVYustTransportCTpuUnitDsc hldrRVYustTransportCTpuUnit;
 TRApcsSOCTpuUnitDsc  holderTRApcsSOCTpuUnit;
 RVApcsSOCTpuUnitDsc  holderRVApcsSOCTpuUnit = {
  {0,0,0,0},//{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
- {0,0, SIZE_TPDU_APCS_CNL_SPI,0,0,(void*)&holderApcs.UNApcs.chArApcs[0]}
+ {0,0, SIZE_TPDU_APCS_CNL_SPI,0,0,(void*)&holderApcs}
  };
  
 

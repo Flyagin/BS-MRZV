@@ -42,22 +42,26 @@ Bs9g45_sram/
 Bs_G45_ddr/
 # Ігнорувати файли з папки Bs9g45_flash/
 Bs9g45_flash/
-# Ігнорувати файли з папки EWP/Debug/List/
-EWP/Debug/List/
-# Ігнорувати файли з папки EWP/Debug/Obj/
-EWP/Debug/Obj/
+# Ігнорувати файли з папки EWP_7502/Debug/List/
+EWP_7502/Debug/List/
+# Ігнорувати файли з папки EWP_7502/Debug/Obj/
+EWP_7502/Debug/Obj/
 
-# Ігнорувати файли з папки EWP/
-EWP/*.*
+# Ігнорувати файли з папки EWP_7502/
+EWP_7402/*.*
+# Ігнорувати файли з папки EWP_7502/
+EWP_7502/*.*
+# Ігнорувати файли з папки EWP_7502/
+EWP_7601/*.*
 # Але залишити EWP/*.ewd
-!EWP/*.ewd
+!EWP_7502/*.ewd
 # Але залишити EWP/*.ewp
-!EWP/*.ewp
+!EWP_7502/*.ewp
 # Але залишити EWP/*.ewt
-!EWP/*.ewt
+!EWP_7502/*.ewt
 # Але залишити EWP/*.jflash
-!EWP/*.jflash
+!EWP_7502/*.jflash
 # Але залишити EWP/*.icf
-!EWP/*.icf
+!EWP_7502/*.icf
 # Але залишити EWP/*.mac
-!EWP/*.mac
+!EWP_7502/*.mac

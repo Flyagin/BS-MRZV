@@ -280,7 +280,7 @@ struct
 if(chEntry_Spi0>=2)
 	{
 	   i = chEntry_Spi0;//StubForSpiChanel1();
-	   AT91C_BASE_PIOD->PIO_SODR = (0x2);
+	   //End spi0 AT91C_BASE_PIOD->PIO_SODR = (0x2); 
 		if( (chLogicSpi0HdwError) ||(chEntry_Spi0 !=2) )
 		ReInitSpi0Param();
 		else

@@ -1146,7 +1146,7 @@ j = ((TRStateLpuSpiDsc*)pv)->lCapicity;
 
 i = OutSpi0((unsigned char *)&hldrSpiLpduTRUnit.arUch[0],SIZE_LPDU_CNL_SPI);	
  SPI0_DMA_Enable();
-AT91C_BASE_PIOD->PIO_CODR = (0x2);
+//End spi0 AT91C_BASE_PIOD->PIO_CODR = (0x2);
 
 Rst_LpduSpi_TpCnState();
 }

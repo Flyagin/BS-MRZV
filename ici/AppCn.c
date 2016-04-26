@@ -719,6 +719,8 @@ void UpdateAppData(void)  @ "Fast_function"
 		TeleMechsRvServCTpuApCnUnit();
 	
 	}
+	if(AppReqReceiveApcs)
+		ApcsRvServCTpuApCnUnit();
 	
 }
 
