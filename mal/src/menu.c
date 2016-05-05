@@ -726,6 +726,14 @@ void main_menu_function(void)
                       }
                       else
                       {
+                        Unreliable_error_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_UKR;
+                        Unreliable_error_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_RUS;
+                        Unreliable_error_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_ENG;
+                     
+                        Unreliable_error_message.ptitle[0] = UNRELIABLE_SETTINGS_MSG_UKR;
+                        Unreliable_error_message.ptitle[1] = UNRELIABLE_SETTINGS_MSG_RUS;
+                        Unreliable_error_message.ptitle[2] = UNRELIABLE_SETTINGS_MSG_ENG;
+                          
                         position_in_current_level_menu[current_ekran.current_level] = current_ekran.index_position;
                         previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR] = current_ekran.current_level;
                         current_ekran.current_level = ID_UNRELIABLE_ERROR;
@@ -856,6 +864,14 @@ void main_menu_function(void)
                         }
                         else
                         {
+                          Unreliable_error_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_UKR;
+                          Unreliable_error_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_RUS;
+                          Unreliable_error_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_ENG;
+                     
+                          Unreliable_error_message.ptitle[0] = UNRELIABLE_SETTINGS_MSG_UKR;
+                          Unreliable_error_message.ptitle[1] = UNRELIABLE_SETTINGS_MSG_RUS;
+                          Unreliable_error_message.ptitle[2] = UNRELIABLE_SETTINGS_MSG_ENG;
+                          
                           previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR] = current_ekran.current_level;
                           current_ekran.current_level = ID_UNRELIABLE_ERROR;
                         }
@@ -925,6 +941,14 @@ void main_menu_function(void)
                   }
                   else
                   {
+                    Unreliable_error_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_UKR;
+                    Unreliable_error_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_RUS;
+                    Unreliable_error_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_ENG;
+                     
+                    Unreliable_error_message.ptitle[0] = UNRELIABLE_SETTINGS_MSG_UKR;
+                    Unreliable_error_message.ptitle[1] = UNRELIABLE_SETTINGS_MSG_RUS;
+                    Unreliable_error_message.ptitle[2] = UNRELIABLE_SETTINGS_MSG_ENG;
+
                     position_in_current_level_menu[current_ekran.current_level] = current_ekran.index_position;
                     previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR] = current_ekran.current_level;
                     current_ekran.current_level = ID_UNRELIABLE_ERROR;
@@ -3933,9 +3957,62 @@ void main_menu_function(void)
                     if (enter != 0)
                     {
                       //Podaty komandu na actyvaciju komandy "Skydannja resursu vymykacha"
+                      
+#define SIZE_TMP_ARRAY ((RESERV_MAX_F_CMD_ONB >> 5) + 1)
+                      unsigned long tmp_array[SIZE_TMP_ARRAY];
+                      for (unsigned int i = 0; i < SIZE_TMP_ARRAY; i++) tmp_array[i] = 0;
+#undef SIZE_TMP_ARRAY
+                      _SET_BIT(tmp_array, RESET_HCB_MNU_CMD_ONB);
+                      long rez = SetCmdHVPS((void*)&tmp_array, 1);
+                      if (rez == 3)
+                      {
+                        current_modal_form = false;
+                      }
+                      else
+                      {
+                        Unreliable_error_level_2_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_CMD_UKR;
+                        Unreliable_error_level_2_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_CMD_RUS;
+                        Unreliable_error_level_2_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_CMD_ENG;
+                        
+                        if (rez == 2)
+                        {
+                          Unreliable_error_level_2_message.ptitle[0] = UNRELIABLE_WINDOW_INFO_1_MSG_UKR;
+                          Unreliable_error_level_2_message.ptitle[1] = UNRELIABLE_WINDOW_INFO_1_MSG_RUS;
+                          Unreliable_error_level_2_message.ptitle[2] = UNRELIABLE_WINDOW_INFO_1_MSG_ENG;
+                        }
+                        else
+                        {
+                          Unreliable_error_level_2_message.ptitle[0] = UNRELIABLE_WINDOW_INFO_2_MSG_UKR;
+                          Unreliable_error_level_2_message.ptitle[1] = UNRELIABLE_WINDOW_INFO_2_MSG_RUS;
+                          Unreliable_error_level_2_message.ptitle[2] = UNRELIABLE_WINDOW_INFO_2_MSG_ENG;
+                     
+                        }
+                        
+                        previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR_LEVEL_2] = previous_level_in_current_level_menu[ID_DIALOG_CONFIRMATION_LEVEL_2];						                 
+                        previous_level_in_current_level_menu[ID_DIALOG_CONFIRMATION_LEVEL_2] = ID_UNRELIABLE_ERROR_LEVEL_2;
+
+
+//                        if (WM_GetFocussedWindow() == hMenu_main)
+//                        {
+//                          current_ekran.current_level = previous_level_in_current_level_menu[ID_MAIN_MENU];
+//                          current_ekran.index_position = position_in_current_level_menu[current_ekran.current_level];
+//                
+//                          /*
+//                          Завершальною операцією є зняття команди на перемальованування
+//                          старого пункту меню і виставлення команди на обновлення нового 
+//                          пункту меню
+//                          */
+//                          command_state &= (unsigned int)(~(1 << REDRAW));
+//                          command_menu |= (1 << REWRITE_MENU);
+//                        }                        
+                      }
                     }
+                    else
+                    {
+                      current_modal_form = false;
+                    }
+
                     command_from_menu = 0;
-                    current_modal_form = false;
                   }
                   else if(set_new_Pick_up_Set == true)
                   {

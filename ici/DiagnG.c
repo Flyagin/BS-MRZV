@@ -1405,6 +1405,12 @@ ch_arRcdT1_WrBuf_WR_size = 0;
 
 }
 
+void GetDiagnfield(void* pDiagn){
+	if(pDiagn)
+	{
+		memcpy(pDiagn,(const void*)&hldUNN_PrgEvt,sizeof(UNN_PrgEvtBmBrBs) ); 
+	}
+}
 /*
 //exception
 long GetElemExcept(long lNmExcept, char* pChOutParam)

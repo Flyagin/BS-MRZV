@@ -44,7 +44,8 @@ long lActualPrTrObj;
 #include    "SmpWrp.h"
 #include "../LibG45/peripherals/pio/pio.h"
 #include    "CfgTbls.h"
-
+#include <string.h>
+#include <intrinsics.h>
 
 
 //extern AuxCfgTbl1Dsc pAuxCfgTbl1Dsc;
@@ -1146,6 +1147,105 @@ void Ici10msRing(void)
 
 
 }
+
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//---   
+long GetUserKeyIciSmallObjMgrData(ObjDataMgrDsc *pObjDataMgr) @ "Fast_function";
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~ Purpose:                          ~~~
+//~~~ Processing:                       ~~~
+//~~~        ~~~
+//~~~        ~~~
+//~~~        ~~~
+//``````````````````````````````````````````````````````````````````````````````````
+//~~~                                                                             ~~
+//~~~                                                                             ~~ 
+//~~~                                                                             ~~
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//=============================================================================
+//Body func                                                                  
+//=============================================================================
+long GetUserKeyIciSmallObjMgrData(ObjDataMgrDsc *pObjDataMgr)  @ "Fast_function"
+{
+register long i,j;
+//register void *pv;
+
+//TeleMechsMgrDsc  *pTeleMechsMgr = &hldTeleMechsMgr; 
+i = 0;
+__istate_t s = __get_interrupt_state();
+__disable_interrupt();
+j = (pObjDataMgr->ushRegisterdUsr);//&(1<<lUsrKey))
+ //Disable Irq
+	while( i<16 )
+	{
+		if ( (j&(1<<i))==0 )
+		{
+			pObjDataMgr->ushRegisterdUsr |= (1<< i);
+			 ++i;//break;
+			goto  ExitGetUserKeyIciSmallObjMgrData;
+		}	
+		i++; 
+	}
+	i = 0;//return 0;
+
+ExitGetUserKeyIciSmallObjMgrData:
+//Enable Irq
+ __set_interrupt_state(s);
+	return i;
+}
+//-----------------------------------------------------------------------------
+
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//---   
+long ReturnUserKeyIciSmallObjMgrData(long lKey,ObjDataMgrDsc *pObjDataMgr)
+ @ "Fast_function";
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~ Purpose:                          ~~~
+//~~~ Processing:                       ~~~
+//~~~        ~~~
+//~~~        ~~~
+//~~~        ~~~
+//``````````````````````````````````````````````````````````````````````````````````
+//~~~                                                                             ~~
+//~~~                                                                             ~~ 
+//~~~                                                                             ~~
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//=============================================================================
+//Body func                                                                  
+//=============================================================================
+long ReturnUserKeyIciSmallObjMgrData(long lKey,ObjDataMgrDsc *pObjDataMgr)
+  @ "Fast_function"
+{
+//register long i;
+//register void *pv;
+__istate_t s;
+//TeleMechsMgrDsc  *pTeleMechsMgr = &hldTeleMechsMgr; 
+
+	if ((lKey<1) || (lKey>16))
+	{
+		
+		goto ExitReturnUserKeyIciSmallObjMgrData;//Error
+	}
+ s = __get_interrupt_state();
+ __disable_interrupt();
+ //Disable Irq	
+lKey--;//i = lKey-1;
+pObjDataMgr->ushRegisterdUsr &= ~(1<< lKey);
+//Enable Irq
+	lKey++;//i = lKey;//return lKey;
+	 __set_interrupt_state(s);
+ExitReturnUserKeyIciSmallObjMgrData:
+
+return lKey; 
+}
+//-----------------------------------------------------------------------------
+
+
 
 
 

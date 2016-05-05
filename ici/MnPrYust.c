@@ -562,7 +562,7 @@ void TerminateServiceApCnPrYustTptFragment(void)
 void ActivateServTrApCnYustTptUnitHSU2Ack(void)
 {
 
-register long i,j;
+//register long i,j;
 register char *pch;
 register void* pv;
 

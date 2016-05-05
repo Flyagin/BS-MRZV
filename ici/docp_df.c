@@ -1662,7 +1662,7 @@ return lrVal;
 long CheckCorrectnesPrtTbl(void* pCfgTbl)
 {
  register long i;
-  register unsigned long j;
+ // register unsigned long j;
 register void *pv1,*pv2;
 volatile long lRes = 0;
 

@@ -84,7 +84,7 @@ void repaint_actions(__index_level_menu id_panel)
   {
     MENU_GetItem(hCommands, (ID_MENU_COMMANDS_1 + i), &Item);
     Item.pText = menu_option_title[15 + i].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
-    if (error_data)
+    if (error_data | error_data_1)
       Item.Flags = MENU_IF_DISABLED;
     else
       Item.Flags = 0;
@@ -305,6 +305,7 @@ void repaint_actions(__index_level_menu id_panel)
   case ID_UNRELIABLE_ERROR:
     {
       WM_HWIN *Dialog_FrameWin, *Dialog_Text, *Dialog_ESC_Button;
+      const char *pText, *pTitle;
       switch(id_panel)
       {
         case ID_UNRELIABLE_ERROR:
@@ -312,6 +313,9 @@ void repaint_actions(__index_level_menu id_panel)
           Dialog_FrameWin = &Unreliable_error_FrameWin;
           Dialog_Text = &UE_Text;
           Dialog_ESC_Button = &UE_ESC_Button;
+      
+          pTitle = Unreliable_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
+          pText = Unreliable_error_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
 
           break;
         }
@@ -320,6 +324,9 @@ void repaint_actions(__index_level_menu id_panel)
           Dialog_FrameWin = &Unreliable_error_level_2_FrameWin;
           Dialog_Text = &UE_level_2_Text;
           Dialog_ESC_Button = &UE_ESC_level_2_Button;
+      
+          pTitle = Unreliable_error_level_2_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
+          pText = Unreliable_error_level_2_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
 
           break;
         }
@@ -330,8 +337,8 @@ void repaint_actions(__index_level_menu id_panel)
       }
       
       WM_SetFocus(*Dialog_FrameWin);
-      FRAMEWIN_SetText(*Dialog_FrameWin, Unreliable_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
-      TEXT_SetText(*Dialog_Text, Unreliable_error_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      FRAMEWIN_SetText(*Dialog_FrameWin, pTitle);
+      TEXT_SetText(*Dialog_Text, pText);
       BUTTON_SetText(*Dialog_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       WM_SetFocus(*Dialog_ESC_Button);
 

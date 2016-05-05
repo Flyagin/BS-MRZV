@@ -32,8 +32,8 @@
 #include <string.h>
 #include    "Apcs.h"
 ApcsHldDsc holderApcs = {
-{0},
-{0,0}
+{0},//Header
+{0,0}//Body
 };
 
 ApcsHldDsc holderApcsIciCopy = {
@@ -41,6 +41,8 @@ ApcsHldDsc holderApcsIciCopy = {
 {0,0}
 
 };
+
+ObjDataMgrDsc hldApcsDataMgr;
 
 //#include "constants.h"
 //#include "type_definition.h"
@@ -191,6 +193,7 @@ struct
 	{
 		char chNeedClrSesData;
 		void *pOriginLDC;
+		ObjDataMgrDsc *phldApcsDataMgr;
 	} sLV;
 union 
 	    {
@@ -206,10 +209,15 @@ unnV1.uchAr[0] = ((LDCIDsc*)pvLDC)-> uchConMode;
 unnV1.uchAr[1] = ((LDCIDsc*)pvLDC)-> uchStartSesion;
 unnV1.uchAr[2] = ((LDCIDsc*)pvLDC)-> NumComSes;
 unnV1.uchAr[3] = 0;
-
+sLV.phldApcsDataMgr = &hldApcsDataMgr;
 pv  = (void*)&holderRVApcsSOCTpuUnit.RvCnHldr;
 if (unnV1.uchAr[0]== 0)
 {
+	
+	pv = (void*)sLV.phldApcsDataMgr;
+	i = ((ObjDataMgrDsc*)pv) ->chIsExec;i++;((ObjDataMgrDsc*)pv) ->chIsExec = i;
+	if(((ObjDataMgrDsc*)pv)->shCurCopyUser)
+	((ObjDataMgrDsc*)pv)->shCopyWasCorrupted |= ((ObjDataMgrDsc*)pv)->shCurCopyUser;
 	i = (((LDCIDsc*)pvLDC)->uchTR_C);//+ (((RVBaseCTpuUnitDsc*)pv)->ulRvCount);
 	if( i<= (long)(SIZE_APCS))
 	lID = ((LDCIDsc*)pvLDC)->uchTR_C;
@@ -231,6 +239,10 @@ if (unnV1.uchAr[0]== 0)
        i = 0;
 	//AppReqReceiveTotMeasR++;
 	AppReqReceiveApcs++;
+	pv = (void*)sLV.phldApcsDataMgr;
+	((ObjDataMgrDsc*)pv)->chDataWasCorrupted = 0;
+	i = ((ObjDataMgrDsc*)pv)->chIsExec;i--;
+	((ObjDataMgrDsc*)pv)->chIsExec = i;
 	//Clear All Ses Data
 	// sLV.chNeedClrSesData++;
 }
@@ -341,10 +353,81 @@ memcpy((void*)&holderApcsIciCopy,
 
 
 
+///////////////////////////////////////////////////////////////////////////////////////
+//..................................................................................///
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//---   функция получения данных о ресурсе ВВ
+extern long GetHvpBrOnCalcInfo(void* pHvpBrOnCalcInfoData);
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~ Purpose:                          ~~~
+//~~~ Processing:                       ~~~
+//~~~        ~~~
+//~~~        ~~~
+//~~~        ~~~
+//``````````````````````````````````````````````````````````````````````````````````
+//~~~                                                                             ~~
+//~~~                                                                             ~~ 
+//~~~                                                                             ~~
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//static long lUserKeyApcs = 0;
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//=============================================================================
+//Body func
+//=============================================================================
+long GetHvpBrOnCalcInfo(void* pHvpBrOnCalcInfoData){
+ register long i;
+ register long lUsrKey;
+
+ ObjDataMgrDsc *pApcsDataMgr = &hldApcsDataMgr;
+ ApcsHldDsc loc_hldApcs;
+ 
+	if(pApcsDataMgr->chDataWasCorrupted)
+	return ERROR_EXEC;//May be return copy?
+	lUsrKey = GetUserKeyIciSmallObjMgrData(pApcsDataMgr);
+	if(lUsrKey == 0)
+		return ERROR_EXEC;//Error Exit
+	lUsrKey--;
+	if (pApcsDataMgr-> chIsExec){
+		ReturnUserKeyIciSmallObjMgrData(lUsrKey,pApcsDataMgr  );
+		return STATE_EXEC;
+	}	
+//	if (pApcsDataMgr-> chDataWasCorrupted)
+//	return  ERROR_EXEC;	//???
+	i=3;
+	do{
+		(pApcsDataMgr->shCopyWasCorrupted) &= ~(1<< lUsrKey);
+	pApcsDataMgr->shCurCopyUser |= 1<< lUsrKey;
+		memcpy((void*)&loc_hldApcs,(const void*)&holderApcs,
+		SIZE_APCS );
+		pApcsDataMgr->shCurCopyUser &= ~(1<< lUsrKey);
+		//i = (pApcsDataMgr->shCopyWasCorrupted)&(1<<lUsrKey);
+		i--;
+	}while( i&&( (pApcsDataMgr->shCopyWasCorrupted)&(1<<lUsrKey)) );
+	ReturnUserKeyIciSmallObjMgrData(lUsrKey,pApcsDataMgr  );
+	if( i==0 &&
+	((pApcsDataMgr->shCopyWasCorrupted)&(1<<lUsrKey)) )
+	return ERROR_EXEC ;
+	memcpy(pHvpBrOnCalcInfoData,(const void*)holderApcs.UNApcs.chArApcs[0],SIZE_BODY_APCS);
 
 
+	
+	return SUCCESS_EXEC;
+}
+//-----------------------------------------------------------------------------
 
 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//=============================================================================
+//Body func                                                                  
+//=============================================================================
+long GetUserKeyHvpBrOnCalcInfo(void)  @ "Fast_function"
+{
+
+	return  GetUserKeyIciSmallObjMgrData(&hldApcsDataMgr);
+}
+//-----------------------------------------------------------------------------
 
 
 

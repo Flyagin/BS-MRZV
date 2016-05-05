@@ -59,6 +59,19 @@
 #define UNRELIABLE_SETTINGS_MSG_RUS             "Информация заблокирована. Необходимо активировать запись минимальных настроек."
 #define UNRELIABLE_SETTINGS_MSG_ENG             "Information is blocked. It is necessary to write the minimal settings."
 
+#define TITLE_UNRELIABLE_ERROR_CMD_UKR          "Операцыя выдхилена"
+#define TITLE_UNRELIABLE_ERROR_CMD_RUS          "Операция отклонена"
+#define TITLE_UNRELIABLE_ERROR_CMD_ENG          "The action is denied"
+
+#define UNRELIABLE_WINDOW_INFO_1_MSG_UKR        "Незавершена попредня активація команди." 
+#define UNRELIABLE_WINDOW_INFO_1_MSG_RUS        "Незаверешена предыдущая активация команды."
+#define UNRELIABLE_WINDOW_INFO_1_MSG_ENG        "The activation of previous command isn’t finished."
+
+
+#define UNRELIABLE_WINDOW_INFO_2_MSG_UKR        "Відбулася недокументована помилка." 
+#define UNRELIABLE_WINDOW_INFO_2_MSG_RUS        "Произошла еедокументированная ошибка."
+#define UNRELIABLE_WINDOW_INFO_2_MSG_ENG        "Undocumented error was happened."
+
 #define TITLE_LCD_SETTINGS_UKR                  "Налаштування РКІ"
 #define TITLE_LCD_SETTINGS_RUS                  "Настройки ЖКИ"
 #define TITLE_LCD_SETTINGS_ENG                  "LCD Settings"

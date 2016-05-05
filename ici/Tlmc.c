@@ -254,7 +254,7 @@ long  GetTeleMechsData(long lUsrKey, void *pBuf) @ "Fast_function";
 long GetTeleMechsData(long lUsrKey, void *pBuf) @ "Fast_function"
 {
 register long i;
-register void *pv;
+
 TeleMechsMgrDsc  *pTeleMechsMgr = &hldTeleMechsMgr; 
 
 i = ERROR_EXEC; 

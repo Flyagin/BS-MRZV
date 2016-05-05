@@ -379,7 +379,7 @@ OUT_OT8_ATRFG_ONB                    ,//Выход ОТ8
 RESERV_MAX_ATRFG_ONB
 
 };
-
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 #define AMOUNT_BYTE_FOR_KEPRF   (((RESERV_MAX_F_EPRF_ONB)>>3) +1) 
 #define AMOUNT_BYTE_FOR_ATRFG   (((RESERV_MAX_ATRFG_ONB)>>3) +1) 
 //~~~      - 
@@ -409,7 +409,10 @@ extern unsigned char uc_ar_atrf_cmd[AMOUNT_BYTE_FOR_ATRFG];// bit
 #else
 #define SIZE_ATR_CMD_INFO ( AMOUNT_BYTE_FOR_ATRFG)
 #endif 
-
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 typedef struct tag_AtrCmdHldDsc
 {
 	union 
@@ -447,14 +450,18 @@ typedef struct tag_AtrCmdHldDsc
 //		long lTotalChange;
 //	}statistics;
 }AtrCmdHldDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 #ifdef __TYPE_DEFINITION_ATR_CMD_BS_TO_BR__
 //#define SIZE_APCS ( ((sizeof( __MEASUREMENT_TO_PROTECTION )>>2)<<2) + 4*(1&&(sizeof(__MEASUREMENT_TO_PROTECTION ))&3) )
 
 #define SIZE_ATR_CMD  (sizeof( holderAtrCmd.UNAtrCmd.sBrAtrCmdInfoWrp ))
 #endif
 
-//extern __TOTAL_MEASUREMENT total_measurement;
 
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 typedef struct tag_AtrCmdWrpDsc//Wrapper 
 {
 
@@ -469,6 +476,7 @@ void *p_AtrCmd;        //
 		long lTotalChange;
 	}statistics;
 }AtrCmdWrpDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 extern int AppReqTransmitAtrCmd;
 extern int AppReqReceiveAtrCmd ;
@@ -477,10 +485,7 @@ extern AtrCmdHldDsc holderAtrCmd;
 extern AtrCmdHldDsc holderAtrCmdIciCopy;
 
 
-//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-//~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
-//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-//~~~~~~~~~~~~~~~~ 
+
 
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 //.extern void ActivateServTrApCnAtrCmdCTpuUnitSpi(void);
@@ -507,7 +512,10 @@ typedef long(*PFL_V )(void* pv);
 
 #endif /* ApCn_h */
 
-
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #define MAX_CMD     10
 typedef struct SecureExecState_TagIn
 {
@@ -546,17 +554,13 @@ typedef struct SecureExecState_TagIn
 	unsigned short ushDefaultTimeOutVal;
 	
 }SecureExecStateDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 #define INIT_PART     1
 #define TRANSMIT_PART 3
 #define TERMINATE_PART 20
 
-//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-//~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
-//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-//~~~~~~~~~~~~~~~~ 
 
-//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 /*
 Transmit Obj 
 Have           Pointer_Data & size_of_Data & potental sizeof_cutting
@@ -569,8 +573,10 @@ Need struct_of_jornal
 4)Info_Transmit/Info_Receive
 
 */
-
-
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 typedef struct CmnPipeLogDsc_Tag
 {
 	
@@ -587,6 +593,11 @@ typedef struct CmnPipeLogDsc_Tag
 	void* pvInfo;
 	
 }CmnPipeLogDsc;//Communication Pipe
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #define MAX_COMMUNICATE_ITERATION 1
 CmnPipeLogDsc arCmnPipeLogDsc[MAX_COMMUNICATE_ITERATION];
 
@@ -598,7 +609,11 @@ typedef struct tag_BFMemDsc{
 	unsigned short ushSizeChunk; 
 
 }ChankMemDsc;
-
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #define TOTAL_AMOUNT_INFO_RECORD 20
 #define BUFF_SIZE              2000
 typedef struct CmnPipeInfoBufDsc_TAG
@@ -614,9 +629,11 @@ typedef struct CmnPipeInfoBufDsc_TAG
 	
 	
 } CmnPipeInfoBufDsc;
-
-
-
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 typedef struct ReliableCmnDsc_TAG{
 
 	RVFrgDsc RvFrgAtrCmd;
@@ -632,7 +649,11 @@ typedef struct ReliableCmnDsc_TAG{
 	TRFrgDsc TrFrgAtrCmd;
 
 }ReliableCmnDsc;
-
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 typedef struct tag_ConvParam
 {
 	char  *pI8In  ;
@@ -642,6 +663,9 @@ typedef struct tag_ConvParam
 	
     //
 }ConvParamDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 /*
 typedef struct tag_ActivatorReq
 {
@@ -692,7 +716,7 @@ extern long chStateQueueAtrCmd;
 extern char chSizeQueueHldAtrCmd;
 
 //extern AtrCmdHldDsc arHldAtrCmd[ZIZE_QUEUE_ATR_CMD];
-
+extern ObjDataMgrDsc hldAtrCmdMgr;
 
 
 

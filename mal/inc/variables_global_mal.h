@@ -113,8 +113,8 @@ TITLE Dialog_error_level_2_message = {"", "", ""};
 
 WM_HWIN Unreliable_error_FrameWin = WM_UNATTACHED, UE_Text, UE_ESC_Button;
 WM_HWIN Unreliable_error_level_2_FrameWin = WM_UNATTACHED, UE_level_2_Text, UE_ESC_level_2_Button;
-const TITLE Unreliable_error_title = {TITLE_UNRELIABLE_ERROR_UKR, TITLE_UNRELIABLE_ERROR_RUS, TITLE_UNRELIABLE_ERROR_ENG};
-const TITLE Unreliable_error_message = {UNRELIABLE_SETTINGS_MSG_UKR, UNRELIABLE_SETTINGS_MSG_RUS, UNRELIABLE_SETTINGS_MSG_ENG};
+TITLE Unreliable_error_title, Unreliable_error_level_2_title;
+TITLE Unreliable_error_message, Unreliable_error_level_2_message;
 
 
 WM_HWIN Dialog_password_FrameWin = WM_UNATTACHED, DP_Edit, DP_ENTER_Button, DP_ESC_Button;

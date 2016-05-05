@@ -66,8 +66,8 @@ extern TITLE Dialog_error_level_2_message;
 
 extern WM_HWIN Unreliable_error_FrameWin, UE_Text, UE_ESC_Button;
 extern WM_HWIN Unreliable_error_level_2_FrameWin, UE_level_2_Text, UE_ESC_level_2_Button;
-extern const TITLE Unreliable_error_title;
-extern const TITLE Unreliable_error_message;
+extern TITLE Unreliable_error_title, Unreliable_error_level_2_title;
+extern TITLE Unreliable_error_message, Unreliable_error_level_2_message;
 
 extern WM_HWIN Dialog_password_FrameWin, DP_Edit, DP_ENTER_Button, DP_ESC_Button;
 extern WM_HWIN Dialog_password_level_2_FrameWin, DP_level_2_Edit, DP_ENTER_level_2_Button, DP_ESC_level_2_Button;

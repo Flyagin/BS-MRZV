@@ -97,6 +97,14 @@ static void _cbWinHandler(WM_MESSAGE * pMsg) {
                    }
                    else
                    {
+                     Unreliable_error_level_2_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_UKR;
+                     Unreliable_error_level_2_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_RUS;
+                     Unreliable_error_level_2_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_ENG;
+                     
+                     Unreliable_error_level_2_message.ptitle[0] = UNRELIABLE_SETTINGS_MSG_UKR;
+                     Unreliable_error_level_2_message.ptitle[1] = UNRELIABLE_SETTINGS_MSG_RUS;
+                     Unreliable_error_level_2_message.ptitle[2] = UNRELIABLE_SETTINGS_MSG_ENG;
+                     
                      previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR_LEVEL_2] = previous_level_in_current_level_menu[ID_MAIN_MENU];						                 
                      previous_level_in_current_level_menu[ID_MAIN_MENU] = ID_UNRELIABLE_ERROR_LEVEL_2;
                    }
@@ -131,6 +139,14 @@ static void _cbWinHandler(WM_MESSAGE * pMsg) {
                    }
                    else
                    {
+                     Unreliable_error_level_2_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_UKR;
+                     Unreliable_error_level_2_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_RUS;
+                     Unreliable_error_level_2_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_ENG;
+                     
+                     Unreliable_error_level_2_message.ptitle[0] = UNRELIABLE_SETTINGS_MSG_UKR;
+                     Unreliable_error_level_2_message.ptitle[1] = UNRELIABLE_SETTINGS_MSG_RUS;
+                     Unreliable_error_level_2_message.ptitle[2] = UNRELIABLE_SETTINGS_MSG_ENG;
+                     
                      previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR_LEVEL_2] = previous_level_in_current_level_menu[ID_MAIN_MENU];						                 
                      previous_level_in_current_level_menu[ID_MAIN_MENU] = ID_UNRELIABLE_ERROR_LEVEL_2;
                    }
@@ -165,6 +181,14 @@ static void _cbWinHandler(WM_MESSAGE * pMsg) {
                    }
                    else
                    {
+                     Unreliable_error_level_2_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_UKR;
+                     Unreliable_error_level_2_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_RUS;
+                     Unreliable_error_level_2_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_ENG;
+                     
+                     Unreliable_error_level_2_message.ptitle[0] = UNRELIABLE_SETTINGS_MSG_UKR;
+                     Unreliable_error_level_2_message.ptitle[1] = UNRELIABLE_SETTINGS_MSG_RUS;
+                     Unreliable_error_level_2_message.ptitle[2] = UNRELIABLE_SETTINGS_MSG_ENG;
+                     
                      previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR_LEVEL_2] = previous_level_in_current_level_menu[ID_MAIN_MENU];						                 
                      previous_level_in_current_level_menu[ID_MAIN_MENU] = ID_UNRELIABLE_ERROR_LEVEL_2;
                    }
