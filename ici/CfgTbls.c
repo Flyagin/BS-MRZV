@@ -1000,7 +1000,7 @@ void* pTbl;
     //    1 - Ub
     //    2 - Uc
 	
-    i = ((CfgTblDsc*)pTbl)-> ownrTr_Line.chLineWGV == I_SYN;
+    i = ((CfgTblDsc*)pTbl)-> ownrTr_Line.chLineWGV;// == I_SYN;
 	
 //	((__SETTINGS* )pDst)->a_Usyn_Isyn = ;
 //	else
