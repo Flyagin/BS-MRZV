@@ -52,8 +52,8 @@ enum __language_list {
 /**Message dialog****************************/
 
 /**measurements******************************/
-#define MEAS_UKR_FOURIER_UNITS  {" A"," A"," A"," A"," B"," B"," B"," B"," A"," B"," B"," A"," B"," A"," B"," A"}
-#define MEAS_UKR_SUM_EQUATION_UNITS  {" A"," A"," A"," A"," B"," B"," B"," B"," A"," B"," B"}
+#define MEAS_UKR_FOURIER_UNITS  {" A"," A"," A"," B"," B"," B"," B"," A"," B"," B"," A"," B"," A"," B"," A"}
+#define MEAS_UKR_SUM_EQUATION_UNITS  {" A"," A"," A"," B"," B"," B"," B"," A"," B"," B"}
 #define MEAS_UKR_ANGLE_UNITS    {"°", "°", "°", "°", "°", "°", "°", "°", "°", "°", "°", "°", "°", "°", "°", "°"}
 #define MEAS_UKR_RESISTANCES_UNITS {" Ом", " Ом", " Ом", " Ом", " Ом", " Ом", " Ом", " Ом", " Ом"}
 #define MEAS_UKR_SPEED_RESISTANCE_CHANGE_UNITS {" Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек", " Ом/сек"}
@@ -521,6 +521,16 @@ enum __language_list {
 #define MEAS_RUS_RESISTANCES_ANGLE_EXPL "Угол вект. сопрот."
 #define MEAS_RUS_OTHER_EXPL     "Др. измерения"
 
+#define MEAS_UKR_WINDING_FIRST " (перв.)"
+#define MEAS_RUS_WINDING_FIRST " (перв.)"
+#define MEAS_ENG_WINDING_FIRST " (prim.)"
+#define MEAS_UKR_WINDING_SECOND " (втор.)"
+#define MEAS_RUS_WINDING_SECOND " (втор.)"
+#define MEAS_ENG_WINDING_SECOND " (second.)"
+
+
+
+
 #define MEAS_RUS_FRM            "Измерения"
 /**measurements******************************/
 
@@ -955,8 +965,8 @@ enum __language_list {
 
 #define MEAS_ENG_FRM            "Measurements"
 
-#define MEAS_ENG_FOURIER_UNITS          {" A"," A"," A"," A"," V"," V"," V"," V"," A"," V"," V"," A"," V"," A"," V"," A"}
-#define MEAS_ENG_SUM_EQUATION_UNITS     {" A"," A"," A"," A"," V"," V"," V"," V"," A"," V"," V"}
+#define MEAS_ENG_FOURIER_UNITS          {" A"," A"," A"," V"," V"," V"," V"," A"," V"," V"," A"," V"," A"," V"," A"}
+#define MEAS_ENG_SUM_EQUATION_UNITS     {" A"," A"," A"," V"," V"," V"," V"," A"," V"," V"}
 #define MEAS_ENG_ANGLE_UNITS            MEAS_UKR_ANGLE_UNITS
 #define MEAS_ENG_RESISTANCES_UNITS      {" Ohm", " Ohm", " Ohm", " Ohm", " Ohm", " Ohm", " Ohm", " Ohm", " Ohm"}
 #define MEAS_ENG_SPEED_RESISTANCE_CHANGE_UNITS {" Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s", " Ohm/s"}

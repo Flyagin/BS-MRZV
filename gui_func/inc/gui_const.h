@@ -143,7 +143,7 @@ typedef struct {
 #define EDIT_WIDTH              GUI_X_MAX
 #define EDIT_HEIGHT             20
 
-#define EDIT_TEXT_MAX_LEN       70
+#define EDIT_TEXT_MAX_LEN       70 /*number of characters*/
 /*********************************************************************/
 
 /*********************************************************************
@@ -200,8 +200,8 @@ typedef enum __index_level_meas_dlg
   MAX_LEVEL_MEAS_PG
 } __index_level_meas_dlg;
 
-#define NUMBER_FOURIER_MEAS                     16
-#define NUMBER_SUM_EQUATION_MEAS                11
+#define NUMBER_FOURIER_MEAS                     15
+#define NUMBER_SUM_EQUATION_MEAS                10
 #define NUMBER_ANGLES_MEAS                      16
 #define NUMBER_COMMON_RESISTANCES_MEAS          9
 #define NUMBER_RESISTANCES_MEAS                 9

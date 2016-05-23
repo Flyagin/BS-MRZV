@@ -106,7 +106,7 @@ define symbol __ICFEDIT_size_irqstack__ = 0x60;
 define symbol __ICFEDIT_size_fiqstack__ = (3*4);
 define symbol __ICFEDIT_size_abtstack__ = (1*4);
 define symbol __ICFEDIT_size_undstack__ = (1*4);
-define symbol __ICFEDIT_size_heap__     = 0x400;
+define symbol __ICFEDIT_size_heap__     = 0x0;
 /*-Exports-*/
 export symbol __ICFEDIT_region_SRAM_start__;
 export symbol __ICFEDIT_region_DDR2_Bank0_start__;

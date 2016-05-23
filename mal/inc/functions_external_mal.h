@@ -7,8 +7,8 @@ extern void main_routines_for_spi1(void);
 
 extern void strcat_mal(char*, char*);
 extern int strlen_mal(char*);
-extern void strcpy_fly(char *, char *, int);
-extern char* strcat_heap_fly(char *, char *);
+//extern void strcpy_fly(char *, char *, int);
+//extern char* strcat_heap_fly(char *, char *);
 extern int strinsert_mal(char*, int, char*);
 extern int strdel_mal(char*, int, int);
 extern int strcmp_mal(char*, char*);

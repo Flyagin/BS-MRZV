@@ -63,6 +63,7 @@ extern WM_HWIN commonResistancesPg;
 extern TotMeasStateDsc pTotMeasStateDsc;
 
 extern LANG_ITEM _measItem[MAX_LEVEL_MEAS_PG];
+extern char * windingText[2][LANG_LIST_SIZE];
 
 extern char * meas_item_units[MAX_LEVEL_MEAS_PG][LANG_LIST_SIZE][MAX_NUMBER_MEAS];
 

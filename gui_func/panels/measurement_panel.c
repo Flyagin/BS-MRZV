@@ -1,7 +1,7 @@
 
 #include "header_mal.h"
 
-const char* pWindingSubstr[2][LANG_LIST_SIZE] = {{" (перв.)"," (перв.)"," (prim.)"}, {" (втор.)", " (втор.)", " (second.)"}};
+
 
 /*********************************************************************
 *
@@ -11,108 +11,102 @@ const char* pWindingSubstr[2][LANG_LIST_SIZE] = {{" (перв.)"," (перв.)"," (prim.
 static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate1[] = {
   { WINDOW_CreateIndirect, "Dialog 1", ID_MEAS_PG_0, MEAS_PG_X, MEAS_PG_Y, MEAS_PG_WIDTH, MEAS_PG_HEIGHT, 0 },
   
-  { TEXT_CreateIndirect, "3I0", ID_FIRST_FOURIER_MEAS, 10, 5, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "IA", ID_FIRST_FOURIER_MEAS + 1, 10, 20, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "IB", ID_FIRST_FOURIER_MEAS + 2, 10, 35, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "IC", ID_FIRST_FOURIER_MEAS + 3, 10, 50, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "3U0", ID_FIRST_FOURIER_MEAS + 4, 10, 65, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "UA", ID_FIRST_FOURIER_MEAS + 5, 10, 80, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "UB", ID_FIRST_FOURIER_MEAS + 6, 10, 95, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "UC", ID_FIRST_FOURIER_MEAS + 7, 10, 110, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "ISYN", ID_FIRST_FOURIER_MEAS + 8, 10, 125, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "IA", ID_FIRST_FOURIER_MEAS, 10, 5, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "IB", ID_FIRST_FOURIER_MEAS + 1, 10, 20, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "IC", ID_FIRST_FOURIER_MEAS + 2, 10, 35, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "3U0", ID_FIRST_FOURIER_MEAS + 3, 10, 50, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "UA", ID_FIRST_FOURIER_MEAS + 4, 10, 65, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "UB", ID_FIRST_FOURIER_MEAS + 5, 10, 80, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "UC", ID_FIRST_FOURIER_MEAS + 6, 10, 95, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "ISYN", ID_FIRST_FOURIER_MEAS + 7, 10, 110, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "USYN", ID_FIRST_FOURIER_MEAS + 8, 10, 125, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "USYN", ID_FIRST_FOURIER_MEAS + 9, 155, 5, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "UBC_TN2", ID_FIRST_FOURIER_MEAS + 10, 155, 20, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "I2", ID_FIRST_FOURIER_MEAS + 11, 155, 35, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "U2", ID_FIRST_FOURIER_MEAS + 12, 155, 50, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "I1", ID_FIRST_FOURIER_MEAS + 13, 155, 65, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "U1", ID_FIRST_FOURIER_MEAS + 14, 155, 80, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "I0", ID_FIRST_FOURIER_MEAS + 15, 155, 95, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "UBC_TN2", ID_FIRST_FOURIER_MEAS + 9, 155, 5, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "I2", ID_FIRST_FOURIER_MEAS + 10, 155, 20, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "U2", ID_FIRST_FOURIER_MEAS + 11, 155, 35, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "I1", ID_FIRST_FOURIER_MEAS + 12, 155, 50, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "U1", ID_FIRST_FOURIER_MEAS + 13, 155, 65, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "3I0", ID_FIRST_FOURIER_MEAS + 14, 155, 80, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 16, 40, 5, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 17, 40, 20, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 18, 40, 35, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 19, 40, 50, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 20, 40, 65, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 21, 40, 80, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 22, 40, 95, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 23, 40, 110, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 24, 40, 125, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 15, 40, 5, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 16, 40, 20, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 17, 40, 35, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 18, 40, 50, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 19, 40, 65, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 20, 40, 80, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 21, 40, 95, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 22, 40, 110, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 23, 40, 125, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 25, 205, 5, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 26, 205, 20, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 27, 205, 35, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 28, 205, 50, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 29, 205, 65, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 30, 205, 80, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 31, 205, 95, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 24, 205, 5, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 25, 205, 20, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 26, 205, 35, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 27, 205, 50, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 28, 205, 65, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_FOURIER_MEAS + 29, 205, 80, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 32, 55, 5, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 33, 55, 20, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 34, 55, 35, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 35, 55, 50, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 36, 55, 65, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 37, 55, 80, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 38, 55, 95, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 39, 55, 110, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 40, 55, 125, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 30, 55, 5, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 31, 55, 20, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 32, 55, 35, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 33, 55, 50, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 34, 55, 65, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 35, 55, 80, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 36, 55, 95, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 37, 55, 110, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 38, 55, 125, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 41, 220, 5, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 42, 220, 20, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 43, 220, 35, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 44, 220, 50, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 45, 220, 65, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 46, 220, 80, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_LAST_FOURIER_MEAS, 220, 95, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 }
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 39, 220, 5, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 40, 220, 20, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 41, 220, 35, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 42, 220, 50, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_FOURIER_MEAS + 43, 220, 65, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_LAST_FOURIER_MEAS, 220, 80, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 }
 };
 
 static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate2[] = {
   { WINDOW_CreateIndirect, "Dialog 2", ID_MEAS_PG_1, MEAS_PG_X, MEAS_PG_Y, MEAS_PG_WIDTH, MEAS_PG_HEIGHT, 0 },
   
-  { TEXT_CreateIndirect, "3I0", ID_FIRST_SUM_EQUATION_MEAS, 10, 5, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "IA", ID_FIRST_SUM_EQUATION_MEAS + 1, 10, 20, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "IB", ID_FIRST_SUM_EQUATION_MEAS + 2, 10, 35, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "IC", ID_FIRST_SUM_EQUATION_MEAS + 3, 10, 50, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "3U0", ID_FIRST_SUM_EQUATION_MEAS + 4, 10, 65, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "UA", ID_FIRST_SUM_EQUATION_MEAS + 5, 10, 80, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "UB", ID_FIRST_SUM_EQUATION_MEAS + 6, 10, 95, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "UC", ID_FIRST_SUM_EQUATION_MEAS + 7, 10, 110, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "ISYN", ID_FIRST_SUM_EQUATION_MEAS + 8, 10, 125, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "IA", ID_FIRST_SUM_EQUATION_MEAS, 10, 5, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "IB", ID_FIRST_SUM_EQUATION_MEAS + 1, 10, 20, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "IC", ID_FIRST_SUM_EQUATION_MEAS + 2, 10, 35, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "3U0", ID_FIRST_SUM_EQUATION_MEAS + 3, 10, 50, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "UA", ID_FIRST_SUM_EQUATION_MEAS + 4, 10, 65, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "UB", ID_FIRST_SUM_EQUATION_MEAS + 5, 10, 80, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "UC", ID_FIRST_SUM_EQUATION_MEAS + 6, 10, 95, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "ISYN", ID_FIRST_SUM_EQUATION_MEAS + 7, 10, 110, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "USYN", ID_FIRST_SUM_EQUATION_MEAS + 8, 10, 125, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "USYN", ID_FIRST_SUM_EQUATION_MEAS + 9, 155, 5, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "UBC_TN2", ID_FIRST_SUM_EQUATION_MEAS + 10, 155, 20, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "UBC_TN2", ID_FIRST_SUM_EQUATION_MEAS + 9, 155, 5, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 11, 40, 5, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 12, 40, 20, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 13, 40, 35, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 14, 40, 50, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 15, 40, 65, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 16, 40, 80, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 17, 40, 95, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 18, 40, 110, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 19, 40, 125, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 10, 40, 5, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 11, 40, 20, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 12, 40, 35, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 13, 40, 50, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 14, 40, 65, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 15, 40, 80, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 16, 40, 95, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 17, 40, 110, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 18, 40, 125, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 20, 205, 5, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 21, 205, 20, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "=", ID_FIRST_SUM_EQUATION_MEAS + 19, 205, 5, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 22, 55, 5, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 23, 55, 20, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 24, 55, 35, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 25, 55, 50, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 26, 55, 65, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 27, 55, 80, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 28, 55, 95, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 29, 55, 110, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 30, 55, 125, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 20, 55, 5, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 21, 55, 20, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 22, 55, 35, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 23, 55, 50, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 24, 55, 65, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 25, 55, 80, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 26, 55, 95, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 27, 55, 110, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 28, 55, 125, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "0", ID_FIRST_SUM_EQUATION_MEAS + 31, 220, 5, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_LAST_SUM_EQUATION_MEAS, 220, 20, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 }
+  { TEXT_CreateIndirect, "0", ID_LAST_SUM_EQUATION_MEAS, 220, 5, 90, MEAS_LABEL_HEIGHT, 0, 0x0, 0 }
 };
 
 static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate3[] = {
   { WINDOW_CreateIndirect, "Dialog 3", ID_MEAS_PG_2, MEAS_PG_X, MEAS_PG_Y, MEAS_PG_WIDTH, MEAS_PG_HEIGHT, 0 },
   
-  { TEXT_CreateIndirect, "? IC-UBC", ID_FIRST_ANGLES_MEAS, 10, 5, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "? IA-UBC", ID_FIRST_ANGLES_MEAS, 10, 5, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "? IB-UCA", ID_FIRST_ANGLES_MEAS + 1, 10, 20, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "? IC-UAB", ID_FIRST_ANGLES_MEAS + 2, 10, 35, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "? I2-U2", ID_FIRST_ANGLES_MEAS + 3, 10, 50, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -241,7 +235,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate5[] = {
 static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { WINDOW_CreateIndirect, "Dialog 6", ID_MEAS_PG_4, MEAS_PG_X, MEAS_PG_Y, MEAS_PG_WIDTH, MEAS_PG_HEIGHT, 0 },
   
-  { TEXT_CreateIndirect, "Ступень №1:", ID_MEAS_RES_SPEED_STAGE1_TEXT, 10, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–1:", ID_MEAS_RES_SPEED_STAGE1_TEXT, 10, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS, 10, 17, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 1, 10, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -255,7 +249,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 37, 75, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 38, 75, 45, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ступень №2:", ID_MEAS_RES_SPEED_STAGE2_TEXT, 10, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–2:", ID_MEAS_RES_SPEED_STAGE2_TEXT, 10, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 3, 10, 73, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 4, 10, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -269,7 +263,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 40, 75, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 41, 75, 101, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ступень №3:", ID_MEAS_RES_SPEED_STAGE3_TEXT, 10, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–3:", ID_MEAS_RES_SPEED_STAGE3_TEXT, 10, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 6, 10, 129, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 7, 10, 143, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -284,7 +278,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 44, 75, 157, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   
-  { TEXT_CreateIndirect, "Ступень №4:", ID_MEAS_RES_SPEED_STAGE4_TEXT, 155, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–4:", ID_MEAS_RES_SPEED_STAGE4_TEXT, 155, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 9, 155, 17, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 10, 155, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -298,7 +292,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 46, 200, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 47, 200, 45, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ступень №5:", ID_MEAS_RES_SPEED_STAGE5_TEXT, 155, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–5:", ID_MEAS_RES_SPEED_STAGE5_TEXT, 155, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 12, 155, 73, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 13, 155, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -312,7 +306,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 49, 200, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 50, 200, 101, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Общие:", ID_MEAS_RES_SPEED_COMMON_TEXT, 155, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РћР±С‰РёРµ:", ID_MEAS_RES_SPEED_COMMON_TEXT, 155, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Zab", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 15, 155, 129, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zbc", ID_FIRST_SPEED_RESISTANCE_CHANGE_MEAS + 16, 155, 143, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -330,7 +324,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate6[] = {
 static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { WINDOW_CreateIndirect, "Resistance Angle Dialog", ID_RESISTANCE_ANGLE_PG, MEAS_PG_X, MEAS_PG_Y, MEAS_PG_WIDTH, MEAS_PG_HEIGHT, 0 },
   
-  { TEXT_CreateIndirect, "Ступень №1:", ID_MEAS_RES_ANGLE_STAGE1_TEXT, 10, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–1:", ID_MEAS_RES_ANGLE_STAGE1_TEXT, 10, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS, 10, 17, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 1, 10, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -344,7 +338,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 37, 75, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 38, 75, 45, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ступень №2:", ID_MEAS_RES_ANGLE_STAGE2_TEXT, 10, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–2:", ID_MEAS_RES_ANGLE_STAGE2_TEXT, 10, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 3, 10, 73, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 4, 10, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -358,7 +352,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 40, 75, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 41, 75, 101, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ступень №3:", ID_MEAS_RES_ANGLE_STAGE3_TEXT, 10, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–3:", ID_MEAS_RES_ANGLE_STAGE3_TEXT, 10, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 6, 10, 129, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 7, 10, 143, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -373,7 +367,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 44, 75, 157, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   
-  { TEXT_CreateIndirect, "Ступень №4:", ID_MEAS_RES_ANGLE_STAGE4_TEXT, 155, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–4:", ID_MEAS_RES_ANGLE_STAGE4_TEXT, 155, 3, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 9, 155, 17, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 10, 155, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -387,7 +381,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 46, 200, 31, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 47, 200, 45, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Ступень №5:", ID_MEAS_RES_ANGLE_STAGE5_TEXT, 155, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РЎС‚СѓРїРµРЅСЊ в„–5:", ID_MEAS_RES_ANGLE_STAGE5_TEXT, 155, 59, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Za0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 12, 155, 73, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zb0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 13, 155, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -401,7 +395,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasResistAngle[] = {
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 49, 200, 87, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "0", ID_FIRST_RESISTANCE_ANGLE_MEAS + 50, 200, 101, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "Общие:", ID_MEAS_RES_ANGLE_COMMON_TEXT, 155, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "РћР±С‰РёРµ:", ID_MEAS_RES_ANGLE_COMMON_TEXT, 155, 115, 70, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
   { TEXT_CreateIndirect, "Zab", ID_FIRST_RESISTANCE_ANGLE_MEAS + 15, 155, 129, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Zbc", ID_FIRST_RESISTANCE_ANGLE_MEAS + 16, 155, 143, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -438,7 +432,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate7[] = {
   { TEXT_CreateIndirect, "React.Pow.C", ID_FIRST_OTHER_MEAS + 16,    10, 245, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Full Pow.A", ID_FIRST_OTHER_MEAS + 17,     10, 260, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Full Pow.B", ID_FIRST_OTHER_MEAS + 18,     10, 275, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Full Pow.С", ID_FIRST_OTHER_MEAS + 19,     10, 290, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Full Pow.РЎ", ID_FIRST_OTHER_MEAS + 19,     10, 290, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Sum.Act.Pow.", ID_FIRST_OTHER_MEAS + 20,   10, 305, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Sum.React.Pow.", ID_FIRST_OTHER_MEAS + 21, 10, 320, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Sum.Full.Pow", ID_FIRST_OTHER_MEAS + 22,   10, 335, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
@@ -485,38 +479,38 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate7[] = {
   { TEXT_CreateIndirect, "=", ID_FIRST_OTHER_MEAS + 62, 110, 455, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "=", ID_FIRST_OTHER_MEAS + 63, 110, 470, 10, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 64, 125, 5,   50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 65, 125, 20,  50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 66, 125, 35,  50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 67, 125, 50,  50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 68, 125, 65,  50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 69, 125, 80,  50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 70, 125, 95,  50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 71, 125, 110, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 72, 125, 125, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 73, 125, 140, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 74, 125, 155, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 75, 125, 170, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 76, 125, 185, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 77, 125, 200, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 78, 125, 215, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 79, 125, 230, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 80, 125, 245, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 81, 125, 260, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 82, 125, 275, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 83, 125, 290, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 84, 125, 305, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 85, 125, 320, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 86, 125, 335, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 87, 125, 350, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 88, 125, 365, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 89, 125, 380, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 90, 125, 395, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 91, 125, 410, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 92, 125, 425, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 93, 125, 440, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 94, 125, 455, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "0", ID_LAST_OTHER_MEAS,       125, 470, 50, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 64, 125, 5,   80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 65, 125, 20,  80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 66, 125, 35,  80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 67, 125, 50,  80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 68, 125, 65,  80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 69, 125, 80,  80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 70, 125, 95,  80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 71, 125, 110, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 72, 125, 125, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 73, 125, 140, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 74, 125, 155, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 75, 125, 170, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 76, 125, 185, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 77, 125, 200, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 78, 125, 215, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 79, 125, 230, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 80, 125, 245, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 81, 125, 260, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 82, 125, 275, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 83, 125, 290, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 84, 125, 305, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 85, 125, 320, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 86, 125, 335, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 87, 125, 350, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 88, 125, 365, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 89, 125, 380, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 90, 125, 395, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 91, 125, 410, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 92, 125, 425, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 93, 125, 440, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_FIRST_OTHER_MEAS + 94, 125, 455, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "0", ID_LAST_OTHER_MEAS,       125, 470, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
 };
 
 /*********************************************************************
@@ -672,7 +666,6 @@ void update_measurement_pg() {
   #define _TEXT_MEAS_LENGTH_    17 //signe + max val + point + precision + unit
   
   #define MEAS_CONST_ARR {      \
-    INDEX_3I0,                  \
     INDEX_IA,                   \
     INDEX_IB,                   \
     INDEX_IC,                   \
@@ -689,7 +682,8 @@ void update_measurement_pg() {
     INDEX_U1,                   \
     INDEX_I0                    \
   };
-  #define PRECISIONS { 4,3,3,3,3,3,3,3,4,3,3,3,3,3,3,3 }
+
+  #define PRECISIONS { 3,3,3,3,3,3,3,4,3,3,3,3,3,3,3 }
 
   GetTotMeas(&gui_total_measurement);
   __TOTAL_MEASUREMENT* current_meas_p = &gui_total_measurement;
@@ -702,7 +696,22 @@ void update_measurement_pg() {
     for (int j = 0; j < _TEXT_MEAS_LENGTH_; j++) {
       text[j] = 0;
     }
-    _PARSE_INT_TO_DOUBLE_STR(current_meas_p -> measurement[meas_const_arr[cnt]], precisions[cnt], text);
+    if(eeprom_bs_settings_tbl.chWinding == 0){
+      if(cnt == INDEX_IA || cnt == INDEX_IB || cnt == INDEX_IC ||
+         cnt == INDEX_I0 || cnt == INDEX_I1 || cnt == INDEX_I2 ){
+             CfgTblDsc *point = &eeprom_prt_tbl;
+             _PARSE_INT_TO_DOUBLE_STR((current_meas_p -> measurement[meas_const_arr[cnt]] * point->ownrTr_Line.Ktrans_I), precisions[cnt], text);
+      }
+      else if(cnt == INDEX_UA || cnt == INDEX_UB || cnt == INDEX_UC ||
+              cnt == INDEX_3U0 || cnt == INDEX_U1 || cnt == INDEX_U2 ){
+                  CfgTblDsc *point = &eeprom_prt_tbl;
+                  _PARSE_INT_TO_DOUBLE_STR((current_meas_p -> measurement[meas_const_arr[cnt]] * point->ownrTr_Line.Ktrans_U), precisions[cnt], text);
+      }
+      else
+        _PARSE_INT_TO_DOUBLE_STR(current_meas_p -> measurement[meas_const_arr[cnt]], precisions[cnt], text);
+    }
+    else
+      _PARSE_INT_TO_DOUBLE_STR(current_meas_p -> measurement[meas_const_arr[cnt]], precisions[cnt], text);
     _CONCAT_STR(text, meas_item_units[ID_MEAS_FOURIER_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
@@ -718,7 +727,6 @@ void update_measurement_i_pg() {
   #define _TEXT_MEAS_I_LENGTH_          17 //signe + max val + point + precision + unit
   
   #define MEAS_I_CONST_ARR {    \
-    INDEX_3I0,                  \
     INDEX_IA,                   \
     INDEX_IB,                   \
     INDEX_IC,                   \
@@ -730,7 +738,7 @@ void update_measurement_i_pg() {
     INDEX_USYN,                 \
     INDEX_UBC_TN2               \
   };
-  #define PRECISIONS { 4,3,3,3,3,3,3,3,4,3,3 }
+  #define PRECISIONS { 3,3,3,3,3,3,3,4,3,3 }
 
   GetTotMeas(&gui_total_measurement);
   __TOTAL_MEASUREMENT* current_meas_p = &gui_total_measurement;
@@ -743,7 +751,22 @@ void update_measurement_i_pg() {
     for (int j = 0; j < _TEXT_MEAS_I_LENGTH_; j++) {
       text[j] = 0;
     }
-    _PARSE_INT_TO_DOUBLE_STR(current_meas_p -> measurement_i[meas_i_const_arr[cnt]], precisions[cnt], text);
+    if(eeprom_bs_settings_tbl.chWinding == 0){
+      if(cnt == INDEX_IA || cnt == INDEX_IB || cnt == INDEX_IC ){
+           CfgTblDsc *point = &eeprom_prt_tbl;
+           _PARSE_INT_TO_DOUBLE_STR( (current_meas_p -> measurement_i[meas_i_const_arr[cnt]] * point->ownrTr_Line.Ktrans_I), precisions[cnt], text);
+      }
+      else if(cnt == INDEX_UA || cnt == INDEX_UB || cnt == INDEX_UC ||
+              cnt == INDEX_3U0 ){
+                  CfgTblDsc *point = &eeprom_prt_tbl;
+                  _PARSE_INT_TO_DOUBLE_STR((current_meas_p -> measurement_i[meas_i_const_arr[cnt]] * point->ownrTr_Line.Ktrans_U), precisions[cnt], text);
+      }
+      else
+        _PARSE_INT_TO_DOUBLE_STR(current_meas_p -> measurement_i[meas_i_const_arr[cnt]], precisions[cnt], text);
+    }
+    else
+      _PARSE_INT_TO_DOUBLE_STR(current_meas_p -> measurement_i[meas_i_const_arr[cnt]], precisions[cnt], text);
+
     _CONCAT_STR(text, meas_item_units[ID_MEAS_SUM_EQUATION_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
@@ -775,7 +798,7 @@ void update_angles_pg() {
     current_meas_p -> angle[4],
     current_meas_p -> angle[5],
     current_meas_p -> angle[6],
-    current_meas_p -> angle[6],
+    current_meas_p -> angle[7],
     current_meas_p -> angle[8],
     current_meas_p -> angle[9]
   };
@@ -840,7 +863,12 @@ void update_resistances_pg() {
     for (int j = 0; j < _TEXT_RESISTANCES_LENGTH_; j++) {
       text[j] = 0;
     }
-    _PARSE_INT_TO_DOUBLE_STR(resistances_arr[cnt], precision, text);
+    if(eeprom_bs_settings_tbl.chWinding == 0){
+      CfgTblDsc *point = &eeprom_prt_tbl;
+      _PARSE_INT_TO_DOUBLE_STR((resistances_arr[cnt] * point->ownrTr_Line.Ktrans_U / point->ownrTr_Line.Ktrans_I), precision, text);
+    }
+    else
+      _PARSE_INT_TO_DOUBLE_STR(resistances_arr[cnt], precision, text);
     _CONCAT_STR(text, meas_item_units[ID_MEAS_RESISTANCES_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
@@ -884,7 +912,12 @@ void update_speed_resistance_change_pg() {
     for (int j = 0; j < _TEXT_SPEED_RESISTANCE_CHANGE_LENGTH_; j++) {
       text[j] = 0;
     }
-    _PARSE_INT_TO_DOUBLE_STR(speed_resistance_changes_arr[cnt], precision, text);
+    if(eeprom_bs_settings_tbl.chWinding == 0){
+      CfgTblDsc *point = &eeprom_prt_tbl;
+      _PARSE_INT_TO_DOUBLE_STR((speed_resistance_changes_arr[cnt] * point->ownrTr_Line.Ktrans_U / point->ownrTr_Line.Ktrans_I), precision, text);
+    }
+    else
+      _PARSE_INT_TO_DOUBLE_STR(speed_resistance_changes_arr[cnt], precision, text);
     _CONCAT_STR(text, meas_item_units[ID_MEAS_SPEED_RESISTANCE_CHANGE_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
     
@@ -938,7 +971,41 @@ void update_resistance_angle_pg() {
 }
 
 void update_other_meas_pg() {
-  #define _TEXT_OTHER_MEAS_LENGTH_   17 //signe + max val + point + precision + unit
+  #define _TEXT_OTHER_MEAS_LENGTH_   18 //signe + max val + point + precision + unit
+  
+  #define     INDEX_OTHER_F1                 0
+  #define     INDEX_OTHER_F2                 1
+  #define     INDEX_OTHER_SPEED_ANG          2
+  #define     INDEX_OTHER_LIN_IAB            3
+  #define     INDEX_OTHER_LIN_IBC            4
+  #define     INDEX_OTHER_LIN_ICA            5
+  #define     INDEX_OTHER_LIN_UAB            6
+  #define     INDEX_OTHER_LIN_UBC            7
+  #define     INDEX_OTHER_LIN_UCA            8
+  #define     INDEX_OTHER_U_DIFF             9
+  #define     INDEX_OTHER_U_LINE             10
+  #define     INDEX_OTHER_ACT_POW_A          11
+  #define     INDEX_OTHER_ACT_POW_B          12
+  #define     INDEX_OTHER_ACT_POW_C          13
+  #define     INDEX_OTHER_REACT_POW_A        14
+  #define     INDEX_OTHER_REACT_POW_B        15
+  #define     INDEX_OTHER_REACT_POW_C        16
+  #define     INDEX_OTHER_FULL_POW_A         17
+  #define     INDEX_OTHER_FULL_POW_B         18
+  #define     INDEX_OTHER_FULL_POW_C         19
+  #define     INDEX_OTHER_SUM_ACT_POW        20
+  #define     INDEX_OTHER_SUM_REACT_POW      21
+  #define     INDEX_OTHER_SUM_FULL_POW       22
+  #define     INDEX_OTHER_KOEFF_POW_A        23
+  #define     INDEX_OTHER_KOEFF_POW_B        24
+  #define     INDEX_OTHER_KOEFF_POW_C        25
+  #define     INDEX_OTHER_ACT_POW_PLUS       26
+  #define     INDEX_OTHER_ACT_POW_MINUS      27
+  #define     INDEX_OTHER_REACT_POW_Q1       28
+  #define     INDEX_OTHER_REACT_POW_Q2       29
+  #define     INDEX_OTHER_REACT_POW_Q3       30
+  #define     INDEX_OTHER_REACT_POW_Q4       31
+  
   
   GetTotMeas(&gui_total_measurement);
   __TOTAL_MEASUREMENT* current_meas_p = &gui_total_measurement;
@@ -967,9 +1034,9 @@ void update_other_meas_pg() {
     current_meas_p -> sum_power[0],
     current_meas_p -> sum_power[1],
     current_meas_p -> sum_power[2],
-    (long) ceil((current_meas_p -> power_coefficient[0]) * 1000),
-    (long) ceil((current_meas_p -> power_coefficient[1]) * 1000),
-    (long) ceil((current_meas_p -> power_coefficient[2]) * 1000),
+    (long) ceil((current_meas_p -> power_coefficient[0]) * 10000),
+    (long) ceil((current_meas_p -> power_coefficient[1]) * 10000),
+    (long) ceil((current_meas_p -> power_coefficient[2]) * 10000),
     (long) ceil((current_meas_p -> active_power_plus) * 1000),
     (long) ceil((current_meas_p -> active_power_minus) * 1000),
     (long) ceil((current_meas_p -> reactive_power_1q) * 1000),
@@ -980,7 +1047,7 @@ void update_other_meas_pg() {
   
   int cnt = 0;
   int precision_arr[NUMBER_OTHER_MEAS] = {
-    3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
+    3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 3, 3, 3, 3, 3, 3
   };
   char text[_TEXT_OTHER_MEAS_LENGTH_] = {0};
   for (int id = ID_FIRST_OTHER_MEAS + 2 * NUMBER_OTHER_MEAS; id <= ID_LAST_OTHER_MEAS; id++) {
@@ -990,7 +1057,35 @@ void update_other_meas_pg() {
     if (precision_arr[cnt] == 1) {
       _PARSE_INT_TO_STR(other_meas_arr[cnt], text);
     } else {
-      _PARSE_INT_TO_DOUBLE_STR(other_meas_arr[cnt], precision_arr[cnt], text);
+        if(eeprom_bs_settings_tbl.chWinding == 0){
+          if(cnt == INDEX_OTHER_LIN_IAB || cnt == INDEX_OTHER_LIN_IBC ||
+             cnt == INDEX_OTHER_LIN_ICA ){
+                 CfgTblDsc *point = &eeprom_prt_tbl;
+                 _PARSE_INT_TO_DOUBLE_STR((other_meas_arr[cnt] * point->ownrTr_Line.Ktrans_I), precision_arr[cnt], text);
+          }
+          else if(cnt == INDEX_OTHER_LIN_UAB || cnt == INDEX_OTHER_LIN_UBC ||
+                  cnt == INDEX_OTHER_LIN_UCA || cnt == INDEX_OTHER_U_DIFF ||
+                  cnt == INDEX_OTHER_U_LINE ){
+                     CfgTblDsc *point = &eeprom_prt_tbl;
+                     _PARSE_INT_TO_DOUBLE_STR((other_meas_arr[cnt] * point->ownrTr_Line.Ktrans_U), precision_arr[cnt], text);
+          }
+          else if(cnt == INDEX_OTHER_ACT_POW_A || cnt == INDEX_OTHER_ACT_POW_B ||
+                  cnt == INDEX_OTHER_ACT_POW_C || cnt == INDEX_OTHER_REACT_POW_A ||
+                  cnt == INDEX_OTHER_REACT_POW_B || cnt == INDEX_OTHER_REACT_POW_C ||
+                  cnt == INDEX_OTHER_FULL_POW_A || cnt == INDEX_OTHER_FULL_POW_B ||
+                  cnt == INDEX_OTHER_FULL_POW_C || cnt == INDEX_OTHER_SUM_ACT_POW ||
+                  cnt == INDEX_OTHER_SUM_REACT_POW || cnt == INDEX_OTHER_SUM_FULL_POW ||
+                  cnt == INDEX_OTHER_ACT_POW_PLUS || cnt == INDEX_OTHER_ACT_POW_MINUS ||
+                  cnt == INDEX_OTHER_REACT_POW_Q1 || cnt == INDEX_OTHER_REACT_POW_Q2 ||
+                  cnt == INDEX_OTHER_REACT_POW_Q3 || cnt == INDEX_OTHER_REACT_POW_Q4 ){
+                     CfgTblDsc *point = &eeprom_prt_tbl;
+                     _PARSE_INT_TO_DOUBLE_STR((other_meas_arr[cnt] * point->ownrTr_Line.Ktrans_I * point->ownrTr_Line.Ktrans_U), precision_arr[cnt], text);
+          }
+          else
+            _PARSE_INT_TO_DOUBLE_STR(other_meas_arr[cnt], precision_arr[cnt], text);
+        }
+        else
+          _PARSE_INT_TO_DOUBLE_STR(other_meas_arr[cnt], precision_arr[cnt], text);
     }
     _CONCAT_STR(text, meas_item_units[ID_MEAS_OTHER_PG][eeprom_bs_settings_tbl.chLngGUIText][cnt]);
     TEXT_SetText(WM_GetDialogItem(measMultiPageWin, id), text);
@@ -1014,7 +1109,7 @@ void measurement_panel_init() {
   measHMultiPage = MULTIPAGE_CreateEx(0, 0, frmWinWidth, frmWinHeight, WM_GetClientWindow(measMultiPageWin), WM_CF_SHOW, 0, 0);
   MULTIPAGE_SetFont(measHMultiPage, &GUI_FontArialBold14_8_Unicode);
   
-  /* Create and attache the MULTIPAGE dialog windows */
+  /* Create and attach the MULTIPAGE dialog windows */
   measPgs[ID_MEAS_FOURIER_PG] = GUI_CreateDialogBox(_aMeasPgCreate1,
                                 GUI_COUNTOF(_aMeasPgCreate1),
                                 &_cbDialog1, WM_UNATTACHED, 0, 0);
@@ -1159,17 +1254,16 @@ void meas_scrolling() {
 
 void select_meas_multipage(int index) {
   #define STAGE_NAME_LENGTH       25
-  char* p;
   char stageNum[2] = {0};
   char stageName[STAGE_NAME_LENGTH] = {0};
-  char editFullText[EDIT_TEXT_MAX_LEN] = {0};
+  char editFullText[2*EDIT_TEXT_MAX_LEN+1] = {0}; //у UTF-8 кирилічні символи складаються з двох байтів
   switch(current_ekran.index_position) {
     case ID_MEAS_RESISTANCES_PG:
       {
         if (resistancesPosition < MEAS_NUM_LEVEL_RESISTANCES - 1) {
           _PARSE_INT_TO_STR((resistancesPosition + 1), stageNum);
           _CONCAT_STR(stageName, stageText[eeprom_bs_settings_tbl.chLngGUIText]);
-          _CONCAT_STR(stageName, " №");
+          _CONCAT_STR(stageName, " в„–");
           _CONCAT_STR(stageName, stageNum);
           _CONCAT_STR(stageName, ") ");
           _CONCAT_STR(editFullText, _measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
@@ -1181,9 +1275,8 @@ void select_meas_multipage(int index) {
           _CONCAT_STR(editFullText, commonText[eeprom_bs_settings_tbl.chLngGUIText]);
           _CONCAT_STR(editFullText, ") ");
         }
-        p = (char*)(strcat_heap_fly((char*)editFullText, (char*)(pWindingSubstr[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText])));
-        EDIT_SetText(hEdit, p);
-        free(p);
+        _CONCAT_STR(editFullText, windingText[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText]);
+        EDIT_SetText(hEdit, editFullText);
         break;
       }
     case ID_MEAS_SPEED_RESISTANCE_CHANGE_PG:
@@ -1192,7 +1285,7 @@ void select_meas_multipage(int index) {
           if (i < MEAS_NUM_LEVEL_RESISTANCES - 1) {
             _PARSE_INT_TO_STR((i + 1), stageNum);
             _CONCAT_STR(stageName, stageText[eeprom_bs_settings_tbl.chLngGUIText]);
-            _CONCAT_STR(stageName, " №");
+            _CONCAT_STR(stageName, " в„–");
             _CONCAT_STR(stageName, stageNum);
             _CONCAT_STR(stageName, ": ");
           } else {
@@ -1204,9 +1297,9 @@ void select_meas_multipage(int index) {
             stageName[j] = '\0';
           }
         }
-        p = (char*)(strcat_heap_fly((char*)(_measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]), (char*)(pWindingSubstr[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText])));
-        EDIT_SetText(hEdit, p);
-        free(p);
+        _CONCAT_STR(editFullText, _measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
+        _CONCAT_STR(editFullText, windingText[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText]);
+        EDIT_SetText(hEdit, editFullText);
         break;
       }
     case ID_MEAS_RESISTANCE_ANGLE_PG:
@@ -1215,7 +1308,7 @@ void select_meas_multipage(int index) {
           if (i < MEAS_NUM_LEVEL_RESISTANCES - 1) {
             _PARSE_INT_TO_STR((i + 1), stageNum);
             _CONCAT_STR(stageName, stageText[eeprom_bs_settings_tbl.chLngGUIText]);
-            _CONCAT_STR(stageName, " №");
+            _CONCAT_STR(stageName, " в„–");
             _CONCAT_STR(stageName, stageNum);
             _CONCAT_STR(stageName, ": ");
           } else {
@@ -1227,16 +1320,16 @@ void select_meas_multipage(int index) {
             stageName[j] = '\0';
           }
         }
-        p = (char*)(strcat_heap_fly((char*)(_measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]), (char*)(pWindingSubstr[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText])));
-        EDIT_SetText(hEdit, p);
-        free(p);
+        _CONCAT_STR(editFullText, _measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
+        _CONCAT_STR(editFullText, windingText[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText]);
+        EDIT_SetText(hEdit, editFullText);
         break;
       }
     default:
       {
-        p = (char*)(strcat_heap_fly((char*)(_measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]), (char*)(pWindingSubstr[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText])));
-        EDIT_SetText(hEdit, p);
-        free(p);
+        _CONCAT_STR(editFullText, _measItem[index].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
+        _CONCAT_STR(editFullText, windingText[eeprom_bs_settings_tbl.chWinding][eeprom_bs_settings_tbl.chLngGUIText]);
+        EDIT_SetText(hEdit, editFullText);
         break;
       }
   }
