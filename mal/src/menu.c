@@ -7499,9 +7499,12 @@ void main_menu_function(void)
       case ID_TM_PG:
       case ID_DIAGNOSTICS_PG:
         {
+//#include "DiagnG.h"
+          
           WM_HWIN *Panel_Win;
           int *point_to_position_in_level_1_menu;
           unsigned int number_pages;
+          __DIAGN state_diagnostyka;
           
           switch (current_ekran.current_level)
           {
@@ -7527,20 +7530,34 @@ void main_menu_function(void)
             }
           case ID_DIAGNOSTICS_PG:
             {
+              GetDiagnfield(&state_diagnostyka);
+              
               number_pages = 4;
               
               Panel_Win = &Diagnostics_FrameWin;
               point_to_position_in_level_1_menu = position_in_level_1_menu_Diagnostics;
 
               unsigned int number_set_bits_1 = 0, number_set_bits_2 = 0, number_set_bits_3 = 0;
-              for (unsigned int j = 0; j < ALL_NUMB_DIAGNOSTICS; j++)
+              for (unsigned int j = 0; j < SIZE_BS_RAM_PRG_EVT_UNN; j++)
               {
                 unsigned int word = j >> 5;
                 unsigned int maska = 1 << (j & 0x1f);
                     
-                if (diagnostics_bs_mrzv_tmp  [word] & maska) number_set_bits_1++;
-                if (diagnostics_bo_mrzv_m_tmp[word] & maska) number_set_bits_2++;
-                if (diagnostics_bo_mrzv_l_tmp[word] & maska) number_set_bits_3++;
+                if (state_diagnostyka.hldrPrgEvtBs.UNBsRamPrgEvts.lArBsPrgEvts[word] & maska) number_set_bits_1++;
+              }
+              for (unsigned int j = 0; j < SIZE_BM_RAM_PRG_EVT_UNN; j++)
+              {
+                unsigned int word = j >> 5;
+                unsigned int maska = 1 << (j & 0x1f);
+                    
+                if (state_diagnostyka.hldrPrgEvtBm.UNBmRamPrgEvts.lArBmPrgEvts[word] & maska) number_set_bits_2++;
+              }
+              for (unsigned int j = 0; j < SIZE_BR_RAM_PRG_EVT_UNN; j++)
+              {
+                unsigned int word = j >> 5;
+                unsigned int maska = 1 << (j & 0x1f);
+                    
+                if (state_diagnostyka.hldrPrgEvtBr.UNBrRamPrgEvts.lArBrPrgEvts[word] & maska) number_set_bits_3++;
               }
               Diagnistics_max_number_bits[0] = number_set_bits_1;
               Diagnistics_max_number_bits[1] = number_set_bits_2;

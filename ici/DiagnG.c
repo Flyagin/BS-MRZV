@@ -1408,7 +1408,16 @@ ch_arRcdT1_WrBuf_WR_size = 0;
 void GetDiagnfield(void* pDiagn){
 	if(pDiagn)
 	{
-		memcpy(pDiagn,(const void*)&hldUNN_PrgEvt,sizeof(UNN_PrgEvtBmBrBs) ); 
+          // 
+         // memcpy(pDiagn,(const void*)&hldUNN_PrgEvt,sizeof(UNN_PrgEvtBmBrBs) );
+         // memcpy(pDiagn,(const void*)&hldUNN_PrgEvt,sizeof(__DIAGN) );
+          ((__DIAGN*)pDiagn)->hldrPrgEvtBm = hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBm;
+          ((__DIAGN*)pDiagn)->hldrPrgEvtBr = hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBr;
+          ((__DIAGN*)pDiagn)->hldrPrgEvtBs = hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBs;
+          
+          
+//((StateTpCnDsc*)pv)->
+
 	}
 }
 /*

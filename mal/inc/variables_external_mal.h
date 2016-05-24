@@ -273,13 +273,13 @@ extern SCROLLBAR_Handle ScrollBar_Diagnostics_Pages;
 extern WM_HWIN Diagnostics_Info[MAX_NUMBER_DIAGN_IN_PANEL];
 extern unsigned int Diagnistics_max_number_bits[4];
 
-extern char *diagnostics_bs_mrzv_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS];
-extern char *diagnostics_bo_mrzv_m_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS];
-extern char *diagnostics_bo_mrzv_l_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS];
+extern char *diagnostics_bs_mrzv_str_tmp[LANG_LIST_SIZE][ERROR_BS_FATAL_EROR_LAST_BIT];
+extern char *diagnostics_bo_mrzv_m_str_tmp[LANG_LIST_SIZE][ERROR_BM_FATAL_EROR_LAST_BIT];
+extern char *diagnostics_bo_mrzv_l_str_tmp[LANG_LIST_SIZE][ERROR_BR_FATAL_EROR_LAST_BIT];
 
-extern unsigned int diagnostics_bs_mrzv_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
-extern unsigned int diagnostics_bo_mrzv_m_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
-extern unsigned int diagnostics_bo_mrzv_l_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
+//extern unsigned int diagnostics_bs_mrzv_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
+//extern unsigned int diagnostics_bo_mrzv_m_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
+//extern unsigned int diagnostics_bo_mrzv_l_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
 
 extern MENU_Handle hMenu_main, hMin_settings, hOption, hPasswords, hPickup_Group, hCommands, hAbout;
 extern const TITLE menu_option_title[];

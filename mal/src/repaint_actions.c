@@ -936,6 +936,8 @@ void repaint_actions(__index_level_menu id_panel)
       WM_HWIN *Info_n_MultiPage_type_info, *Info_n_FrameWin;
       const LANG_ITEM *Page_name;
       const TITLE *Info_n_panel_title;
+      
+      __DIAGN state_diagnostyka;
 
       switch (id_panel)
       {
@@ -970,6 +972,8 @@ void repaint_actions(__index_level_menu id_panel)
         }
       case ID_DIAGNOSTICS_PG:
         {
+          GetDiagnfield(&state_diagnostyka);
+          
           number_pages = 4;
 
           Info_n_FrameWin = &Diagnostics_FrameWin;
@@ -997,18 +1001,34 @@ void repaint_actions(__index_level_menu id_panel)
         {
           if (i < (number_pages - 1))
           {
-            unsigned int *target_array;
-            if (i == 0)
-              target_array = diagnostics_bs_mrzv_tmp;
-            else if (i == 1)
-              target_array = diagnostics_bo_mrzv_m_tmp;
-            else 
-              target_array = diagnostics_bo_mrzv_l_tmp;
-          
+            long *target_array;
             unsigned int number_set_bits = 0;
-            for (unsigned int j = 0; j < ALL_NUMB_DIAGNOSTICS; j++)
+            if (i == 0)
             {
-              if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+              target_array = state_diagnostyka.hldrPrgEvtBs.UNBsRamPrgEvts.lArBsPrgEvts;
+          
+              for (unsigned int j = 0; j < SIZE_BS_RAM_PRG_EVT_UNN; j++)
+              {
+                if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+              }
+            }
+            else if (i == 1)
+            {
+              target_array = state_diagnostyka.hldrPrgEvtBm.UNBmRamPrgEvts.lArBmPrgEvts;
+          
+              for (unsigned int j = 0; j < SIZE_BM_RAM_PRG_EVT_UNN; j++)
+              {
+                if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+              }
+            }
+            else 
+            {
+              target_array = state_diagnostyka.hldrPrgEvtBr.UNBrRamPrgEvts.lArBrPrgEvts;
+          
+              for (unsigned int j = 0; j < SIZE_BR_RAM_PRG_EVT_UNN; j++)
+              {
+                if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+              }
             }
         
             char number_sting[3 + 3 + 1];

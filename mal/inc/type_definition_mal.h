@@ -44,4 +44,12 @@ typedef struct
   unsigned int b;
 } __TEMP_STRUCTURE;
 
+typedef struct
+{
+    BmRamPrgEvtDsc hldrPrgEvtBm;
+    BrRamPrgEvtDsc hldrPrgEvtBr; 
+    BsRamPrgEvtDsc hldrPrgEvtBs;
+}__DIAGN;	
+
+
 #endif

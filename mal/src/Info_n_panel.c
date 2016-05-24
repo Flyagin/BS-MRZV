@@ -469,6 +469,9 @@ void redraw_panel_info_n(__index_level_menu id_protection)
   }
   else if (id_protection == ID_DIAGNOSTICS_PG)
   {
+    __DIAGN state_diagnostyka;
+    GetDiagnfield(&state_diagnostyka);
+    
     switch (current_ekran.index_position)
     {
     case 0:
@@ -479,85 +482,213 @@ void redraw_panel_info_n(__index_level_menu id_protection)
         SCROLLBAR_SetNumItems(ScrollBar_Diagnostics_Pages, Diagnostics_max_number_bits_tmp);
         SCROLLBAR_SetValue(ScrollBar_Diagnostics_Pages, current_ekran.index_position_1);
         
-        unsigned int *target_array;
-        char *(*target_name)[ALL_NUMB_DIAGNOSTICS];
+        long *target_array;
+          unsigned int number_set_bits = 0;
         if (current_ekran.index_position == 0)
         {
-          target_array = diagnostics_bs_mrzv_tmp;
+          char *(*target_name)[ERROR_BS_FATAL_EROR_LAST_BIT];
+          
+          target_array = state_diagnostyka.hldrPrgEvtBs.UNBsRamPrgEvts.lArBsPrgEvts;
           target_name = diagnostics_bs_mrzv_str_tmp;
-        }
-        else if (current_ekran.index_position == 1)
-        {
-          target_array = diagnostics_bo_mrzv_m_tmp;
-          target_name = diagnostics_bo_mrzv_m_str_tmp;
-        }
-        else
-        {
-          target_array = diagnostics_bo_mrzv_l_tmp;
-          target_name = diagnostics_bo_mrzv_l_str_tmp;
-        }
-          
-        unsigned int number_set_bits = 0;
-        for (unsigned int j = 0; j < ALL_NUMB_DIAGNOSTICS; j++)
-        {
-          if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
-        }
-          
-        char empty = '\0';
-        if (
-            (number_set_bits == 0) &&
-            (current_ekran.index_position_1 < MAX_NUMBER_DIAGN_IN_PANEL)
-           ) 
-        {
-          TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_HCENTER | TEXT_CF_BOTTOM);
-          TEXT_SetText(Diagnostics_Info[0], NONE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
-          for (unsigned int j = 1; j < MAX_NUMBER_DIAGN_IN_PANEL; j++)
+          for (unsigned int j = 0; j < SIZE_BS_RAM_PRG_EVT_UNN; j++)
           {
-            TEXT_SetText(Diagnostics_Info[j], &empty);
+            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
           }
-        }
-        else
-        {
-          TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_LEFT | TEXT_CF_BOTTOM);
+          
 
-          unsigned int continue_index = 0;
-          for (int i = 0; i < current_ekran.index_position_1; i++)
+          char empty = '\0';
+          if (
+              (number_set_bits == 0) &&
+              (current_ekran.index_position_1 < MAX_NUMBER_DIAGN_IN_PANEL)
+            ) 
           {
-            while (
-                   ((target_array[continue_index >> 5] & (1 << (continue_index & 0x1f))) == 0) &&
-                   (continue_index < ALL_NUMB_DIAGNOSTICS)  
-                  )
+            TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_HCENTER | TEXT_CF_BOTTOM);
+            TEXT_SetText(Diagnostics_Info[0], NONE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+
+            for (unsigned int j = 1; j < MAX_NUMBER_DIAGN_IN_PANEL; j++)
             {
-              continue_index++;
+              TEXT_SetText(Diagnostics_Info[j], &empty);
             }
-              
-            if ((++continue_index) >= ALL_NUMB_DIAGNOSTICS) break; 
           }
-            
-          for (unsigned int i = 0; i < MAX_NUMBER_DIAGN_IN_PANEL; i++)
+          else
           {
-            char *point_string;
-            if ((current_ekran.index_position_1 + i) < number_set_bits)
+            TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_LEFT | TEXT_CF_BOTTOM);
+
+            unsigned int continue_index = 0;
+            for (int i = 0; i < current_ekran.index_position_1; i++)
             {
-              unsigned int bit;
               while (
-                     ((bit = (target_array[continue_index >> 5] & (1 << (continue_index & 0x1f)))) == 0) &&
-                     (continue_index < ALL_NUMB_DIAGNOSTICS)  
+                     ((target_array[continue_index >> 5] & (1 << (continue_index & 0x1f))) == 0) &&
+                     (continue_index < ERROR_BS_FATAL_EROR_LAST_BIT)  
                     )
               {
                 continue_index++;
               }
-
-              char interrogatory[]  = "???";
-              point_string = ((bit != 0) && (continue_index < All_NUMB_RANK_ELEM)) ? target_name[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
-            }
-            else point_string = &empty;
               
-            TEXT_SetText(Diagnostics_Info[i], point_string);
+              if ((++continue_index) >= ERROR_BS_FATAL_EROR_LAST_BIT) break; 
+            }
+            
+            for (unsigned int i = 0; i < MAX_NUMBER_DIAGN_IN_PANEL; i++)
+            {
+              char *point_string;
+              if ((current_ekran.index_position_1 + i) < number_set_bits)
+              {
+                unsigned int bit;
+                while (
+                       ((bit = (target_array[continue_index >> 5] & (1 << (continue_index & 0x1f)))) == 0) &&
+                       (continue_index < ERROR_BS_FATAL_EROR_LAST_BIT)  
+                      )
+                {
+                  continue_index++;
+                }
+
+                char interrogatory[]  = "???";
+                point_string = ((bit != 0) && (continue_index < ERROR_BS_FATAL_EROR_LAST_BIT)) ? target_name[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
+              }
+              else point_string = &empty;
+              
+              TEXT_SetText(Diagnostics_Info[i], point_string);
+            }
           }
         }
+        else if (current_ekran.index_position == 1)
+        {
+          char *(*target_name)[ERROR_BM_FATAL_EROR_LAST_BIT];
+          
+          target_array = state_diagnostyka.hldrPrgEvtBm.UNBmRamPrgEvts.lArBmPrgEvts;
+          target_name = diagnostics_bo_mrzv_m_str_tmp;
 
+          for (unsigned int j = 0; j < SIZE_BM_RAM_PRG_EVT_UNN; j++)
+          {
+            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+          }
+          
+
+          char empty = '\0';
+          if (
+              (number_set_bits == 0) &&
+              (current_ekran.index_position_1 < MAX_NUMBER_DIAGN_IN_PANEL)
+            ) 
+          {
+            TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_HCENTER | TEXT_CF_BOTTOM);
+            TEXT_SetText(Diagnostics_Info[0], NONE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+
+            for (unsigned int j = 1; j < MAX_NUMBER_DIAGN_IN_PANEL; j++)
+            {
+              TEXT_SetText(Diagnostics_Info[j], &empty);
+            }
+          }
+          else
+          {
+            TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_LEFT | TEXT_CF_BOTTOM);
+
+            unsigned int continue_index = 0;
+            for (int i = 0; i < current_ekran.index_position_1; i++)
+            {
+              while (
+                     ((target_array[continue_index >> 5] & (1 << (continue_index & 0x1f))) == 0) &&
+                     (continue_index < ERROR_BM_FATAL_EROR_LAST_BIT)  
+                    )
+              {
+                continue_index++;
+              }
+              
+              if ((++continue_index) >= ERROR_BM_FATAL_EROR_LAST_BIT) break; 
+            }
+            
+            for (unsigned int i = 0; i < MAX_NUMBER_DIAGN_IN_PANEL; i++)
+            {
+              char *point_string;
+              if ((current_ekran.index_position_1 + i) < number_set_bits)
+              {
+                unsigned int bit;
+                while (
+                       ((bit = (target_array[continue_index >> 5] & (1 << (continue_index & 0x1f)))) == 0) &&
+                       (continue_index < ERROR_BM_FATAL_EROR_LAST_BIT)  
+                      )
+                {
+                  continue_index++;
+                }
+
+                char interrogatory[]  = "???";
+                point_string = ((bit != 0) && (continue_index < ERROR_BM_FATAL_EROR_LAST_BIT)) ? target_name[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
+              }
+              else point_string = &empty;
+              
+              TEXT_SetText(Diagnostics_Info[i], point_string);
+            }
+          }
+        }
+        else
+        {
+          char *(*target_name)[ERROR_BR_FATAL_EROR_LAST_BIT];
+          
+          target_array = state_diagnostyka.hldrPrgEvtBr.UNBrRamPrgEvts.lArBrPrgEvts;
+          target_name = diagnostics_bo_mrzv_l_str_tmp;
+
+          for (unsigned int j = 0; j < SIZE_BR_RAM_PRG_EVT_UNN; j++)
+          {
+            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+          }
+          
+
+          char empty = '\0';
+          if (
+              (number_set_bits == 0) &&
+              (current_ekran.index_position_1 < MAX_NUMBER_DIAGN_IN_PANEL)
+            ) 
+          {
+            TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_HCENTER | TEXT_CF_BOTTOM);
+            TEXT_SetText(Diagnostics_Info[0], NONE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+
+            for (unsigned int j = 1; j < MAX_NUMBER_DIAGN_IN_PANEL; j++)
+            {
+              TEXT_SetText(Diagnostics_Info[j], &empty);
+            }
+          }
+          else
+          {
+            TEXT_SetTextAlign(Diagnostics_Info[0], TEXT_CF_LEFT | TEXT_CF_BOTTOM);
+
+            unsigned int continue_index = 0;
+            for (int i = 0; i < current_ekran.index_position_1; i++)
+            {
+              while (
+                     ((target_array[continue_index >> 5] & (1 << (continue_index & 0x1f))) == 0) &&
+                     (continue_index < ERROR_BR_FATAL_EROR_LAST_BIT)  
+                    )
+              {
+                continue_index++;
+              }
+              
+              if ((++continue_index) >= ERROR_BR_FATAL_EROR_LAST_BIT) break; 
+            }
+            
+            for (unsigned int i = 0; i < MAX_NUMBER_DIAGN_IN_PANEL; i++)
+            {
+              char *point_string;
+              if ((current_ekran.index_position_1 + i) < number_set_bits)
+              {
+                unsigned int bit;
+                while (
+                       ((bit = (target_array[continue_index >> 5] & (1 << (continue_index & 0x1f)))) == 0) &&
+                       (continue_index < ERROR_BR_FATAL_EROR_LAST_BIT)  
+                      )
+                {
+                  continue_index++;
+                }
+
+                char interrogatory[]  = "???";
+                point_string = ((bit != 0) && (continue_index < ERROR_BR_FATAL_EROR_LAST_BIT)) ? target_name[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
+              }
+              else point_string = &empty;
+              
+              TEXT_SetText(Diagnostics_Info[i], point_string);
+            }
+          }
+        }
+        
         break;
       }
     case 3:
