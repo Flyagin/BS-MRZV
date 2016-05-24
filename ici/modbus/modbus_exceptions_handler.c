@@ -86,8 +86,10 @@ unsigned char check_func3_data(unsigned short quantity_of_registers,
         check_addr_global(quantity_of_registers, start_addr)                            ||
         check_addr_ranking_DO1(quantity_of_registers, start_addr)                       ||
         check_addr_ranking_DI1(quantity_of_registers, start_addr)  ||
-           
+
+#if START_ADDR_IDENTIFICATION > 0
                       start_addr >= START_ADDR_IDENTIFICATION && 
+#endif
                       start_addr <= LAST_ADDR_IDENTIFICATION  &&
                       start_addr + quantity_of_registers <= LAST_ADDR_IDENTIFICATION + 1
         
