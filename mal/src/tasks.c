@@ -389,7 +389,7 @@ void make_min_settings_1(AuxCfgTbl1Dsc *target)
   target->chLngGUIText = ENG_LANG;
   change_language = 1;
   
-  target->chWinding = 0;
+  target->chWinding = 1;
   
   target->psw_interface_USB = 0;
   target->psw_interface_RS485 = 0;

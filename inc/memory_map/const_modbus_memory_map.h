@@ -12,13 +12,14 @@
 #define START_ADDR_GLOBAL_BOUND1                                0
 #define LAST_ADDR_GLOBAL_BOUND1                                 1000 // начинается ранжирование
 #define START_ADDR_GLOBAL_BOUND2                                4308   
-#define LAST_ADDR_GLOBAL_BOUND2                                 6039
+#define LAST_ADDR_GLOBAL_BOUND2                                 6035
 
 /******************************************************************************/
 /********************** Device identification *********************************/
 /******************************************************************************/
 
-#define START_ADDR_DEVICE_IDENT                                 0
+#define START_ADDR_IDENTIFICATION                                 0
+#define LAST_ADDR_IDENTIFICATION                                  14
 
 #define IDENTIFICATION_NUMBER_OF_DEVICE                         0
 #define DEVICE_MANUFACTURER_1AND2                               1
@@ -36,7 +37,6 @@
 #define TIME_COMPILATION                                        13
 #define VERSION_MEMORY_MAP                                      14
 
-#define LAST_ADDR_DEVICE_IDENT                                  15                                
 
 
 /************************ Дискретные выходы ***************************/
@@ -2567,7 +2567,7 @@
 /******************************************************************************/
 #define MA_POSSIBILITY_USTUVANNJA                               50016
 #define MA_ADDRESS_FIRST_USTUVANNJA                             61968
-#define MA_ADDRESS_LAST_USTUVANNJA                              61978
+#define MA_ADDRESS_LAST_USTUVANNJA                              61975
 //!!!#define MA_ADDRESS_LAST_USTUVANNJA                              (MA_ADDRESS_FIRST_USTUVANNJA + NUMBER_CANALS)
 /******************************************************************************/
 

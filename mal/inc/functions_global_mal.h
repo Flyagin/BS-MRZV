@@ -10,8 +10,8 @@ void main_routines_for_spi1(void);
 
 void strcat_mal(char*, char*);
 int strlen_mal(char*);
-void strcpy_fly(char *, char *, int);
-char* strcat_heap_fly(char *, char *);
+//void strcpy_fly(char *, char *, int);
+//char* strcat_heap_fly(char *, char *);
 int strinsert_mal(char*, int, char*);
 int strdel_mal(char*, int, int);
 int strcmp_mal(char*, char*);

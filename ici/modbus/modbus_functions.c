@@ -94,6 +94,7 @@ _Bool check_addr_global(unsigned short quantity_of_registers,
   return false;
 }
 
+
 // Ранжирование дискретного выхода 1
 _Bool check_addr_ranking_DO1(unsigned short quantity_of_registers,
                              unsigned short start_addr) {
@@ -238,7 +239,7 @@ _Bool check_addr_activ_deactiv_ust(unsigned short start_addr) {
 _Bool check_addr_yust(unsigned short quantity_of_registers, unsigned short start_addr) {
   if (start_addr >= MA_ADDRESS_FIRST_USTUVANNJA                         &&
       start_addr <= MA_ADDRESS_LAST_USTUVANNJA                          &&
-      (start_addr + quantity_of_registers) <= MA_ADDRESS_LAST_USTUVANNJA
+      start_addr + quantity_of_registers <= MA_ADDRESS_LAST_USTUVANNJA + 1
      )
   {
     return true;
@@ -602,12 +603,12 @@ void func3() {
       for (unsigned short i = 0; i < quantity_of_registers; i++) {
         switch (i + address) {
           case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_3I0_Hi:
- //           response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff000000) >> 24;
- //           response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff0000) >> 16;
+          //  response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff000000) >> 24;
+          //  response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff0000) >> 16;
             break;
           case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_3I0_Lo:
-     //       response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff00) >> 8;
-     //       response[index++] = current_meas_p -> measurement[INDEX_3I0] & 0xff;
+          //  response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff00) >> 8;
+            //response[index++] = current_meas_p -> measurement[INDEX_3I0] & 0xff;
             break;
           case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_IA_Hi:
             response[index++] = (current_meas_p -> measurement[INDEX_IA] & 0xff000000) >> 24;
@@ -740,12 +741,12 @@ void func3() {
       for (unsigned short i = 0; i < quantity_of_registers; i++) {
         switch (i + address) {
           case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_3I0_Hi:
-          //  response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff000000) >> 24;
-          //  response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff0000) >> 16;
+            //response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff000000) >> 24;
+            //response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff0000) >> 16;
             break;
           case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_3I0_Lo:
-  //          response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff00) >> 8;
-  //          response[index++] = current_meas_p -> measurement_i[INDEX_3I0] & 0xff;
+            //response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff00) >> 8;
+            //response[index++] = current_meas_p -> measurement_i[INDEX_3I0] & 0xff;
             break;
           case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_IA_Hi:
             response[index++] = (current_meas_p -> measurement_i[INDEX_IA] & 0xff000000) >> 24;
@@ -2144,8 +2145,14 @@ void func3() {
     }
   }
   
-  else if (check_addr_global(quantity_of_registers, address)) {
-//      DevIdentification *pIdentDev = &pDevIdentification;
+  else if (check_addr_global(quantity_of_registers, address) || 
+           
+                      address >= START_ADDR_IDENTIFICATION && 
+                      address <= LAST_ADDR_IDENTIFICATION  &&
+                      address + quantity_of_registers <= LAST_ADDR_IDENTIFICATION + 1
+
+            ) {
+      DevIdentification *pIdentDev = &pDevIdentification;
       CfgTblDsc* pConfig = &eeprom_prt_tbl;
 //      DateInDevice* pTime = &pDateInDevice;
       unsigned char *point_time;
@@ -2158,7 +2165,73 @@ void func3() {
       PckpStpmStoreDsc *pPck_gs4 = &(eeprom_prt_tbl.arPckpStpmStngStore[3]);
       unsigned short TempReg = 0x0000;
     for (unsigned short i = 0; i < quantity_of_registers; i++) {
-      switch (i + address) { 
+      switch (i + address) {
+        
+        /********** ИДЕНТИФИКАЦИЯ УСТРОЙСТВА **********/
+
+
+        case START_ADDR_IDENTIFICATION + IDENTIFICATION_NUMBER_OF_DEVICE:
+          response[index++] = (pIdentDev -> IdentNumberDevice & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> IdentNumberDevice & 0x00ff);
+          break;
+        case START_ADDR_IDENTIFICATION + DEVICE_MANUFACTURER_1AND2:
+          response[index++] = (pIdentDev -> Manufacturer1and2 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> Manufacturer1and2 & 0x00ff);
+          break;
+        case START_ADDR_IDENTIFICATION + DEVICE_MANUFACTURER_3AND4:
+          response[index++] = (pIdentDev -> Manufacturer3and4 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> Manufacturer3and4 & 0x00ff);
+          break;  
+        case START_ADDR_IDENTIFICATION + DEVICE_MANUFACTURER_5AND6:
+          response[index++] = (pIdentDev -> Manufacturer5and6 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> Manufacturer5and6 & 0x00ff);
+          break;    
+        case START_ADDR_IDENTIFICATION + DEVICE_MANUFACTURER_7AND8:
+          response[index++] = (pIdentDev -> Manufacturer7and8 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> Manufacturer7and8 & 0x00ff);
+          break;
+        case START_ADDR_IDENTIFICATION + DEVICE_MANUFACTURER_9AND10:
+          response[index++] = (pIdentDev -> Manufacturer9and10 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> Manufacturer9and10 & 0x00ff);
+          break;
+        case START_ADDR_IDENTIFICATION + DEVICE_NAME_1AND2:
+          response[index++] = (pIdentDev -> NameOfDevice1and2 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> NameOfDevice1and2 & 0x00ff);
+          break;  
+        case START_ADDR_IDENTIFICATION + DEVICE_NAME_3AND4:
+          response[index++] = (pIdentDev -> NameOfDevice3and4 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> NameOfDevice3and4 & 0x00ff);
+          break;    
+        case START_ADDR_IDENTIFICATION + DEVICE_NAME_5AND6:
+          response[index++] = (pIdentDev -> NameOfDevice5and6 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> NameOfDevice5and6 & 0x00ff);
+          break;  
+        case START_ADDR_IDENTIFICATION + DEVICE_NAME_7AND8:
+          response[index++] = (pIdentDev -> NameOfDevice7and8 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> NameOfDevice7and8 & 0x00ff);
+          break;
+        case START_ADDR_IDENTIFICATION + VERSION_SOFTWARE:
+          response[index++] = (pIdentDev -> SoftwareVersion & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> SoftwareVersion & 0x00ff);
+          break;
+        case START_ADDR_IDENTIFICATION + DATE_COMPILATION1:
+          response[index++] = (pIdentDev -> DateOfCompilation1 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> DateOfCompilation1 & 0x00ff);
+          break;
+        case START_ADDR_IDENTIFICATION + DATE_COMPILATION2:
+          response[index++] = (pIdentDev -> DateOfCompilation2 & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> DateOfCompilation2 & 0x00ff);
+          break;
+        case START_ADDR_IDENTIFICATION + TIME_COMPILATION:
+          response[index++] = (pIdentDev -> TimeOfCompilation & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> TimeOfCompilation & 0x00ff);
+          break;
+        case START_ADDR_IDENTIFICATION + VERSION_MEMORY_MAP:
+          response[index++] = (pIdentDev -> VersionOfMemoryMap & 0xff00) >> 8;
+          response[index++] = (pIdentDev -> VersionOfMemoryMap & 0x00ff);
+          break;
+
+
           /************** УСТАВКИ МТЗ ПЕРВОЙ СТУПЕНИ *************/
       case G1_START_ADDR_MTZ1 + USTAV_MTZ1:
           response[index++] = (pPck_gs1 -> ownrStage1DrOcp1Pickup.mcp1_I_ov_range /10 & 0xff00) >> 8;
@@ -7820,7 +7893,7 @@ void func3() {
           response[index++] = 0;
       }
     }
-  }
+  }/*!!!
   else if (check_addr_dig_oscilograph(quantity_of_registers, address)) {
     if (error_update_data_from_adc) {
       modbus_dev_state = SLAVE_DEVICE_BUSY;
@@ -7835,7 +7908,7 @@ void func3() {
         response[index++] = (pArDataDsc -> pTenPerData[i + data_ADC_index * STEP_DIG_OSCILOGRAPH]) & 0xff;
       }
     }
-  } else if (check_addr_activ_deactiv_ust(address)) {
+  }!!!*/ else if (check_addr_activ_deactiv_ust(address)) {
     response[index++] = 0;
     response[index++] = ust_is_active;
   } else if (check_addr_yust(quantity_of_registers, address)) {
@@ -7889,7 +7962,7 @@ void func3() {
       } else {
         modbus_dev_state = SLAVE_DEVICE_BUSY;
         response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
-        response[1] = 0x8F;
+        response[1] = 0x83;
         response[2] = SLAVE_DEVICE_BUSY;
         crc16 = CRC16(response, 3);
         response[3] = (crc16 & 0xFF00) >> 8;
@@ -7926,7 +7999,7 @@ void func3() {
   reset_all_modbus_modes();
 }
 
-// конец 3 функции
+// end of func3()
 
 void func5() {
   unsigned short crc16;
@@ -7965,7 +8038,7 @@ void func5() {
 }
 
 void func6() {
-  
+
   if(isPasswordProtectionSet()) {
     modbus_dev_state = ILLEGAL_DATA_ADDRESS;
     return;
@@ -14817,7 +14890,7 @@ void func6() {
   }
 }
 
-// конец 6 функции
+// end of func6()
 
 void func15() {
   
@@ -23025,7 +23098,7 @@ void func16() {
       
       // Определение номера регистра для функции. Например, читаем регистр 1006.
       // Номер функции = 1006 - 1000 (первый адрес) + 1 = 7. Значит, нам нужно
-      // искать 7-ю по счету функцию.
+      // искать  о счету функцию.
       int NumberOfFuncReg = address + i - START_ADDR_RANKING_DI1 - (NumDI << 3) /*умножение на 8*/ + 1;
       int NumberOfFunction = 0;
       // ищем необходимый бит
@@ -23617,3 +23690,7 @@ void func16() {
     }
   }
 }
+
+
+
+

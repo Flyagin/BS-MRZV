@@ -8,7 +8,6 @@
 #define NUMBER_CANALS_SPI2              (NUMBER_CANALS_ADC3)
 #define NUMBER_CANALS                   (NUMBER_CANALS_SPI1 + NUMBER_CANALS_SPI2)
 
-//#define INDEX_3I0                       0
 #define INDEX_IA                        0
 #define INDEX_IB                        1
 #define INDEX_IC                        2
