@@ -432,7 +432,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate7[] = {
   { TEXT_CreateIndirect, "React.Pow.C", ID_FIRST_OTHER_MEAS + 16,    10, 245, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Full Pow.A", ID_FIRST_OTHER_MEAS + 17,     10, 260, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Full Pow.B", ID_FIRST_OTHER_MEAS + 18,     10, 275, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Full Pow.С", ID_FIRST_OTHER_MEAS + 19,     10, 290, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Full Pow.C", ID_FIRST_OTHER_MEAS + 19,     10, 290, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Sum.Act.Pow.", ID_FIRST_OTHER_MEAS + 20,   10, 305, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Sum.React.Pow.", ID_FIRST_OTHER_MEAS + 21, 10, 320, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Sum.Full.Pow", ID_FIRST_OTHER_MEAS + 22,   10, 335, 80, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
