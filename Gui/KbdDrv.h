@@ -1,7 +1,7 @@
  #ifndef kbddrv_h
 #define kbddrv_h
 
-//#define KBD_2016 
+#define KBD_2016 
 #include "../LibG45/boards/bs_g45/board.h"
 //
 #define SW1 (1<<26)
@@ -204,7 +204,7 @@ typedef struct tag_KbdU32
 extern void StartUPInitKBD(void);
 extern void kbd_scan(void*pv);
 extern KbdUNFldHolderDsc hldScanCode;
-
+extern char arChTmrActivation [6];
 //extern unsigned int uiCtrHideScr; 
 //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 //~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~

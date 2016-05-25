@@ -147,6 +147,8 @@ extern void PrepareDholderPrtTblforTrOnBR(void) ;
 extern void IciDbgCall_I_Fn(void);
 extern void  Read10PerSmpl(void);
 
-
+extern long SetCmdHVPS(void *p_in_param, int nID_Activation);
+extern void SetAtrCmd(void);
+extern void CallKeyAtrCmd(void);
 
 #endif //DBG_ICI_CALL_H

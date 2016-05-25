@@ -162,7 +162,23 @@ typedef struct tag_BigObjCMUnitDsc
 	
 } BigObjCMUnitDsc;
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ Mgr mean manager or dispatcher ICI changeble Objects
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+typedef struct tag_ObjDataMgr
+{
+unsigned short ushRegisterdUsr;//Keys Field
+char chIsExec;
+char chDataWasCorrupted;//when Session part was Fault
+short shCurCopyUser;//
+short shCopyWasCorrupted;
 
+
+}ObjDataMgrDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+extern long GetUserKeyIciSmallObjMgrData(ObjDataMgrDsc *pObjDataMgr);
+extern long ReturnUserKeyIciSmallObjMgrData(long lKey,ObjDataMgrDsc *pObjDataMgr);
 //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 //~~~~~~~~~~~~~~~~    Define Digital samples Unit    ~~~~~~~~~~~~~~
 //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -324,7 +340,7 @@ typedef struct tag_PrepDecompouseTrEvtDsc
 //~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
 //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 //~~~~~~~~~~~~~~~~ 
-#define NUMBER_CANALS_ADC1              4
+#define NUMBER_CANALS_ADC1              3
 #define NUMBER_CANALS_ADC2              4
 #define NUMBER_CANALS_ADC3              3
 #define NUMBER_CANALS_SPI1              (NUMBER_CANALS_ADC1 + NUMBER_CANALS_ADC2)
@@ -633,6 +649,7 @@ void PrepDecompouseDateTimeUnitSpi(void);
 void PrepDecompouseAtrCmdUnitSpi(void);
  void PrepDecompouseAbsNumeratorsUnitSPI(void); 
 void PrepDecompouseDiagnUnitSPI(void) ;
+void PrepDecompouseAtrCmdUnitSpiSecure(void);
 
 void PrepDecompouseSrcTest1Unit(void);
 //void PrepDecompouse Unit(void)
@@ -641,6 +658,7 @@ extern long ActivateTRProxyTenPerSamplesCTpuUnit(void* pvLDC, long lID);
 extern void TenPerSamplesRvServCTpuApCnUnit(void);
 extern void TotMeasRvServCTpuApCnUnit(void);
 extern void TotMeasGRvServCTpuApCnUnit(void);
+extern void ActivateServTrApCnSamplesCTpuUnitHSU2(void);
 
 long ActivateTRProxyTotMeasCTpuUnit(void* pvLDC, long lID);
 long ActivateRVProxyTotMeasCTpuUnit(void* pvLDC, long lID);
@@ -679,8 +697,10 @@ extern void HSU2StallHundler(void);
 extern void TeleMechsRvServCTpuApCnUnit(void);
 extern int AppReqReceiveTeleMechs ;
 extern void TestCopyTeleMechsData(void);
+extern int AppReqReceiveApcs;
+extern void ApcsRvServCTpuApCnUnit(void);
 
 extern void DiagnProcess100msEvt(void);
-
+extern void ProcessTransmitStubSeqSpi(void);
 
 #endif /* ApCn_h */

@@ -342,6 +342,7 @@ void unreliable_error_show(int win_id)
   
   WM_HWIN *Dialog_FrameWin, *Dialog_Text, *Dialog_ESC_Button;
   _id_user_widget id_framewin, id_text, id_cancel_button;
+  const char *pText, *pTitle;
   
   switch(win_id)
   {
@@ -349,6 +350,9 @@ void unreliable_error_show(int win_id)
     {
       Dialog_FrameWin = &Unreliable_error_FrameWin;
       id_framewin = ID_UNRELIABLE_ERROR_FRAMEWIN;
+      
+      pTitle = Unreliable_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
+      pText = Unreliable_error_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
       
       Dialog_Text = &UE_Text;
       id_text = ID_UE_TEXT;
@@ -362,6 +366,9 @@ void unreliable_error_show(int win_id)
     {
       Dialog_FrameWin = &Unreliable_error_level_2_FrameWin;
       id_framewin = ID_UNRELIABLE_ERROR_LEVEL_2_FRAMEWIN;
+      
+      pTitle = Unreliable_error_level_2_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
+      pText = Unreliable_error_level_2_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
 
       Dialog_Text = &UE_level_2_Text;
       id_text = ID_UE_LEVEL_2_TEXT;
@@ -377,7 +384,7 @@ void unreliable_error_show(int win_id)
     }
   }
   
-  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_HIDE, 0, id_framewin, Unreliable_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText], _cbEmpty);
+  *Dialog_FrameWin = FRAMEWIN_CreateEx(x0, y0, XSIZE_W, YSIZE_W, 0, WM_CF_HIDE, 0, id_framewin, pTitle, _cbEmpty);
   FRAMEWIN_SetFont(*Dialog_FrameWin, &GUI_FontArialBold14_8_Unicode);
   FRAMEWIN_SetTextAlign(*Dialog_FrameWin, GUI_TA_CENTER);
   FRAMEWIN_SetBarColor(*Dialog_FrameWin, 0, GUI_DARKRED);
@@ -391,7 +398,7 @@ void unreliable_error_show(int win_id)
   int shift_to_button_x = (XSIZE_W - (XSIZE_B + B_size)) >> 1;
   int shift_to_button_y = (YSIZE_W - 2*B_size - T_hight - D_size - YSIZE_T - YSIZE_B)/3;
   
-  *Dialog_Text = TEXT_CreateEx(10, shift_to_button_y, (XSIZE_W - 2*(10 + B_size)), YSIZE_T, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_text, Unreliable_error_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+  *Dialog_Text = TEXT_CreateEx(10, shift_to_button_y, (XSIZE_W - 2*(10 + B_size)), YSIZE_T, WM_GetClientWindow(*Dialog_FrameWin), WM_CF_SHOW, 0, id_text, pText);
   TEXT_SetFont(*Dialog_Text, &GUI_FontArialStandard15_9_Unicode);
   TEXT_SetTextColor(*Dialog_Text, GUI_WHITE);
   TEXT_SetTextAlign(*Dialog_Text, TEXT_CF_HCENTER | GUI_TA_VCENTER);

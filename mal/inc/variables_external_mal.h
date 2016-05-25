@@ -66,8 +66,8 @@ extern TITLE Dialog_error_level_2_message;
 
 extern WM_HWIN Unreliable_error_FrameWin, UE_Text, UE_ESC_Button;
 extern WM_HWIN Unreliable_error_level_2_FrameWin, UE_level_2_Text, UE_ESC_level_2_Button;
-extern const TITLE Unreliable_error_title;
-extern const TITLE Unreliable_error_message;
+extern TITLE Unreliable_error_title, Unreliable_error_level_2_title;
+extern TITLE Unreliable_error_message, Unreliable_error_level_2_message;
 
 extern WM_HWIN Dialog_password_FrameWin, DP_Edit, DP_ENTER_Button, DP_ESC_Button;
 extern WM_HWIN Dialog_password_level_2_FrameWin, DP_level_2_Edit, DP_ENTER_level_2_Button, DP_ESC_level_2_Button;
@@ -273,13 +273,13 @@ extern SCROLLBAR_Handle ScrollBar_Diagnostics_Pages;
 extern WM_HWIN Diagnostics_Info[MAX_NUMBER_DIAGN_IN_PANEL];
 extern unsigned int Diagnistics_max_number_bits[4];
 
-extern char *diagnostics_bs_mrzv_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS];
-extern char *diagnostics_bo_mrzv_m_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS];
-extern char *diagnostics_bo_mrzv_l_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS];
+extern char *diagnostics_bs_mrzv_str_tmp[LANG_LIST_SIZE][ERROR_BS_FATAL_EROR_LAST_BIT];
+extern char *diagnostics_bo_mrzv_m_str_tmp[LANG_LIST_SIZE][ERROR_BM_FATAL_EROR_LAST_BIT];
+extern char *diagnostics_bo_mrzv_l_str_tmp[LANG_LIST_SIZE][ERROR_BR_FATAL_EROR_LAST_BIT];
 
-extern unsigned int diagnostics_bs_mrzv_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
-extern unsigned int diagnostics_bo_mrzv_m_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
-extern unsigned int diagnostics_bo_mrzv_l_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
+//extern unsigned int diagnostics_bs_mrzv_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
+//extern unsigned int diagnostics_bo_mrzv_m_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
+//extern unsigned int diagnostics_bo_mrzv_l_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
 
 extern MENU_Handle hMenu_main, hMin_settings, hOption, hPasswords, hPickup_Group, hCommands, hAbout;
 extern const TITLE menu_option_title[];

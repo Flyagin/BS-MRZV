@@ -60,7 +60,7 @@ const  unsigned char uc_arTst_atrf_cmd[AMOUNT_BYTE_FOR_ATRFG] = {
   };
   
   
-  
+#pragma default_function_attributes = @ "Fast_function"  
   
   
   
@@ -270,6 +270,7 @@ return;
 
 
 */
+#pragma default_function_attributes = 
 
 
 /* EOF */

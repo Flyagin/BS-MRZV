@@ -1146,7 +1146,7 @@ j = ((TRStateLpuSpiDsc*)pv)->lCapicity;
 
 i = OutSpi0((unsigned char *)&hldrSpiLpduTRUnit.arUch[0],SIZE_LPDU_CNL_SPI);	
  SPI0_DMA_Enable();
-AT91C_BASE_PIOD->PIO_CODR = (0x2);
+//End spi0 AT91C_BASE_PIOD->PIO_CODR = (0x2);
 
 Rst_LpduSpi_TpCnState();
 }
@@ -1563,6 +1563,7 @@ sLV.PacketGood++;
 
 sLV.ushSizeLDC = ((RVStateLpuSpiDsc *)pv)->ushSizeLDC = i;
 // ((RVStateLpuHSU2Dsc *)pv)->ushSizeLDC = i;
+if( (i+(SIZE_LPCI_FLD_CNL_SPI)) < (SIZE_LPDU_CNL_SPI+4))
 j = Eval_CS(pDst,i+(SIZE_LPCI_FLD_CNL_SPI)); 
 if (j!=pDst[i+(SIZE_LPCI_FLD_CNL_SPI)])
 {

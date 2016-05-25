@@ -781,24 +781,24 @@
 #define ZOP2_DELAY2_MAX          3200       /* x10*/
 #define ZOP2_DELAY2_SHIFT        2
 
-#define APV_PICKUP0_MIN          40000
-#define APV_PICKUP0_MAX          140000
+#define APV_PICKUP0_MIN          23090
+#define APV_PICKUP0_MAX          80830
 #define APV_PICKUP0_SHIFT        2
 
-#define APV_PICKUP1_MIN          1000
-#define APV_PICKUP1_MAX          20000
+#define APV_PICKUP1_MIN          570
+#define APV_PICKUP1_MAX          11550
 #define APV_PICKUP1_SHIFT        2
 
-#define APV_PICKUP2_MIN          40000
-#define APV_PICKUP2_MAX          140000
+#define APV_PICKUP2_MIN          18000
+#define APV_PICKUP2_MAX          63000
 #define APV_PICKUP2_SHIFT        2
 
-#define APV_PICKUP3_MIN          1000
-#define APV_PICKUP3_MAX          20000
+#define APV_PICKUP3_MIN          450
+#define APV_PICKUP3_MAX          9000
 #define APV_PICKUP3_SHIFT        2
 
-#define APV_PICKUP4_MIN          1000
-#define APV_PICKUP4_MAX          20000
+#define APV_PICKUP4_MIN          570
+#define APV_PICKUP4_MAX          11550
 #define APV_PICKUP4_SHIFT        2
 
 #define APV_PICKUP5_MIN          5

@@ -84,7 +84,7 @@ void repaint_actions(__index_level_menu id_panel)
   {
     MENU_GetItem(hCommands, (ID_MENU_COMMANDS_1 + i), &Item);
     Item.pText = menu_option_title[15 + i].ptitle[eeprom_bs_settings_tbl.chLngGUIText];
-    if (error_data)
+    if (error_data | error_data_1)
       Item.Flags = MENU_IF_DISABLED;
     else
       Item.Flags = 0;
@@ -305,6 +305,7 @@ void repaint_actions(__index_level_menu id_panel)
   case ID_UNRELIABLE_ERROR:
     {
       WM_HWIN *Dialog_FrameWin, *Dialog_Text, *Dialog_ESC_Button;
+      const char *pText, *pTitle;
       switch(id_panel)
       {
         case ID_UNRELIABLE_ERROR:
@@ -312,6 +313,9 @@ void repaint_actions(__index_level_menu id_panel)
           Dialog_FrameWin = &Unreliable_error_FrameWin;
           Dialog_Text = &UE_Text;
           Dialog_ESC_Button = &UE_ESC_Button;
+      
+          pTitle = Unreliable_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
+          pText = Unreliable_error_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
 
           break;
         }
@@ -320,6 +324,9 @@ void repaint_actions(__index_level_menu id_panel)
           Dialog_FrameWin = &Unreliable_error_level_2_FrameWin;
           Dialog_Text = &UE_level_2_Text;
           Dialog_ESC_Button = &UE_ESC_level_2_Button;
+      
+          pTitle = Unreliable_error_level_2_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
+          pText = Unreliable_error_level_2_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText];
 
           break;
         }
@@ -330,8 +337,8 @@ void repaint_actions(__index_level_menu id_panel)
       }
       
       WM_SetFocus(*Dialog_FrameWin);
-      FRAMEWIN_SetText(*Dialog_FrameWin, Unreliable_error_title.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
-      TEXT_SetText(*Dialog_Text, Unreliable_error_message.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+      FRAMEWIN_SetText(*Dialog_FrameWin, pTitle);
+      TEXT_SetText(*Dialog_Text, pText);
       BUTTON_SetText(*Dialog_ESC_Button, ENTER_ESC[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
       WM_SetFocus(*Dialog_ESC_Button);
 
@@ -929,6 +936,8 @@ void repaint_actions(__index_level_menu id_panel)
       WM_HWIN *Info_n_MultiPage_type_info, *Info_n_FrameWin;
       const LANG_ITEM *Page_name;
       const TITLE *Info_n_panel_title;
+      
+      __DIAGN state_diagnostyka;
 
       switch (id_panel)
       {
@@ -963,6 +972,8 @@ void repaint_actions(__index_level_menu id_panel)
         }
       case ID_DIAGNOSTICS_PG:
         {
+          GetDiagnfield(&state_diagnostyka);
+          
           number_pages = 4;
 
           Info_n_FrameWin = &Diagnostics_FrameWin;
@@ -990,18 +1001,34 @@ void repaint_actions(__index_level_menu id_panel)
         {
           if (i < (number_pages - 1))
           {
-            unsigned int *target_array;
-            if (i == 0)
-              target_array = diagnostics_bs_mrzv_tmp;
-            else if (i == 1)
-              target_array = diagnostics_bo_mrzv_m_tmp;
-            else 
-              target_array = diagnostics_bo_mrzv_l_tmp;
-          
+            long *target_array;
             unsigned int number_set_bits = 0;
-            for (unsigned int j = 0; j < ALL_NUMB_DIAGNOSTICS; j++)
+            if (i == 0)
             {
-              if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+              target_array = state_diagnostyka.hldrPrgEvtBs.UNBsRamPrgEvts.lArBsPrgEvts;
+          
+              for (unsigned int j = 0; j < SIZE_BS_RAM_PRG_EVT_UNN; j++)
+              {
+                if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+              }
+            }
+            else if (i == 1)
+            {
+              target_array = state_diagnostyka.hldrPrgEvtBm.UNBmRamPrgEvts.lArBmPrgEvts;
+          
+              for (unsigned int j = 0; j < SIZE_BM_RAM_PRG_EVT_UNN; j++)
+              {
+                if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+              }
+            }
+            else 
+            {
+              target_array = state_diagnostyka.hldrPrgEvtBr.UNBrRamPrgEvts.lArBrPrgEvts;
+          
+              for (unsigned int j = 0; j < SIZE_BR_RAM_PRG_EVT_UNN; j++)
+              {
+                if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+              }
             }
         
             char number_sting[3 + 3 + 1];

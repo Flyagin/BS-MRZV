@@ -9,7 +9,7 @@ typedef struct
 {
   //Тип пристрою
   unsigned int device_id;
-   
+
   /*
   Коефіцієнт компенсації фазного струму струмом нульової послідовності для однофазного дистанційного захисту (для кожної ступені і для всіх груп)
   */
@@ -52,7 +52,7 @@ typedef struct
   1 - Ub
   2 - Uc
   */
-  unsigned int a_Usyn_Isyn;
+  unsigned int a_Usyn_Isyn_Ubc;
   unsigned int a_Ua_Ub_Uc;
 
   /*

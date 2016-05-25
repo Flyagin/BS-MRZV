@@ -512,14 +512,14 @@ void control_ustuvannja(void)
     //Контроль достовірності юстування пройшов успішно
     
     //Скидаємо повідомлення у слові діагностики
-    _CLEAR_BIT(diagnostyka, ERROR_BV_USTUVANNJA_EEPROM_CONTROL_BIT);
+    _CLEAR_BIT(diagnostyka, ERROR_USTUVANNJA_EEPROM_CONTROL_BIT);
   }
   else
   {
     //Контроль достовірності юстування не пройшов
 
     //Виствляємо повідомлення у слові діагностики
-     _SET_BIT(diagnostyka, ERROR_BV_USTUVANNJA_EEPROM_CONTROL_BIT);
+     _SET_BIT(diagnostyka, ERROR_USTUVANNJA_EEPROM_CONTROL_BIT);
   }
 }
 /*****************************************************/

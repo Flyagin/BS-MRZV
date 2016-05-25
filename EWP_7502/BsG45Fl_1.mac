@@ -1,0 +1,171 @@
+// ---------------------------------------------------------
+//   ATMEL Microcontroller Software Support  -  ROUSSET  -
+// ---------------------------------------------------------
+// The software is delivered "AS IS" without warranty or
+// condition of any  kind, either express, implied or
+// statutory. This includes without limitation any warranty
+// or condition with respect to merchantability or fitness
+// for any particular purpose, or against the infringements of
+// intellectual property rights of others.
+// ---------------------------------------------------------
+//  File: SAM9_DDRAM.mac
+//  User setup file for CSPY debugger.
+//  1.1 08/Aug/06 jpp    : Creation
+//
+//  $Revision: 35927 $
+//
+// ---------------------------------------------------------
+__var __mac_i;
+__var __mac_pt;
+
+/*********************************************************************
+*
+*       execUserReset() : JTAG set initially to Full Speed
+*/
+execUserReset()
+{
+    __message "------------------------------ execUserReset ---------------------------------";
+    //._MapRAMAt0();                       //* Set the RAM memory at 0x00300000 & 0x00000000
+    __message "-------------------------------Set PC Reset ----------------------------------";
+}
+
+/*********************************************************************
+*
+*       execUserPreload() : JTAG set initially to 32kHz
+*/
+execUserPreload()
+{
+    __message "------------------------------ execUserPreload ---------------------------------";
+    __hwReset(0);                     //* Hardware Reset: CPU is automatically halted after the reset (JTAG is already configured to 32kHz)
+    __writeMemory32(0xD3,0x98,"Register"); //*  Set CPSR
+    __PllSetting();                   //* Init PLL
+/*	
+    __initDDRAM();                    //* Init DDRAM before load          
+	*/
+	//.ConfigureSMC();
+    //._MapRAMAt0();                     //* Set the RAM memory at 0x0020 0000 & 0x0000 0000
+    _InitRSTC();                      //* Enable User Reset to allow execUserReset() execution
+}
+
+
+
+/*********************************************************************
+*
+*       _InitRSTC()
+*
+* Function description
+*   Initializes the RSTC (Reset controller).
+*   This makes sense since the default is to not allow user resets, which makes it impossible to
+*   apply a second RESET via J-Link
+*/
+_InitRSTC() {
+    __writeMemory32(0xA5000001, 0xFFFFFD08,"Memory");    // Allow user reset
+}
+
+
+
+
+
+/*
+Function description
+Set SMC for works at 133 MHz
+*/
+//------------------------------------------------------------------------------
+ConfigureSMC()
+{
+  __writeMemory32(0xFFFF0000,0xFFFFF604,"Memory"); 
+  __writeMemory32(0x00000404,0xffffE800,"Memory");  
+  __writeMemory32(0x09090909,0xffffE804,"Memory");  
+  __writeMemory32(0x00090011,0xffffe808,"Memory");  
+  __writeMemory32(0x00001003,0xffffe80c,"Memory");  
+
+__writeMemory32(0x01010101,0xffffE810,"Memory");  //0x00000303
+  __writeMemory32(0x04040404,0xffffe814,"Memory"); //0x09090909 
+  __writeMemory32(0x00060006,0xffffe818,"Memory"); //0x00090011 
+  __writeMemory32(0x00112003,0xffffe81c,"Memory");  
+  __message "------------------------------- SMC Done at 133 MHz -------------------------------";
+
+}
+//------------------------------------------------------------------------------
+
+/*********************************************************************
+*
+*       _MapRAMAt0()
+* Function description
+* Remap RAM at 0
+*/
+_MapRAMAt0()
+{
+  __var hold;
+  // ******************************************************
+  // Test and set Remap
+  // ******************************************************
+  hold = __readMemory32(0x00000000,"Memory");
+  __writeMemory32(0xAAAAAAAA,0x00000000,"Memory");
+  if(__readMemory32(0x00000000,"Memory") != 0xAAAAAAAA)
+  {
+    __writeMemory32(0x03,0xFFFFEB00,"Memory");    // toggle remap bits
+  }
+  else
+  {
+    __writeMemory32(hold,0x00000000,"Memory");
+  }
+}
+
+
+/*********************************************************************
+*
+*       __PllSetting()
+* Function description
+*   Initializes the PMC.
+*   1. Enable the Main Oscillator
+*   2. Configure PLL
+*   3. Switch Master
+*/
+__PllSetting()
+{
+   __var Reg; 
+	//* pPmc->PMC_MOR = (( AT91C_CKGR_OSCOUNT & (0x40 <<8) | AT91C_CKGR_MOSCEN ));
+    __writeMemory32(0x00004001,0xFFFFFC20,"Memory");
+    __delay(20);
+	  do
+		{
+			Reg = __readMemory32(0xFFFFFC68, "Memory") & 1;  // 
+		}while(!Reg);
+	__delay(20);
+    // Switch to mainosc
+    //__writeMemory32(0x00000001, 0xFFFFFC30, "Memory");
+    __delay(10);
+
+//*   AT91C_BASE_CKGR->CKGR_PLLAR = (AT91C_CKGR_SRCA | ((199 << 16) & AT91C_CKGR_MULA) | 
+//    (AT91C_CKGR_PLLACOUNT | (AT91C_CKGR_OUTA_0 | (3);0x20C63F03
+//    __writeMemory32(0x20C73F03,0xFFFFFC28,"Memory");
+	__writeMemory32(0x20C63F03,0xFFFFFC28,"Memory");
+	do
+		{
+			Reg = __readMemory32(0xFFFFFC68, "Memory") & 2;  // 
+		}while(!Reg);
+    __delay(20);
+
+         
+// AT91C_BASE_PMC->PMC_MCKR = BOARD_PRESCALER;0x00001200
+//   __writeMemory32(0x00001300,0xFFFFFC30,"Memory");
+    __writeMemory32(0x00001200,0xFFFFFC30,"Memory");
+    __delay(20);
+    do
+		{
+			Reg = __readMemory32(0xFFFFFC68, "Memory") & 8;  // 
+		}while(!Reg);
+    
+//*   AT91C_BASE_PMC->PMC_MCKR |= AT91C_PMC_CSS_PLLA_CLK; 0x00001302
+//    __writeMemory32(0x00001302,0xFFFFFC30,"Memory");
+    __writeMemory32(0x00001202,0xFFFFFC30,"Memory");
+    __delay(20);
+	do
+		{
+			Reg = __readMemory32(0xFFFFFC68, "Memory") & 8;  // 
+		}while(!Reg);
+}
+
+
+

@@ -478,7 +478,7 @@ extern long UpdateRVTotVerInfoBmTpuUnit(void* pvLDC, long lID);
 extern long UpdateRVTotVerInfoBrTpuUnit(void* pvLDC, long lID);
 extern long UpdateRVARecDataBsTpuUnit(void* pvLDC, long lID);
 extern long UpdateRVARecMainDataBsTpuUnit(void* pvLDC, long lID);
-
+extern long UpdateRvAtrCmd(void* pvLDC, long lID);
 
 short shIdxRvLpduUnit = 0;
 extern RVStateLpuU2Dsc  hldrU2LpduRvUnit;
@@ -580,6 +580,10 @@ switch (IdObj)
 	case ID_MAIN_ANL_RECORD_UNIT :
 	    pfl_vl  =  UpdateRVARecMainDataBsTpuUnit;
 	 break;
+	case ID_ATR_CMD_UNIT:
+	    pfl_vl  = UpdateRvAtrCmd;//(void*)0;UpdateRVTotAtrCmdTpuUnit
+		
+	break; 
 	default:
 	pfl_vl = (void*)0;
 	}

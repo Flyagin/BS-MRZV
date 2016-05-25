@@ -1527,7 +1527,7 @@ pch += i;//Addr Of Transmition
 }
 void ActivateServTrApCnStngTptUnitAckHSU2(void)  @ "Fast_function"
 {
-register long i,j;
+//register long i,j;
 register char *pch;
 register void* pv;
 

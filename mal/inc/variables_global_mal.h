@@ -113,8 +113,8 @@ TITLE Dialog_error_level_2_message = {"", "", ""};
 
 WM_HWIN Unreliable_error_FrameWin = WM_UNATTACHED, UE_Text, UE_ESC_Button;
 WM_HWIN Unreliable_error_level_2_FrameWin = WM_UNATTACHED, UE_level_2_Text, UE_ESC_level_2_Button;
-const TITLE Unreliable_error_title = {TITLE_UNRELIABLE_ERROR_UKR, TITLE_UNRELIABLE_ERROR_RUS, TITLE_UNRELIABLE_ERROR_ENG};
-const TITLE Unreliable_error_message = {UNRELIABLE_SETTINGS_MSG_UKR, UNRELIABLE_SETTINGS_MSG_RUS, UNRELIABLE_SETTINGS_MSG_ENG};
+TITLE Unreliable_error_title, Unreliable_error_level_2_title;
+TITLE Unreliable_error_message, Unreliable_error_level_2_message;
 
 
 WM_HWIN Dialog_password_FrameWin = WM_UNATTACHED, DP_Edit, DP_ENTER_Button, DP_ESC_Button;
@@ -1163,22 +1163,22 @@ SCROLLBAR_Handle ScrollBar_Diagnostics_Pages;
 WM_HWIN Diagnostics_Info[MAX_NUMBER_DIAGN_IN_PANEL];
 unsigned int Diagnistics_max_number_bits[4] = {0, 0, 0, 9};
 
-char *diagnostics_bs_mrzv_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS] = 
+char *diagnostics_bs_mrzv_str_tmp[LANG_LIST_SIZE][ERROR_BS_FATAL_EROR_LAST_BIT] = 
 {
   DIAGN_BS_MRZV_UKR_NAME_LIST, DIAGN_BS_MRZV_RUS_NAME_LIST, DIAGN_BS_MRZV_ENG_NAME_LIST
 };
-char *diagnostics_bo_mrzv_m_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS] = 
+char *diagnostics_bo_mrzv_m_str_tmp[LANG_LIST_SIZE][ERROR_BM_FATAL_EROR_LAST_BIT] = 
 {
   DIAGN_BO_MRZV_M_UKR_NAME_LIST, DIAGN_BO_MRZV_M_RUS_NAME_LIST, DIAGN_BO_MRZV_M_ENG_NAME_LIST
 };
-char *diagnostics_bo_mrzv_l_str_tmp[LANG_LIST_SIZE][ALL_NUMB_DIAGNOSTICS] = 
+char *diagnostics_bo_mrzv_l_str_tmp[LANG_LIST_SIZE][ERROR_BR_FATAL_EROR_LAST_BIT] = 
 {
   DIAGN_BO_MRZV_L_UKR_NAME_LIST, DIAGN_BO_MRZV_L_RUS_NAME_LIST, DIAGN_BO_MRZV_L_ENG_NAME_LIST
 };
 
-unsigned int diagnostics_bs_mrzv_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
-unsigned int diagnostics_bo_mrzv_m_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
-unsigned int diagnostics_bo_mrzv_l_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
+//unsigned int diagnostics_bs_mrzv_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
+//unsigned int diagnostics_bo_mrzv_m_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
+//unsigned int diagnostics_bo_mrzv_l_tmp[NUMBER_4BYTES_WORDS_FOR_DIAGNOSTICS];
 
 MENU_Handle hMenu_main, hMin_settings, hOption, hPasswords, hPickup_Group, hCommands, hAbout;
 const TITLE menu_option_title[] = 

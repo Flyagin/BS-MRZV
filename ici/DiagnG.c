@@ -835,7 +835,7 @@ register StateExchInfo *pStateExchInfo = &hldrRdPrgEvtInfo;
 				i = DelEU(chQueOrdNum,(PFV_VL) RdServicePrgEvtDFl);
 				if(charPrgEvtRecordWasRead == 1 )
 				{
-					charPrgEvtRecordWasRead = 2;
+					 charPrgEvtRecordWasRead = 2;
 					i = Eval_CS((char*)arPrgEvtRecord_T1_WrBuf,sizeof(PrgEvtRecord_T1_Dsc)*AMOUNT_PRG_EVT_RECORD);
 					if(i != hPrgEvtMangInfo.ulCheckSum_arPrgEvt)
 					{
@@ -1405,6 +1405,21 @@ ch_arRcdT1_WrBuf_WR_size = 0;
 
 }
 
+void GetDiagnfield(void* pDiagn){
+	if(pDiagn)
+	{
+          // 
+         // memcpy(pDiagn,(const void*)&hldUNN_PrgEvt,sizeof(UNN_PrgEvtBmBrBs) );
+         // memcpy(pDiagn,(const void*)&hldUNN_PrgEvt,sizeof(__DIAGN) );
+          ((__DIAGN*)pDiagn)->hldrPrgEvtBm = hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBm;
+          ((__DIAGN*)pDiagn)->hldrPrgEvtBr = hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBr;
+          ((__DIAGN*)pDiagn)->hldrPrgEvtBs = hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBs;
+          
+          
+//((StateTpCnDsc*)pv)->
+
+	}
+}
 /*
 //exception
 long GetElemExcept(long lNmExcept, char* pChOutParam)

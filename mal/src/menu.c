@@ -726,6 +726,14 @@ void main_menu_function(void)
                       }
                       else
                       {
+                        Unreliable_error_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_UKR;
+                        Unreliable_error_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_RUS;
+                        Unreliable_error_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_ENG;
+                     
+                        Unreliable_error_message.ptitle[0] = UNRELIABLE_SETTINGS_MSG_UKR;
+                        Unreliable_error_message.ptitle[1] = UNRELIABLE_SETTINGS_MSG_RUS;
+                        Unreliable_error_message.ptitle[2] = UNRELIABLE_SETTINGS_MSG_ENG;
+                          
                         position_in_current_level_menu[current_ekran.current_level] = current_ekran.index_position;
                         previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR] = current_ekran.current_level;
                         current_ekran.current_level = ID_UNRELIABLE_ERROR;
@@ -856,6 +864,14 @@ void main_menu_function(void)
                         }
                         else
                         {
+                          Unreliable_error_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_UKR;
+                          Unreliable_error_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_RUS;
+                          Unreliable_error_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_ENG;
+                     
+                          Unreliable_error_message.ptitle[0] = UNRELIABLE_SETTINGS_MSG_UKR;
+                          Unreliable_error_message.ptitle[1] = UNRELIABLE_SETTINGS_MSG_RUS;
+                          Unreliable_error_message.ptitle[2] = UNRELIABLE_SETTINGS_MSG_ENG;
+                          
                           previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR] = current_ekran.current_level;
                           current_ekran.current_level = ID_UNRELIABLE_ERROR;
                         }
@@ -925,6 +941,14 @@ void main_menu_function(void)
                   }
                   else
                   {
+                    Unreliable_error_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_UKR;
+                    Unreliable_error_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_RUS;
+                    Unreliable_error_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_ENG;
+                     
+                    Unreliable_error_message.ptitle[0] = UNRELIABLE_SETTINGS_MSG_UKR;
+                    Unreliable_error_message.ptitle[1] = UNRELIABLE_SETTINGS_MSG_RUS;
+                    Unreliable_error_message.ptitle[2] = UNRELIABLE_SETTINGS_MSG_ENG;
+
                     position_in_current_level_menu[current_ekran.current_level] = current_ekran.index_position;
                     previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR] = current_ekran.current_level;
                     current_ekran.current_level = ID_UNRELIABLE_ERROR;
@@ -3933,9 +3957,62 @@ void main_menu_function(void)
                     if (enter != 0)
                     {
                       //Podaty komandu na actyvaciju komandy "Skydannja resursu vymykacha"
+                      
+#define SIZE_TMP_ARRAY ((RESERV_MAX_F_CMD_ONB >> 5) + 1)
+                      unsigned long tmp_array[SIZE_TMP_ARRAY];
+                      for (unsigned int i = 0; i < SIZE_TMP_ARRAY; i++) tmp_array[i] = 0;
+#undef SIZE_TMP_ARRAY
+                      _SET_BIT(tmp_array, RESET_HCB_MNU_CMD_ONB);
+                      long rez = SetCmdHVPS((void*)&tmp_array, 1);
+                      if (rez == 3)
+                      {
+                        current_modal_form = false;
+                      }
+                      else
+                      {
+                        Unreliable_error_level_2_title.ptitle[0] = TITLE_UNRELIABLE_ERROR_CMD_UKR;
+                        Unreliable_error_level_2_title.ptitle[1] = TITLE_UNRELIABLE_ERROR_CMD_RUS;
+                        Unreliable_error_level_2_title.ptitle[2] = TITLE_UNRELIABLE_ERROR_CMD_ENG;
+                        
+                        if (rez == 2)
+                        {
+                          Unreliable_error_level_2_message.ptitle[0] = UNRELIABLE_WINDOW_INFO_1_MSG_UKR;
+                          Unreliable_error_level_2_message.ptitle[1] = UNRELIABLE_WINDOW_INFO_1_MSG_RUS;
+                          Unreliable_error_level_2_message.ptitle[2] = UNRELIABLE_WINDOW_INFO_1_MSG_ENG;
+                        }
+                        else
+                        {
+                          Unreliable_error_level_2_message.ptitle[0] = UNRELIABLE_WINDOW_INFO_2_MSG_UKR;
+                          Unreliable_error_level_2_message.ptitle[1] = UNRELIABLE_WINDOW_INFO_2_MSG_RUS;
+                          Unreliable_error_level_2_message.ptitle[2] = UNRELIABLE_WINDOW_INFO_2_MSG_ENG;
+                     
+                        }
+                        
+                        previous_level_in_current_level_menu[ID_UNRELIABLE_ERROR_LEVEL_2] = previous_level_in_current_level_menu[ID_DIALOG_CONFIRMATION_LEVEL_2];						                 
+                        previous_level_in_current_level_menu[ID_DIALOG_CONFIRMATION_LEVEL_2] = ID_UNRELIABLE_ERROR_LEVEL_2;
+
+
+//                        if (WM_GetFocussedWindow() == hMenu_main)
+//                        {
+//                          current_ekran.current_level = previous_level_in_current_level_menu[ID_MAIN_MENU];
+//                          current_ekran.index_position = position_in_current_level_menu[current_ekran.current_level];
+//                
+//                          /*
+//                          Завершальною операцією є зняття команди на перемальованування
+//                          старого пункту меню і виставлення команди на обновлення нового 
+//                          пункту меню
+//                          */
+//                          command_state &= (unsigned int)(~(1 << REDRAW));
+//                          command_menu |= (1 << REWRITE_MENU);
+//                        }                        
+                      }
                     }
+                    else
+                    {
+                      current_modal_form = false;
+                    }
+
                     command_from_menu = 0;
-                    current_modal_form = false;
                   }
                   else if(set_new_Pick_up_Set == true)
                   {
@@ -4228,10 +4305,18 @@ void main_menu_function(void)
               }
               else command_state |= (1 << ERROR_FIXED);
             }
+#ifdef KBD_2016
+            else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_BACK_SPACE) != 0)
+#else
             else if (_CHECK_KEY_SET_BIT(key_pressed, VK_OFFSET_TAB) != 0)
+#endif
             {
               //Зафіксована натиснута кнопка TAB(має бути насправді Backspace)
+#ifdef KBD_2016
+              _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_BACK_SPACE);
+#else
               _CLEAR_KEY_BIT(key_pressed, VK_OFFSET_TAB);
+#endif
               
               if (
                   (key_pressed[0] == 0) &&
@@ -7414,9 +7499,12 @@ void main_menu_function(void)
       case ID_TM_PG:
       case ID_DIAGNOSTICS_PG:
         {
+//#include "DiagnG.h"
+          
           WM_HWIN *Panel_Win;
           int *point_to_position_in_level_1_menu;
           unsigned int number_pages;
+          __DIAGN state_diagnostyka;
           
           switch (current_ekran.current_level)
           {
@@ -7442,20 +7530,34 @@ void main_menu_function(void)
             }
           case ID_DIAGNOSTICS_PG:
             {
+              GetDiagnfield(&state_diagnostyka);
+              
               number_pages = 4;
               
               Panel_Win = &Diagnostics_FrameWin;
               point_to_position_in_level_1_menu = position_in_level_1_menu_Diagnostics;
 
               unsigned int number_set_bits_1 = 0, number_set_bits_2 = 0, number_set_bits_3 = 0;
-              for (unsigned int j = 0; j < ALL_NUMB_DIAGNOSTICS; j++)
+              for (unsigned int j = 0; j < SIZE_BS_RAM_PRG_EVT_UNN; j++)
               {
                 unsigned int word = j >> 5;
                 unsigned int maska = 1 << (j & 0x1f);
                     
-                if (diagnostics_bs_mrzv_tmp  [word] & maska) number_set_bits_1++;
-                if (diagnostics_bo_mrzv_m_tmp[word] & maska) number_set_bits_2++;
-                if (diagnostics_bo_mrzv_l_tmp[word] & maska) number_set_bits_3++;
+                if (state_diagnostyka.hldrPrgEvtBs.UNBsRamPrgEvts.lArBsPrgEvts[word] & maska) number_set_bits_1++;
+              }
+              for (unsigned int j = 0; j < SIZE_BM_RAM_PRG_EVT_UNN; j++)
+              {
+                unsigned int word = j >> 5;
+                unsigned int maska = 1 << (j & 0x1f);
+                    
+                if (state_diagnostyka.hldrPrgEvtBm.UNBmRamPrgEvts.lArBmPrgEvts[word] & maska) number_set_bits_2++;
+              }
+              for (unsigned int j = 0; j < SIZE_BR_RAM_PRG_EVT_UNN; j++)
+              {
+                unsigned int word = j >> 5;
+                unsigned int maska = 1 << (j & 0x1f);
+                    
+                if (state_diagnostyka.hldrPrgEvtBr.UNBrRamPrgEvts.lArBrPrgEvts[word] & maska) number_set_bits_3++;
               }
               Diagnistics_max_number_bits[0] = number_set_bits_1;
               Diagnistics_max_number_bits[1] = number_set_bits_2;

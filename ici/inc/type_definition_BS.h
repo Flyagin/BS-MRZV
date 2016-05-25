@@ -43,11 +43,12 @@ typedef struct
   
   0 - Usyn
   1 - Isyn
+  2 - Ubc-TN2
   0 - Ua
   1 - Ub
   2 - Uc
   */
-  unsigned int a_Usyn_Isyn;
+  unsigned int a_Usyn_Isyn_Ubc;
   unsigned int a_Ua_Ub_Uc;
 
   /*

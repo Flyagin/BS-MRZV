@@ -186,7 +186,7 @@ SettingsStateDsc locSettigsState;
     //    1 - Ub
     //    2 - Uc
   
-	((__SETTINGS* )pDst)->a_Usyn_Isyn = 0;
+	((__SETTINGS* )pDst)-> a_Usyn_Isyn_Ubc = 0;
 	//((CfgTblDsc*)pTbl)-> uc_Usyn_Isyn_selection;
 	if (((CfgTblDsc*)pTbl)-> ownrRclrMng.selectPhase >3 )
 	((CfgTblDsc*)pTbl)-> ownrRclrMng.selectPhase = 0;

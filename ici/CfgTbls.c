@@ -41,7 +41,7 @@
 #define BS_RQ_SET_MIN_CFG_TBL_BIT  (3)
 
 #endif
-
+#pragma default_function_attributes = @ "Fast_function"
 long lStateWriting = 0;
 
 //
@@ -604,7 +604,7 @@ void RefreshCfgTables(void)   //@ "Fast_function"
 			PrepareDhldStngIciTblforTrOnBM();
 			PrepareDholderPrtTblforTrOnBR();
 			shbsRefreshCfgTablesState |= (1<<BS_RF_CFG_VAR_USED_BIT);
-			shbsRefreshCfgTablesState |=(1<<RQ_WR_STNG_TBL_BIT)|(1<<RQ_WR_PRT_TBL_BIT);
+			shbsRefreshCfgTablesState |=(1<<RQ_WR_PRT_TBL_BIT);//(1<<RQ_WR_STNG_TBL_BIT)|
 			shbsRQChangeCfgTablesState &= ~(1<<BS_RQ_WR_CFG_TBL_BIT);
 			shbsRefreshCfgTablesState &=~(1<<BS_RF_CFG_VAR_USED_BIT);
 			goto ExitRefreshCfgTables;
@@ -1000,7 +1000,7 @@ void* pTbl;
     //    1 - Ub
     //    2 - Uc
 	
-    i = ((CfgTblDsc*)pTbl)-> ownrTr_Line.chLineWGV == I_SYN;
+    i = ((CfgTblDsc*)pTbl)-> ownrTr_Line.chLineWGV;// == I_SYN;
 	
 //	((__SETTINGS* )pDst)->a_Usyn_Isyn = ;
 //	else
@@ -1010,13 +1010,13 @@ void* pTbl;
 	{
 	case I_SYN:
 	
-	((__SETTINGS* )pDst)->a_Usyn_Isyn =  U_SYN;
+	((__SETTINGS* )pDst)-> a_Usyn_Isyn_Ubc =  U_SYN;
 	break;
 	case U_SYN:
-	((__SETTINGS* )pDst)->a_Usyn_Isyn =  I_SYN;
+	((__SETTINGS* )pDst)-> a_Usyn_Isyn_Ubc =  I_SYN;
 	break;
 	case UAB_TH2:
-	((__SETTINGS* )pDst)->a_Usyn_Isyn = i; 
+	((__SETTINGS* )pDst)-> a_Usyn_Isyn_Ubc = i; 
 	break;
 	
 	default:
@@ -1121,7 +1121,7 @@ void* pTbl;
     //    1 - Ub
     //    2 - Uc
   
-	((__SETTINGS* )pDst)->a_Usyn_Isyn = 0;
+	((__SETTINGS* )pDst)-> a_Usyn_Isyn_Ubc = 0;
 	//((CfgTblDsc*)pTbl)-> uc_Usyn_Isyn_selection;
 	if (((CfgTblDsc*)pTbl)-> ownrRclrMng.selectPhase >3 )
 	((CfgTblDsc*)pTbl)-> ownrRclrMng.selectPhase = 0;
@@ -1956,6 +1956,7 @@ return lDiffCount;
 
 
 
+#pragma default_function_attributes = 
 
 
 

@@ -301,6 +301,53 @@ UROV2_ATRFG_ONB                      ,//  Сраб УРОВ1
 ARCL1_ATRFG_ONB                      ,//  АПВ1
 ARCL2_ATRFG_ONB                      ,//  АПВ2
 
+
+
+EDF01_DI_ATRFG_ONB                   ,// Вх Оф 01  
+EDF02_DI_ATRFG_ONB                   ,// Вх Оф 02 
+EDF03_DI_ATRFG_ONB                   ,// Вх Оф 03 
+EDF04_DI_ATRFG_ONB                   ,// Вх Оф 04 
+EDF05_DI_ATRFG_ONB                   ,// Вх Оф 05 
+EDF06_DI_ATRFG_ONB                   ,// Вх Оф 06 
+EDF07_DI_ATRFG_ONB                   ,// Вх Оф 07 
+EDF08_DI_ATRFG_ONB                   ,// Вх Оф 08 
+EDF09_DI_ATRFG_ONB                   ,// Вх Оф 09 
+EDF10_DI_ATRFG_ONB                   ,// Вх Оф 10 
+EDF11_DI_ATRFG_ONB                   ,// Вх Оф 11 
+EDF12_DI_ATRFG_ONB                   ,// Вх Оф 12 
+EDF13_DI_ATRFG_ONB                   ,// Вх Оф 13 
+EDF14_DI_ATRFG_ONB                   ,// Вх Оф 14 
+EDF15_DI_ATRFG_ONB                   ,// Вх Оф 15 
+EDF16_DI_ATRFG_ONB                   ,// Вх Оф 16 
+
+SET_OT1_DI_ATRFG_ONB                 ,//Вх Уст   От1 
+RESET_OT1_DI_ATRFG_ONB               ,//Вх Сброс От1 
+SET_OT2_DI_ATRFG_ONB                 ,//Вх   Уст От2   
+RESET_OT2_DI_ATRFG_ONB               ,//Вх Сброс От2 
+SET_OT3_DI_ATRFG_ONB                 ,//Вх   Уст От3   
+RESET_OT3_DI_ATRFG_ONB               ,//Вх Сброс От3 
+SET_OT4_DI_ATRFG_ONB                 ,//Вх   Уст От4   
+RESET_OT4_DI_ATRFG_ONB               ,//Вх Сброс От4 
+
+SET_OT5_DI_ATRFG_ONB                 ,//Вх Уст   От5 
+RESET_OT5_DI_ATRFG_ONB               ,//Вх Сброс От5 
+SET_OT6_DI_ATRFG_ONB                 ,//Вх Уст   От6   
+RESET_OT6_DI_ATRFG_ONB               ,//Вх Сброс От6 
+SET_OT7_DI_ATRFG_ONB                 ,//Вх   Уст От7   
+RESET_OT7_DI_ATRFG_ONB               ,//Вх Сброс От7 
+SET_OT8_DI_ATRFG_ONB                 ,//Вх   Уст От8   
+RESET_OT8_DI_ATRFG_ONB               ,//Вх Сброс От8 
+
+
+
+
+
+
+
+
+
+
+
 EDF01_ATRFG_ONB                      ,//Выход Оф_01  
 EDF02_ATRFG_ONB                      ,//Выход Оф_02
 EDF03_ATRFG_ONB                      ,//Выход Оф_03
@@ -332,8 +379,8 @@ OUT_OT8_ATRFG_ONB                    ,//Выход ОТ8
 RESERV_MAX_ATRFG_ONB
 
 };
-
-
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+#define AMOUNT_BYTE_FOR_KEPRF   (((RESERV_MAX_F_EPRF_ONB)>>3) +1) 
 #define AMOUNT_BYTE_FOR_ATRFG   (((RESERV_MAX_ATRFG_ONB)>>3) +1) 
 //~~~      - 
 //``````````````````````````````````````````````````````````````````````````````````
@@ -362,7 +409,10 @@ extern unsigned char uc_ar_atrf_cmd[AMOUNT_BYTE_FOR_ATRFG];// bit
 #else
 #define SIZE_ATR_CMD_INFO ( AMOUNT_BYTE_FOR_ATRFG)
 #endif 
-
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 typedef struct tag_AtrCmdHldDsc
 {
 	union 
@@ -400,14 +450,18 @@ typedef struct tag_AtrCmdHldDsc
 //		long lTotalChange;
 //	}statistics;
 }AtrCmdHldDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 #ifdef __TYPE_DEFINITION_ATR_CMD_BS_TO_BR__
 //#define SIZE_APCS ( ((sizeof( __MEASUREMENT_TO_PROTECTION )>>2)<<2) + 4*(1&&(sizeof(__MEASUREMENT_TO_PROTECTION ))&3) )
 
 #define SIZE_ATR_CMD  (sizeof( holderAtrCmd.UNAtrCmd.sBrAtrCmdInfoWrp ))
 #endif
 
-//extern __TOTAL_MEASUREMENT total_measurement;
 
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 typedef struct tag_AtrCmdWrpDsc//Wrapper 
 {
 
@@ -422,23 +476,16 @@ void *p_AtrCmd;        //
 		long lTotalChange;
 	}statistics;
 }AtrCmdWrpDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 extern int AppReqTransmitAtrCmd;
 extern int AppReqReceiveAtrCmd ;
 
 extern AtrCmdHldDsc holderAtrCmd;
 extern AtrCmdHldDsc holderAtrCmdIciCopy;
-//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-//~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
-//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-//~~~~~~~~~~~~~~~~ 
 
-//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-//~~~~~~~~~~~~~~~~    Define Layer T         ~~~~~~~~~~~~~~~~~
-//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-//~~~~~~~~~~~~~~~~ 
+
 
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 //.extern void ActivateServTrApCnAtrCmdCTpuUnitSpi(void);
@@ -447,6 +494,251 @@ void PrepDecompouseAtrCmdUnitSpi(void);
 void TerminateServiceApCnAtrCmd(void);
 void ActivateServTrApCnAtrCmdCTpuUnitSpi(void);
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//========================================================================================
+//````````````````````````````````````````````````````````````````````````````````````````
+//    Secure with Ack Exchange                                      
+//........................................................................................
+//========================================================================================
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+#ifndef ApCn_h
+//Pointer function return long param void and long
+typedef long(*PFL_VL)(void* pv, long lV);
+
+typedef long(*PFL_V )(void* pv);
+
+
+#endif /* ApCn_h */
+
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#define MAX_CMD     10
+typedef struct SecureExecState_TagIn
+{
+
+	short shExecConState;//Describe Obj Self Service
+//Connection State 
+//0 - Obj Active
+//1 - Decompose Call
+//2 - 1 - State Start
+//3 - 1 - State Work
+//4 - 1 - State Stop 
+//5 - 1- Error State
+//	PFL_VL pf_Work;
+//	PFL_VL pf_ExecCmd;
+	
+
+	long lOrderNumIteration;//Tru program Iteration
+	long lIdxStepExec;//???Meaning this var 
+	long lCtrCes;//Counter current elementary step
+	short ushEvtField;//For Describe state curr Exec State
+	
+//Obs - unsigned long   ulStateProxyManger;//
+//Obs -   //b3 - Target b2 -Phase b1- Error Code b0 - bit Flags
+	unsigned long   ulLifeCtrEct;//
+
+	unsigned short ushRvCount;
+	unsigned short ushTrCount;
+	unsigned short ushRvTotal;
+	unsigned short ushTrTotal;
+	unsigned char      *pUchRV;//Base
+	unsigned char      *pUchTR;//Base
+	
+	unsigned short ushAmtPhases;
+    unsigned short ushAmtStep;
+	unsigned short ushAmtIteration;
+	unsigned short ushDefaultTimeOutVal;
+	
+}SecureExecStateDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+#define INIT_PART     1
+#define TRANSMIT_PART 3
+#define TERMINATE_PART 20
+
+
+/*
+Transmit Obj 
+Have           Pointer_Data & size_of_Data & potental sizeof_cutting
+Possible       & maximum amount_of_Phases & maximum amtStep_per_Phases
+
+Need struct_of_jornal
+1)Order number - Order Number Iteration
+2)Counter current elementary step <<-- It means step can`t be repeated more then 3 times 
+3)Ord_Num_of_Step_Transmit/Ord_Num_of_Step_Receive
+4)Info_Transmit/Info_Receive
+
+*/
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+typedef struct CmnPipeLogDsc_Tag
+{
+	
+	long lOrderNumIteration;//
+	long lCtrCes;//Counter current elementary step
+	short ushEvtField;
+	//0 - Reserv
+	//1 - step transmit - Mean lOrderNumStep Transmit Param 1- Receive
+	//2 - step receive - Mean lOrderNumStep Transmit Param 1- Receive
+	//3 - Info Present
+	//4 - 
+	short shReserv;
+	long lOrderNumStep;
+	void* pvInfo;
+	
+}CmnPipeLogDsc;//Communication Pipe
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#define MAX_COMMUNICATE_ITERATION 1
+CmnPipeLogDsc arCmnPipeLogDsc[MAX_COMMUNICATE_ITERATION];
+
+
+typedef struct tag_BFMemDsc{
+	struct tag_BFMemDsc*pNext;
+	struct tag_BFMemDsc*pPrev;
+	unsigned short ushOffset;//Offset Curr Chunk in Mem
+	unsigned short ushSizeChunk; 
+
+}ChankMemDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#define TOTAL_AMOUNT_INFO_RECORD 20
+#define BUFF_SIZE              2000
+typedef struct CmnPipeInfoBufDsc_TAG
+{
+	short shAvailMem;
+	long lFixAmtInfoEvtRec;
+	// Obs-> short shIdxInfoEvtRec;
+	ChankMemDsc *pHeadDesc,*pTailDesc;
+	//Headr Part
+	ChankMemDsc arDescriptChunk[TOTAL_AMOUNT_INFO_RECORD];//short Offset in Buff short Size Chunck
+	
+	//Data Part
+	
+	
+} CmnPipeInfoBufDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+typedef struct ReliableCmnDsc_TAG{
+
+	RVFrgDsc RvFrgAtrCmd;
+	long lAtrCmdOrderNumRvFragment;
+	char chStateReciveStngAck;//Inform  ACK Good
+	//0 - Inform  ACK Good
+	//1 - Cmp OrderNumFrg
+	//2 - Cmp Size Pack
+	//3 - 
+	//4 - 
+	char ch1,ch2,ch3;//chTerminateSes;//
+	long lAtrCmdOrderNumTrFragment;
+	TRFrgDsc TrFrgAtrCmd;
+
+}ReliableCmnDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~~~~ 
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+typedef struct tag_ConvParam
+{
+	char  *pI8In  ;
+	char  *pI8Out ;
+	char  *pOnbVal;
+	short  shStartNumBit;
+	
+    //
+}ConvParamDsc;
+//"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+/*
+typedef struct tag_ActivatorReq
+{
+	long   ulActivationWord;//Requst Word Sequnce
+	char   chID_Activator;  //From Here
+	char   chReqActivation;//Req
+	short  shReserv;
+	
+    //
+}ActivatorCmdDsc;
+
+
+
+typedef struct tag_ActivatorCmd
+{
+	//long   ulActivationWord;//Write when Work Sequense 
+	//void*  pvActivCmdWdsHldrDsc;
+	CmdWordsHolderDsc m_ActivCmdWdHldr;
+	short  shMapW32Used;//
+	//bit of order number Activation 32b Word 0-wd, 1-wd 2 ,3-wd etc
+	char   chSourcesActivation;//0bit Key 1-RS485 2-USB 3-ZigBee
+	char   chState;            //StateActivation;
+	
+	//short  shReserv;
+	//void*  pvReserv;
+    //
+}ActivationCmdDsc;
+*/
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//~~~       Перечень констант  идентификаторов активаторов телемеханики        ~~~~~
+//~~~                                                                          ~~~~~
+//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+#define ID_KEY           1 
+#define ID_RS485         (ID_KEY       + 1) //2-
+#define ID_RS232         (ID_RS485     + 1) //3-
+#define ID_USB           (ID_RS232     + 1) //4-
+#define ID_ZIG_BEE       (ID_USB       + 1) //5-
+#define ID_ETHERNET      (ID_ZIG_BEE   + 1) //6-
+//``````````````````````````````````````````````````````````````````````````````````
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+#define SIZE_QUEUE_ATR_CMD     8
+extern char chReqKeyCallAtrCmd;
+extern long chStateQueueAtrCmd;
+extern char chSizeQueueHldAtrCmd;
+
+//extern AtrCmdHldDsc arHldAtrCmd[ZIZE_QUEUE_ATR_CMD];
+extern ObjDataMgrDsc hldAtrCmdMgr;
+
+
+
+
+
+
+
+extern const char arAtrs_f_IN_Cmd_f [] ;
+
+extern ReliableCmnDsc hldReliableCmnAtrcmd;
+extern SecureExecStateDsc hldrConState;
+
+void PrepDecompouseAtrCmdUnitSpiSecure(void);
+void  ExecIteration(void* pv);
+void BaseTransmitOperation(void* pv); 
+void PrepDecompouseStableAtrCmdUnitSpi(void);
+void ActivateServTrApCnAtrCmdCTpuUnitSpi(void);
+void ActivateServTrApCnStableAtrCmdCTpuUnitSpi(void);
+void TerminateServiceApCnStableAtrCmd(void);
+void RecodeBit(char *pRamBitArr, char* pLgrBitArr,long nOnbIn,long nOnbOut);
+extern long CreateTRFragment(void* pvTRFrgDsc);
+long ActivateTrAtrCmdExec(void* pvAdrAtrCmd,long lSize);
 
 
 #endif //ATR_CMD_h

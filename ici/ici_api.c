@@ -93,8 +93,8 @@ static char chStateExec = 0;
 long Samples_Ready_Handler(void* pv)  @ "Fast_function"
 {
 register long i=0;
-ArTenPerStateDsc locArTenPerState;
-TotMeasStateDsc locTotMeasStateDsc;
+//ArTenPerStateDsc locArTenPerState;
+//TotMeasStateDsc locTotMeasStateDsc;
 SettingsStateDsc locSettingsStateDsc;
 	if (samples_data_rdy & 0x200)
 	{
@@ -280,7 +280,7 @@ struct
 if(chEntry_Spi0>=2)
 	{
 	   i = chEntry_Spi0;//StubForSpiChanel1();
-	   AT91C_BASE_PIOD->PIO_SODR = (0x2);
+	   //End spi0 AT91C_BASE_PIOD->PIO_SODR = (0x2); 
 		if( (chLogicSpi0HdwError) ||(chEntry_Spi0 !=2) )
 		ReInitSpi0Param();
 		else
@@ -493,9 +493,9 @@ else
 //while(1)
 if(chEntry_Spi0)
 {
-i = inSpi0(ArTstData, 16);
+i = inSpi0((unsigned char*)ArTstData, 16);
 ArTstData[550] = 30;
-i=  outSpi0(ArTstData+100, 16);//512);//300
+i=  outSpi0((unsigned char*)ArTstData+100, 16);//512);//300
 }
 
 
@@ -517,12 +517,12 @@ char ArTstData[600];
 
 if(chEntry_Spi0)
 {
-i = inSpi0(ArTstData, 512);//First Load Data from Buff
+i = inSpi0((unsigned char*)ArTstData, 512);//First Load Data from Buff
 ArTstData[550] = 30;
 for( i = 0; i<560; i++)
 ArTstData[i] = i+10;
 //Move data in Buf for Sending
-i=  outSpi0(ArTstData, 512);//512);//300
+i=  outSpi0((unsigned char*)ArTstData, 512);//512);//300
 }
 
 
@@ -556,9 +556,9 @@ char  chTestChar = 0;
 
 __arm void Test_Loop(void)  //@ "Fastest_function"
 {
-register long i;
-register void *pv;
-register char *pCh;
+//register long i;
+//register void *pv;
+//register char *pCh;
 	while(1)
 	{
 		AT91C_BASE_PIOD->PIO_SODR = (0x2);

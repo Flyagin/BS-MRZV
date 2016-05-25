@@ -19,21 +19,21 @@
 
 #define MAX_KILKIST_STUPENIV_APV        1
 
-#define TITLE_APV_PICKUP0_UKR          "ПО АПВ1"
-#define TITLE_APV_PICKUP0_RUS          "ПО АПВ1"
-#define TITLE_APV_PICKUP0_ENG          "ПО AR1"
+#define TITLE_APV_PICKUP0_UKR          "ПО1 АПВ"
+#define TITLE_APV_PICKUP0_RUS          "ПО1 АПВ"
+#define TITLE_APV_PICKUP0_ENG          "ПО1 AR"
 
-#define TITLE_APV_PICKUP1_UKR          "ПО АПВ2"
-#define TITLE_APV_PICKUP1_RUS          "ПО АПВ2"
-#define TITLE_APV_PICKUP1_ENG          "ПО AR2"
+#define TITLE_APV_PICKUP1_UKR          "ПО2 АПВ"
+#define TITLE_APV_PICKUP1_RUS          "ПО2 АПВ"
+#define TITLE_APV_PICKUP1_ENG          "ПО2 AR"
 
-#define TITLE_APV_PICKUP2_UKR          "ПО АПВ3"
-#define TITLE_APV_PICKUP2_RUS          "ПО АПВ3"
-#define TITLE_APV_PICKUP2_ENG          "ПО AR3"
+#define TITLE_APV_PICKUP2_UKR          "ПО3 АПВ"
+#define TITLE_APV_PICKUP2_RUS          "ПО3 АПВ"
+#define TITLE_APV_PICKUP2_ENG          "ПО3 AR"
 
-#define TITLE_APV_PICKUP3_UKR          "ПО АПВ4"
-#define TITLE_APV_PICKUP3_RUS          "ПО АПВ4"
-#define TITLE_APV_PICKUP3_ENG          "ПО AR4"
+#define TITLE_APV_PICKUP3_UKR          "ПО4 АПВ"
+#define TITLE_APV_PICKUP3_RUS          "ПО4 АПВ"
+#define TITLE_APV_PICKUP3_ENG          "ПО4 AR"
 
 #define TITLE_APV_PICKUP4_UKR          "Різниця напруг"
 #define TITLE_APV_PICKUP4_RUS          "Разница напр."
