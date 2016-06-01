@@ -472,6 +472,92 @@ void redraw_panel_info_n(__index_level_menu id_protection)
     __DIAGN state_diagnostyka;
     GetDiagnfield(&state_diagnostyka);
     
+    for (unsigned int i = 0; i < number_pages; i++)
+    {
+      char title[256];
+      title[0] = '\0';
+      strcat_mal(title, (char *)Diagnostics_Page_name[i].pText[eeprom_bs_settings_tbl.chLngGUIText]);
+
+      if (i < (number_pages - 1))
+      {
+        long *target_array;
+        unsigned int number_set_bits = 0;
+        if (i == 0)
+        {
+          target_array = state_diagnostyka.hldrPrgEvtBs.UNBsRamPrgEvts.lArBsPrgEvts;
+          
+          for (unsigned int j = 0; j < ERROR_BS_FATAL_EROR_LAST_BIT; j++)
+          {
+            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+          }
+        }
+        else if (i == 1)
+        {
+          target_array = state_diagnostyka.hldrPrgEvtBm.UNBmRamPrgEvts.lArBmPrgEvts;
+         
+          for (unsigned int j = 0; j < ERROR_BM_FATAL_EROR_LAST_BIT; j++)
+          {
+            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+          }
+        }
+        else 
+        {
+          target_array = state_diagnostyka.hldrPrgEvtBr.UNBrRamPrgEvts.lArBrPrgEvts;
+          
+          for (unsigned int j = 0; j < ERROR_BR_FATAL_EROR_LAST_BIT; j++)
+          {
+            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
+          }
+        }
+        
+        Diagnistics_max_number_bits[i] = number_set_bits;
+
+        char number_sting[3 + 3 + 1];
+        number_sting[0] = ' ';
+        number_sting[1] = '[';
+        if (number_set_bits > 1000)
+        {
+          number_sting[2] = '?';
+
+          number_sting[3] = ']';
+          number_sting[4] = '\0';
+        }
+        else if (number_set_bits > 100)
+        {
+          number_sting[2] = number_set_bits/100 + 0x30;
+          number_set_bits %= 100;
+
+          number_sting[3] = number_set_bits/10 + 0x30;
+          number_set_bits %= 10;
+
+          number_sting[4] = number_set_bits + 0x30;
+
+          number_sting[5] = ']';
+          number_sting[6] = '\0';
+        }
+        else if (number_set_bits > 10)
+        {
+          number_sting[2] = number_set_bits/10 + 0x30;
+          number_set_bits %= 10;
+
+          number_sting[3] = number_set_bits + 0x30;
+
+          number_sting[4] = ']';
+          number_sting[5] = '\0';
+        }
+        else
+        {
+          number_sting[2] = number_set_bits + 0x30;
+
+          number_sting[3] = ']';
+          number_sting[4] = '\0';
+        }
+
+        strcat_mal(title, number_sting);
+        MULTIPAGE_SetText(*Info_n_MultiPage_type_info, title, i);
+      }
+    }
+    
     switch (current_ekran.index_position)
     {
     case 0:
@@ -483,7 +569,6 @@ void redraw_panel_info_n(__index_level_menu id_protection)
         SCROLLBAR_SetValue(ScrollBar_Diagnostics_Pages, current_ekran.index_position_1);
         
         long *target_array;
-          unsigned int number_set_bits = 0;
         if (current_ekran.index_position == 0)
         {
           char *(*target_name)[ERROR_BS_FATAL_EROR_LAST_BIT];
@@ -491,15 +576,9 @@ void redraw_panel_info_n(__index_level_menu id_protection)
           target_array = state_diagnostyka.hldrPrgEvtBs.UNBsRamPrgEvts.lArBsPrgEvts;
           target_name = diagnostics_bs_mrzv_str_tmp;
 
-          for (unsigned int j = 0; j < SIZE_BS_RAM_PRG_EVT_UNN; j++)
-          {
-            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
-          }
-          
-
           char empty = '\0';
           if (
-              (number_set_bits == 0) &&
+              (Diagnistics_max_number_bits[0] == 0) &&
               (current_ekran.index_position_1 < MAX_NUMBER_DIAGN_IN_PANEL)
             ) 
           {
@@ -532,7 +611,7 @@ void redraw_panel_info_n(__index_level_menu id_protection)
             for (unsigned int i = 0; i < MAX_NUMBER_DIAGN_IN_PANEL; i++)
             {
               char *point_string;
-              if ((current_ekran.index_position_1 + i) < number_set_bits)
+              if ((current_ekran.index_position_1 + i) < Diagnistics_max_number_bits[0])
               {
                 unsigned int bit;
                 while (
@@ -559,15 +638,9 @@ void redraw_panel_info_n(__index_level_menu id_protection)
           target_array = state_diagnostyka.hldrPrgEvtBm.UNBmRamPrgEvts.lArBmPrgEvts;
           target_name = diagnostics_bo_mrzv_m_str_tmp;
 
-          for (unsigned int j = 0; j < SIZE_BM_RAM_PRG_EVT_UNN; j++)
-          {
-            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
-          }
-          
-
           char empty = '\0';
           if (
-              (number_set_bits == 0) &&
+              (Diagnistics_max_number_bits[1] == 0) &&
               (current_ekran.index_position_1 < MAX_NUMBER_DIAGN_IN_PANEL)
             ) 
           {
@@ -600,7 +673,7 @@ void redraw_panel_info_n(__index_level_menu id_protection)
             for (unsigned int i = 0; i < MAX_NUMBER_DIAGN_IN_PANEL; i++)
             {
               char *point_string;
-              if ((current_ekran.index_position_1 + i) < number_set_bits)
+              if ((current_ekran.index_position_1 + i) < Diagnistics_max_number_bits[1])
               {
                 unsigned int bit;
                 while (
@@ -627,15 +700,9 @@ void redraw_panel_info_n(__index_level_menu id_protection)
           target_array = state_diagnostyka.hldrPrgEvtBr.UNBrRamPrgEvts.lArBrPrgEvts;
           target_name = diagnostics_bo_mrzv_l_str_tmp;
 
-          for (unsigned int j = 0; j < SIZE_BR_RAM_PRG_EVT_UNN; j++)
-          {
-            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
-          }
-          
-
           char empty = '\0';
           if (
-              (number_set_bits == 0) &&
+              (Diagnistics_max_number_bits[2] == 0) &&
               (current_ekran.index_position_1 < MAX_NUMBER_DIAGN_IN_PANEL)
             ) 
           {
@@ -668,7 +735,7 @@ void redraw_panel_info_n(__index_level_menu id_protection)
             for (unsigned int i = 0; i < MAX_NUMBER_DIAGN_IN_PANEL; i++)
             {
               char *point_string;
-              if ((current_ekran.index_position_1 + i) < number_set_bits)
+              if ((current_ekran.index_position_1 + i) < Diagnistics_max_number_bits[2])
               {
                 unsigned int bit;
                 while (

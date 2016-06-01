@@ -1007,7 +1007,7 @@ void repaint_actions(__index_level_menu id_panel)
             {
               target_array = state_diagnostyka.hldrPrgEvtBs.UNBsRamPrgEvts.lArBsPrgEvts;
           
-              for (unsigned int j = 0; j < SIZE_BS_RAM_PRG_EVT_UNN; j++)
+              for (unsigned int j = 0; j < ERROR_BS_FATAL_EROR_LAST_BIT; j++)
               {
                 if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
               }
@@ -1016,7 +1016,7 @@ void repaint_actions(__index_level_menu id_panel)
             {
               target_array = state_diagnostyka.hldrPrgEvtBm.UNBmRamPrgEvts.lArBmPrgEvts;
           
-              for (unsigned int j = 0; j < SIZE_BM_RAM_PRG_EVT_UNN; j++)
+              for (unsigned int j = 0; j < ERROR_BM_FATAL_EROR_LAST_BIT; j++)
               {
                 if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
               }
@@ -1025,12 +1025,14 @@ void repaint_actions(__index_level_menu id_panel)
             {
               target_array = state_diagnostyka.hldrPrgEvtBr.UNBrRamPrgEvts.lArBrPrgEvts;
           
-              for (unsigned int j = 0; j < SIZE_BR_RAM_PRG_EVT_UNN; j++)
+              for (unsigned int j = 0; j < ERROR_BR_FATAL_EROR_LAST_BIT; j++)
               {
                 if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
               }
             }
         
+            Diagnistics_max_number_bits[i] = number_set_bits;
+            
             char number_sting[3 + 3 + 1];
             number_sting[0] = ' ';
             number_sting[1] = '[';

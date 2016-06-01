@@ -7538,21 +7538,21 @@ void main_menu_function(void)
               point_to_position_in_level_1_menu = position_in_level_1_menu_Diagnostics;
 
               unsigned int number_set_bits_1 = 0, number_set_bits_2 = 0, number_set_bits_3 = 0;
-              for (unsigned int j = 0; j < SIZE_BS_RAM_PRG_EVT_UNN; j++)
+              for (unsigned int j = 0; j < ERROR_BS_FATAL_EROR_LAST_BIT; j++)
               {
                 unsigned int word = j >> 5;
                 unsigned int maska = 1 << (j & 0x1f);
                     
                 if (state_diagnostyka.hldrPrgEvtBs.UNBsRamPrgEvts.lArBsPrgEvts[word] & maska) number_set_bits_1++;
               }
-              for (unsigned int j = 0; j < SIZE_BM_RAM_PRG_EVT_UNN; j++)
+              for (unsigned int j = 0; j < ERROR_BM_FATAL_EROR_LAST_BIT; j++)
               {
                 unsigned int word = j >> 5;
                 unsigned int maska = 1 << (j & 0x1f);
                     
                 if (state_diagnostyka.hldrPrgEvtBm.UNBmRamPrgEvts.lArBmPrgEvts[word] & maska) number_set_bits_2++;
               }
-              for (unsigned int j = 0; j < SIZE_BR_RAM_PRG_EVT_UNN; j++)
+              for (unsigned int j = 0; j < ERROR_BR_FATAL_EROR_LAST_BIT; j++)
               {
                 unsigned int word = j >> 5;
                 unsigned int maska = 1 << (j & 0x1f);
