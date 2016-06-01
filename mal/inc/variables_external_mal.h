@@ -245,7 +245,6 @@ extern const TITLE Transformer_line_title[3];
 extern WM_HWIN Resurs_FrameWin, Resurs_t[MAX_NUMBER_ITEMS_RESURS], Resurs_v[MAX_NUMBER_ITEMS_RESURS];
 extern const TITLE Resurs_panel_title;
 extern const TITLE Resurs_title[MAX_NUMBER_ITEMS_RESURS];
-extern unsigned int resurs_tmp, resurs_count_tmp;
 
 extern WM_HWIN LCD_Settings_FrameWin, LCD_Settings_Edit, LCD_Settings_t, LCD_Settings_d;
 extern const TITLE LCD_Settings_title;

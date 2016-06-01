@@ -60,16 +60,31 @@ Peremaljovuvannja paneli resursu
 *****************************/
 void redraw_panel_resurs(void)
 {
+  struct resurs_data
+  {
+    long lResourceCB;   //Resurs Vikluchtelya
+    long lAmountSetOnCB;//Kol-vo otkl
+
+  }resurs;
+  long result = GetHvpBrOnCalcInfo(&resurs);
+  
   EDIT_SetText(hEdit, _aBitmapItem[ICONVIEW_RES_COUNTER_ID].pExplanation[eeprom_bs_settings_tbl.chLngGUIText]);
   
   char string_tmp[10 + 1];
-  unsigned int value_tmp;
   
-  value_tmp = resurs_tmp;
-  if (int_to_str (value_tmp, string_tmp))TEXT_SetText(Resurs_v[0], string_tmp);
+  if ((result != SUCCESS_EXEC) || (!int_to_str (resurs.lResourceCB, string_tmp))) 
+  {
+    string_tmp[0] = '?';
+    string_tmp[1] = '\0';
+  }
+ TEXT_SetText(Resurs_v[0], string_tmp);
 
-  value_tmp = resurs_count_tmp;
-  if (int_to_str (value_tmp, string_tmp))TEXT_SetText(Resurs_v[1], string_tmp);
+  if ((result != SUCCESS_EXEC) || (!int_to_str (resurs.lAmountSetOnCB, string_tmp))) 
+  {
+    string_tmp[0] = '?';
+    string_tmp[1] = '\0';
+  }
+  TEXT_SetText(Resurs_v[1], string_tmp);
   
   WM_HWIN FocussedWindow = (Resurs_FrameWin);
   WM_SetFocus(FocussedWindow);
