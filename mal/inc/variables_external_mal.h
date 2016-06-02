@@ -251,19 +251,16 @@ extern const TITLE LCD_Settings_title;
 extern const TITLE LCD_Settings_Delay_title;
 extern const TITLE LCD_Settings_Delay_dimention;
 
-extern WM_HWIN TM_FrameWin, TM_MultiPage_type_info, TM_Pages[2], TM_IO_Header, TM_IO_Pages[2], TM_F_Header, TM_F_Pages[2];
+extern WM_HWIN TM_FrameWin, TM_MultiPage_type_info, TM_Pages[2], TM_IO_Header, TM_IO_Pages[2], TM_F_Header, TM_F_Pages;
 extern const TITLE TM_panel_title;
 extern const LANG_ITEM TM_Page_name[];
 extern const TITLE TM_IO_columns[];
-extern const TITLE TM_F_columns[];
+extern const TITLE TM_F_columns;
 extern SCROLLBAR_Handle ScrollBar_TM_Pages[2];
 extern WM_HWIN TM_Inputs[NUM_IN];
 extern WM_HWIN TM_Outputs[NUM_OUT];
-extern WM_HWIN TM_F[2][MAX_NUMBER_F_IN_PANEL];
+extern WM_HWIN TM_F[MAX_NUMBER_F_IN_PANEL];
 extern unsigned int TM_max_number_bits;
-
-extern unsigned int state_active_functions[NUMBER_4BYTES_WORDS_FOR_FUBCTIOBS];
-extern unsigned int state_actuated_functions[NUMBER_4BYTES_WORDS_FOR_FUBCTIOBS];
 
 extern WM_HWIN Diagnostics_FrameWin, Diagnostics_MultiPage_type_info, Diagnostics_Pages;
 extern const TITLE Diagnostics_panel_title;

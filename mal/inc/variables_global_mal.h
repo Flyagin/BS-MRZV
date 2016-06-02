@@ -1124,7 +1124,7 @@ const TITLE LCD_Settings_title = {TITLE_LCD_SETTINGS_UKR, TITLE_LCD_SETTINGS_RUS
 const TITLE LCD_Settings_Delay_title = {TITLE_LCD_SETTINGS_DELAY_UKR, TITLE_LCD_SETTINGS_DELAY_RUS, TITLE_LCD_SETTINGS_DELAY_ENG};
 const TITLE LCD_Settings_Delay_dimention = {"хв.", "мин.", "min."};
 
-WM_HWIN TM_FrameWin = WM_UNATTACHED, TM_MultiPage_type_info, TM_Pages[2], TM_IO_Header, TM_IO_Pages[2], TM_F_Header, TM_F_Pages[2];
+WM_HWIN TM_FrameWin = WM_UNATTACHED, TM_MultiPage_type_info, TM_Pages[2], TM_IO_Header, TM_IO_Pages[2], TM_F_Header, TM_F_Pages;
 const TITLE TM_panel_title = {TITLE_TM_PANEL_UKR, TITLE_TM_PANEL_RUS, TITLE_TM_PANEL_ENG};
 const LANG_ITEM TM_Page_name[] = 
 {
@@ -1136,18 +1136,14 @@ const TITLE TM_IO_columns[] =
   {TITLE_TM_IO_COLUMN_1_UKR, TITLE_TM_IO_COLUMN_1_RUS, TITLE_TM_IO_COLUMN_1_ENG},
   {TITLE_TM_IO_COLUMN_2_UKR, TITLE_TM_IO_COLUMN_2_RUS, TITLE_TM_IO_COLUMN_2_ENG}
 };
-const TITLE TM_F_columns[] = 
+const TITLE TM_F_columns = 
 {
-  {TITLE_TM_F_COLUMN_1_UKR, TITLE_TM_F_COLUMN_1_RUS, TITLE_TM_F_COLUMN_1_ENG},
-  {TITLE_TM_F_COLUMN_2_UKR, TITLE_TM_F_COLUMN_2_RUS, TITLE_TM_F_COLUMN_2_ENG}
+  {TITLE_TM_F_COLUMN_1_UKR, TITLE_TM_F_COLUMN_1_RUS, TITLE_TM_F_COLUMN_1_ENG}
 };
 SCROLLBAR_Handle ScrollBar_TM_Pages[2];
 WM_HWIN TM_Inputs[NUM_IN], TM_Outputs[NUM_OUT];
-WM_HWIN TM_F[2][MAX_NUMBER_F_IN_PANEL];
+WM_HWIN TM_F[MAX_NUMBER_F_IN_PANEL];
 unsigned int TM_max_number_bits = 0;
-
-unsigned int state_active_functions[NUMBER_4BYTES_WORDS_FOR_FUBCTIOBS];
-unsigned int state_actuated_functions[NUMBER_4BYTES_WORDS_FOR_FUBCTIOBS];
 
 WM_HWIN Diagnostics_FrameWin = WM_UNATTACHED, Diagnostics_MultiPage_type_info, Diagnostics_Pages;
 const TITLE Diagnostics_panel_title = {TITLE_DIAGNOSTICS_PANEL_UKR, TITLE_DIAGNOSTICS_PANEL_RUS, TITLE_DIAGNOSTICS_PANEL_ENG};

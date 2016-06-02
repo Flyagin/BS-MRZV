@@ -7499,8 +7499,6 @@ void main_menu_function(void)
       case ID_TM_PG:
       case ID_DIAGNOSTICS_PG:
         {
-//#include "DiagnG.h"
-          
           WM_HWIN *Panel_Win;
           int *point_to_position_in_level_1_menu;
           unsigned int number_pages;
@@ -7515,16 +7513,19 @@ void main_menu_function(void)
               Panel_Win = &TM_FrameWin;
               point_to_position_in_level_1_menu = position_in_level_1_menu_TM;
 
-              unsigned int number_set_bits_1 = 0, number_set_bits_2 = 0;
-              for (unsigned int j = 0; j < All_NUMB_RANK_ELEM; j++)
+              unsigned int number_set_bits = 0;
+              char state_active_functions[AMOUNT_BYTE_FOR_OEPRF];
+              if (GetActiveCmdsDemo(state_active_functions) == SUCCESS_EXEC)
               {
-                unsigned int word = j >> 5;
-                unsigned int maska = 1 << (j & 0x1f);
+                for (unsigned int j = 0; j < RESERV_MAX_OEPRF_ONB; j++)
+                {
+                  unsigned int word = j >> 3;
+                  unsigned int maska = 1 << (j & 0x7);
                     
-                if (state_active_functions  [word] & maska) number_set_bits_1++;
-                if (state_actuated_functions[word] & maska) number_set_bits_2++;
+                  if (state_active_functions[word] & maska) number_set_bits++;
+                }
               }
-              TM_max_number_bits = (number_set_bits_1 > number_set_bits_2) ? number_set_bits_1 : number_set_bits_2;
+              TM_max_number_bits = number_set_bits;
               
               break;
             }

@@ -135,12 +135,9 @@ void info_n_panel_show(unsigned int id_protection)
 
       TM_F_Header = HEADER_CreateAttached(TM_Pages[1], ID_TM_F_HEADER, 0);
       HEADER_SetFont(TM_F_Header, &GUI_FontArialBold14_8_Unicode);
-      HEADER_AddItem(TM_F_Header, (X_SIZE - 6 - 10)/2, TM_F_columns[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText], GUI_TA_VCENTER | GUI_TA_HCENTER);
-      TM_F_Pages[0] = WINDOW_CreateEx(0, 15, (X_SIZE - 6 - 10)/2 - 1, Y_SIZE - 52,  WM_GetClientWindow(TM_Pages[1]),  WM_CF_SHOW, 0, ID_TM_F_PAGE_1, _cbEmpty);
-      WINDOW_SetBkColor(TM_F_Pages[0], GUI_WHITE);
-      HEADER_AddItem(TM_F_Header, (X_SIZE - 6 - 10)/2, TM_F_columns[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText], GUI_TA_VCENTER | GUI_TA_HCENTER);
-      TM_F_Pages[1] = WINDOW_CreateEx((X_SIZE - 6 - 10)/2 + 1, 15, (X_SIZE - 6 - 10)/2 - 1, Y_SIZE - 52,  WM_GetClientWindow(TM_Pages[1]),  WM_CF_SHOW, 0, ID_TM_F_PAGE_2, _cbEmpty);
-      WINDOW_SetBkColor(TM_F_Pages[1], GUI_WHITE);
+      HEADER_AddItem(TM_F_Header, (X_SIZE - 6 - 10), TM_F_columns.ptitle[eeprom_bs_settings_tbl.chLngGUIText], GUI_TA_VCENTER | GUI_TA_HCENTER);
+      TM_F_Pages = WINDOW_CreateEx(0, 15, (X_SIZE - 6 - 10), Y_SIZE - 52,  WM_GetClientWindow(TM_Pages[1]),  WM_CF_SHOW, 0, ID_TM_F_PAGE, _cbEmpty);
+      WINDOW_SetBkColor(TM_F_Pages, GUI_WHITE);
 
 #define X_START         3
 #define X_WHIGHT        15
@@ -194,20 +191,16 @@ void info_n_panel_show(unsigned int id_protection)
 #undef Y_INTERVAL
       
 #define X_START         3
-#define X_WHIGHT        (X_SIZE - 6 - 10)/2 - 1 - X_START
+#define X_WHIGHT        (X_SIZE - 6 - 10) - X_START
 #define Y_START         2
 #define Y_WHIGHT        12
 #define Y_INTERVAL      2
       
-      for (unsigned int i = 0; i < 2; i++)
+      for (unsigned int i = 0; i < MAX_NUMBER_F_IN_PANEL; i++)
       {
-        _id_user_widget id_base_f = (i == 0) ? ID_TM_F1_1 : ID_TM_F2_1;
-        for (unsigned int j = 0; j < MAX_NUMBER_F_IN_PANEL; j++)
-        {
-          char empty = '\0';
-          TM_F[i][j] = TEXT_CreateEx(X_START, Y_START + j*(Y_WHIGHT + Y_INTERVAL), X_WHIGHT, Y_WHIGHT, WM_GetClientWindow(TM_F_Pages[i]), WM_CF_SHOW, TEXT_CF_LEFT | GUI_TA_BOTTOM, id_base_f + j,  &empty);
-          TEXT_SetFont(TM_F[i][j], &GUI_FontArialStandard14_8_Unicode);
-        }
+        char empty = '\0';
+        TM_F[i] = TEXT_CreateEx(X_START, Y_START + i*(Y_WHIGHT + Y_INTERVAL), X_WHIGHT, Y_WHIGHT, WM_GetClientWindow(TM_F_Pages), WM_CF_SHOW, TEXT_CF_LEFT | GUI_TA_BOTTOM, ID_TM_F_1 + i,  &empty);
+        TEXT_SetFont(TM_F[i], &GUI_FontArialStandard14_8_Unicode);
       }
       
 #undef X_START
@@ -389,73 +382,86 @@ void redraw_panel_info_n(__index_level_menu id_protection)
       }
     case 1:
       {
+        int number_set_bits = 0;
+        char state_active_functions[AMOUNT_BYTE_FOR_OEPRF];
+        long result = GetActiveCmdsDemo(state_active_functions);
+        
+        if (result == SUCCESS_EXEC)
+        {
+          for (unsigned int j = 0; j < RESERV_MAX_OEPRF_ONB; j++)
+          {
+            unsigned int word = j >> 3;
+            unsigned int maska = 1 << (j & 0x7);
+                    
+            if (state_active_functions[word] & maska) number_set_bits++;
+          }
+        }
+        TM_max_number_bits = number_set_bits;
+              
+        if (current_ekran.index_position_1 > number_set_bits) 
+        {
+          current_ekran.index_position_1 = (number_set_bits/MAX_NUMBER_F_IN_PANEL)*MAX_NUMBER_F_IN_PANEL;
+          position_in_level_1_menu_TM[1] = current_ekran.index_position_1;
+        }
+
         unsigned int TM_max_number_bits_tmp = (TM_max_number_bits < MAX_NUMBER_F_IN_PANEL) ? MAX_NUMBER_F_IN_PANEL : TM_max_number_bits;
         SCROLLBAR_SetNumItems(ScrollBar_TM_Pages[1], TM_max_number_bits_tmp);
         SCROLLBAR_SetValue(ScrollBar_TM_Pages[1], current_ekran.index_position_1);
 
-        for (unsigned int i = 0; i < 2; i++)
+        char empty = '\0';
+        char error_string[] = "Error reading";
+        if (
+            (result != SUCCESS_EXEC) ||
+            (number_set_bits == 0)
+           ) 
         {
-          unsigned int *target_array = (i == 0) ? state_active_functions : state_actuated_functions;
-          
-          unsigned int number_set_bits = 0;
-          for (unsigned int j = 0; j < All_NUMB_RANK_ELEM; j++)
-          {
-            if (target_array[j >> 5] & (1 << (j & 0x1f))) number_set_bits++;
-          }
-          
-          char empty = '\0';
-          if (
-              (number_set_bits == 0) &&
-              (current_ekran.index_position_1 < MAX_NUMBER_F_IN_PANEL)
-             ) 
-          {
-            TEXT_SetTextAlign(TM_F[i][0], TEXT_CF_HCENTER | TEXT_CF_BOTTOM);
-            TEXT_SetText(TM_F[i][0], NONE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+          TEXT_SetTextAlign(TM_F[0], TEXT_CF_HCENTER | TEXT_CF_BOTTOM);
+          TEXT_SetText(TM_F[0], (result != SUCCESS_EXEC) ? error_string : NONE.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
 
-            for (unsigned int j = 1; j < MAX_NUMBER_F_IN_PANEL; j++)
+          for (unsigned int i = 1; i < MAX_NUMBER_F_IN_PANEL; i++)
+          {
+            TEXT_SetText(TM_F[i], &empty);
+          }
+        }
+        else
+        {
+          TEXT_SetTextAlign(TM_F[0], TEXT_CF_LEFT | TEXT_CF_BOTTOM);
+
+          unsigned int continue_index = 0;
+          for (int i = 0; i < current_ekran.index_position_1; i++)
+          {
+            while (
+                   ((state_active_functions[continue_index >> 3] & (1 << (continue_index & 0x7))) == 0) &&
+                   (continue_index < RESERV_MAX_OEPRF_ONB)  
+                  )
             {
-              TEXT_SetText(TM_F[i][j], &empty);
+              continue_index++;
             }
+              
+            if ((++continue_index) >= RESERV_MAX_OEPRF_ONB) break; 
           }
-          else
+            
+          for (int j = 0; j < MAX_NUMBER_F_IN_PANEL; j++)
           {
-            TEXT_SetTextAlign(TM_F[i][0], TEXT_CF_LEFT | TEXT_CF_BOTTOM);
-
-            unsigned int continue_index = 0;
-            for (int j = 0; j < current_ekran.index_position_1; j++)
+            const char *point_string;
+            if ((current_ekran.index_position_1 + j) < number_set_bits)
             {
+              unsigned int bit;
               while (
-                     ((target_array[continue_index >> 5] & (1 << (continue_index & 0x1f))) == 0) &&
-                     (continue_index < All_NUMB_RANK_ELEM)  
+                     ((bit = (state_active_functions[continue_index >> 3] & (1 << (continue_index & 0x7)))) == 0) &&
+                     (continue_index < RESERV_MAX_OEPRF_ONB)  
                     )
               {
                 continue_index++;
               }
-              
-              if ((++continue_index) >= All_NUMB_RANK_ELEM) break; 
-            }
-            
-            for (unsigned int j = 0; j < MAX_NUMBER_F_IN_PANEL; j++)
-            {
-              char *point_string;
-              if ((current_ekran.index_position_1 + j) < number_set_bits)
-              {
-                unsigned int bit;
-                while (
-                       ((bit = (target_array[continue_index >> 5] & (1 << (continue_index & 0x1f)))) == 0) &&
-                       (continue_index < All_NUMB_RANK_ELEM)  
-                      )
-                {
-                  continue_index++;
-                }
 
-                char interrogatory[]  = "???";
-                point_string = ((bit != 0) && (continue_index < All_NUMB_RANK_ELEM)) ? rank_checkbox_item[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
-              }
-              else point_string = &empty;
-              
-              TEXT_SetText(TM_F[i][j], point_string);
+              const char * name_of_function[LANG_LIST_SIZE][RESERV_MAX_OEPRF_ONB] = {NAME_FUNCTION_LIST_UKR, NAME_FUNCTION_LIST_RUS, NAME_FUNCTION_LIST_ENG};
+              char interrogatory[]  = "???";
+              point_string = ((bit != 0) && (continue_index < RESERV_MAX_OEPRF_ONB)) ? name_of_function[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
             }
+            else point_string = &empty;
+              
+            TEXT_SetText(TM_F[j], point_string);
           }
         }
 
@@ -564,6 +570,15 @@ void redraw_panel_info_n(__index_level_menu id_protection)
     case 1:
     case 2:
       {
+        int max_number_bits = Diagnistics_max_number_bits[current_ekran.index_position];
+        if (max_number_bits != 0 ) max_number_bits -= 1; /*Bo indeksy idut vid 0*/
+              
+        if (current_ekran.index_position_1 > max_number_bits) 
+        {
+          current_ekran.index_position_1 = (max_number_bits/MAX_NUMBER_DIAGN_IN_PANEL)*MAX_NUMBER_DIAGN_IN_PANEL;
+          position_in_level_1_menu_Diagnostics[current_ekran.index_position] = current_ekran.index_position_1;
+        }
+              
         unsigned int Diagnostics_max_number_bits_tmp = (Diagnistics_max_number_bits[current_ekran.index_position] < MAX_NUMBER_DIAGN_IN_PANEL) ? MAX_NUMBER_DIAGN_IN_PANEL : Diagnistics_max_number_bits[current_ekran.index_position];
         SCROLLBAR_SetNumItems(ScrollBar_Diagnostics_Pages, Diagnostics_max_number_bits_tmp);
         SCROLLBAR_SetValue(ScrollBar_Diagnostics_Pages, current_ekran.index_position_1);
@@ -1029,14 +1044,6 @@ void redraw_panel_info_n(__index_level_menu id_protection)
               point_string = &empty;
             }
           }
-//          if ((current_ekran.index_position_1 + i) < number_rows)
-//          {
-//
-//            char interrogatory[]  = "???";
-//            point_string = ((bit != 0) && (continue_index < All_NUMB_RANK_ELEM)) ? target_name[eeprom_bs_settings_tbl.chLngGUIText][continue_index++] : interrogatory;
-//            
-//          }
-//          else point_string = &empty;
               
           TEXT_SetText(Diagnostics_Info[i], point_string);
         }

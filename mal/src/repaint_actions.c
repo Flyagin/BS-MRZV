@@ -960,8 +960,7 @@ void repaint_actions(__index_level_menu id_panel)
             }
           case 1:
             {
-              HEADER_SetItemText(TM_F_Header, 0, TM_F_columns[0].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
-              HEADER_SetItemText(TM_F_Header, 1, TM_F_columns[1].ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
+              HEADER_SetItemText(TM_F_Header, 0, TM_F_columns.ptitle[eeprom_bs_settings_tbl.chLngGUIText]);
               break;
             }
           default: break;
