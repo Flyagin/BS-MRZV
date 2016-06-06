@@ -106,7 +106,7 @@ static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate2[] = {
 static const GUI_WIDGET_CREATE_INFO _aMeasPgCreate3[] = {
   { WINDOW_CreateIndirect, "Dialog 3", ID_MEAS_PG_2, MEAS_PG_X, MEAS_PG_Y, MEAS_PG_WIDTH, MEAS_PG_HEIGHT, 0 },
   
-  { TEXT_CreateIndirect, "¿ IC-UBC", ID_FIRST_ANGLES_MEAS, 10, 5, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "¿ IA-UBC", ID_FIRST_ANGLES_MEAS, 10, 5, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "¿ IB-UCA", ID_FIRST_ANGLES_MEAS + 1, 10, 20, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "¿ IC-UAB", ID_FIRST_ANGLES_MEAS + 2, 10, 35, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "¿ I2-U2", ID_FIRST_ANGLES_MEAS + 3, 10, 50, 60, MEAS_LABEL_HEIGHT, 0, 0x0, 0 },

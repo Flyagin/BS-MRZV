@@ -92,7 +92,7 @@ unsigned char check_func3_data(unsigned short quantity_of_registers,
 #endif
                       start_addr <= LAST_ADDR_IDENTIFICATION  &&
                       start_addr + quantity_of_registers <= LAST_ADDR_IDENTIFICATION + 1
-        
+
         )
     {
       response_ready = false;

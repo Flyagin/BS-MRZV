@@ -86,7 +86,12 @@ _Bool check_addr_global(unsigned short quantity_of_registers,
      ) ||*/
      (start_addr >= START_ADDR_GLOBAL_BOUND2         && 
       start_addr <= LAST_ADDR_GLOBAL_BOUND2                  &&
-      start_addr + quantity_of_registers <= LAST_ADDR_GLOBAL_BOUND2 + 1
+      start_addr + quantity_of_registers <= LAST_ADDR_GLOBAL_BOUND2 + 1 ||
+      
+        // для Сокола
+      start_addr >= G1_START_ADDR_STEP1_DP         && 
+      start_addr <= LAST_ADDR_SOKIL                  &&
+      start_addr + quantity_of_registers <= LAST_ADDR_SOKIL + 1
      ))
   {
     return true;
@@ -210,7 +215,7 @@ _Bool check_addr_floating_measurements(unsigned short quantity_of_registers,
                                  unsigned short start_addr) {
   if (start_addr >= M_ADDRESS_FIRST_FLOATING_MEASUREMENTS                         &&
       start_addr <= M_ADDRESS_LAST_FLOATING_MEASUREMENTS                          &&
-      (start_addr + quantity_of_registers) <= M_ADDRESS_LAST_FLOATING_MEASUREMENTS
+      start_addr + quantity_of_registers <= M_ADDRESS_LAST_FLOATING_MEASUREMENTS + 1
      )
   {
     return true;
@@ -588,963 +593,11 @@ void func3() {
   response[0] = eeprom_bs_settings_tbl.RS_comm_addres;
   response[1] = modbus_func_id;
   response[2] = quantity_of_registers << 1;
-  unsigned short index = 3;//!!!
-  /*if (check_addr_measurements1(quantity_of_registers, address)          ||
-      check_addr_measurements2(quantity_of_registers, address)          ||
-      check_addr_measurements3(quantity_of_registers, address)          ||
-      check_addr_angles(quantity_of_registers, address)                 ||
-      check_addr_sectors(quantity_of_registers, address)                ||
-      check_addr_floating_measurements(quantity_of_registers, address))*/
-  if(false)//!!!  
+  unsigned short index = 3;
+  
+/*************************  для Сокола begin  ********************************/
+  if (check_addr_floating_measurements(quantity_of_registers, address))
   {
-    if (check_addr_measurements1(quantity_of_registers, address)) {
-      GetTotMeas(&modbus_total_measurement);
-      __TOTAL_MEASUREMENT* current_meas_p = &modbus_total_measurement;
-      for (unsigned short i = 0; i < quantity_of_registers; i++) {
-        switch (i + address) {
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_3I0_Hi:
-          //  response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff000000) >> 24;
-          //  response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_3I0_Lo:
-          //  response[index++] = (current_meas_p -> measurement[INDEX_3I0] & 0xff00) >> 8;
-            //response[index++] = current_meas_p -> measurement[INDEX_3I0] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_IA_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_IA] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_IA] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_IA_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_IA] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_IA] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_IB_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_IB] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_IB] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_IB_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_IB] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_IB] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_IC_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_IC] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_IC] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_IC_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_IC] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_IC] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_3U0_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_3U0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_3U0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_3U0_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_3U0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_3U0] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_UA_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_UA] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_UA] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_UA_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_UA] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_UA] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_UB_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_UB] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_UB] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_UB_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_UB] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_UB] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_UC_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_UC] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_UC] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_UC_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_UC] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_UC] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_ISYN_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_ISYN] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_ISYN] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_ISYN_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_ISYN] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_ISYN] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_USYN_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_USYN] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_USYN] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_USYN_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_USYN] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_USYN] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_UBC_TN2_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_UBC_TN2] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_UBC_TN2] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_UBC_TN2_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_UBC_TN2] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_UBC_TN2] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_I2_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_I2] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_I2] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_I2_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_I2] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_I2] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_U2_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_U2] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_U2] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_U2_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_U2] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_U2] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_I1_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_I1] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_I1] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_I1_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_I1] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_I1] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_U1_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_U1] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_U1] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_U1_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_U1] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_U1] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_I0_Hi:
-            response[index++] = (current_meas_p -> measurement[INDEX_I0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement[INDEX_I0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_1 + OFFSET_MEASUREMENT1_I0_Lo:
-            response[index++] = (current_meas_p -> measurement[INDEX_I0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement[INDEX_I0] & 0xff;
-            break;
-          default:
-            response[index++] = 0;
-            response[index++] = 0;
-        }
-      }
-    } else if (check_addr_measurements2(quantity_of_registers, address)) {
-      GetTotMeas(&modbus_total_measurement);
-      __TOTAL_MEASUREMENT* current_meas_p = &modbus_total_measurement;
-      for (unsigned short i = 0; i < quantity_of_registers; i++) {
-        switch (i + address) {
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_3I0_Hi:
-            //response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff000000) >> 24;
-            //response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_3I0_Lo:
-            //response[index++] = (current_meas_p -> measurement_i[INDEX_3I0] & 0xff00) >> 8;
-            //response[index++] = current_meas_p -> measurement_i[INDEX_3I0] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_IA_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_IA] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_IA] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_IA_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_IA] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_IA] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_IB_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_IB] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_IB] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_IB_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_IB] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_IB] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_IC_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_IC] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_IC] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_IC_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_IC] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_IC] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_3U0_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_3U0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_3U0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_3U0_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_3U0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_3U0] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_UA_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UA] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UA] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_UA_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UA] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_UA] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_UB_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UB] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UB] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_UB_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UB] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_UB] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_UC_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UC] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UC] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_UC_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UC] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_UC] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_ISYN_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_ISYN] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_ISYN] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_ISYN_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_ISYN] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_ISYN] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_USYN_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_USYN] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_USYN] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_USYN_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_USYN] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_USYN] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_UBC_TN2_Hi:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UBC_TN2] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UBC_TN2] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_2 + OFFSET_MEASUREMENT2_UBC_TN2_Lo:
-            response[index++] = (current_meas_p -> measurement_i[INDEX_UBC_TN2] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> measurement_i[INDEX_UBC_TN2] & 0xff;
-            break;
-          default:
-            response[index++] = 0;
-            response[index++] = 0;
-        }
-      }
-    } else if (check_addr_measurements3(quantity_of_registers, address)) {
-      GetTotMeas(&modbus_total_measurement);
-      __TOTAL_MEASUREMENT* current_meas_p = &modbus_total_measurement;
-      for (unsigned short i = 0; i < quantity_of_registers; i++) {
-        switch (i + address) {
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_F1:
-            if (current_meas_p -> frequency_SPI1 < 0) {
-              response[index++] = 0xff;
-              response[index++] = 0xff;
-            } else {
-//              response[index++] = (*(tmp_measurements3 + 0) & 0xff00) >> 8;
-//              response[index++] = *(tmp_measurements3 + 0) & 0xff;
-              unsigned short value = (unsigned short) (current_meas_p -> frequency_SPI1 * 1000);
-              response[index++] = (value & 0xff00) >> 8;
-              response[index++] = value & 0xff;
-            }
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_F2:
-            if (current_meas_p -> frequency_SPI2 < 0) {
-              response[index++] = 0xff;
-              response[index++] = 0xff;
-            } else {
-//              response[index++] = (*(tmp_measurements3 + 1) & 0xff00) >> 8;
-//              response[index++] = *(tmp_measurements3 + 1) & 0xff;
-              unsigned short value = (unsigned short) (current_meas_p -> frequency_SPI2 * 1000);
-              response[index++] = (value & 0xff00) >> 8;
-              response[index++] = value & 0xff;
-            }
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_DIAGNOSTICA:
-//            response[index++] = (*(tmp_measurements3 + 2) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 2) & 0xff;
-            response[index++] = ((current_meas_p -> diagnostyka) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> diagnostyka) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_SPEED_ANGLE_CHANGE:
-//            response[index++] = (*(tmp_measurements3 + 3) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 3) & 0xff;
-            response[index++] = ((current_meas_p -> speed_angle_change) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> speed_angle_change) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_LINEAR_CURRENT_IAB:
-//            response[index++] = (*(tmp_measurements3 + 4) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 4) & 0xff;
-            response[index++] = ((current_meas_p -> linear_current[0]) & 0x3ff00) >> (8 + 2);
-            response[index++] = ((current_meas_p -> linear_current[0]) >> 2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_LINEAR_CURRENT_IBC:
-//            response[index++] = (*(tmp_measurements3 + 5) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 5) & 0xff;
-            response[index++] = ((current_meas_p -> linear_current[1]) & 0x3ff00) >> (8 + 2);
-            response[index++] = ((current_meas_p -> linear_current[1]) >> 2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_LINEAR_CURRENT_ICA:
-//            response[index++] = (*(tmp_measurements3 + 6) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 6) & 0xff;
-            response[index++] = ((current_meas_p -> linear_current[2]) & 0x3ff00) >> (8 + 2);
-            response[index++] = ((current_meas_p -> linear_current[2]) >> 2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_LINEAR_CURRENT_UAB:
-//            response[index++] = (*(tmp_measurements3 + 7) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 7) & 0xff;
-            response[index++] = ((current_meas_p -> linear_voltage[0]) & 0x3ff00) >> (8 + 2);
-            response[index++] = ((current_meas_p -> linear_voltage[0]) >> 2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_LINEAR_CURRENT_UBC:
-//            response[index++] = (*(tmp_measurements3 + 8) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 8) & 0xff;
-            response[index++] = ((current_meas_p -> linear_voltage[1]) & 0x3ff00) >> (8 + 2);
-            response[index++] = ((current_meas_p -> linear_voltage[1]) >> 2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_LINEAR_CURRENT_UCA:
-//            response[index++] = (*(tmp_measurements3 + 9) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 9) & 0xff;
-            response[index++] = ((current_meas_p -> linear_voltage[2]) & 0x3ff00) >> (8 + 2);
-            response[index++] = ((current_meas_p -> linear_voltage[2]) >> 2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_VOLTAGE_DIFFERENCE:
-//            response[index++] = (*(tmp_measurements3 + 10) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 10) & 0xff;
-            response[index++] = ((current_meas_p -> voltage_difference) & 0x3ff00) >> (8 + 2);
-            response[index++] = ((current_meas_p -> voltage_difference) >> 2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_3_U_LINE:
-//            response[index++] = (*(tmp_measurements3 + 11) & 0xff00) >> 8;
-//            response[index++] = *(tmp_measurements3 + 11) & 0xff;
-            response[index++] = ((current_meas_p -> U_line) & 0x3ff00) >> (8 + 2);
-            response[index++] = ((current_meas_p -> U_line) >> 2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_A_Hi:
-            response[index++] = (current_meas_p -> active_power[0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> active_power[0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_A_Lo:
-            response[index++] = (current_meas_p -> active_power[0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> active_power[0] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_B_Hi:
-            response[index++] = (current_meas_p -> active_power[1] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> active_power[1] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_B_Lo:
-            response[index++] = (current_meas_p -> active_power[1] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> active_power[1] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_C_Hi:
-            response[index++] = (current_meas_p -> active_power[2] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> active_power[2] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_C_Lo:
-            response[index++] = (current_meas_p -> active_power[2] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> active_power[2] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_A_Hi:
-            response[index++] = (current_meas_p -> reactive_power[0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> reactive_power[0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_A_Lo:
-            response[index++] = (current_meas_p -> reactive_power[0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> reactive_power[0] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_B_Hi:
-            response[index++] = (current_meas_p -> reactive_power[1] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> reactive_power[1] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_B_Lo:
-            response[index++] = (current_meas_p -> reactive_power[1] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> reactive_power[1] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_C_Hi:
-            response[index++] = (current_meas_p -> reactive_power[2] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> reactive_power[2] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_C_Lo:
-            response[index++] = (current_meas_p -> reactive_power[2] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> reactive_power[2] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_FULL_POWER_A_Hi:
-            response[index++] = (current_meas_p -> full_power[0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> full_power[0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_FULL_POWER_A_Lo:
-            response[index++] = (current_meas_p -> full_power[0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> full_power[0] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_FULL_POWER_B_Hi:
-            response[index++] = (current_meas_p -> full_power[1] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> full_power[1] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_FULL_POWER_B_Lo:
-            response[index++] = (current_meas_p -> full_power[1] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> full_power[1] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_FULL_POWER_C_Hi:
-            response[index++] = (current_meas_p -> full_power[2] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> full_power[2] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_FULL_POWER_C_Lo:
-            response[index++] = (current_meas_p -> full_power[2] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> full_power[2] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SUM_POWER_A_Hi:
-            response[index++] = (current_meas_p -> sum_power[0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> sum_power[0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SUM_POWER_A_Lo:
-            response[index++] = (current_meas_p -> sum_power[0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> sum_power[0] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SUM_POWER_B_Hi:
-            response[index++] = (current_meas_p -> sum_power[1] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> sum_power[1] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SUM_POWER_B_Lo:
-            response[index++] = (current_meas_p -> sum_power[1] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> sum_power[1] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SUM_POWER_C_Hi:
-            response[index++] = (current_meas_p -> sum_power[2] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> sum_power[2] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SUM_POWER_C_Lo:
-            response[index++] = (current_meas_p -> sum_power[2] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> sum_power[2] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_POWER_COEFFICIENT_A_Lo:
-            response[index++] = (*(unsigned long *) &(current_meas_p -> power_coefficient[0])) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> power_coefficient[0])) & 0xff00) >> 8;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_POWER_COEFFICIENT_A_Hi:
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> power_coefficient[0])) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> power_coefficient[0])) & 0xff000000) >> 24;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_POWER_COEFFICIENT_B_Lo:
-            response[index++] = (*(unsigned long *) &(current_meas_p -> power_coefficient[1])) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> power_coefficient[1])) & 0xff00) >> 8;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_POWER_COEFFICIENT_B_Hi:
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> power_coefficient[1])) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> power_coefficient[1])) & 0xff000000) >> 24;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_POWER_COEFFICIENT_C_Lo:
-            response[index++] = (*(unsigned long *) &(current_meas_p -> power_coefficient[2])) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> power_coefficient[2])) & 0xff00) >> 8;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_POWER_COEFFICIENT_C_Hi:
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> power_coefficient[2])) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> power_coefficient[2])) & 0xff000000) >> 24;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_PLUS_Lo:
-            response[index++] = (*(unsigned long *) &(current_meas_p -> active_power_plus)) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> active_power_plus)) & 0xff00) >> 8;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_PLUS_Hi:
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> active_power_plus)) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> active_power_plus)) & 0xff000000) >> 24;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_MINUS_Lo:
-            response[index++] = (*(unsigned long *) &(current_meas_p -> active_power_minus)) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> active_power_minus)) & 0xff00) >> 8;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_ACTIVE_POWER_MINUS_Hi:
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> active_power_minus)) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> active_power_minus)) & 0xff000000) >> 24;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_1Q_Lo:
-            response[index++] = (*(unsigned long *) &(current_meas_p -> reactive_power_1q)) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_1q)) & 0xff00) >> 8;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_1Q_Hi:
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_1q)) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_1q)) & 0xff000000) >> 24;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_2Q_Lo:
-            response[index++] = (*(unsigned long *) &(current_meas_p -> reactive_power_2q)) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_2q)) & 0xff00) >> 8;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_2Q_Hi:
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_2q)) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_2q)) & 0xff000000) >> 24;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_3Q_Lo:
-            response[index++] = (*(unsigned long *) &(current_meas_p -> reactive_power_3q)) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_3q)) & 0xff00) >> 8;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_3Q_Hi:
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_3q)) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_3q)) & 0xff000000) >> 24;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_4Q_Lo:
-            response[index++] = (*(unsigned long *) &(current_meas_p -> reactive_power_4q)) & 0xff;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_4q)) & 0xff00) >> 8;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_REACTIVE_POWER_4Q_Hi:
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_4q)) & 0xff0000) >> 16;           
-            response[index++] = ((*(unsigned long *) &(current_meas_p -> reactive_power_4q)) & 0xff000000) >> 24;
-            break;
-            
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zab_Hi:
-            response[index++] = (current_meas_p -> speed_resistance_change[3] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[3] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zab_Lo:
-            response[index++] = (current_meas_p -> speed_resistance_change[3] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[3] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zbc_Hi:
-            response[index++] = (current_meas_p -> speed_resistance_change[4] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[4] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zbc_Lo:
-            response[index++] = (current_meas_p -> speed_resistance_change[4] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[4] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zca_Hi:
-            response[index++] = (current_meas_p -> speed_resistance_change[5] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[5] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zca_Lo:
-            response[index++] = (current_meas_p -> speed_resistance_change[5] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[5] & 0xff;
-            break;
-            
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Hi_1ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[0] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[0] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Lo_1ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[0] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[0] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Hi_1ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[5] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[5] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Lo_1ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[5] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[5] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Hi_1ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[10] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[10] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Lo_1ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[10] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[10] & 0xff;
-            break;
-            
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Hi_2ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[1] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[1] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Lo_2ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[1] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[1] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Hi_2ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[6] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[6] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Lo_2ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[6] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[6] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Hi_2ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[11] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[11] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Lo_2ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[11] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[11] & 0xff;
-            break;
-            
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Hi_3ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[2] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[2] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Lo_3ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[2] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[2] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Hi_3ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[7] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[7] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Lo_3ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[7] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[7] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Hi_3ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[12] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[12] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Lo_3ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[12] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[12] & 0xff;
-            break;
-          
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Hi_4ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[3] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[3] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Lo_4ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[3] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[3] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Hi_4ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[8] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[8] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Lo_4ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[8] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[8] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Hi_4ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[13] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[13] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Lo_4ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[13] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[13] & 0xff;
-            break;  
-            
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Hi_5ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[4] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[4] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Za0_Lo_5ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[4] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[4] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Hi_5ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[9] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[9] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zb0_Lo_5ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[9] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[9] & 0xff;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Hi_5ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[14] & 0xff000000) >> 24;
-            response[index++] = (current_meas_p -> speed_resistance_change[14] & 0xff0000) >> 16;
-            break;
-          case M_ADDRESS_FIRST_MEASUREMENTS_3 + OFFSET_MEASUREMENT_SPEED_RESISTANCE_CHANGE_Zc0_Lo_5ST:
-            response[index++] = (current_meas_p -> speed_resistance_change[14] & 0xff00) >> 8;
-            response[index++] = current_meas_p -> speed_resistance_change[14] & 0xff;
-            break; 
-            
-          default:
-            response[index++] = 0;
-            response[index++] = 0;
-        }
-      }
-    } else if (check_addr_angles(quantity_of_registers, address)) {
-      GetTotMeas(&modbus_total_measurement);
-      __TOTAL_MEASUREMENT* current_meas_p = &modbus_total_measurement;
-      for (unsigned short i = 0; i < quantity_of_registers; i++) {
-        switch (i + address) {
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_ANGLE_IA_UBC:
-//            response[index++] = (*(tmp_angles + 0) & 0xff00) >> 8;
-//            response[index++] = *(tmp_angles + 0) & 0xff;
-            response[index++] = ((current_meas_p -> angle_IA_UBC) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle_IA_UBC) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_ANGLE_IB_UCA:
-//            response[index++] = (*(tmp_angles + 1) & 0xff00) >> 8;
-//            response[index++] = *(tmp_angles + 1) & 0xff;
-            response[index++] = ((current_meas_p -> angle_IB_UCA) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle_IB_UCA) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_ANGLE_IC_UAB:
-//            response[index++] = (*(tmp_angles + 2) & 0xff00) >> 8;
-//            response[index++] = *(tmp_angles + 2) & 0xff;
-            response[index++] = ((current_meas_p -> angle_IC_UAB) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle_IC_UAB) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_ANGLE_I2_U2:
-//            response[index++] = (*(tmp_angles + 3) & 0xff00) >> 8;
-//            response[index++] = *(tmp_angles + 3) & 0xff;
-            response[index++] = ((current_meas_p -> angle_I2_U2) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle_I2_U2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_ANGLE_3I0_3U0:
-//            response[index++] = (*(tmp_angles + 4) & 0xff00) >> 8;
-//            response[index++] = *(tmp_angles + 4) & 0xff;
-            response[index++] = ((current_meas_p -> angle_3I0_3U0) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle_3I0_3U0) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_ANGLE_UNBALANCE:
-//            response[index++] = (*(tmp_angles + 5) & 0xff00) >> 8;
-//            response[index++] = *(tmp_angles + 5) & 0xff;
-            response[index++] = ((current_meas_p -> angle_unbalance) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle_unbalance) & 0xff;
-            break;
-            
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZAB:
-            response[index++] = ((current_meas_p -> resistance_angle[3]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[3]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZBC:
-            response[index++] = ((current_meas_p -> resistance_angle[4]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[4]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZCA:
-            response[index++] = ((current_meas_p -> resistance_angle[5]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[5]) & 0xff;
-            break;
-            
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZA0_1ST:
-            response[index++] = ((current_meas_p -> resistance_angle[0]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[0]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZB0_1ST:
-            response[index++] = ((current_meas_p -> resistance_angle[5]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[5]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZC0_1ST:
-            response[index++] = ((current_meas_p -> resistance_angle[10]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[10]) & 0xff;
-            break;
-         
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZA0_2ST:
-            response[index++] = ((current_meas_p -> resistance_angle[1]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[1]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZB0_2ST:
-            response[index++] = ((current_meas_p -> resistance_angle[6]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[6]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZC0_2ST:
-            response[index++] = ((current_meas_p -> resistance_angle[11]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[11]) & 0xff;
-            break;
-            
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZA0_3ST:
-            response[index++] = ((current_meas_p -> resistance_angle[2]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[2]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZB0_3ST:
-            response[index++] = ((current_meas_p -> resistance_angle[7]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[7]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZC0_3ST:
-            response[index++] = ((current_meas_p -> resistance_angle[12]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[12]) & 0xff;
-            break;  
-            
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZA0_4ST:
-            response[index++] = ((current_meas_p -> resistance_angle[3]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[3]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZB0_4ST:
-            response[index++] = ((current_meas_p -> resistance_angle[8]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[8]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZC0_4ST:
-            response[index++] = ((current_meas_p -> resistance_angle[13]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[13]) & 0xff;
-            break;  
-            
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZA0_5ST:
-            response[index++] = ((current_meas_p -> resistance_angle[4]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[4]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZB0_5ST:
-            response[index++] = ((current_meas_p -> resistance_angle[9]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[9]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_RESISTANCE_ANGLE_ZC0_5ST:
-            response[index++] = ((current_meas_p -> resistance_angle[14]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> resistance_angle[14]) & 0xff;
-            break; 
-            
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_IA:
-            response[index++] = ((current_meas_p -> angle[0]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[0]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_IB:
-            response[index++] = ((current_meas_p -> angle[1]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[1]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_IC:
-            response[index++] = ((current_meas_p -> angle[2]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[2]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_UB:
-            response[index++] = ((current_meas_p -> angle[3]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[3]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_UC:
-            response[index++] = ((current_meas_p -> angle[4]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[4]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_3U0:
-            response[index++] = ((current_meas_p -> angle[5]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[5]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_3I0:
-            response[index++] = ((current_meas_p -> angle[6]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[6]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_ISYN:
-            response[index++] = ((current_meas_p -> angle[7]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[7]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_USYN:
-            response[index++] = ((current_meas_p -> angle[8]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[8]) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_ANGLES + OFFSET_VECTOR_ANGLE_UBC_TN2:
-            response[index++] = ((current_meas_p -> angle[9]) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> angle[9]) & 0xff;
-            break;
-          default:
-            response[index++] = 0;
-            response[index++] = 0;
-        }
-      }
-    } else if (check_addr_sectors(quantity_of_registers, address)) {
-      GetTotMeas(&modbus_total_measurement);
-      __TOTAL_MEASUREMENT* current_meas_p = &modbus_total_measurement;
-      for (unsigned short i = 0; i < quantity_of_registers; i++) {
-        switch (i + address) {
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_3I0_3U0_1:
-//            response[index++] = (*(tmp_sectors + 0) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 0) & 0xff;
-            response[index++] = ((current_meas_p -> sector_3I0_3U0_1) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_3I0_3U0_1) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IA_UBC_1:
-//            response[index++] = (*(tmp_sectors + 1) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 1) & 0xff;
-            response[index++] = ((current_meas_p -> sector_IA_UBC_1) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IA_UBC_1) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IB_UCA_1:
-//            response[index++] = (*(tmp_sectors + 2) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 2) & 0xff;
-            response[index++] = ((current_meas_p -> sector_IB_UCA_1) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IB_UCA_1) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IC_UAB_1:
-//            response[index++] = (*(tmp_sectors + 3) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 3) & 0xff;
-            response[index++] = ((current_meas_p -> sector_IC_UAB_1) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IC_UAB_1) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_I2_U2_1:
-//            response[index++] = (*(tmp_sectors + 4) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 4) & 0xff;
-            response[index++] = ((current_meas_p -> sector_I2_U2_1) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_I2_U2_1) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_3I0_3U0_2:
-//            response[index++] = (*(tmp_sectors + 5) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 5) & 0xff;
-            response[index++] = ((current_meas_p -> sector_3I0_3U0_2) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_3I0_3U0_2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IA_UBC_2:
-//            response[index++] = (*(tmp_sectors + 6) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 6) & 0xff;
-            response[index++] = ((current_meas_p -> sector_IA_UBC_2) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IA_UBC_2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IB_UCA_2:
-//            response[index++] = (*(tmp_sectors + 7) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 7) & 0xff;
-            response[index++] = ((current_meas_p -> sector_IB_UCA_2) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IB_UCA_2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IC_UAB_2:
-//            response[index++] = (*(tmp_sectors + 8) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 8) & 0xff;
-            response[index++] = ((current_meas_p -> sector_IC_UAB_2) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IC_UAB_2) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_I2_U2_2:
-//            response[index++] = (*(tmp_sectors + 9) & 0xff00) >> 8;
-//            response[index++] = *(tmp_sectors + 9) & 0xff;
-            response[index++] = ((current_meas_p -> sector_I2_U2_2) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_I2_U2_2) & 0xff;
-            break;
-            
-           case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_3I0_3U0_3:
-            response[index++] = ((current_meas_p -> sector_3I0_3U0_3) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_3I0_3U0_3) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IA_UBC_3:
-            response[index++] = ((current_meas_p -> sector_IA_UBC_3) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IA_UBC_3) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IB_UCA_3:
-            response[index++] = ((current_meas_p -> sector_IB_UCA_3) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IB_UCA_3) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IC_UAB_3:
-            response[index++] = ((current_meas_p -> sector_IC_UAB_3) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IC_UAB_3) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_I2_U2_3:
-            response[index++] = ((current_meas_p -> sector_I2_U2_3) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_I2_U2_3) & 0xff;
-            break;
-            
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_3I0_3U0_4:
-            response[index++] = ((current_meas_p -> sector_3I0_3U0_4) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_3I0_3U0_4) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IA_UBC_4:
-            response[index++] = ((current_meas_p -> sector_IA_UBC_4) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IA_UBC_4) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IB_UCA_4:
-            response[index++] = ((current_meas_p -> sector_IB_UCA_4) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IB_UCA_4) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IC_UAB_4:
-            response[index++] = ((current_meas_p -> sector_IC_UAB_4) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IC_UAB_4) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_I2_U2_4:
-            response[index++] = ((current_meas_p -> sector_I2_U2_4) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_I2_U2_4) & 0xff;
-            break;  
-            
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_3I0_3U0_5:
-            response[index++] = ((current_meas_p -> sector_3I0_3U0_5) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_3I0_3U0_5) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IA_UBC_5:
-            response[index++] = ((current_meas_p -> sector_IA_UBC_5) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IA_UBC_5) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IB_UCA_5:
-            response[index++] = ((current_meas_p -> sector_IB_UCA_5) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IB_UCA_5) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_IC_UAB_5:
-            response[index++] = ((current_meas_p -> sector_IC_UAB_5) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_IC_UAB_5) & 0xff;
-            break;
-          case M_ADDRESS_FIRST_SECTORS + OFFSET_SECTOR_I2_U2_5:
-            response[index++] = ((current_meas_p -> sector_I2_U2_5) & 0xff00) >> 8;
-            response[index++] = (current_meas_p -> sector_I2_U2_5) & 0xff;
-            break; 
-          default:
-            response[index++] = 0;
-            response[index++] = 0;
-        }
-      }
-    } else if (check_addr_floating_measurements(quantity_of_registers, address)) {
       int tempReg;
       GetTotMeas(&modbus_total_measurement);
       __TOTAL_MEASUREMENT* current_meas_p = &modbus_total_measurement;
@@ -2142,8 +1195,8 @@ void func3() {
             response[index++] = 0;
         }
       }
-    }
   }
+/*************************  для Сокола end  ********************************/
   
   else if (check_addr_global(quantity_of_registers, address) || 
            
@@ -2230,6 +1283,710 @@ void func3() {
           response[index++] = (pIdentDev -> VersionOfMemoryMap & 0xff00) >> 8;
           response[index++] = (pIdentDev -> VersionOfMemoryMap & 0x00ff);
           break;
+
+
+
+
+
+/*************************  для Сокола begin  ********************************/
+
+
+          /************ УСТАВКИ ДЗ ПЕРВОЙ СТУПЕНИ ********************/
+        case G1_START_ADDR_STEP1_DP + STEP1_SING_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_SING_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_SING_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_SING_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_SING_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_SING_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_SING_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_SING_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_OF_Dstp1_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+       
+       // Уставки для межфазного КЗ
+        case G1_START_ADDR_STEP1_DP + STEP1_INTER_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_INTER_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_INTER_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_INTER_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_INTER_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_INTER_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_INTER_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_INTER_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage1Dstp1Pickup.Z_MF_Dstp1_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        // Уставка по току  
+        case G1_START_ADDR_STEP1_DP + STEP1_SETPOINT_CURRENT:
+          response[index++] = (pPck_gs1 -> ownrStage1Dstp1Pickup.Dstp1_Iovp_ov_range & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage1Dstp1Pickup.Dstp1_Iovp_ov_range & 0x00ff);
+          break;  
+        // Выдержки
+        case G1_START_ADDR_STEP1_DP + STEP1_TIME_STAGE_SING_PHASE:
+          response[index++] = (pPck_gs1 ->ownrStage1Dstp1StageParam.Dstp1_T_OF & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 ->ownrStage1Dstp1StageParam.Dstp1_T_OF & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_TIME_STAGE_INTER_PHASE:
+          response[index++] = (pPck_gs1 ->ownrStage1Dstp1StageParam.Dstp1_T_MF & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 ->ownrStage1Dstp1StageParam.Dstp1_T_MF & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP1_DP + STEP1_TIME_STAGE_OCP:
+          response[index++] = (pPck_gs1 ->ownrStage1Dstp1StageParam.Dstp1_T_Ocp & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 ->ownrStage1Dstp1StageParam.Dstp1_T_Ocp & 0x00ff);
+          break;
+          
+          /***************** УСТАВКИ ДЗ ВТОРОЙ СТУПЕНИ *************/
+        // Уставки для однофазного КЗ
+        case G1_START_ADDR_STEP2_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_OF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+       
+       // Уставки для межфазного КЗ
+        case G1_START_ADDR_STEP2_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage2Dstp2Pickup.Z_MF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        // Уставка по току  
+        case G1_START_ADDR_STEP2_DP + STEP2_SETPOINT_CURRENT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2Pickup.Dstp2_Iovp_ov_range & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2Pickup.Dstp2_Iovp_ov_range & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_COMPENSATION_INTPHASE_CURRENT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2Pickup.Dstp2_Coef_Compens_IntPhaseCur & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2Pickup.Dstp2_Coef_Compens_IntPhaseCur & 0x00ff);
+          break; 
+          
+        // выдержки
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_SING_PHASE_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_SING_PHASE_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_SING_PHASE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_SING_PHASE_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_SING_PHASE:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_OF_T & 0x00ff);
+          break;
+        
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_INTER_PHASE_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_INTER_PHASE_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_INTER_PHASE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_INTER_PHASE_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_INTER_PHASE:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_MF_T & 0x00ff);
+          break;
+          
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_OCP_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_OCP_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_OCP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_OCP_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_OCP:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_T & 0x00ff);
+          break;
+          
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_HWS_TAU_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_HWS_Tau_Aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_HWS_Tau_Aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP2_DP + STEP2_TIME_STAGE_OCP_HWS_TAU_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_HWS_Tau_Aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage2Dstp2StageParam.Dstp2_Ocp_HWS_Tau_Aclt & 0x00ff);
+          break;
+          
+          /***************** УСТАВКИ ДЗ ТРЕТЬЕЙ СТУПЕНИ *************/
+        // Уставки для однофазного КЗ
+        case G1_START_ADDR_STEP3_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_OF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+       
+       // Уставки для межфазного КЗ
+        case G1_START_ADDR_STEP3_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage3Dstp2Pickup.Z_MF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        // Уставка по току  
+        case G1_START_ADDR_STEP3_DP + STEP2_SETPOINT_CURRENT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2Pickup.Dstp2_Iovp_ov_range & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2Pickup.Dstp2_Iovp_ov_range & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_COMPENSATION_INTPHASE_CURRENT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2Pickup.Dstp2_Coef_Compens_IntPhaseCur & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2Pickup.Dstp2_Coef_Compens_IntPhaseCur & 0x00ff);
+          break; 
+          
+        // выдержки
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_SING_PHASE_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_SING_PHASE_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_SING_PHASE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_SING_PHASE_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_SING_PHASE:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_OF_T & 0x00ff);
+          break;
+        
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_INTER_PHASE_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_INTER_PHASE_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_INTER_PHASE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_INTER_PHASE_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_INTER_PHASE:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_MF_T & 0x00ff);
+          break;
+          
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_OCP_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_OCP_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_OCP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_OCP_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_OCP:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_T & 0x00ff);
+          break;
+          
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_HWS_TAU_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_HWS_Tau_Aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_HWS_Tau_Aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP3_DP + STEP2_TIME_STAGE_OCP_HWS_TAU_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_HWS_Tau_Aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage3Dstp2StageParam.Dstp2_Ocp_HWS_Tau_Aclt & 0x00ff);
+          break;
+        /***************** УСТАВКИ ДЗ ЧЕТВЕРТОЙ СТУПЕНИ *************/
+        // Уставки для однофазного КЗ
+        case G1_START_ADDR_STEP4_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_OF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+       
+       // Уставки для межфазного КЗ
+        case G1_START_ADDR_STEP4_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage4Dstp2Pickup.Z_MF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        // Уставка по току  
+        case G1_START_ADDR_STEP4_DP + STEP2_SETPOINT_CURRENT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2Pickup.Dstp2_Iovp_ov_range & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2Pickup.Dstp2_Iovp_ov_range & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_COMPENSATION_INTPHASE_CURRENT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2Pickup.Dstp2_Coef_Compens_IntPhaseCur & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2Pickup.Dstp2_Coef_Compens_IntPhaseCur & 0x00ff);
+          break; 
+          
+        // выдержки
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_SING_PHASE_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_SING_PHASE_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_SING_PHASE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_SING_PHASE_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_SING_PHASE:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_OF_T & 0x00ff);
+          break;
+        
+       case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_INTER_PHASE_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_INTER_PHASE_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_INTER_PHASE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_INTER_PHASE_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_INTER_PHASE:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_MF_T & 0x00ff);
+          break;
+          
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_OCP_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_OCP_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_OCP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_OCP_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_OCP:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_T & 0x00ff);
+          break;
+          
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_HWS_TAU_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_HWS_Tau_Aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_HWS_Tau_Aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP4_DP + STEP2_TIME_STAGE_OCP_HWS_TAU_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_HWS_Tau_Aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage4Dstp2StageParam.Dstp2_Ocp_HWS_Tau_Aclt & 0x00ff);
+          break;
+          
+          /***************** УСТАВКИ ДЗ ПЯТОЙ СТУПЕНИ *************/
+        // Уставки для однофазного КЗ
+        case G1_START_ADDR_STEP5_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_SING_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_SING_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_OF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+       
+       // Уставки для межфазного КЗ
+        case G1_START_ADDR_STEP5_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P1_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P1:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P1_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P2_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P2:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P2_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P3_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P3:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P3_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_INTER_PHASE_ACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P4_R >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_INTER_PHASE_REACTIVE_RESISTANCE_P4:
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0xff00) >> 8;
+          response[index++] = ((pPck_gs1 -> ownrStage5Dstp2Pickup.Z_MF_Dstp2_P4_X >> ACT_AND_REACT_RESISTANCE_STEP) & 0x00ff);
+          break;
+        // Уставка по току  
+        case G1_START_ADDR_STEP5_DP + STEP2_SETPOINT_CURRENT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2Pickup.Dstp2_Iovp_ov_range & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2Pickup.Dstp2_Iovp_ov_range & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_COMPENSATION_INTPHASE_CURRENT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2Pickup.Dstp2_Coef_Compens_IntPhaseCur & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2Pickup.Dstp2_Coef_Compens_IntPhaseCur & 0x00ff);
+          break; 
+          
+        // выдержки
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_SING_PHASE_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_SING_PHASE_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_SING_PHASE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_SING_PHASE_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_SING_PHASE:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_OF_T & 0x00ff);
+          break;
+        
+       case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_INTER_PHASE_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_INTER_PHASE_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_INTER_PHASE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_INTER_PHASE_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_INTER_PHASE:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_MF_T & 0x00ff);
+          break;
+          
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_OCP_OP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T_op_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T_op_aclt & 0x00ff);
+          break;
+//        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_OCP_AUTO_ACLT:
+////          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T_auto_aclt & 0xff00) >> 8;
+////          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T_auto_aclt & 0x00ff);
+//          break; 
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_OCP_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T_aclt & 0x00ff);
+          break; 
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_OCP_TELE_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T_tele_aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T_tele_aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_OCP:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_T & 0x00ff);
+          break;
+          
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_HWS_TAU_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_HWS_Tau_Aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_HWS_Tau_Aclt & 0x00ff);
+          break;
+        case G1_START_ADDR_STEP5_DP + STEP2_TIME_STAGE_OCP_HWS_TAU_ACLT:
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_HWS_Tau_Aclt & 0xff00) >> 8;
+          response[index++] = (pPck_gs1 -> ownrStage5Dstp2StageParam.Dstp2_Ocp_HWS_Tau_Aclt & 0x00ff);
+          break;
+          
+          
+          
+          
+/*************************  для Сокола end  ********************************/
+          
+
+
 
 
           /************** УСТАВКИ МТЗ ПЕРВОЙ СТУПЕНИ *************/
