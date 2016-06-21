@@ -32,8 +32,8 @@
 #include <string.h>
 #include    "AbnD.h"
 
-
-#define AMOUNT_RECORDS_ANALOG_WITH_CMD 100
+//5 Sec
+#define AMOUNT_RECORDS_ANALOG_WITH_CMD (100)
 #define MAX_VAL_REQ_RECORDS_ANALOG_WITH_CMD   ((AMOUNT_RECORDS_ANALOG_WITH_CMD>>1)+(AMOUNT_RECORDS_ANALOG_WITH_CMD>>2))
 
 long l_IdxAWthCmdBuf = 0;
@@ -41,7 +41,15 @@ long l_IdxAWthCmdBuf = 0;
 //Primary buf for ARec data
 //DDR2_B1_2_DATA
 //PflDataDsc PflData @ "DDR2_Bank1_2_variables";
-ARecDataDsc arArecDataBS[AMOUNT_RECORDS_ANALOG_WITH_CMD] @ "DDR2_Bank1_2_variables";
+ARecDataDsc arArecDataBS[AMOUNT_RECORDS_ANALOG_WITH_CMD] @ "DDR2_Bank1_2_variables";//"DDR2_variables";//
+#define AMOUNT_RECORDS_ANALOG_WITH_CMD_MB ((5*1000)+(2*AMOUNT_RECORDS_ANALOG_WITH_CMD))
+
+ARecDataDsc *pArecData_Global;
+ARecDataDsc arArecDataMBuf[AMOUNT_RECORDS_ANALOG_WITH_CMD_MB] @ "DDR2_Bank1_2_Nc_var";//arArecDataMainBuf DDR2_variables
+
+long lIndex_WR,lIndex_MBuf;
+long lIndex_RD,Idx_LogConditions ;
+char chOverunIndicator,chLogConditionsIndicator;
 
 AbsNumeratorUnnDsc holderAbsNumerator;
 
@@ -180,7 +188,7 @@ ProcessPrepDecompouseAbsNumeratorsUnitSPI:
 
 int AppReqReceiveARecDataBs;
 ARecDataDsc hld1ARecData,hld2ARecData;
-
+long UpdateRVARecDataBsTpuUnitMB(void* pvLDC, long lID);
 long UpdateRVARecDataBsTpuUnit(void* pvLDC, long lID)   @ "Fast_function"
 {
 register long i;//,j;
@@ -204,7 +212,7 @@ sLV.pOriginLDC = pvLDC;
 sLV.chDetect_arAbsNumersIdxBufBs = 0;
 //RVSrcSamplesCTpuUnitDsc  holderRVSrcSamplesCTpuUnit
  sLV.chNeedClrSesData = 0;
-
+return i = UpdateRVARecDataBsTpuUnitMB(pvLDC, lID);
 unnV1.uchAr[0] = ((LDCIDsc*)pvLDC)-> uchConMode;
 unnV1.uchAr[1] = ((LDCIDsc*)pvLDC)-> uchStartSesion;
 unnV1.uchAr[2] = ((LDCIDsc*)pvLDC)-> NumComSes;
@@ -288,6 +296,7 @@ if (unnV1.uchAr[0]== 0)
 			lBitActiveElemInarAbsNumersIdxBufBs |= 1;
 			((AbsNumeratorUnnDsc*)pv)->UNNAbsNumtrs.sBsAbsNumeratorWrp.chBitFld = 0x11;
 		}
+#ifndef REALIZE_ABS_NUMERATOR		
 		if(lID>AMOUNT_RECORDS_ANALOG_WITH_CMD)
 		lID = AMOUNT_RECORDS_ANALOG_WITH_CMD-1;
 		pv  = (void*)&arArecDataBS[lID];
@@ -299,6 +308,8 @@ if (unnV1.uchAr[0]== 0)
 		{
 		((char*)pv)[i] = ((char*)pvLDC)[i];
 		}
+#endif	
+	
 	}
 	if(unnV1. ulVal == arAbsNumersIdxBufBs[1].lSelectedAbsNumertr
 	&& (lBitActiveElemInarAbsNumersIdxBufBs&2))
@@ -343,9 +354,7 @@ return lID;//unnV1.uchAr[3];
 ARecDataDsc hldCurrARecData;
  int AppReqTransmitbsNumerator;
  int AppReqTransmitbsNumeratorRQ;
- 
- 
-void ExtractUrgentDataBr2Bs(void* pv)   @ "Fast_function"
+void ExtractARecData(void* pv)   @ "Fast_function" 
 {
 register long i,j;
 register void* pvL;
@@ -364,20 +373,20 @@ union
 		long lCurrLastNumerators, lLastIdxNum;
 		long lNeedReceive;
 	} sLV;
-	j = (long) pv;
+//	j = (long) pv;
   	sLV. lDeltaAbsNumertrs = sLV.lNeedReceive = 0;
 
-	i = j+4;
-	unnV1. uchAr [0] = *( (char*) pv+0);
-	unnV1. uchAr [1] = *( (char*) pv+1);
-	unnV1. uchAr [2] = *( (char*) pv+2);
-	unnV1. uchAr [3] = *( (char*) pv+3);
+//	i = j+4;
+//	unnV1. uchAr [0] = *( (char*) pv+0);
+//	unnV1. uchAr [1] = *( (char*) pv+1);
+//	unnV1. uchAr [2] = *( (char*) pv+2);
+//	unnV1. uchAr [3] = *( (char*) pv+3);
 	//Extact ulCtrTrLpduSpi
-	 //arArecDataBS[l_IdxAWthCmdBuf] = *( (ARecDataDsc*) (i));
+	
 	// memcpy((void*)&arArecDataBS[l_IdxAWthCmdBuf],(const void*)i,sizeof(hldCurrARecData) );
 	//hld2AbsNumertrs =  hld1AbsNumertrs;
 	//hldAbsNumertrs.
-	pv = (void*)(j+4);
+//	pv = (void*)(j+4);
 	i = ((ARecDataDsc*)pv)->UN_ArecDataBS.sArecBrWrp.chArAnlg[SIZE_ANALOG_DATA-1];
 	if(i==0xff)
 	sLV. lDeltaAbsNumertrs++;
@@ -413,6 +422,21 @@ union
 				memcpy((void*)&arAbsNumersIdxBufBs[0],(const void*)&ZeroAbsNumersIdxBufBs,sizeof(AbsNumersIdxBufBsDsc));
 				lBitActiveElemInarAbsNumersIdxBufBs &=~1;
 				}
+				else{//Check Success Transmit Req on Br
+					i = arAbsNumersIdxBufBs[0].lCheckCtrRvAbsNumertrs;i++;
+					j = arAbsNumersIdxBufBs[0].lCtrRvAbsNumertrs;
+					if(i >= 4){
+					//Activate Req Tr on Br again
+						memcpy((void*)&hldRQ1AbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chArNum1[0],
+						(const void*)&(arAbsNumersIdxBufBs[0].lSelectedAbsNumertr),4);
+						hldRQ1AbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chBitFld = 0x11;
+						AppReqTransmitbsNumeratorRQ|= 2	;//Activated
+						arAbsNumersIdxBufBs[0].lCheckCtrRvAbsNumertrs = arAbsNumersIdxBufBs[0].lCtrRvAbsNumertrs;
+					}
+					else
+						arAbsNumersIdxBufBs[0].lCheckCtrRvAbsNumertrs = i;
+					
+				}
 			}
 			if(lBitActiveElemInarAbsNumersIdxBufBs&2)
 			{
@@ -426,9 +450,12 @@ union
 	
 	if(i == l1AbsNumertrs)
 	{
-
+#ifndef REALIZE_ABS_NUMERATOR	
 		memcpy((void*)&arArecDataBS[l_IdxAWthCmdBuf],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );
-		//
+#endif		//
+
+		memcpy((void*)&arArecDataMBuf[lIndex_MBuf],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );
+
 		memcpy((void*)&(hldAbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chArNum1[0]),(const void*)&l1AbsNumertrs,4); 
 		memcpy((void*)&(hldAbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chArNum2[0]),(const void*)&l2AbsNumertrs,4); 
 		hldAbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chBitFld = 0;
@@ -454,8 +481,10 @@ union
 			{
 				if(l1AbsNumertrs==0)
 				{
+#ifndef REALIZE_ABS_NUMERATOR						
 					memcpy((void*)&arArecDataBS[l_IdxAWthCmdBuf],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );
-					//
+#endif						//
+					memcpy((void*)&arArecDataMBuf[lIndex_MBuf],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );
 					memcpy((void*)&(hldAbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chArNum1[0]),(const void*)&l1AbsNumertrs,4); 
 					memcpy((void*)&(hldAbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chArNum2[0]),(const void*)&l2AbsNumertrs,4); 
 					hldAbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chBitFld = 0;
@@ -495,6 +524,7 @@ union
 		sLV.lDeltaAbsNumertrs = i;
 		
 		   //Calc Possible fact val l_IdxAWthCmdBuf
+#ifndef REALIZE_ABS_NUMERATOR			   
 		j = l_IdxAWthCmdBuf + i;   
 		if(j<AMOUNT_RECORDS_ANALOG_WITH_CMD ) 
 		{   
@@ -503,9 +533,11 @@ union
 		else 
 		l_IdxAWthCmdBuf = j - AMOUNT_RECORDS_ANALOG_WITH_CMD;
 		sLV.lCurrLastNumerators = l_IdxAWthCmdBuf;//Save l_IdxAWthCmdBuf
-		
+	
 		 memcpy((void*)&arArecDataBS[l_IdxAWthCmdBuf],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );
-		//
+#endif		//
+		AddInArecDataMBufSmpl(i);
+
 		memcpy((void*)&(hldAbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chArNum1[0]),(const void*)&l1AbsNumertrs,4); 
 		memcpy((void*)&(hldAbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chArNum2[0]),(const void*)&l2AbsNumertrs,4); 
 		hldAbsNumertrs.UNNAbsNumtrs.sBsAbsNumeratorWrp.chBitFld = 0;
@@ -530,16 +562,17 @@ union
 				j -= l1AbsNumertrs;//Detec Minimal difference
 				else
 				j += (0x7fffffff -l1AbsNumertrs);
-				sLV.lNeedReceive = arAbsNumersIdxBufBs[0].lSecondSize -  arAbsNumersIdxBufBs[0].lSecondIdx;
-				sLV.lNeedReceive += arAbsNumersIdxBufBs[0].lFirstSize -  arAbsNumersIdxBufBs[0].lFirstIdx;
+				sLV.lNeedReceive = arAbsNumersIdxBufBs[0].lSecondSize;// -  arAbsNumersIdxBufBs[0].lSecondIdx;
+				sLV.lNeedReceive += arAbsNumersIdxBufBs[0].lFirstSize;// -  arAbsNumersIdxBufBs[0].lFirstIdx;
 				
-				if(j<(sLV.lNeedReceive + 1))// <- Possible Change One o n const AmountARecDataDsc in SPi pacet
+				if(j<(sLV.lNeedReceive +(MAX_VAL_REQ_RECORDS_ANALOG_WITH_CMD+1)))// <- Possible Change One o n const AmountARecDataDsc in SPi pacet
 				{
 				arAbsNumersIdxBufBs[0].lState = 1<<2;//Stop Req;//Exit fr
 				//Proces Stop Req
 				memcpy((void*)&arAbsNumersIdxBufBs[0],(const void*)&ZeroAbsNumersIdxBufBs,sizeof(AbsNumersIdxBufBsDsc));//Stop 
 				lBitActiveElemInarAbsNumersIdxBufBs &= ~1;
 				}
+				
 				
 			}
 			//Chek and exclude Possible Req Session
@@ -557,7 +590,7 @@ union
 //
 //		
 //		}
-
+#ifndef REALIZE_ABS_NUMERATOR
 		   i = sLV.lDeltaAbsNumertrs;
 		
 		   
@@ -614,7 +647,9 @@ union
 			//memcpy((void*)&arArecDataBS[j],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );
 			
 		}
-			//Try Activated
+#endif	
+		MarkDirtyArecDataMBufSmpls(sLV.lDeltaAbsNumertrs);
+		//Try Activated
 		//if( (lBitActiveElemInarAbsNumersIdxBufBs&1) == 0)
 		{
 			//START Init Requsts
@@ -622,7 +657,7 @@ union
 			
 			((AbsNumersIdxBufBsDsc*)pvL)->l1AbsNumertrs    = l1AbsNumertrs;
 			((AbsNumersIdxBufBsDsc*)pvL)->l2AbsNumertrs    = l2AbsNumertrs;
-			((AbsNumersIdxBufBsDsc*)pvL)->lCtrRvAbsNumertrs = 0;
+			((AbsNumersIdxBufBsDsc*)pvL)->lCheckCtrRvAbsNumertrs = ((AbsNumersIdxBufBsDsc*)pvL)->lCtrRvAbsNumertrs = 0;
 			((AbsNumersIdxBufBsDsc*)pvL)->lDeltaAbsNumertrs = sLV.lDeltaAbsNumertrs;
 			 if(l2AbsNumertrs < 0x7fffffff)
 			 ((AbsNumersIdxBufBsDsc*)pvL)->lSelectedAbsNumertr = l2AbsNumertrs+1;
@@ -641,16 +676,21 @@ union
 			{
 				i = 0x7fffffff-l2AbsNumertrs;
 				i+= l1AbsNumertrs;//+1
+				#ifndef REALIZE_ABS_NUMERATOR
 				j = l_IdxAWthCmdBuf;
-				
-				
-				
+				#else
+				j = lIndex_MBuf;
+				#endif
 			
 			}
 			else
 			{
 				i = sLV.lDeltaAbsNumertrs;
+				#ifndef REALIZE_ABS_NUMERATOR
 				j = l_IdxAWthCmdBuf;
+				#else
+				j = lIndex_MBuf;
+				#endif
 				
 	
 			}
@@ -665,9 +705,11 @@ union
 					((AbsNumersIdxBufBsDsc*)pvL)->lFirstSize       = i-j+1;
 					((AbsNumersIdxBufBsDsc*)pvL)->lSecondSize      = j;
 					((AbsNumersIdxBufBsDsc*)pvL)->lSecondStartIdx  = 0;
+					#ifndef REALIZE_ABS_NUMERATOR
 					((AbsNumersIdxBufBsDsc*)pvL)->lFirstStartIdx   = j+(AMOUNT_RECORDS_ANALOG_WITH_CMD-1)-i;
-					//((AbsNumersIdxBufBsDsc*)pvL)->lSelectedAbsNumertr = l2AbsNumertrs;
-				
+					#else
+					((AbsNumersIdxBufBsDsc*)pvL)->lFirstStartIdx   = j+(AMOUNT_RECORDS_ANALOG_WITH_CMD_MB-1)-i;
+				#endif
 				}
 	
 			((AbsNumersIdxBufBsDsc*)pvL)->lState           = 1;//Activated
@@ -708,6 +750,7 @@ union
 	
 	
 IncrIdxBuf:	
+#ifndef REALIZE_ABS_NUMERATOR	
 	i = l_IdxAWthCmdBuf+1;//+sLV.lDeltaAbsNumertrs
  	if(i < AMOUNT_RECORDS_ANALOG_WITH_CMD) l_IdxAWthCmdBuf = i;
    else 
@@ -717,8 +760,35 @@ IncrIdxBuf:
 	{
 		EvalCSTl();
 	}
+#endif	
+	;
+	i = lIndex_MBuf+1;//+sLV.lDeltaAbsNumertrs
+ 	if(i < AMOUNT_RECORDS_ANALOG_WITH_CMD_MB)
+		lIndex_MBuf = i;
+	else 
+		lIndex_MBuf = i - AMOUNT_RECORDS_ANALOG_WITH_CMD_MB;
+	
+	//Check Possible Condition for Taras
+	j = 0;
+	if(lIndex_MBuf>lIndex_WR)
+	j = lIndex_MBuf - lIndex_WR;
+	else{
+		if(lIndex_MBuf<lIndex_WR){
+			j = (AMOUNT_RECORDS_ANALOG_WITH_CMD_MB-lIndex_WR);
+			j+=lIndex_MBuf;
+		}
+	}
+	if(lBitActiveElemInarAbsNumersIdxBufBs == 0 && j)//&& j > AMOUNT_RECORDS_ANALOG_WITH_CMD)
+		lIndex_WR = lIndex_MBuf;
+
+	
 }
 
+void ExtractUrgentDataBr2Bs(void* pv)   @ "Fast_function"
+{
+//Look Here  chArCtrLinkTr[4];//ID LinK Layer Transmittion
+	ExtractARecData(pv);
+}
 long  CheckActiveElemInArAbs(void* pv)   @ "Fast_function"
 {
 register long i,j;
@@ -727,12 +797,14 @@ register long i,j;
 	i = 0;
 	
 	j = ((AbsNumersIdxBufBsDsc*)pv)->l1AbsNumertrs;
-	if(j > l1AbsNumertrs)
-	j -= l1AbsNumertrs;//Detec Minimal difference
-	else
-	j += (0x7fffffff -l1AbsNumertrs);
-	i = ((AbsNumersIdxBufBsDsc*)pv)->lSecondSize -  ((AbsNumersIdxBufBsDsc*)pv)->lSecondIdx;
-	i += ((AbsNumersIdxBufBsDsc*)pv)->lFirstSize -  ((AbsNumersIdxBufBsDsc*)pv)->lFirstIdx;
+	if(j < l1AbsNumertrs)
+	j = l1AbsNumertrs - j;//Detec Minimal difference
+	else{
+		 j += (0x7fffffff -l1AbsNumertrs); //-j+
+	//j += ( -l1AbsNumertrs);
+	}
+	i = ((AbsNumersIdxBufBsDsc*)pv)->lSecondSize;//-  ((AbsNumersIdxBufBsDsc*)pv)->lSecondIdx;
+	i += ((AbsNumersIdxBufBsDsc*)pv)->lFirstSize;// -  ((AbsNumersIdxBufBsDsc*)pv)->lFirstIdx;
 				
 	if(j<(i + MAX_VAL_REQ_RECORDS_ANALOG_WITH_CMD))
 	{
@@ -746,6 +818,34 @@ register long i,j;
 
 	return i;
 }
+long  CheckActiveElemInArAbs_(void* pv)   @ "Fast_function"
+{
+register long i,j;
+//register void* pvL;
+
+	i = 0;
+	
+	j = ((AbsNumersIdxBufBsDsc*)pv)->l1AbsNumertrs;
+	if(j > l1AbsNumertrs)
+	j -= l1AbsNumertrs;//Detec Minimal difference
+	else
+	j += (0x7fffffff -l1AbsNumertrs);
+	i = ((AbsNumersIdxBufBsDsc*)pv)->lSecondSize;//-  ((AbsNumersIdxBufBsDsc*)pv)->lSecondIdx;
+	i += ((AbsNumersIdxBufBsDsc*)pv)->lFirstSize;// -  ((AbsNumersIdxBufBsDsc*)pv)->lFirstIdx;
+				
+	if(j<(i + MAX_VAL_REQ_RECORDS_ANALOG_WITH_CMD))
+	{
+		i = ERROR;
+		((AbsNumersIdxBufBsDsc*)pv)->lState = 1<<2;//Stop Req;//Exit
+		
+	}
+	else
+	i = OK;
+	
+
+	return i;
+}
+
 
 char chEnableCheck = 0;
 char chActivateCheck = 0;
@@ -940,6 +1040,7 @@ memcpy((void*)&unnV1.ulVal,(const void*)&arArecDataBS[j].UN_ArecDataBS.sArecBrWr
 					
 }
 
+
 long UpdateRVARecMainDataBsTpuUnit(void* pvLDC, long lID)   @ "Fast_function"
 {
 //register long i;//,j;
@@ -971,18 +1072,341 @@ unnV1.uchAr[3] = 0;
 if (unnV1.uchAr[0]== 0)
 {
 	
-	lID = (long) (((LDCIDsc*)pvLDC)-> pSrc);
-	pv = (void*)(lID-4);
+	//lID = (long) (((LDCIDsc*)pvLDC)-> pSrc);
+	//pv = (void*)(lID-4);
+	pv = (void*)(((LDCIDsc*)pvLDC)-> pSrc);
 	lID = ((LDCIDsc*)pvLDC)->uchTR_C;
 	//sLV. lTrSize = lID;
 	//pvLDC = (void*)i;
-
- ExtractUrgentDataBr2Bs(pv);
+	ExtractARecData(pv);
+ //ExtractUrgentDataBr2Bs(pv);
 
 }
 return  lID;
 
 }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+//..................................................................................///
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//---  функция занесенияч данных в arArecDataMBuf 
+extern void AddInArecDataMBufSmpl (long L_Vl);
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//=============================================================================
+//Body func
+//=============================================================================
+inline void AddInArecDataMBufSmpl(long L_Vl){
+	register long j;
+	j = lIndex_MBuf + L_Vl;  
+	if(j<AMOUNT_RECORDS_ANALOG_WITH_CMD_MB ) 
+		{   
+				lIndex_MBuf = j;
+			}
+		else 
+		lIndex_MBuf = j - AMOUNT_RECORDS_ANALOG_WITH_CMD_MB;
+	memcpy((void*)&arArecDataMBuf[lIndex_MBuf],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );	
+
+}
+//-----------------------------------------------------------------------------
+
+///////////////////////////////////////////////////////////////////////////////////////
+//..................................................................................///
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//---  функция занесенияч данных в arArecDataMBuf 
+extern void MarkDirtyArecDataMBufSmpls (long L_Vl);
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//=============================================================================
+//Body func
+//=============================================================================
+void MarkDirtyArecDataMBufSmpls(long L_Vl){
+	register long i,j;
+	register void* pvL;
+	struct{
+		long lFirstStart,lFirstSize;
+		long lSecondStart, lSecondSize;
+		long lDeltaAbsNumertrs;
+		long lCurrLastNumerators, lLastIdxNum;
+		long lNeedReceive;
+	}sLV;
+	sLV.lDeltaAbsNumertrs = i = L_Vl;
+	j = lIndex_MBuf;
+	if(j>i){
+		sLV.lFirstSize       = i;
+		sLV.lFirstStart   = j-i;
+		sLV.lSecondStart  = 0;
+		sLV.lSecondSize   = 0;
+	
+	}
+	else	{
+		sLV.lFirstSize       = i-j+1;
+		sLV.lSecondSize      = j;
+		sLV.lSecondStart  = 0;
+		sLV.lFirstStart   = j+(AMOUNT_RECORDS_ANALOG_WITH_CMD_MB-1)-i;
+	
+	}
+	pvL = (void*)&arArecDataMBuf[sLV.lFirstStart].UN_ArecDataBS.sArecBrWrp.chAbnNum[3];
+		//Insert Data
+		if(sLV.lFirstSize>3)
+		sLV.lLastIdxNum = sLV.lFirstSize - 3;
+		else
+		sLV.lLastIdxNum = 0;
+		for(i = sLV.lLastIdxNum; i<sLV.lFirstSize; i++) 
+		{
+			
+			
+			*((char*)pvL+(i*sizeof(ARecDataDsc))) |= 0x80;//Mark as Bad Numerator
+			//j = sLV.lFirstStart + i;
+			//memcpy((void*)&arArecDataBS[j],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );
+			
+		}
+		pvL = (void*)&arArecDataMBuf[ sLV.lSecondStart].UN_ArecDataBS.sArecBrWrp.chAbnNum[3];
+		if(sLV.lSecondSize>3)
+		sLV.lLastIdxNum = sLV.lSecondSize - 3;
+		else
+		sLV.lLastIdxNum = 0;
+		for(i = sLV.lLastIdxNum; i<sLV.lSecondSize ; i++) 
+		{
+			
+			*((char*)pvL+(i*sizeof(ARecDataDsc))) |= 0x80;//Mark as Bad Numerator
+			//j = sLV.lSecondStart +i;
+			//memcpy((void*)&arArecDataBS[j],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );
+			
+		}
+	
+	
+	
+	
+	
+	
+/*	
+	
+	j = lIndex_MBuf + L_Vl;  
+	if(j<AMOUNT_RECORDS_ANALOG_WITH_CMD_MB ) 
+		{   
+				lIndex_MBuf = j;
+			}
+		else 
+		lIndex_MBuf = j - AMOUNT_RECORDS_ANALOG_WITH_CMD_MB;
+	memcpy((void*)&arArecDataMBuf[lIndex_MBuf],(const void*)&hldCurrARecData,sizeof(hldCurrARecData) );	
+*/
+}
+//-----------------------------------------------------------------------------
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+//..................................................................................///
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//---  функция занесенияч данных в arAbsNumersIdxBufBs
+extern void ModifyAbsNumersIdxBufBs (long L_Vl);
+//..................................................................................
+//""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+//=============================================================================
+//Body func
+//=============================================================================
+void ModifyAbsNumersIdxBufBs (long L_Vl){
+	register long i,j;
+	register void* pvL;
+		struct{
+		long lFirstStart,lFirstSize;
+		long lSecondStart, lSecondSize;
+		long lDeltaAbsNumertrs;
+		long lCurrLastNumerators, lLastIdxNum;
+		long lNeedReceive;
+	}sLV;
+	//
+	i = sLV.lDeltaAbsNumertrs = L_Vl;
+	j = lIndex_MBuf;
+	if(j>i){
+		((AbsNumersIdxBufBsDsc*)pvL)->lFirstSize       = i;//
+		((AbsNumersIdxBufBsDsc*)pvL)->lFirstStartIdx   = j-i;
+	
+	}
+	else{
+		((AbsNumersIdxBufBsDsc*)pvL)->lFirstSize       = i-j+1;
+		((AbsNumersIdxBufBsDsc*)pvL)->lSecondSize      = j;
+		((AbsNumersIdxBufBsDsc*)pvL)->lSecondStartIdx  = 0;
+		((AbsNumersIdxBufBsDsc*)pvL)->lFirstStartIdx   = j+(AMOUNT_RECORDS_ANALOG_WITH_CMD_MB-1)-i;
+	
+	}
+	((AbsNumersIdxBufBsDsc*)pvL)->lState           = 1;//Activated
+
+}
+//-----------------------------------------------------------------------------
+long UpdateDataAbsNumersIdxBufBs(long lOnbrAbsNumers){
+register long i,lID;//,j;
+void* pv;
+struct{
+		char chNeedClrSesData;
+	} sLV;
+	if(lOnbrAbsNumers == 1){
+		pv  = (void*)&arAbsNumersIdxBufBs[0];;
+	}
+	else{
+			//if(lOnbrAbsNumers == 2)//Second Thread
+	}		
+	sLV.chNeedClrSesData = 0;//
+	lID = (-1);
+	if( ((AbsNumersIdxBufBsDsc*)pv)->lFirstSize != 0 )
+	{
+		lID = ((AbsNumersIdxBufBsDsc*)pv)->lFirstStartIdx 
+		+((AbsNumersIdxBufBsDsc*)pv)->lFirstIdx;
+		//arArecDataBS[lID]
+		((AbsNumersIdxBufBsDsc*)pv)->lFirstSize--;
+		((AbsNumersIdxBufBsDsc*)pv)->lFirstIdx++;
+	}
+	else
+	{
+		if( ((AbsNumersIdxBufBsDsc*)pv)->lSecondSize != 0 )
+		{
+			lID = ((AbsNumersIdxBufBsDsc*)pv)->lSecondStartIdx 
+		+((AbsNumersIdxBufBsDsc*)pv)->lSecondIdx;
+		((AbsNumersIdxBufBsDsc*)pv)->lSecondIdx++;
+		//arArecDataBS[lID]
+		((AbsNumersIdxBufBsDsc*)pv)->lSecondSize--;
+		}
+		
+	}
+	((AbsNumersIdxBufBsDsc*)pv)->lCtrRvAbsNumertrs++;
+	i = ((AbsNumersIdxBufBsDsc*)pv)->lSelectedAbsNumertr;
+	i++;
+	if(i < 0x7fffffff) 
+	;
+	else 
+	i = 0;
+	((AbsNumersIdxBufBsDsc*)pv)->lSelectedAbsNumertr = i;
+	//if (i == (((AbsNumersIdxBufBsDsc*)pv)->l1AbsNumertrs))
+	;
+	if( (((AbsNumersIdxBufBsDsc*)pv)->lFirstSize) == 0 )
+		sLV.chNeedClrSesData |= 1;
+	if( (((AbsNumersIdxBufBsDsc*)pv)->lSecondSize) == 0 )
+		sLV.chNeedClrSesData |= 2;
+	//((AbsNumersIdxBufBsDsc*)pv)->lCtrRvAbsNumertrs++;	
+	if(lOnbrAbsNumers == 1)
+	i = 0;//*sizeof(AbsNumersIdxBufBsDsc)
+	i += (long)pv;
+	if(sLV.chNeedClrSesData >= 3) 
+	//Insert addres InBuf   &arAbsNumersIdxBufBs[0]
+	{
+	memcpy((void*)i,(const void*)&ZeroAbsNumersIdxBufBs,sizeof(AbsNumersIdxBufBsDsc));//Stop 
+		if(lOnbrAbsNumers == 1)
+		lBitActiveElemInarAbsNumersIdxBufBs &= ~1;
+		
+	}
+	else{
+		if(lOnbrAbsNumers == 1){
+			pv = (void*)&hldRQ1AbsNumertrs.UNNAbsNumtrs.chArNums[0];
+			memcpy((void*)pv,(const void*)&ZeroAbsNumersIdxBufBs,sizeof(AbsNumeratorUnnDsc));
+			AppReqTransmitbsNumeratorRQ|= 2	;//Activated
+			memcpy((void*)&
+			((AbsNumeratorUnnDsc*)pv)->UNNAbsNumtrs.sBsAbsNumeratorWrp.chArNum1[0],
+			(const void*)&arAbsNumersIdxBufBs[0].lSelectedAbsNumertr,4);//. ((AbsNumersIdxBufBsDsc*)pvL)->lSelectedAbsNumertr
+			lBitActiveElemInarAbsNumersIdxBufBs |= 1;
+			((AbsNumeratorUnnDsc*)pv)->UNNAbsNumtrs.sBsAbsNumeratorWrp.chBitFld = 0x11;
+		}	
+	}
+	return lID;
+}
+//-----------------------------------------------------------------------------
+long UpdateRVARecDataBsTpuUnitMB(void* pvLDC, long lID)   @ "Fast_function"
+{
+register long i;//,j;
+//register char *pSrc;//,*pDst;
+void* pv;
+struct 
+	{
+		char chDetect_arAbsNumersIdxBufBs;
+//		char chNeedClrSesData;
+		void *pOriginLDC;
+		long lTrSize;
+		long lRvAbsNumerator;
+	} sLV;
+union 
+	    {
+	    	unsigned char   uchAr [4];
+	    	unsigned short  ushAr [2];
+            unsigned long   ulVal;
+	    }unnV1;	
+
+sLV.pOriginLDC = pvLDC;
+sLV.chDetect_arAbsNumersIdxBufBs = 0;
+//RVSrcSamplesCTpuUnitDsc  holderRVSrcSamplesCTpuUnit
+// sLV.chNeedClrSesData = 0;
+
+unnV1.uchAr[0] = ((LDCIDsc*)pvLDC)-> uchConMode;
+unnV1.uchAr[1] = ((LDCIDsc*)pvLDC)-> uchStartSesion;
+unnV1.uchAr[2] = ((LDCIDsc*)pvLDC)-> NumComSes;
+unnV1.uchAr[3] = 0;
+
+pv  = (void*)&holderRVUN_ArecSOCTpuUnit.RvCnHldr;
+if (unnV1.uchAr[0]== 0)
+{
+	
+	//pv  = (void*)&holderRVTotMeasCTpuUnit.arUchRV;
+	//pv  = (void*)	&holderDiagnBrBs.UNN_Sdfe.chArSDFE[0];
+	
+	i = (long)(((LDCIDsc*)pvLDC)-> pSrc);
+	lID = ((LDCIDsc*)pvLDC)->uchTR_C;
+	sLV. lTrSize = lID;
+	pvLDC = (void*)i;
+	
+	memcpy((void*)&unnV1,
+	(const void*)&(((ARecDataDsc*)pvLDC)->UN_ArecDataBS.sArecBrWrp.chAbnNum[0]),
+	4);
+	sLV.lRvAbsNumerator =  unnV1. ulVal;
+	if((unnV1. ulVal == arAbsNumersIdxBufBs[0].lSelectedAbsNumertr)&&
+	(lBitActiveElemInarAbsNumersIdxBufBs&1))
+	{
+		sLV.chDetect_arAbsNumersIdxBufBs = 1;
+		//sLV.chNeedClrSesData = 0;
+		lID = UpdateDataAbsNumersIdxBufBs(1);
+		if(lID != (-1)){
+			if(lID>AMOUNT_RECORDS_ANALOG_WITH_CMD_MB)
+				lID = AMOUNT_RECORDS_ANALOG_WITH_CMD_MB-1;
+			pv  = (void*)&arArecDataMBuf[lID];
+			lID = sLV.lTrSize;
+			if(lID > ((long) sizeof(ARecDataDsc)) )
+				lID = (sizeof(ARecDataDsc));
+			//MoveData: 
+			//for (i = 0; i < lID; i++){
+			//	((char*)pv)[i] = ((char*)pvLDC)[i];
+			//}
+			memcpy(pv,(const void*)pvLDC,lID);
+		}
+
+	
+	}
+	if(unnV1. ulVal == arAbsNumersIdxBufBs[1].lSelectedAbsNumertr
+	&& (lBitActiveElemInarAbsNumersIdxBufBs&2))
+	{
+		sLV.chDetect_arAbsNumersIdxBufBs = 2;
+		//pv  = (void*)&
+	}
+	if(sLV.chDetect_arAbsNumersIdxBufBs)
+	{
+		
+	}
+	else{
+		if(sLV.lRvAbsNumerator==0 || sLV.lRvAbsNumerator==(-1)){//This is not init Data In Mem
+			if((lBitActiveElemInarAbsNumersIdxBufBs&1))
+			{
+				lID = UpdateDataAbsNumersIdxBufBs(1);
+			}
+		}
+	}
+
+	
+}
+
+
+return lID;//unnV1.uchAr[3];
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////
 //..................................................................................///
 //""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -998,5 +1422,22 @@ long GetActiveCmdsDemo(char* pChActivCmd){
 return SUCCESS_EXEC;
 }
 //-----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* EOF */

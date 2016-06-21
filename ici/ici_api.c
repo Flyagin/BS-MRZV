@@ -537,8 +537,22 @@ lSpi0HdwState |= 4;
 #include "../../peripherals/cp15/cp15.h"
 //G:\HVP_pj\Hvps\hvps01_03_13\HS1_0100_00_i670\LibG45\boards\bs_g45\at91sam9g45\AT91SAM9G45.h
 #include "./at91sam9g45/AT91SAM9G45.h"
-
-
+static long lSetCtrCopy;
+char chSecondCtr = 0;
+unsigned long ulSpuriousReInitU2 = 0;
+void CheckU2State(void){
+	chSecondCtr++;
+		if(chSecondCtr  >= 9){
+			chSecondCtr = 0;
+			//Check 
+			if(lSetCtrCopy != lSetCtr)
+				lSetCtrCopy = lSetCtr;
+			else{
+				chHdwErorU2 |= 2;
+				ulSpuriousReInitU2 ++;
+			}
+		}	
+}
 
 
 

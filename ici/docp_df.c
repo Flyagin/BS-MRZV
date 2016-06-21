@@ -362,6 +362,7 @@ void SetPrtTestVal1(void* pTbl)
   register long i;
   register unsigned long j;
 register void *pv1,*pv2;
+	
 
 	for (i = 0,  j =(NUM_IN>>3); (unsigned long)i < j; i++)
 	{
@@ -370,7 +371,7 @@ register void *pv1,*pv2;
 	
 	for (i = 0,  j =(NUM_IN>>3); (unsigned long)i < j; i++)
 	{
-		((CfgTblDsc*)pTbl)-> arUchTypeInput[i] = 0;
+		((CfgTblDsc*)pTbl)-> arUchTypeInput[i] = 0xff;
 	}
 	
 	for (i = 0,  j =(NUM_OUT>>3); (unsigned long)i < j; i++)
@@ -383,7 +384,12 @@ register void *pv1,*pv2;
 	}
 	for (i = 0,  j =(NUM_IN); (unsigned long)i < j; i++)
 	{
+		//k = (i - (8*i>>3));
+		if( (((CfgTblDsc*)pTbl)->arUchTypeSignal[i>>3]) &(1<<(i - (8*i>>3))) )
+		((CfgTblDsc*)pTbl)-> ushDurationDI[i] = 2;
+		else
 		((CfgTblDsc*)pTbl)-> ushDurationDI[i] = 0;
+		
 	}
 	for (i = 0,  j =(NUM_IN*AMOUNT_BYTE_FOR_IEPRF); (unsigned long)i < j; i++)
 	{
@@ -671,8 +677,13 @@ register void *pv1,*pv2;
 	//		((char*)pv1)[j] = 13;
 	
 	pv1  = (void*)&( ((CfgTblDsc*)pTbl)-> ownrOFunc);
-	for (j = 0; j< ( sizeof(OFuncDsc) );j++)
-			((char*)pv1)[j] = 0;
+	//for (j = 0; j< ( sizeof(OFuncDsc) );j++)
+	for (j = 0; j< ( NUM_DEF_FUN );j++){
+		((OFuncDsc*)pv1)->uch_ar_type_df[j] = 1;
+		((OFuncDsc*)pv1)->ul_ar_time_delay_df[j] = 0;
+		((OFuncDsc*)pv1)->ul_ar_duration_df[j] = 15;
+		
+	}
 	
 	pv1  = (void*)&( ((CfgTblDsc*)pTbl)-> ownrOTrg);
 	for (j = 0; j< ( sizeof(OTrgDsc) );j++)

@@ -39,7 +39,7 @@
 #include    "DiagnG.h"
 #include    "../inc/hs_ver.h"
 #include    "dgn_vr.h"
-
+#include    "../mal/inc/diagnostyka_mal.h"
 
 #define VERSION         1
 
@@ -95,12 +95,13 @@ SUB_VERSION,
 BIELD_NUMBER 
 
 };
-
+extern  long CheckBmErrEvt(BmRamPrgEvtDsc *pBmRamPrgEvtDsc);
+extern  long CheckBrErrEvt(BrRamPrgEvtDsc *pBrRamPrgEvtDsc);
 
 
 RamErrEvtDsc hldrErrEvt;
-
-
+extern unsigned int diagnostyka[2];
+extern  UNN_PrgEvtBmBrBs hldUNN_PrgEvt;
 //""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 //---   
 void ProcessProgramEvt(void) @ "Fast_function";
@@ -124,13 +125,281 @@ void ProcessProgramEvt(void) @ "Fast_function";
 //=================================================================================
 void ProcessProgramEvt(void) @ "Fast_function"
 {
-  long register j,k;// i,
-  register void *pv;
+  register long j,k;// i,
+  register void *pvS,*pvD;
 	//Check Time Corectness
+	//Import BS Data
+	pvD = (void*)&hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBs;
+	pvS = (void*)&diagnostyka[0];
+	k = 0;//Fix Fatal Error
+	k = CheckBmErrEvt(&hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBm);
+	
+	k |= CheckBrErrEvt(&hldUNN_PrgEvt.RamPrgEvtFld.hldrPrgEvtBr);
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_PRT_EEPROM_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_SETTINGS_PRT_EEPROM_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_SETTINGS_PRT_EEPROM_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_SETTINGS_PRT_EEPROM_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_PRT_EEPROM_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_SETTINGS_PRT_EEPROM_BIT);
+	k |= 1;//Fix Fatal Error
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_PRT_EEPROM_EMPTY_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_SETTINGS_PRT_EEPROM_EMPTY_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_SETTINGS_PRT_EEPROM_EMPTY_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_SETTINGS_PRT_EEPROM_EMPTY_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_PRT_EEPROM_EMPTY_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_SETTINGS_PRT_EEPROM_EMPTY_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_PRT_EEPROM_COMPARISON_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_SETTINGS_PRT_EEPROM_COMPARISON_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_SETTINGS_PRT_EEPROM_COMPARISON_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_SETTINGS_PRT_EEPROM_COMPARISON_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_PRT_EEPROM_COMPARISON_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_SETTINGS_PRT_EEPROM_COMPARISON_BIT);
+	k |=2;
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_PRT_EEPROM_CONTROL_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_SETTINGS_PRT_EEPROM_CONTROL_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_SETTINGS_PRT_EEPROM_CONTROL_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_SETTINGS_PRT_EEPROM_CONTROL_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_PRT_EEPROM_CONTROL_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_SETTINGS_PRT_EEPROM_CONTROL_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_BS_EEPROM_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_SETTINGS_BS_EEPROM_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_SETTINGS_BS_EEPROM_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_SETTINGS_BS_EEPROM_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_BS_EEPROM_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_SETTINGS_BS_EEPROM_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_BS_EEPROM_EMPTY_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_SETTINGS_BS_EEPROM_EMPTY_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_SETTINGS_BS_EEPROM_EMPTY_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_SETTINGS_BS_EEPROM_EMPTY_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_BS_EEPROM_EMPTY_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_SETTINGS_BS_EEPROM_EMPTY_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_BS_EEPROM_COMPARISON_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_SETTINGS_BS_EEPROM_COMPARISON_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_SETTINGS_BS_EEPROM_COMPARISON_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_SETTINGS_BS_EEPROM_COMPARISON_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_BS_EEPROM_COMPARISON_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_SETTINGS_BS_EEPROM_COMPARISON_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_BS_EEPROM_CONTROL_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_SETTINGS_BS_EEPROM_CONTROL_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_SETTINGS_BS_EEPROM_CONTROL_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_SETTINGS_BS_EEPROM_CONTROL_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_SETTINGS_BS_EEPROM_CONTROL_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_SETTINGS_BS_EEPROM_CONTROL_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_USTUVANNJA_EEPROM_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_USTUVANNJA_EEPROM_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_USTUVANNJA_EEPROM_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_USTUVANNJA_EEPROM_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_USTUVANNJA_EEPROM_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_USTUVANNJA_EEPROM_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_USTUVANNJA_EEPROM_EMPTY_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_USTUVANNJA_EEPROM_EMPTY_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_USTUVANNJA_EEPROM_EMPTY_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_USTUVANNJA_EEPROM_EMPTY_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_USTUVANNJA_EEPROM_EMPTY_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_USTUVANNJA_EEPROM_EMPTY_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_USTUVANNJA_EEPROM_COMPARISON_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_USTUVANNJA_EEPROM_COMPARISON_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_USTUVANNJA_EEPROM_COMPARISON_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_USTUVANNJA_EEPROM_COMPARISON_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_USTUVANNJA_EEPROM_COMPARISON_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_USTUVANNJA_EEPROM_COMPARISON_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_USTUVANNJA_EEPROM_CONTROL_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_USTUVANNJA_EEPROM_CONTROL_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_USTUVANNJA_EEPROM_CONTROL_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_USTUVANNJA_EEPROM_CONTROL_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_USTUVANNJA_EEPROM_CONTROL_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_USTUVANNJA_EEPROM_CONTROL_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_INFO_REJESTRATOR_PR_ERR_EEPROM_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_INFO_REJESTRATOR_PR_ERR_EEPROM_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_INFO_REJESTRATOR_PR_ERR_EEPROM_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_INFO_REJESTRATOR_PR_ERR_EEPROM_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_INFO_REJESTRATOR_PR_ERR_EEPROM_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_INFO_REJESTRATOR_PR_ERR_EEPROM_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_INFO_REJESTRATOR_PR_ERR_EEPROM_EMPTY_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_INFO_REJESTRATOR_PR_ERR_EEPROM_EMPTY_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_INFO_REJESTRATOR_PR_ERR_EEPROM_EMPTY_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_INFO_REJESTRATOR_PR_ERR_EEPROM_EMPTY_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_INFO_REJESTRATOR_PR_ERR_EEPROM_EMPTY_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_INFO_REJESTRATOR_PR_ERR_EEPROM_EMPTY_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_INFO_REJESTRATOR_PR_ERR_COMPARISON_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_INFO_REJESTRATOR_PR_ERR_COMPARISON_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_INFO_REJESTRATOR_PR_ERR_COMPARISON_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_INFO_REJESTRATOR_PR_ERR_COMPARISON_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_INFO_REJESTRATOR_PR_ERR_COMPARISON_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_INFO_REJESTRATOR_PR_ERR_COMPARISON_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_INFO_REJESTRATOR_PR_ERR_CONTROL_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_INFO_REJESTRATOR_PR_ERR_CONTROL_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(ERROR_INFO_REJESTRATOR_PR_ERR_CONTROL_BIT)));
+	if(j&
+	TO_U8_MSK(ERROR_INFO_REJESTRATOR_PR_ERR_CONTROL_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_INFO_REJESTRATOR_PR_ERR_CONTROL_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_INFO_REJESTRATOR_PR_ERR_CONTROL_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_BATTERY_LOW_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_RTC_BATTERY_LOW_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(RTC_BATTERY_LOW_BIT)));
+	if(j&
+	TO_U8_MSK(RTC_BATTERY_LOW_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_BATTERY_LOW_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_RTC_BATTERY_LOW_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+
+
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_OSCILLATOR_STOPED_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_RTC_OSCILLATOR_STOPED_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(RTC_OSCILLATOR_STOPED_BIT)));
+	if(j&
+	TO_U8_MSK(RTC_OSCILLATOR_STOPED_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_OSCILLATOR_STOPED_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_RTC_OSCILLATOR_STOPED_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_OSCILLATOR_FAIL_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_RTC_OSCILLATOR_FAIL_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(RTC_OSCILLATOR_FAIL_BIT)));
+	if(j&
+	TO_U8_MSK(RTC_OSCILLATOR_FAIL_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_OSCILLATOR_FAIL_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_RTC_OSCILLATOR_FAIL_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_UPDATING_HALTED_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_RTC_UPDATING_HALTED_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(RTC_UPDATING_HALTED_BIT)));
+	if(j&
+	TO_U8_MSK(RTC_UPDATING_HALTED_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_UPDATING_HALTED_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_RTC_UPDATING_HALTED_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+	//..................................................................................
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_WORK_FIELD_NOT_SET_BIT) )   ) &= ~
+	TO_U8_MSK(ERROR_BS_RTC_WORK_FIELD_NOT_SET_BIT);
+	j = *((char*)pvS+(TO_IDX_U8(RTC_WORK_FIELD_NOT_SET_BIT)));
+	if(j&
+	TO_U8_MSK(RTC_WORK_FIELD_NOT_SET_BIT)
+	){
+	*( (char*)pvD + ( TO_IDX_U8(ERROR_BS_RTC_WORK_FIELD_NOT_SET_BIT) )   ) |=
+	TO_U8_MSK(ERROR_BS_RTC_WORK_FIELD_NOT_SET_BIT);
+	k |= 2;//Fix Diagn Info Evt
+	}
+	//``````````````````````````````````````````````````````````````````````````````````
+
+
+	
+	
 	
 	//PutExecpt((void*)&SResTestHldr,(void*)&EepromErrRecDesc); <-Insert Data In Logger
-	k = 0;//Fix Fatal Error
-	pv = (void*)&hldrErrEvt;
+	
+	//pvD = (void*)&hldrErrEvt;
 	//Check each bit in Test Conf
 	
 //	j = *((U8*)i+SETNGS_ERR_START_VIA_I2C_CHK_IDX_U8);
@@ -184,28 +453,36 @@ void ProcessProgramEvt(void) @ "Fast_function"
 	// ERROR_BM_POWER_EEPROM_EMPTY_BIT                  
 	// ERROR_BM_POWER_EEPROM_COMPARISON_BIT             
 	// ERROR_BM_POWER_EEPROM_CONTROL_BIT 
-	if(k) 
+	
+	
+	
+	
+	if(k&1) 
 	{
 		//---*((U8*)pvCMD32+FAULT_TEST_CMDF_IDX_U8)  |= (FAULT_TEST_CMDF_U8_MSK);
-		((RamErrEvtDsc*)pv)->UNNStateSDFE.uchStateSDFE |= 1;//Fix Fatal Error
+		hldrErrEvt.UNNStateSDFE.uchStateSDFE |= 1;//Fix Fatal Error((RamErrEvtDsc*)pvD)->
+		chGErorLedInfo |= 1;
 	}
 	else
 	{
-		((RamErrEvtDsc*)pv)->UNNStateSDFE.uchStateSDFE &= ~1;////Fix Fatal Error
+		hldrErrEvt.UNNStateSDFE.uchStateSDFE &= ~1;////Fix Fatal Error((RamErrEvtDsc*)pvD)->
+		chGErorLedInfo &= ~1;
 	}
-	k = 0;
-	j = ((RamErrEvtDsc*)pv)->ulCheck_0_FEBF;
-		if(j) k++;
-		j=  ((RamErrEvtDsc*)pv)->ulCheck_1_FEBF;
-		if(j) k++;
-	if(k) 
+	//,,k = 0;
+	//,,j = ((RamErrEvtDsc*)pvD)->ulCheck_0_FEBF;
+	//,,	if(j) k++;
+	//,,	j=  ((RamErrEvtDsc*)pvD)->ulCheck_1_FEBF;
+	//,,	if(j) k++;
+	if(k&2) 
 		{
-			//---
-			((RamErrEvtDsc*)pv)->UNNStateSDFE.uchStateSDFE |= 2;//Fix Diagnostic Error
+			//---((RamErrEvtDsc*)pvD)->
+			hldrErrEvt.UNNStateSDFE.uchStateSDFE |= 2;//Fix Diagnostic Error
+			chGErorLedInfo |= 2;
 		}
 		else
-		{
-			((RamErrEvtDsc*)pv)->UNNStateSDFE.uchStateSDFE &= ~2;////Fix Diagnostic Error
+		{   //((RamErrEvtDsc*)pvD)->
+			hldrErrEvt.UNNStateSDFE.uchStateSDFE &= ~2;////Fix Diagnostic Error
+			chGErorLedInfo &= ~2;
 		}	
 	
 }
@@ -753,9 +1030,449 @@ PrgEvtFlash_2_Dsc   hPrgEvtMangInfo  @ "DDR2_Bank1_2_variables";
 #include "DiagnG.c"
 
 
+long CheckBmErrEvt(BmRamPrgEvtDsc *pBmRamPrgEvtDsc){
+	register long j,k;
+k = 0;
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VREF_ADC1_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_VREF_ADC1_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VDD_ADC1_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_VDD_ADC1_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VREF_ADC1_TEST_COARSE_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_VREF_ADC1_TEST_COARSE_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VDD_ADC1_TEST_COARSE_BIT )];
+	if( j&TO_U8_MSK(ERROR_BM_VDD_ADC1_TEST_COARSE_BIT )	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VREF_ADC2_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_VREF_ADC2_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VDD_ADC2_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_VDD_ADC2_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VREF_ADC2_TEST_COARSE_BIT )];
+	if( j&TO_U8_MSK(ERROR_BM_VREF_ADC2_TEST_COARSE_BIT )	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VDD_ADC2_TEST_COARSE_BIT )];
+	if( j&TO_U8_MSK(ERROR_BM_VDD_ADC2_TEST_COARSE_BIT )	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VREF_ADC3_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_VREF_ADC3_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VDD_ADC3_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_VDD_ADC3_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VREF_ADC3_TEST_COARSE_BIT )];
+	if( j&TO_U8_MSK(ERROR_BM_VREF_ADC3_TEST_COARSE_BIT )	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_VDD_ADC3_TEST_COARSE_BIT )];
+	if( j&TO_U8_MSK(ERROR_BM_VDD_ADC3_TEST_COARSE_BIT )	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_SETTINGS_EEPROM_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_SETTINGS_EEPROM_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_SETTINGS_EEPROM_EMPTY_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_SETTINGS_EEPROM_EMPTY_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_SETTINGS_EEPROM_COMPARISON_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_SETTINGS_EEPROM_COMPARISON_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_SETTINGS_EEPROM_CONTROL_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_SETTINGS_EEPROM_CONTROL_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_SETTINGS_EEPROM_DEVICE_ID_FAIL_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_SETTINGS_EEPROM_DEVICE_ID_FAIL_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_USTUVANNJA_EEPROM_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_USTUVANNJA_EEPROM_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_USTUVANNJA_EEPROM_EMPTY_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_USTUVANNJA_EEPROM_EMPTY_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_USTUVANNJA_EEPROM_COMPARISON_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_USTUVANNJA_EEPROM_COMPARISON_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_USTUVANNJA_EEPROM_CONTROL_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_USTUVANNJA_EEPROM_CONTROL_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_USTUVANNJA_EEPROM_ADJUSTMENT_ID_FAIL_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_USTUVANNJA_EEPROM_ADJUSTMENT_ID_FAIL_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_POWER_EEPROM_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_POWER_EEPROM_BIT)	 ){ 
+	k |= 2;//Fix Fix Diagn Evt
+	}
+
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_POWER_EEPROM_EMPTY_BIT )];
+	if( j&TO_U8_MSK(ERROR_BM_POWER_EEPROM_EMPTY_BIT )	 ){ 
+	k |= 2;//Fix Fix Diagn Evt
+	}
+
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_POWER_EEPROM_COMPARISON_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_POWER_EEPROM_COMPARISON_BIT)	 ){ 
+	k |= 2;//Fix Fix Diagn Evt
+	}
+
+	j = pBmRamPrgEvtDsc ->UNBmRamPrgEvts.chArBmPrgEvts [
+	TO_IDX_U8(ERROR_BM_POWER_EEPROM_CONTROL_BIT )];
+	if( j&TO_U8_MSK(ERROR_BM_POWER_EEPROM_CONTROL_BIT )	 ){ 
+	k |= 2;//Fix Diagn Evt
+	}
+
+   
+/*      
+            
+     
+ 
+   
+*/
 
 
 
+
+
+
+
+return k;
+}
+long CheckBrErrEvt(BrRamPrgEvtDsc *pBrRamPrgEvtDsc){
+register long j,k;
+k = 0;
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BM_VREF_ADC1_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BM_VREF_ADC1_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	 
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_PIO_SEQ1_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_PIO_SEQ1_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_PIO_SEQ2_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_PIO_SEQ2_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_PIO_SEQ3_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_PIO_SEQ3_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_M2M_SEQ_TEST_BIT )];
+	if( j&TO_U8_MSK(ERROR_BR_M2M_SEQ_TEST_BIT )	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_M2M_SELF_TEST_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_M2M_SELF_TEST_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_CFG_TBL_EEPROM_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_CFG_TBL_EEPROM_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_CFG_TBL_EEPROM_EMPTY_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_CFG_TBL_EEPROM_EMPTY_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_CFG_TBL_EEPROM_COMPARISON_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_CFG_TBL_EEPROM_COMPARISON_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_CFG_TBL_EEPROM_CONTROL_BIT    )];
+	if( j&TO_U8_MSK(ERROR_BR_CFG_TBL_EEPROM_CONTROL_BIT    )	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_ASSEMBLY_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_ASSEMBLY_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_5V_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_5V_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_00_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_00_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_01_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_01_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_02_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_02_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_03_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_03_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_04_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_04_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_05_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_05_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_06_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_06_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_07_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_07_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_08_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_08_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_09_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_09_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+
+	
+//	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+//	TO_IDX_U8(ERROR_BR_DI_10_CHECK_BIT)];
+//	if( j&TO_U8_MSK(ERROR_BR_DI_10_CHECK_BIT)	 ){ 
+//	k |= 1;//Fix Fatal Error
+//	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_11_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_11_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_12_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_12_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_13_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_13_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_14_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_14_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+		j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_15_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_15_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_16_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_16_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_17_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_17_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_18_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_18_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_19_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_19_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+ 	TO_IDX_U8(ERROR_BR_DI_20_CHECK_BIT)];
+ 	if( j&TO_U8_MSK(ERROR_BR_DI_20_CHECK_BIT)	 ){ 
+ 	k |= 1;//Fix Fatal Error
+ 	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_21_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_21_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_22_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_22_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_23_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_23_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_24_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_24_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+		j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_25_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_25_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_26_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_26_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_27_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_27_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_28_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_28_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_29_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_29_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_30_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_30_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DI_31_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DI_31_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+	
+//	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+//	TO_IDX_U8(ERROR_BR_DI_32_CHECK_BIT)];
+//	if( j&TO_U8_MSK(ERROR_BR_DI_32_CHECK_BIT)	 ){ 
+//	k |= 1;//Fix Fatal Error
+//	}
+
+	j = pBrRamPrgEvtDsc ->UNBrRamPrgEvts.chArBrPrgEvts [
+	TO_IDX_U8(ERROR_BR_DO_00_CHECK_BIT)];
+	if( j&TO_U8_MSK(ERROR_BR_DO_00_CHECK_BIT)	 ){ 
+	k |= 1;//Fix Fatal Error
+	}
+
+
+return k;
+}
 
 /* EOF */
 
