@@ -87,6 +87,10 @@ _Bool check_addr_global(unsigned short quantity_of_registers,
      (start_addr >= START_ADDR_GLOBAL_BOUND2         && 
       start_addr <= LAST_ADDR_GLOBAL_BOUND2                  &&
       start_addr + quantity_of_registers <= LAST_ADDR_GLOBAL_BOUND2 + 1 ||
+        
+      start_addr >= 230         && // !!!!!!!!!!
+      start_addr <= 235                  &&
+      start_addr + quantity_of_registers <= 235 + 1 ||
       
         // для Сокола
       start_addr >= G1_START_ADDR_STEP1_DP         && 
@@ -1197,8 +1201,8 @@ void func3() {
       }
   }
 /*************************  для Сокола end  ********************************/
-  
-  else if (check_addr_global(quantity_of_registers, address) || 
+
+  else if (check_addr_global(quantity_of_registers, address) ||
            
                       address >= START_ADDR_IDENTIFICATION && 
                       address <= LAST_ADDR_IDENTIFICATION  &&
@@ -5594,11 +5598,84 @@ void func3() {
           
 
 
+          
+          
+        case START_ADDR_FUNC_SETTINGS + REGADDR_FS1:
+          TempReg = 0x0000;
+          
+          TempReg |= pConfig -> ownrStg1DrOcp1Mng.state_mcp1 << STATE_MCP1; // МТЗ1 ... 5
+          TempReg |= pConfig -> ownrStg2DrOcp2Mng.state_mcp << STATE_MCP2;
+          TempReg |= pConfig -> ownrStg3DrOcp2Mng.state_mcp << STATE_MCP3;
+          TempReg |= pConfig -> ownrStg4DrOcp2Mng.state_mcp << STATE_MCP4;
+          TempReg |= pConfig -> ownrStg5DrOcp2Mng.state_mcp << STATE_MCP5;
+//          TempReg |= pConfig ->ownrStg2DrOcp2Mng.state_aclt_mcp << STATE_ACLT_MCP2;
+//          TempReg |= pConfig ->ownrStg3DrOcp2Mng.state_aclt_mcp << STATE_ACLT_MCP3;
+//          TempReg |= pConfig ->ownrStg4DrOcp2Mng.state_aclt_mcp << STATE_ACLT_MCP4;
+//          TempReg |= pConfig ->ownrStg5DrOcp2Mng.state_aclt_mcp << STATE_ACLT_MCP5;
+          TempReg |= pConfig ->ownrStg2DrOcp2Mng.aclt_mcp_sw << STATE_ACLT_SW_MCP2; //200h Уск.МТЗ2 // д.б. А.уск.МТЗ2 ... 5
+          TempReg |= pConfig ->ownrStg3DrOcp2Mng.aclt_mcp_sw << STATE_ACLT_SW_MCP3; //400
+          TempReg |= pConfig ->ownrStg4DrOcp2Mng.aclt_mcp_sw << STATE_ACLT_SW_MCP4; //800
+          TempReg |= pConfig ->ownrStg5DrOcp2Mng.aclt_mcp_sw << STATE_ACLT_SW_MCP5;//1000
+          
+          response[index++] = (TempReg & 0xff00) >> 8;
+          response[index++] = TempReg & 0x00ff;
+          break;
+        
+        case START_ADDR_FUNC_SETTINGS + REGADDR_FS2:
+          TempReg = 0x0000;
+          
+          TempReg |= pConfig -> ownrStg1DrOcp1Mng.DirectionStraight_mcp1 << STATE_MCP1_FWD;
+          TempReg |= pConfig -> ownrStg1DrOcp1Mng.DirectionBack_mcp1 << STATE_MCP1_RVRS;
+          TempReg |= pConfig -> ownrStg2DrOcp2Mng.DirectionStraight_mcp << STATE_MCP2_FWD;
+          TempReg |= pConfig -> ownrStg2DrOcp2Mng.DirectionBack_mcp << STATE_MCP2_RVRS;
+          TempReg |= pConfig -> ownrStg3DrOcp2Mng.DirectionStraight_mcp << STATE_MCP3_FWD;
+          TempReg |= pConfig -> ownrStg3DrOcp2Mng.DirectionBack_mcp << STATE_MCP3_RVRS;
+          TempReg |= pConfig -> ownrStg4DrOcp2Mng.DirectionStraight_mcp << STATE_MCP4_FWD;
+          TempReg |= pConfig -> ownrStg4DrOcp2Mng.DirectionBack_mcp << STATE_MCP4_RVRS;
+          TempReg |= pConfig -> ownrStg5DrOcp2Mng.DirectionStraight_mcp << STATE_MCP5_FWD;
+          TempReg |= pConfig -> ownrStg5DrOcp2Mng.DirectionBack_mcp << STATE_MCP5_RVRS;
+
+          response[index++] = (TempReg & 0xff00) >> 8;
+          response[index++] = TempReg & 0x00ff;
+          break;
+          
+        case START_ADDR_FUNC_SETTINGS + REGADDR_FS3:
+          TempReg = 0x0000;
+          
+          TempReg |= pConfig -> ownrStg1Dstp1Mng.state_dstp1 << STATE_DSTP1;
+          TempReg |= pConfig -> ownrStg1Dstp1Mng.state_blk_from_drift_dstp1 << STATE_DSTP1_BLOCK_DRIFT;
+          TempReg |= pConfig -> ownrStg1Dstp1Mng.state_ocp_dstp1 << STATE_DSTP1_MCP;
+          
+          TempReg |= pConfig -> ownrStg2Dstp2Mng.state_dstp2 << STATE_DSTP2;
+          TempReg |= pConfig -> ownrStg2Dstp2Mng.state_blk_from_drift_dstp2 << STATE_DSTP2_BLOCK_DRIFT;
+          TempReg |= pConfig -> ownrStg2Dstp2Mng.state_ocp_dstp2 << STATE_DSTP2_MCP;
+          TempReg |= pConfig -> ownrStg2Dstp2Mng.state_Auto_aclt_dstp2 << STATE_DSTP2_AUTO_ACLT;
+          TempReg |= pConfig -> ownrStg2Dstp2Mng.state_aclt_dstp2_hws << STATE_DSTP2_ACLT_HWS;
+          TempReg |= pConfig -> ownrStg2Dstp2Mng.state_Tele_aclt_dstp2 << STATE_DSTP2_TELE_ACLT;
+          
+          TempReg |= pConfig -> ownrStg3Dstp2Mng.state_dstp2 << STATE_DSTP3;
+          TempReg |= pConfig -> ownrStg3Dstp2Mng.state_blk_from_drift_dstp2 << STATE_DSTP3_BLOCK_DRIFT;
+          TempReg |= pConfig -> ownrStg3Dstp2Mng.state_ocp_dstp2 << STATE_DSTP3_MCP;
+          TempReg |= pConfig -> ownrStg3Dstp2Mng.state_Auto_aclt_dstp2 << STATE_DSTP3_AUTO_ACLT;
+          TempReg |= pConfig -> ownrStg3Dstp2Mng.state_aclt_dstp2_hws << STATE_DSTP3_ACLT_HWS;
+          TempReg |= pConfig -> ownrStg3Dstp2Mng.state_Tele_aclt_dstp2 << STATE_DSTP3_TELE_ACLT;
+          
+          response[index++] = (TempReg & 0xff00) >> 8;
+          response[index++] = TempReg & 0x00ff;
+          break;
+          
+          
+          
 
 
           /*********************************************************************/
           /*                    КОНЕЦ ЧЕТВЕРТОЙ ГРУППЫ                         */
           /*********************************************************************/
+          
+          
+          
+          
+          
         /***********************************************************************/
         /*                            Transformators                           */
         /***********************************************************************/
@@ -5899,7 +5976,7 @@ void func3() {
           break;
        
         /****************** НАСТРОЙКИ ФУНКЦИЙ ******************************/
-          
+  /*        
         case START_ADDR_FUNC_SETTINGS + REGADDR_FS1:
           TempReg = 0x0000;
           
@@ -5963,7 +6040,7 @@ void func3() {
           response[index++] = (TempReg & 0xff00) >> 8;
           response[index++] = TempReg & 0x00ff;
           break;
-          
+*/          
         case START_ADDR_FUNC_SETTINGS + REGADDR_FS4:
           TempReg = 0x0000;
           
