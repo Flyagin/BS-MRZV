@@ -241,11 +241,11 @@ NspPickupStoreDsc hldrNspPickupStore = {
 250,//unsigned int ov_range_Zop_b_I2;
 //. уставка по току ПО НЗОП обр
 //. 1 ед = 1 мA
-10000//unsigned int ov_range_Zop_b_U2;
+10000,//unsigned int ov_range_Zop_b_U2;
 //. уставка по напряжению ПО НЗОП  обр
 //. 1 ед = 1 мB
 //unsigned int   time_Tzop;
-
+250,0
 
 };
 //~~~   

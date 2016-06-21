@@ -35,6 +35,8 @@ typedef struct RamErrRec_TAG
 }RamErrEvtDsc;
 
 extern RamErrEvtDsc hldrErrEvt;
+extern char chGErorLedInfo;
+
 
 #ifndef VER_INFO_h
 #define VER_INFO_h
@@ -226,6 +228,8 @@ extern void FindException(void);
 extern long DetectException(void *pFixPrgEvt, void *pCurrPrgEvt);
 extern void PutException(void);
 extern void ClearPrgEvtMangInfo(void);
+
+extern  void CheckU2State(void);
 
 extern unsigned char rtc_time[8]; 
 extern unsigned char rtc_time_copy[8];

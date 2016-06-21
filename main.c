@@ -56,13 +56,14 @@ int main()  @ "Fast_function"
 {
   AT91C_BASE_PIOD->PIO_PER  = 0xFFFF | (1 << 20) | (1 << 21) | (1 << 22)| (1<<23);
   AT91C_BASE_PIOD->PIO_OER  = 0xFFFF | (1 << 20) | (1 << 21) | (1 << 22)| (1<<23);
-  AT91C_BASE_PIOD->PIO_CODR = 0xFFFF | (1 << 20) | (1 << 21) | (1 << 22);
+  AT91C_BASE_PIOD->PIO_CODR = 0xFFFF | (1 << 20) | (1 << 21) | (1 << 22);//PD22 - Phis Ethernet?
   AT91C_BASE_PIOD->PIO_SODR = (1<<23);
   //AT91C_BASE_PIOD->PIO_SODR = (0xFF);
   AT91C_BASE_PIOD->PIO_CODR = (1<<23);
 //  #ifdef  BS_G45_FL_RL
 //  __asm volatile("BKPT 4");
 //  #endif 
+   
   SetUpArm926ej();
   u2_hdw_init();
 
@@ -174,7 +175,7 @@ else
     //сканування каналу зв'¤зку з модемом ZigBee
     
     ZigBee_scaner();
-    
+
     modbus_routines();
 
 

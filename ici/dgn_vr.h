@@ -252,7 +252,7 @@ extern TotVerInfoHldDsc holderTotVerInfoBm;
 extern TotVerInfoHldDsc holderTotVerInfoBr;
 extern TotVerInfoHldDsc holderTotVerInfoBs;
 
-
+extern void ProcessProgramEvt(void);
 
 
 #endif //DIAGN_VER_INFO_TIME_h

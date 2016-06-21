@@ -999,7 +999,7 @@ i = pStateExchInfo->state;
 
 
 }
-
+char ch1SecCounter = 0;
 char ch100MsCounter = 0;
 char chTstVal;
 char chTstVal1;
@@ -1010,6 +1010,8 @@ register long i,j;
 	ch100MsCounter++;
 	if(ch100MsCounter >= 10)
 	{
+		ch100MsCounter = 0;
+		ProcessProgramEvt();
 		if(chTstVal)
 		{
 			SetupWritePrgEvtBmBrBs(0,1,(void*)arPrgEvtRecord_T1_WrBuf);
@@ -1082,7 +1084,12 @@ register long i,j;
 			AppReqTransmitDiagnBsBr = 1;
 		
 		}
-
+		ch1SecCounter++;
+		if(ch1SecCounter  >= 10){
+			ch1SecCounter = 0;
+			CheckU2State();//Ctr Sec
+			
+		}
 	
 	}
 

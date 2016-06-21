@@ -32,7 +32,7 @@
 #ifndef ABS_NUMERATOR_h
 #define ABS_NUMERATOR_h
 
-
+#define REALIZE_ABS_NUMERATOR
 
 #ifndef	ERROR
 #define ERROR 4
@@ -115,7 +115,7 @@ extern int AppReqTransmitbsNumeratorRQ;
 #endif 
 #ifdef __TYPE_DEFINITION_AREC_BS_TO_BR__
   
-#define SIZE_ANALOG_DATA  ( 64 ) //Arr of Char
+#define SIZE_ANALOG_DATA  ( 4*10 ) //Arr of Char
 #define SIZE_COMMAND_DATA ( (((RESERV_MAX_OEPRF_ONB)>>3) +1)  ) //Arr of Char ~26bytes
 #define SIZE_WRP_LOG_DATA ( sizeof( long) )
 #define SIZE_ABN_NUMERATOR ( sizeof( long) )
@@ -167,7 +167,7 @@ typedef struct AbsNumersIdxBufBs_TagOut
 	long lFirstStartIdx,lFirstIdx,lFirstSize;
 	long lSecondStartIdx,lSecondIdx,lSecondSize;
 	long lDeltaAbsNumertrs,lSelectedAbsNumertr;
-	long lCtrRvAbsNumertrs, lState;
+	long lCtrRvAbsNumertrs,lCheckCtrRvAbsNumertrs, lState;
 
 }AbsNumersIdxBufBsDsc;
 
@@ -191,6 +191,11 @@ extern long lCSSecondStartIdx,lCsSecondIdx,lCsSecondSize;
 
 extern unsigned long ulCs;	
 
+extern long lIndex_WR;
+extern long lIndex_RD,Idx_LogConditions ;
+extern char chOverunIndicator,chLogConditionsIndicator;
+extern ARecDataDsc arArecDataMBuf[];
+
 
 
 extern  long UpdateRVARecDataBsTpuUnit(void* pvLDC, long lID);
@@ -201,6 +206,6 @@ extern void ActivateServTrApCnAbsNumeratorCTpuUnitSPI(void*pvO);
 extern long  CheckActiveElemInArAbs(void* pv);
 
 extern void EvalCSTl(void);
-
-
+inline void AddInArecDataMBufSmpl(long L_Vl);
+extern void MarkDirtyArecDataMBufSmpls (long L_Vl);
 #endif //AbsNumerator_h

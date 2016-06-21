@@ -42,7 +42,7 @@
 #include "../LibG45/peripherals/tc/tc.h"
 #include "TC_G45.h"
 static long lCtrIntr;
-
+char chGErorLedInfo = 0;//Ok 1-Fatal Error;2 -Diagn Info Evt
 
 
 
@@ -103,16 +103,26 @@ void TC_irq_handler ( void ) @ "Fastest_function" //Fast_function"
 //TC1_irq_handler();
 
 lCtrIntr++;
+i = chGErorLedInfo;
 if(lCtrIntr>=10000)
 {
+ 
   AT91C_BASE_PIOD->PIO_SODR = (1<<21);
+//  if(chGErorLedInfo)
+	i &=3;//if((chGErorLedInfo&1) == 0)
+	if(i)
+     AT91C_BASE_PIOD->PIO_SODR = (1<<20);//Red
   if (lCtrIntr>20000)
     lCtrIntr = 0;
   
   
 }
-else 
-AT91C_BASE_PIOD->PIO_CODR = (1<<21);
+else {
+	AT91C_BASE_PIOD->PIO_CODR = (1<<21);
+	i &= 1;//if((chGErorLedInfo&1) == 0)
+	if(i == 0)
+	AT91C_BASE_PIOD->PIO_CODR = (1<<20);//Red
+}
 lInInt--;
 //AT91C_BASE_PIOD->PIO_CODR = (0x2);
 }
